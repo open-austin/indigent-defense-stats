@@ -60,7 +60,7 @@ cal_results_form_data = {
     "RequireFirstName": "True",
     "CaseTypeIDs": "",
     "HearingTypeIDs": "",
-    "SearchParams": "SearchBy~~Search+By:~~Judicial+Officer~~Judicial+Officer||chkExactName~~Exact+Name:~~on~~on||cboJudOffc~~Judicial+Officer:~~Updegrove,+Robert~~Updegrove,+Robert||DateSettingOnAfter~~Date+On+or+After:~~7/8/2021~~7/8/2021||DateSettingOnBefore~~Date+On+or+Before:~~8/8/2021~~8/8/2021||selectSortBy~~Sort+By:~~Filed+Date~~Filed+Date||CaseCategories~~Case+Categories:~~CR,CV,FAM,PR~~Criminal,+Civil,+Family,+Probate+and+Mental+Health",
+    "SearchParams": "SearchBy~~Search+By:~~Judicial+Officer~~Judicial+Officer||chkExactName~~Exact+Name:~~on~~on||cboJudOffc~~Judicial+Officer:~~Updegrove,+Robert~~Updegrove,+Robert||DateSettingOnAfter~~Date+On+or+After:~~7/8/2021~~7/8/2021||DateSettingOnBefore~~Date+On+or+Before:~~8/8/2021~~8/8/2021||selectSortBy~~Sort+By:~~Filed+Date~~Filed+Date||CaseCategories~~Case+Categories:~~CR~~Criminal",
 }
 
 

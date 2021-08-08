@@ -1,6 +1,7 @@
 bin/
 include/
 lib64/
+pyenv.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
