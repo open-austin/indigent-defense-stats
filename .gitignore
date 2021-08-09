@@ -9,7 +9,7 @@ __pycache__/
 *$py.class
 
 # editor stuff
-.vscode
+.vscode/
 
 # C extensions
 *.so
