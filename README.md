@@ -43,4 +43,4 @@ Do:
 ```
 
 ## Edge cases
-- A day with more than 200 records (seems unlikely)
+- A day with more than 200 records wouldn't display all results and there is no workaround. Seems unlikely, though.
