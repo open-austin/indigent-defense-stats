@@ -106,16 +106,17 @@ for daysago in range(1, DAYS_OF_RECORDS):
     for JO_name, JO_id in judicial_officers.items():
         data_file_path = os.path.join("case_data", JO_name, file_name)
         # check if the file is already cached before requesting
+        print(f"Capturing data for JO: {JO_name} on {date_string}")
         if not os.path.exists(data_file_path):
             form_data = mk_cal_results_form_data(date_string, date_string, JO_id)
-
-            print(f"Capturing data for JO: {JO_name} on {date_string}")
             cal_results = s.post(calendar_page_url, data=form_data)
             # TODO: add check on response page content to see if we got an error.
-            # for now we'll just print it to the screen so the user can look for patterns / for testing
-            print(cal_results.text)
+            # for now, just print the length so the user can have some guess if there is an error.
+            print(f"String length of html page output: {len(cal_results.text)}")
             with open(data_file_path, "w") as fh:
                 fh.write(cal_results.text)
             
             # Rate limiting - convert to seconds
             sleep(MS_WAIT_PER_REQUEST / 1000) 
+        else:
+            print("Exists.")
