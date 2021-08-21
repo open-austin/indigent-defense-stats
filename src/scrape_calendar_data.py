@@ -110,16 +110,18 @@ for DAY_OFFSET in range(1, DAYS_OF_RECORDS):
     )
     file_name = f"{date_string.replace('/','-')}.html"
     for JO_name, JO_id in judicial_officers.items():
-        data_file_path = os.path.join("data_by_JO", JO_name, "calendar_html", file_name)
+        cal_data_file_path = os.path.join(
+            "data_by_JO", JO_name, "calendar_html", file_name
+        )
         # Check if the file is already cached before requesting
         print(f"Capturing data for JO: {JO_name} on {date_string}")
-        if not os.path.exists(data_file_path):
+        if not os.path.exists(cal_data_file_path):
             form_data = mk_cal_results_form_data(date_string, date_string, JO_id)
             cal_results = s.post(calendar_page_url, data=form_data)
             # Error check based on text in html result.
             if "Record Count" in cal_results.text:
-                print(f"Writing file: {data_file_path}")
-                with open(data_file_path, "w") as file_handle:
+                print(f"Writing file: {cal_data_file_path}")
+                with open(cal_data_file_path, "w") as file_handle:
                     file_handle.write(cal_results.text)
                 # Rate limiting - convert ms to seconds
                 sleep(MS_WAIT_PER_REQUEST / 1000)
@@ -131,4 +133,4 @@ for DAY_OFFSET in range(1, DAYS_OF_RECORDS):
                     file_handle.write(cal_results.text)
                 quit()
         else:
-            print("Exists.")
+            print("Data is already cached. Skipping.")
