@@ -1,5 +1,6 @@
 import os
 import requests
+from time import sleep
 
 from bs4 import BeautifulSoup
 
@@ -31,7 +32,7 @@ if __name__ == "__main__":
     if not os.path.exists("data_by_JO"):
         os.mkdir("data_by_JO")
     for JO_name in Judicial_Officers:
-        print("Processing {JO_name}")
+        print(f"Processing {JO_name}")
         # Make folders if they don't exist
         JO_path = os.path.join("data_by_JO", JO_name)
         JO_case_path = os.path.join(JO_path, "case_data")
@@ -46,3 +47,17 @@ if __name__ == "__main__":
         for cal_html_file in os.scandir(JO_cal_path):
             if not cal_html_file.is_dir():
                 print(f"Processing {cal_html_file.path}")
+                with open(cal_html_file.path, "r") as file_handle:
+                    cal_html_str = file_handle.read()
+                cal_soup = BeautifulSoup(cal_html_str, "html.parser")
+                case_anchors = cal_soup.select('a[href^="CaseDetail"]')
+                for case_anchor in case_anchors:
+                    case_url = main_page_url + case_anchor["href"]
+                    # Make request for the case
+                    # case_results = session.get(case_url)
+
+                    print(case_results.text)
+                    quit()
+
+                    # Rate limiting - convert ms to seconds
+                    sleep(MS_WAIT_PER_REQUEST / 1000)
