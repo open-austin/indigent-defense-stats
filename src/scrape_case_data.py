@@ -20,13 +20,11 @@ Judicial_Officers = [
     "Zelhart_Tacie",
 ]
 
+
 if __name__ == "__main__":
     # Initial setup for the session
     session = requests.Session()
     main_page = session.get(main_page_url)
-    # calendar_page = session.get(calendar_page_url)
-    # soup = BeautifulSoup(calendar_page.text, "html.parser")
-    # viewstate = soup.find(id="__VIEWSTATE")["value"]
 
     # Data dir setup - added this to gitignore for now, may want to remove later
     if not os.path.exists("data_by_JO"):
@@ -46,7 +44,7 @@ if __name__ == "__main__":
 
         for cal_html_file in os.scandir(JO_cal_path):
             if not cal_html_file.is_dir():
-                print(f"Processing {cal_html_file.path}")
+                print(f"Processing", cal_html_file.path)
                 with open(cal_html_file.path, "r") as file_handle:
                     cal_html_str = file_handle.read()
                 cal_soup = BeautifulSoup(cal_html_str, "html.parser")
@@ -56,22 +54,26 @@ if __name__ == "__main__":
                     case_id = case_url.split("=")[1]
                     case_html_file_path = os.path.join(JO_case_path, case_id)
 
-                    # Make request for the case
-                    case_results = session.get(case_url)
-                    # Error check based on text in html result.
-                    if "Date Filed" in case_results.text:
-                        print(f"Writing file: {case_html_file_path}")
-                        with open(case_html_file_path, "w") as file_handle:
-                            file_handle.write(case_results.text)
+                    if not os.path.exists(case_html_file_path):
+                        # Make request for the case
+                        print("Visiting", case_url)
+                        # TODO: need to visit case calendar page before case url during session
+                        case_results = session.get(case_url)
+                        # Error check based on text in html result.
+                        if "Date Filed" in case_results.text:
+                            print(f"Writing file: {case_html_file_path}")
+                            with open(case_html_file_path, "w") as file_handle:
+                                file_handle.write(case_results.text)
+                            # Rate limiting - convert ms to seconds
+                            sleep(MS_WAIT_PER_REQUEST / 1000)
+                        else:
+                            print(
+                                f'ERROR: "Date Filed" substring not found in case html page. Aborting. Writing ./debug.html'
+                            )
+                            with open("debug.html", "w") as file_handle:
+                                file_handle.write(case_results.text)
+                            quit()
                         # Rate limiting - convert ms to seconds
                         sleep(MS_WAIT_PER_REQUEST / 1000)
                     else:
-                        print(
-                            f'ERROR: "Date Filed" substring not found in case html page. Aborting. Writing ./debug.html'
-                        )
-                        with open("debug.html", "w") as file_handle:
-                            file_handle.write(case_results.text)
-                        quit()
-
-                    # Rate limiting - convert ms to seconds
-                    sleep(MS_WAIT_PER_REQUEST / 1000)
+                        print("Data is already cached. Skipping.")
