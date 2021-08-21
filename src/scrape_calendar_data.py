@@ -108,26 +108,26 @@ if __name__ == "__main__":
         )
         file_name = f"{date_string.replace('/','-')}.html"
         for JO_name, JO_id in Judicial_Officer_to_ID.items():
-            cal_data_file_path = os.path.join(
+            cal_html_file_path = os.path.join(
                 "data_by_JO", JO_name, "calendar_html", file_name
             )
             # Check if the file is already cached before requesting
             print(f"Capturing data for JO: {JO_name} on {date_string}")
-            if not os.path.exists(cal_data_file_path):
+            if not os.path.exists(cal_html_file_path):
                 form_data = make_form_data(
                     date_string, date_string, JO_id, viewstate_token
                 )
                 cal_results = session.post(calendar_page_url, data=form_data)
                 # Error check based on text in html result.
                 if "Record Count" in cal_results.text:
-                    print(f"Writing file: {cal_data_file_path}")
-                    with open(cal_data_file_path, "w") as file_handle:
+                    print(f"Writing file: {cal_html_file_path}")
+                    with open(cal_html_file_path, "w") as file_handle:
                         file_handle.write(cal_results.text)
                     # Rate limiting - convert ms to seconds
                     sleep(MS_WAIT_PER_REQUEST / 1000)
                 else:
                     print(
-                        f'ERROR: "Record Count" substring not found in html page. Aborting. Writing ./debug.html'
+                        f'ERROR: "Record Count" substring not found in calendar html page. Aborting. Writing ./debug.html'
                     )
                     with open("debug.html", "w") as file_handle:
                         file_handle.write(cal_results.text)
