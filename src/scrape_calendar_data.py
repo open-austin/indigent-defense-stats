@@ -10,6 +10,7 @@ s = r.Session()
 
 MS_WAIT_PER_REQUEST = 100
 DAYS_OF_RECORDS = 5 * 365
+TODAY = dt.datetime.today()
 
 main_page_url = "http://public.co.hays.tx.us/"
 calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
@@ -32,21 +33,6 @@ judicial_officers = {
     "Updegrove_Robert": "38628",
     "Zelhart_Tacie": "48274",
 }
-
-# Data dir setup - added this to gitignore for now, may want to remove later
-if not os.path.exists("data_by_JO"):
-    os.mkdir("data_by_JO")
-for JO_name in judicial_officers.keys():
-    JO_path = os.path.join("data_by_JO", JO_name)
-    JO_cal_path = os.path.join(JO_path, "calendar_html")
-    JO_case_path = os.path.join(JO_path, "case_data")
-    if not os.path.exists(JO_path):
-        os.mkdir(JO_path)
-    if not os.path.exists(JO_cal_path):
-        os.mkdir(JO_cal_path)
-    if not os.path.exists(JO_case_path):
-        os.mkdir(JO_case_path)
-    
 
 
 def mk_cal_results_form_data(startDate, endDate, jo_id):
@@ -103,16 +89,29 @@ def mk_cal_results_form_data(startDate, endDate, jo_id):
     }
 
 
-today = dt.datetime.today()
+# Data dir setup - added this to gitignore for now, may want to remove later
+if not os.path.exists("data_by_JO"):
+    os.mkdir("data_by_JO")
+for JO_name in judicial_officers.keys():
+    JO_path = os.path.join("data_by_JO", JO_name)
+    JO_cal_path = os.path.join(JO_path, "calendar_html")
+    JO_case_path = os.path.join(JO_path, "case_data")
+    if not os.path.exists(JO_path):
+        os.mkdir(JO_path)
+    if not os.path.exists(JO_cal_path):
+        os.mkdir(JO_cal_path)
+    if not os.path.exists(JO_case_path):
+        os.mkdir(JO_case_path)
 
-for daysago in range(1, DAYS_OF_RECORDS):
+# Days in the past starting with yesterday.
+for DAY_OFFSET in range(1, DAYS_OF_RECORDS):
     date_string = dt.datetime.strftime(
-        today - dt.timedelta(days=daysago), format="%m/%d/%Y"
+        TODAY - dt.timedelta(days=DAY_OFFSET), format="%m/%d/%Y"
     )
     file_name = f"{date_string.replace('/','-')}.html"
     for JO_name, JO_id in judicial_officers.items():
         data_file_path = os.path.join("data_by_JO", JO_name, "calendar_html", file_name)
-        # check if the file is already cached before requesting
+        # Check if the file is already cached before requesting
         print(f"Capturing data for JO: {JO_name} on {date_string}")
         if not os.path.exists(data_file_path):
             form_data = mk_cal_results_form_data(date_string, date_string, JO_id)
