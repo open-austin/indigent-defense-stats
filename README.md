@@ -8,7 +8,7 @@ and `beautifulsoup` to collect case records over the past five years.
 This project was instantiated with `venv`.
 
 - create the venv, `python3 -m venv .`
-- active the project, e.g. `source bin/activate.fish` (bash) or `. .venv/bin/activate.fish` (fish)
+- active the project, e.g. `source bin/activate` (bash) or `. .venv/bin/activate.fish` (fish)
 - install libraries, `pip install -r requirements.txt`
 
 ## Technical Plan
