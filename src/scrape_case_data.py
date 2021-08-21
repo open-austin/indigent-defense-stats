@@ -4,7 +4,7 @@ from time import sleep
 
 from bs4 import BeautifulSoup
 
-import scrape_calendar_data
+from scrape_calendar_data import make_form_data
 
 MS_WAIT_PER_REQUEST = 200
 
@@ -74,9 +74,7 @@ if __name__ == "__main__":
 
                     session.post(
                         calendar_page_url,
-                        data=scrape_calendar_data.make_form_data(
-                            case_date, JO_id, viewstate_token
-                        ),
+                        data=make_form_data(case_date, JO_id, viewstate_token),
                     )
                 for case_anchor in case_anchors:
                     case_url = main_page_url + case_anchor["href"]
