@@ -7,8 +7,6 @@ and `beautifulsoup` to collect case records over the past five years.
 
 1. `git clone https://github.com/derac/hays-scraper.git`
 1. `cd hays-scraper`
-1. Create a Virtual Environment - `python3 -m venv .`
-1. Active it - e.g. `source bin/activate` (bash) or `. .venv/bin/activate.fish` (fish)
 1. Install libraries - `pip install -r requirements.txt`
 
 ## Technical Plan
