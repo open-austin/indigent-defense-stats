@@ -43,6 +43,4 @@ Do:
 ```
 
 ## Edge cases
-
-- Leap years
-- A day with more than 200 records (seems uncommon?)
+- A day with more than 200 records (seems unlikely)
