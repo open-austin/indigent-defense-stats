@@ -5,7 +5,7 @@ from time import sleep
 import requests
 from bs4 import BeautifulSoup
 
-MS_WAIT_PER_REQUEST = 100
+MS_WAIT_PER_REQUEST = 200
 DAYS_OF_RECORDS = 5 * 365
 TODAY = datetime.datetime.today()
 
