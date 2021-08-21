@@ -108,16 +108,18 @@ if __name__ == "__main__":
         )
         file_name = f"{date_string.replace('/','-')}.html"
         for JO_name, JO_id in Judicial_Officer_to_ID.items():
+            print(f"Capturing data for JO: {JO_name} on {date_string}")
             cal_html_file_path = os.path.join(
                 "data_by_JO", JO_name, "calendar_html", file_name
             )
             # Check if the file is already cached before requesting
-            print(f"Capturing data for JO: {JO_name} on {date_string}")
             if not os.path.exists(cal_html_file_path):
-                form_data = make_form_data(
-                    date_string, date_string, JO_id, viewstate_token
+                cal_results = session.post(
+                    calendar_page_url,
+                    data=make_form_data(
+                        date_string, date_string, JO_id, viewstate_token
+                    ),
                 )
-                cal_results = session.post(calendar_page_url, data=form_data)
                 # Error check based on text in html result.
                 if "Record Count" in cal_results.text:
                     print(f"Writing file: {cal_html_file_path}")
