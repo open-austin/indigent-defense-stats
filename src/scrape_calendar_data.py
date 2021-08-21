@@ -10,11 +10,10 @@ DAYS_OF_RECORDS = 5 * 365
 TODAY = datetime.datetime.today()
 
 main_page_url = "http://public.co.hays.tx.us/"
-# TODO: Might be able to chop off part of this url, need to test
 calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
 
 # TODO: Find out the timespan when each JO presided.
-Judicial_Officer_to_ID = {
+judicial_officer_to_ID = {
     "visiting_officer": "37809",
     "Boyer_Bruce": "39607",
     "Johnson_Chris": "48277",
@@ -27,7 +26,7 @@ Judicial_Officer_to_ID = {
 }
 
 
-def make_form_data(startDate, endDate, jo_id, viewstate):
+def make_form_data(date, JO_id, viewstate):
     return {
         "__EVENTTARGET": "",
         "__EVENTARGUMENT": "",
@@ -51,7 +50,7 @@ def make_form_data(startDate, endDate, jo_id, viewstate):
         "CaseStatusType": "0",
         "DateFiledOnAfter": "",
         "DateFiledOnBefore": "",
-        "cboJudOffc": jo_id,
+        "cboJudOffc": JO_id,
         "chkCriminal": "on",
         "chkDtRangeCriminal": "on",
         "chkDtRangeFamily": "on",
@@ -61,8 +60,8 @@ def make_form_data(startDate, endDate, jo_id, viewstate):
         "chkFamilyMagist": "on",
         "chkCivilMagist": "on",
         "chkProbateMagist": "on",
-        "DateSettingOnAfter": startDate,
-        "DateSettingOnBefore": endDate,
+        "DateSettingOnAfter": date,
+        "DateSettingOnBefore": date,
         "SortBy": "fileddate",
         "SearchSubmit": "Search",
         "SearchType": "JUDOFFC",
@@ -93,7 +92,7 @@ if __name__ == "__main__":
     # Data dir setup - added this to gitignore for now, may want to remove later
     if not os.path.exists("data_by_JO"):
         os.mkdir("data_by_JO")
-    for JO_name in Judicial_Officer_to_ID.keys():
+    for JO_name in judicial_officer_to_ID.keys():
         JO_path = os.path.join("data_by_JO", JO_name)
         JO_cal_path = os.path.join(JO_path, "calendar_html")
         if not os.path.exists(JO_path):
@@ -107,7 +106,7 @@ if __name__ == "__main__":
             TODAY - datetime.timedelta(days=DAY_OFFSET), format="%m/%d/%Y"
         )
         file_name = f"{date_string.replace('/','-')}.html"
-        for JO_name, JO_id in Judicial_Officer_to_ID.items():
+        for JO_name, JO_id in judicial_officer_to_ID.items():
             print(f"Capturing data for JO: {JO_name} on {date_string}")
             cal_html_file_path = os.path.join(
                 "data_by_JO", JO_name, "calendar_html", file_name
@@ -116,9 +115,7 @@ if __name__ == "__main__":
             if not os.path.exists(cal_html_file_path):
                 cal_results = session.post(
                     calendar_page_url,
-                    data=make_form_data(
-                        date_string, date_string, JO_id, viewstate_token
-                    ),
+                    data=make_form_data(date_string, JO_id, viewstate_token),
                 )
                 # Error check based on text in html result.
                 if "Record Count" in cal_results.text:
