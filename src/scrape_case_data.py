@@ -35,7 +35,7 @@ if __name__ == "__main__":
         print(f"Processing {JO_name}")
         # Make folders if they don't exist
         JO_path = os.path.join("data_by_JO", JO_name)
-        JO_case_path = os.path.join(JO_path, "case_data")
+        JO_case_path = os.path.join(JO_path, "case_html")
         JO_cal_path = os.path.join(JO_path, "calendar_html")
         if not os.path.exists(JO_path):
             os.mkdir(JO_path)
