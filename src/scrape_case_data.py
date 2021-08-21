@@ -53,11 +53,25 @@ if __name__ == "__main__":
                 case_anchors = cal_soup.select('a[href^="CaseDetail"]')
                 for case_anchor in case_anchors:
                     case_url = main_page_url + case_anchor["href"]
-                    # Make request for the case
-                    # case_results = session.get(case_url)
+                    case_id = case_url.split("=")[1]
+                    case_html_file_path = os.path.join(JO_case_path, case_id)
 
-                    print(case_results.text)
-                    quit()
+                    # Make request for the case
+                    case_results = session.get(case_url)
+                    # Error check based on text in html result.
+                    if "Date Filed" in case_results.text:
+                        print(f"Writing file: {case_html_file_path}")
+                        with open(case_html_file_path, "w") as file_handle:
+                            file_handle.write(case_results.text)
+                        # Rate limiting - convert ms to seconds
+                        sleep(MS_WAIT_PER_REQUEST / 1000)
+                    else:
+                        print(
+                            f'ERROR: "Date Filed" substring not found in case html page. Aborting. Writing ./debug.html'
+                        )
+                        with open("debug.html", "w") as file_handle:
+                            file_handle.write(case_results.text)
+                        quit()
 
                     # Rate limiting - convert ms to seconds
                     sleep(MS_WAIT_PER_REQUEST / 1000)
