@@ -1,25 +1,16 @@
 import os
-import datetime as dt
-import requests as r
-
+import datetime
 from time import sleep
 
-from bs4 import BeautifulSoup as bs
-
-s = r.Session()
+import requests
+from bs4 import BeautifulSoup
 
 MS_WAIT_PER_REQUEST = 100
 DAYS_OF_RECORDS = 5 * 365
-TODAY = dt.datetime.today()
+TODAY = datetime.datetime.today()
 
 main_page_url = "http://public.co.hays.tx.us/"
 calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
-
-main_page = s.get(main_page_url)
-calendar_page = s.get(calendar_page_url)
-
-soup = bs(calendar_page.text, "html.parser")
-viewstate = soup.find(id="__VIEWSTATE")["value"]
 
 # TODO: Find out the timespan when each JO presided.
 judicial_officers = {
@@ -89,6 +80,13 @@ def mk_cal_results_form_data(startDate, endDate, jo_id):
     }
 
 
+# Initial setup for the session
+session = requests.Session()
+main_page = session.get(main_page_url)
+calendar_page = session.get(calendar_page_url)
+soup = BeautifulSoup(calendar_page.text, "html.parser")
+viewstate = soup.find(id="__VIEWSTATE")["value"]
+
 # Data dir setup - added this to gitignore for now, may want to remove later
 if not os.path.exists("data_by_JO"):
     os.mkdir("data_by_JO")
@@ -105,8 +103,8 @@ for JO_name in judicial_officers.keys():
 
 # Days in the past starting with yesterday.
 for DAY_OFFSET in range(1, DAYS_OF_RECORDS):
-    date_string = dt.datetime.strftime(
-        TODAY - dt.timedelta(days=DAY_OFFSET), format="%m/%d/%Y"
+    date_string = datetime.datetime.strftime(
+        TODAY - datetime.timedelta(days=DAY_OFFSET), format="%m/%d/%Y"
     )
     file_name = f"{date_string.replace('/','-')}.html"
     for JO_name, JO_id in judicial_officers.items():
@@ -117,7 +115,7 @@ for DAY_OFFSET in range(1, DAYS_OF_RECORDS):
         print(f"Capturing data for JO: {JO_name} on {date_string}")
         if not os.path.exists(cal_data_file_path):
             form_data = mk_cal_results_form_data(date_string, date_string, JO_id)
-            cal_results = s.post(calendar_page_url, data=form_data)
+            cal_results = session.post(calendar_page_url, data=form_data)
             # Error check based on text in html result.
             if "Record Count" in cal_results.text:
                 print(f"Writing file: {cal_data_file_path}")
