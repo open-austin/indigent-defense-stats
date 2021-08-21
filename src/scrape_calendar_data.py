@@ -37,9 +37,16 @@ judicial_officers = {
 if not os.path.exists("data_by_JO"):
     os.mkdir("data_by_JO")
 for JO_name in judicial_officers.keys():
-    data_path = os.path.join("data_by_JO", JO_name)
-    if not os.path.exists(data_path):
-        os.mkdir(data_path)
+    JO_path = os.path.join("data_by_JO", JO_name)
+    JO_cal_path = os.path.join(JO_path, "calendar_html")
+    JO_case_path = os.path.join(JO_path, "case_data")
+    if not os.path.exists(JO_path):
+        os.mkdir(JO_path)
+    if not os.path.exists(JO_cal_path):
+        os.mkdir(JO_cal_path)
+    if not os.path.exists(JO_case_path):
+        os.mkdir(JO_case_path)
+    
 
 
 def mk_cal_results_form_data(startDate, endDate, jo_id):
