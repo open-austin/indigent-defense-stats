@@ -2,9 +2,13 @@ import os
 import datetime as dt
 import requests as r
 
+from time import sleep
+
 from bs4 import BeautifulSoup as bs
 
 s = r.Session()
+
+MS_WAIT_PER_REQUEST = 100
 
 main_page_url = "http://public.co.hays.tx.us/"
 calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
@@ -12,7 +16,7 @@ calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,1
 main_page = s.get(main_page_url)
 calendar_page = s.get(calendar_page_url)
 
-soup = bs(calendar_page.text)
+soup = bs(calendar_page.text, "html.parser")
 viewstate = soup.find(id="__VIEWSTATE")["value"]
 
 # TODO: Find out the timespan when each JO presided.
@@ -27,6 +31,14 @@ judicial_officers = {
     "Updegrove_Robert": "38628",
     "Zelhart_Tacie": "48274",
 }
+
+# Data dir setup - added this to gitignore for now, may want to remove later
+if not os.path.exists("case_data"):
+    os.mkdir("case_data")
+for JO_name in judicial_officers.keys():
+    data_path = os.path.join("case_data", JO_name)
+    if not os.path.exists(data_path):
+        os.mkdir(data_path)
 
 
 def mk_cal_results_form_data(startDate, endDate, jo_id):
@@ -85,38 +97,22 @@ def mk_cal_results_form_data(startDate, endDate, jo_id):
 
 today = dt.datetime.today()
 
-for daysago in range(5):
+for daysago in range(1, 100):
     date_string = dt.datetime.strftime(
-        today - dt.timedelta(days=daysago), format="%-m/%-d/%Y")
+        today - dt.timedelta(days=daysago), format="%m/%d/%Y"
+    )
+    file_name = f"{date_string.replace('/','-')}.html"
+    for JO_name, JO_id in judicial_officers.items():
+        data_file_path = os.path.join("case_data", JO_name, file_name)
+        # check if the file is already cached before requesting
+        if not os.path.exists(data_file_path):
+            form_data = mk_cal_results_form_data(date_string, date_string, JO_id)
 
-    print(date_string)
-
-    data = mk_cal_results_form_data("07/21/2021", date_string, "55054")
-
-    cal_results = s.post(
-        calendar_page_url, data=data)
-
-    output_root = "data/by_judicial_officer/"
-
-    folder_path = os.path.join("data/by_judicial_officer/", "Tibee_Sherri")
-
-    filename = os.path.join(
-        folder_path, f"{date_string.replace('/','-')}.html")
-
-    if not os.path.exists(folder_path):
-        os.mkdir(folder_path)
-
-    # We thought `w+` would write the file even if the path didn't exist, but alas..
-    with open(filename, "w") as file:
-        file.write(cal_results.text)
-
-
-# cal_results = s.post(calendar_page_url, data=cal_results_form_data)
-
-# print(req.text)
-# print(req.headers)
-# print(cal_results.text)
-# print(viewstate)
-
-# with open("test2.html", "w") as fh:
-#     fh.write(cal_results.text)
+            print(f"Capturing data for JO: {JO_name} on {date_string}")
+            cal_results = s.post(calendar_page_url, data=form_data)
+            # TODO: add check on response page content to see if we got an error.
+            with open(data_file_path, "w") as fh:
+                fh.write(cal_results.text)
+            
+            # Rate limiting - convert to seconds
+            sleep(MS_WAIT_PER_REQUEST / 1000) 
