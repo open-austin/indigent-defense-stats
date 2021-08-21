@@ -112,6 +112,8 @@ for daysago in range(1, DAYS_OF_RECORDS):
             print(f"Capturing data for JO: {JO_name} on {date_string}")
             cal_results = s.post(calendar_page_url, data=form_data)
             # TODO: add check on response page content to see if we got an error.
+            # for now we'll just print it to the screen so the user can look for patterns / for testing
+            print(cal_results)
             with open(data_file_path, "w") as fh:
                 fh.write(cal_results.text)
             
