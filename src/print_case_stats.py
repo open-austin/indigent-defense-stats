@@ -1,7 +1,10 @@
 import os
 import json
 
+from time import time
+
 N_LONGEST = 5
+START_TIME = time()
 
 case_data_list = []
 
@@ -55,3 +58,4 @@ print_top_cases_by_lambda(
     "number of charges",
 )
 print("\nNumber of cases:", len(case_data_list))
+print("Stats parsing runtime:", round(time() - START_TIME, 2), "seconds")
