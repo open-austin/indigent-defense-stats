@@ -143,7 +143,7 @@ for JO_folder in os.scandir("data_by_JO"):
                         {
                             k: v
                             for k, v in zip(
-                                ["Charges", "Statute", "Level", "Date"],
+                                ["charges", "statute", "level", "date"],
                                 table_rows[i + 1 : i + 5],
                             )
                         }
@@ -184,15 +184,36 @@ for JO_folder in os.scandir("data_by_JO"):
                 case_data["other events and hearings"] = other_event_rows
                 case_data["dispositions"] = disposition_rows
             elif "Financial Information" in table.text:
+                table_rows = [
+                    [
+                        tag.strip().replace("\xa0", " ")
+                        for tag in tr.find_all(text=True)
+                        if tag.strip()
+                    ]
+                    for tr in table.select("tr")
+                    if tr.select("th")
+                ]
+                table_rows = [
+                    [
+                        " ".join(word.strip() for word in text.split())
+                        for text in sublist
+                    ]
+                    for sublist in table_rows
+                    if sublist
+                ]
+                financial_information = {
+                    "total financial assessment": table_rows[1][1],
+                    "total payments and credits": table_rows[2][1],
+                    "balance due": table_rows[3][1],
+                    "transactions": table_rows[4:],
+                }
+                case_data["financial_information"] = financial_information
+            elif "Location : All Courts" not in table.text and table.text:
                 ...
-            elif "Location : All Courts" in table.text:
-                ...  # This is a useless section
-            elif table.text:
-                ...
-                # print to see if there are sections we are missing in any of the files
+                # print to see if there are sections we are missing in any of the table sections
                 # print(table)
 
-        # print(case_data)
+        print(case_data)
 
         # Quit for now so we don't write a bunch of crap
         # Write file as json data
