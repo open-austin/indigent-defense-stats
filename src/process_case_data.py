@@ -51,13 +51,13 @@ for JO_folder in os.scandir("data_by_JO"):
                         case_data[label[:-1].lower()] = value
                     else:
                         case_data[label[:-1].lower()] += "\n" + value
-            if "Related Case Information" in table.text:
+            elif "Related Case Information" in table.text:
                 case_data["related cases"] = [
                     case.text.strip().replace("\xa0", " ")
                     for case in table.select("td")
                 ]
-            if "Party Information" in table.text:
-                table_text = [
+            elif "Party Information" in table.text:
+                table_rows = [
                     [
                         tag.strip().replace("\xa0", " ")
                         for tag in tr.find_all(text=True)
@@ -65,12 +65,12 @@ for JO_folder in os.scandir("data_by_JO"):
                     ]
                     for tr in table.select("tr")
                 ]
-                table_text = [sublist for sublist in table_text if sublist]
+                table_rows = [sublist for sublist in table_rows if sublist]
                 state_rows = []
                 defendant_rows = []
                 bondsman_rows = []
                 SECTION = "state"
-                while table_text and (row := table_text.pop()):
+                while table_rows and (row := table_rows.pop()):
                     if SECTION == "state":
                         state_rows.append(row)
                     if SECTION == "defendant":
@@ -131,31 +131,68 @@ for JO_folder in os.scandir("data_by_JO"):
                     else "",
                 }
                 case_data["party information"] = party_information
-            if "Charge Information" in table.text:
-                table_text = [
+            elif "Charge Information" in table.text:
+                table_rows = [
                     tag.strip().replace("\xa0", " ")
                     for tag in table.find_all(text=True)
                     if tag.strip()
                 ]
                 case_data["charge information"] = []
-                for i in range(5, len(table_text), 5):
+                for i in range(5, len(table_rows), 5):
                     case_data["charge information"].append(
                         {
                             k: v
                             for k, v in zip(
                                 ["Charges", "Statute", "Level", "Date"],
-                                table_text[i + 1 : i + 5],
+                                table_rows[i + 1 : i + 5],
                             )
                         }
                     )
-            if "Events & Orders of the Court" in table.text:
+            elif "Events & Orders of the Court" in table.text:
+                table_rows = [
+                    [
+                        tag.strip().replace("\xa0", " ")
+                        for tag in tr.find_all(text=True)
+                        if tag.strip()
+                    ]
+                    for tr in table.select("tr")
+                    if tr.select("th")
+                ]
+                table_rows = [
+                    [
+                        " ".join(word.strip() for word in text.split())
+                        for text in sublist
+                    ]
+                    for sublist in table_rows
+                    if sublist
+                ]
+                other_event_rows = []
+                disposition_rows = []
+                SECTION = "other_events"
+                while table_rows and (row := table_rows.pop()):
+                    if row[0] == "OTHER EVENTS AND HEARINGS":
+                        SECTION = "dispositions"
+                        continue
+                    if row[0] == "dispositions":
+                        break
+                    if SECTION == "other_events":
+                        other_event_rows.append(row)
+                    if SECTION == "dispositions":
+                        disposition_rows.append(row)
+                other_event_rows = other_event_rows[::-1]
+                disposition_rows = disposition_rows[::-1]
+                case_data["other events and hearings"] = other_event_rows
+                case_data["dispositions"] = disposition_rows
+            elif "Financial Information" in table.text:
                 ...
-                # extremely goofy layout
-                ## DISPOSITIONS
-                ## OTHER EVENTS AND HEARINGS
-            if "Financial Information" in table.text:
+            elif "Location : All Courts" in table.text:
+                ...  # This is a useless section
+            elif table.text:
                 ...
-        print(case_data)
+                # print to see if there are sections we are missing in any of the files
+                # print(table)
+
+        # print(case_data)
 
         # Quit for now so we don't write a bunch of crap
         # Write file as json data
