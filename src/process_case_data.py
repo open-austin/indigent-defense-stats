@@ -1,8 +1,18 @@
 import os
 import json
+import argparse
 from datetime import datetime
 
 from bs4 import BeautifulSoup
+
+argparser = argparse.ArgumentParser()
+argparser.add_argument(
+    "--overwrite",
+    "--o",
+    action="store_true",
+    help="Switch to overwrite all cached case data.",
+)
+args = argparser.parse_args()
 
 case_data_list = []
 
@@ -24,14 +34,19 @@ for JO_folder in os.scandir("data_by_JO"):
         case_data["osyssey id"] = case_html_file.name.split()[1].split(".")[0]
         case_data["date"] = case_html_file.name.split()[0].replace("-", "/")
         case_filename = os.path.join(case_data_path, case_data["code"] + ".json")
-        # If file exists, check if the cached version has a newer date, if so continue.
+        if args.overwrite:
+            try:
+                os.remove(case_filename)
+            except:
+                ...
+        # if the file exists, check if cached version is older, else continue
         if os.path.exists(case_filename):
             with open(case_filename, "r") as file_handle:
                 cached_data = json.loads(file_handle.read())
             cached_date = datetime.strptime(cached_data["date"], "%m/%d/%Y")
             current_date = datetime.strptime(case_data["date"], "%m/%d/%Y")
-            if cached_date > current_date:
-                print("Cached data is newer. Continuing.")
+            if cached_date >= current_date:
+                print("Cached data is from the same day or newer.")
                 continue
         # Continue to parse and gather data.
         # get all the root tables
