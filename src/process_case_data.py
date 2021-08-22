@@ -250,7 +250,7 @@ for JO_folder in os.scandir("data_by_JO"):
 # Print some data for debugging purposes
 N_LONGEST = 20
 RUN_TIME = time() - START_TIME
-print("\n", N_LONGEST, "longest cases by string length ascending.")
+print("\n", N_LONGEST, "longest cases by string length.")
 long_cases = list(sorted(case_data_list, key=lambda x: len(str(x)))[-N_LONGEST:])
 print(
     "\n".join(
