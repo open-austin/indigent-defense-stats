@@ -34,12 +34,14 @@ if __name__ == "__main__":
     soup = BeautifulSoup(calendar_page.text, "html.parser")
     viewstate_token = soup.find(id="__VIEWSTATE")["value"]
 
-    # Data dir setup - added this to gitignore for now, may want to remove later
+    # Make data dir if it doesn't exist
     if not os.path.exists("data_by_JO"):
         os.mkdir("data_by_JO")
+
     for JO_name, JO_id in judicial_officer_to_ID.items():
         print(f"Processing {JO_name}")
-        # Make folders if they don't exist
+
+        # Make sub-folders for the JO if they don't exist
         JO_path = os.path.join("data_by_JO", JO_name)
         JO_case_path = os.path.join(JO_path, "case_html")
         JO_cal_path = os.path.join(JO_path, "calendar_html")
@@ -50,16 +52,21 @@ if __name__ == "__main__":
         if not os.path.exists(JO_cal_path):
             os.mkdir(JO_cal_path)
 
+        # Begin processing each calendar html file for this JO
         for cal_html_file in os.scandir(JO_cal_path):
             if not cal_html_file.is_dir():
                 case_date = cal_html_file.name.split(".")[0]
                 print(f"Processing cases from {case_date} for {JO_name}")
+
+                # Read the case URLs from the calendar page html
                 with open(cal_html_file.path, "r") as file_handle:
                     cal_html_str = file_handle.read()
                 cal_soup = BeautifulSoup(cal_html_str, "html.parser")
                 case_anchors = cal_soup.select('a[href^="CaseDetail"]')
+
+                # Setup for processing the cases
                 if case_anchors:
-                    # Continue with the next cal html file is all cases are cached
+                    # If all cases are cached, continue
                     if all(
                         os.path.exists(
                             os.path.join(
@@ -71,11 +78,13 @@ if __name__ == "__main__":
                     ):
                         print("All cases are cached for this file.")
                         continue
-
+                    # We need to visit the calendar page for this case before visiting it with the session
                     session.post(
                         calendar_page_url,
                         data=make_form_data(case_date, JO_id, viewstate_token),
                     )
+
+                # Process each case
                 for case_anchor in case_anchors:
                     case_url = main_page_url + case_anchor["href"]
                     case_id = case_url.split("=")[1]
@@ -83,10 +92,10 @@ if __name__ == "__main__":
                         JO_case_path, f"{case_date} {case_id}.html"
                     )
 
+                    # Check if the case is cached
                     if not os.path.exists(case_html_file_path):
                         # Make request for the case
                         print("Visiting", case_url)
-                        # TODO: need to visit case calendar page before case url during session
                         case_results = session.get(case_url)
                         # Error check based on text in html result.
                         if "Date Filed" in case_results.text:
