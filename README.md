@@ -6,26 +6,30 @@ This should be adaptable to other Tyler Technologies Odyssey based court records
 
 ### Installation
 
-1. Clone this repo - `git clone https://github.com/derac/hays-scraper.git`
-1. Go to it - `cd hays-scraper`
-1. _(optional)_ Make a virtual environment - `python -m venv .`
-1. _(optional)_ Activate it
-   - `source bin/activate` (bash)
-   - `./Scripts/activate.ps1` (powershell)
-   - `source bin/activate.fish` (fish)
-1. Install libraries - `pip install -r requirements.txt`
+1. Clone this repo.
+   - `git clone https://github.com/derac/hays-scraper.git`
+1. Navigate to it.
+   - `cd hays-scraper`
+1. _(optional)_ Make a virtual environment.
+   - `python -m venv .`
+1. _(optional)_ Activate it.
+   - _bash_ `source bin/activate`
+   - _powershell_ `./Scripts/activate.ps1`
+   - _fish_ `source bin/activate.fish`
+1. Install libraries.
+   - `pip install -r requirements.txt`
 
 ### Usage
 
 **Use --help for command line parameter information.**
 
-1. Scrape calendar data by JO and day
+1. Scrape calendar data by JO and day.
    - `python ./src/scrape_calendar_data.py`
    - _./data_by_JO/_{**JO name**}_/calendar_html/_{**date**}_.html_
-1. Scrape individual cases from calendar data
+1. Scrape individual cases from calendar data.
    - `python ./src/scrape_case_data.py`
    - _./data_by_JO/_{**JO name**}_/case_html/_{**date**} {**odyssey id**}_.html_
-1. Process the case data into JSON files
+1. Process the case data into JSON files.
    - `python ./src/process_case_date.py`
    - _./data_by_JO/_{**JO name**}_/case_data/_{**case code**}_.json_
 1. Print some stats from the JSON.
