@@ -14,6 +14,8 @@ for JO_folder in os.scandir("data_by_JO"):
         with open(case_html_file.path, "r") as file_handle:
             case_html = file_handle.read()
         case_soup = BeautifulSoup(case_html, "html.parser")
+        # TODO: there are multiple types of cases, most are the CR-* type, but some are different
+        # have a different code naming convention and layout
         # Gather initial data for filename and date checking
         case_data["code"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
             0
@@ -55,11 +57,32 @@ for JO_folder in os.scandir("data_by_JO"):
                     for case in table.select("td")
                 ]
             if "Party Information" in table.text:
-                ...
+                # the layout here is very goofy, just dumping raw text as a list for now
+                case_data["party_information"] = [
+                    tag.strip().replace("\xa0", " ")
+                    for tag in table.find_all(text=True)
+                    if tag.strip()
+                ]
             if "Charge Information" in table.text:
-                ...
+                table_text = [
+                    tag.strip().replace("\xa0", " ")
+                    for tag in table.find_all(text=True)
+                    if tag.strip()
+                ]
+                case_data["charge_information"] = []
+                for i in range(5, len(table_text), 5):
+                    case_data["charge_information"].append(
+                        {
+                            k: v
+                            for k, v in zip(
+                                ["Charges", "Statute", "Level", "Date"],
+                                table_text[i + 1 : i + 5],
+                            )
+                        }
+                    )
             if "Events & Orders of the Court" in table.text:
                 ...
+                # extremely goofy layout
                 ## DISPOSITIONS
                 ## OTHER EVENTS AND HEARINGS
             if "Financial Information" in table.text:
