@@ -1,17 +1,14 @@
 import os
 import datetime
-import argparse
 from time import sleep
-
-import requests
-from bs4 import BeautifulSoup
 
 from config import (
     make_form_data,
     judicial_officer_to_ID,
-    main_page_url,
     calendar_page_url,
     argparser,
+    session,
+    viewstate_token,
 )
 
 argparser.description = "Scrape calendar html data from judicial officers."
@@ -32,14 +29,6 @@ argparser.add_argument(
 args = argparser.parse_args()
 
 TODAY = datetime.datetime.today()
-
-# Initial setup for the session
-session = requests.Session()
-main_page = session.get(main_page_url)
-# May not be necessary, grabbing viewstate for form data
-calendar_page = session.get(calendar_page_url)
-soup = BeautifulSoup(calendar_page.text, "html.parser")
-viewstate_token = soup.find(id="__VIEWSTATE")["value"]
 
 # Days in the past starting with yesterday.
 for day_offset in range(args.start_offset, args.days):

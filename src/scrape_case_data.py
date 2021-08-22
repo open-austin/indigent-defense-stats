@@ -1,9 +1,5 @@
 import os
-import argparse
 from time import sleep
-
-import requests
-from bs4 import BeautifulSoup
 
 from config import (
     make_form_data,
@@ -11,19 +7,14 @@ from config import (
     main_page_url,
     calendar_page_url,
     argparser,
+    session,
+    viewstate_token,
+    BeautifulSoup,
 )
 
 argparser.description = "Scrape case data using cached JO calendar html data."
 args = argparser.parse_args()
 
-# Initial setup for the session
-session = requests.Session()
-main_page = session.get(main_page_url)
-
-# May not be necessary, grabbing viewstate for form data
-calendar_page = session.get(calendar_page_url)
-soup = BeautifulSoup(calendar_page.text, "html.parser")
-viewstate_token = soup.find(id="__VIEWSTATE")["value"]
 
 # Make data dir if it doesn't exist
 if not os.path.exists("data_by_JO"):
