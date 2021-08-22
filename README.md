@@ -14,12 +14,12 @@ This should be adaptable to other Tyler Technologies Odyssey based court records
    - `./Scripts/activate.ps1` (powershell)
    - `source bin/activate.fish` (fish)
 1. Install libraries - `pip install -r requirements.txt`
-1. Scrape the calendar data - `python ./src/scrape_calendar_data.py`
-   - _./data_by_JO/{JO_name}/calendar_html/\*.html_
-1. Scrape the individual cases from calendar data `python ./src/scrape_case_data.py`
-   - _./data_by_JO/{JO_name}/case_html/\*.html_
+1. Scrape calendar data by JO and day - `python ./src/scrape_calendar_data.py`
+   - ./data_by_JO/{**JO name**}/calendar_html/{**date**}.html
+1. Scrape individual cases from calendar data `python ./src/scrape_case_data.py`
+   - ./data_by_JO/{**JO name**}/case_html/{**date**} {**odyssey id**}.html
 1. Process the case data into JSON files `python ./src/process_case_date.py`
-   - _./data_by_JO/{JO_name}/case_data/\*.json_
+   - ./data_by_JO/{**JO name**}/case_data/{**case code**}.json
 1. Print some stats out from the generated JSON files. `python ./src/print_case_stats.py`
 
 ### Command line parameter usage info:
