@@ -17,11 +17,9 @@ This should be adaptable to other Tyler Technologies Odyssey based court records
 
 ### Command line parameter usage info:
 
-```bash
-python ./src/scrape_calendar_data.py --help
-python ./src/scrape_case_data.py --help
-python ./src/process_case_data.py --help
-```
+    python ./src/scrape_calendar_data.py --help
+    python ./src/scrape_case_data.py --help
+    python ./src/process_case_data.py --help
 
 ## Implementation Details
 
