@@ -116,7 +116,7 @@ for JO_folder in os.scandir("data_by_JO"):
                     ]
                     if len(defendant_rows[0]) > 7 + (has_height_and_weight - 1)
                     else "",
-                    "defendant address": "\n".join(defendant_rows[1][:-2]),
+                    "defendant address": ", ".join(defendant_rows[1][:-2]),
                     "SID": defendant_rows[1][-1],
                     "prosecuting attorney": state_rows[0][2]
                     if len(state_rows[0]) > 2
@@ -124,9 +124,9 @@ for JO_folder in os.scandir("data_by_JO"):
                     "prosecuting attorney phone number": state_rows[0][2]
                     if len(state_rows[0]) > 3
                     else "",
-                    "prosecuting attorney address": "\n".join(state_rows[1]),
+                    "prosecuting attorney address": ", ".join(state_rows[1]),
                     "bondsman": bondsman_rows[0][1] if bondsman_rows else "",
-                    "bondsman address": "\n".join(bondsman_rows[1])
+                    "bondsman address": ", ".join(bondsman_rows[1])
                     if len(bondsman_rows) > 1
                     else "",
                 }
