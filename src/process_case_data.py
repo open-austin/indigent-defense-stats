@@ -4,6 +4,8 @@ from datetime import datetime
 
 from bs4 import BeautifulSoup
 
+case_data_list = []
+
 for JO_folder in os.scandir("data_by_JO"):
     case_data_path = os.path.join(JO_folder.path, "case_data")
     if not os.path.exists(case_data_path):
@@ -205,14 +207,26 @@ for JO_folder in os.scandir("data_by_JO"):
                     "balance due": table_rows[3][1],
                     "transactions": table_rows[4:],
                 }
-                case_data["financial_information"] = financial_information
+                case_data["financial information"] = financial_information
             elif "Location : All Courts" not in table.text and table.text:
                 ...
                 # print to see if there are sections we are missing in any of the table sections
                 # print(table)
 
-        print(case_data)
-
+        case_data_list.append(case_data)
         # Write file as json data
         # with open(case_filename, "w") as file_handle:
         #     file_handle.write(json.dumps(case_data))
+
+# Print some data for debugging purposes
+print("\n\n====================================\n\n")
+print(
+    "\n".join(
+        f"{n}.\n{text}\n"
+        for n, text in zip(
+            range(3, 0, -1), sorted(case_data_list, key=lambda x: len(str(x)))[-3:]
+        )
+    )
+)
+print(f"3 longest cases by str len ^")
+print(f"Number of cases processed: {len(case_data_list)}")
