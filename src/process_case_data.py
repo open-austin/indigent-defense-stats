@@ -243,18 +243,10 @@ for JO_folder in os.scandir("data_by_JO"):
 # Print some data for debugging purposes
 print("\n\n====================================\n\n")
 N_LONGEST = 10
-longest_cases = list(sorted(case_data_list, key=lambda x: len(str(x)))[-N_LONGEST:])
+long_cases = list(sorted(case_data_list, key=lambda x: len(str(x)))[-N_LONGEST:])
 print(
-    "\n".join(
-        f"{n}.\n{text}\n"
-        for n, text in zip(
-            range(N_LONGEST, 0, -1),
-            longest_cases,
-        )
-    )
+    "\n".join(f"{i}.\n{case}" for i, case in list(enumerate(long_cases[::-1], 1))[::-1])
 )
 print(f"{N_LONGEST} longest cases by string length ascending ^")
-print(
-    "\n".join(f"{i+1}. {len(str(case))}" for i, case in enumerate(longest_cases[::-1]))
-)
+print("\n".join(f"{i}. {len(str(case))}" for i, case in enumerate(long_cases[::-1], 1)))
 print(f"Number of cases processed: {len(case_data_list)}")
