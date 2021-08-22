@@ -248,7 +248,7 @@ for JO_folder in os.scandir("data_by_JO"):
             file_handle.write(json_str)
 
 # Print some data for debugging purposes
-N_LONGEST = 10
+N_LONGEST = 20
 RUN_TIME = time() - START_TIME
 print("\n", N_LONGEST, "longest cases by string length ascending.")
 long_cases = list(sorted(case_data_list, key=lambda x: len(str(x)))[-N_LONGEST:])
@@ -263,5 +263,5 @@ print(
     int(sum(len(str(case)) for case in case_data_list) / len(case_data_list)),
 )
 print("Number of cases processed:", len(case_data_list))
-print("Time to run script:", RUN_TIME, "seconds")
-print("Seconds per case", RUN_TIME / len(case_data_list))
+print("Time to run script:", round(RUN_TIME, 2), "seconds")
+print("Milliseconds per case:", int(RUN_TIME / len(case_data_list) * 1000), "ms")
