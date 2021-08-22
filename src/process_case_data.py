@@ -20,6 +20,7 @@ for JO_folder in os.scandir("data_by_JO"):
         case_data["code"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
             0
         ].text
+        case_data["file_processed"] = case_html_file.path
         case_data["osyssey id"] = case_html_file.name.split()[1].split(".")[0]
         case_data["date"] = case_html_file.name.split()[0].replace("-", "/")
         case_filename = os.path.join(case_data_path, case_data["code"] + ".json")
@@ -215,18 +216,20 @@ for JO_folder in os.scandir("data_by_JO"):
 
         case_data_list.append(case_data)
         # Write file as json data
-        # with open(case_filename, "w") as file_handle:
-        #     file_handle.write(json.dumps(case_data))
+        with open(case_filename, "w") as file_handle:
+            file_handle.write(json.dumps(case_data))
 
 # Print some data for debugging purposes
 print("\n\n====================================\n\n")
+N_LONGEST = 3
 print(
     "\n".join(
         f"{n}.\n{text}\n"
         for n, text in zip(
-            range(3, 0, -1), sorted(case_data_list, key=lambda x: len(str(x)))[-3:]
+            range(N_LONGEST, 0, -1),
+            sorted(case_data_list, key=lambda x: len(str(x)))[-N_LONGEST:],
         )
     )
 )
-print(f"3 longest cases by str len ^")
+print(f"{N_LONGEST} longest cases by str len ^")
 print(f"Number of cases processed: {len(case_data_list)}")
