@@ -4,25 +4,14 @@ from time import sleep
 
 from bs4 import BeautifulSoup
 
-from scrape_calendar_data import make_form_data
+from scrape_calendar_data import (
+    make_form_data,
+    judicial_officer_to_ID,
+    main_page_url,
+    calendar_page_url,
+)
 
 MS_WAIT_PER_REQUEST = 200
-
-main_page_url = "http://public.co.hays.tx.us/"
-calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
-
-judicial_officer_to_ID = {
-    "visiting_officer": "37809",
-    "Boyer_Bruce": "39607",
-    "Johnson_Chris": "48277",
-    "Robison_Jack": "6140",
-    "Sherri_Tibbe": "55054",
-    "Henry_Bill": "25322",
-    "Steel_Gary": "6142",
-    "Updegrove_Robert": "38628",
-    "Zelhart_Tacie": "48274",
-}
-
 
 if __name__ == "__main__":
     # Initial setup for the session
