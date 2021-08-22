@@ -42,7 +42,7 @@ for day_offset in range(args.start_offset, args.days):
     date_string = datetime.strftime(TODAY - timedelta(days=day_offset), "%m/%d/%Y")
     file_name = f"{date_string.replace('/','-')}.html"
     for JO_name, JO_id in judicial_officer_to_ID.items():
-        print(f"Capturing data for JO: {JO_name} on {date_string}")
+        print(f"Capturing data for JO {JO_name} on {date_string}")
         cal_html_file_path = os.path.join(
             "data_by_JO", JO_name, "calendar_html", file_name
         )
@@ -54,7 +54,7 @@ for day_offset in range(args.start_offset, args.days):
             )
             # Error check based on text in html result.
             if "Record Count" in cal_results.text:
-                print(f"Writing file: {cal_html_file_path}")
+                print("Writing file:", cal_html_file_path)
                 with open(cal_html_file_path, "w") as file_handle:
                     file_handle.write(cal_results.text)
                 # Rate limiting - convert ms to seconds

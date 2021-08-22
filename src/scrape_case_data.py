@@ -26,7 +26,7 @@ if not os.path.exists("data_by_JO"):
     os.mkdir("data_by_JO")
 
 for JO_name, JO_id in judicial_officer_to_ID.items():
-    print(f"Processing {JO_name}")
+    print("Processing JO:", JO_name)
     JO_case_path = os.path.join("data_by_JO", JO_name, "case_html")
     JO_cal_path = os.path.join("data_by_JO", JO_name, "calendar_html")
 
@@ -34,7 +34,7 @@ for JO_name, JO_id in judicial_officer_to_ID.items():
     for cal_html_file in os.scandir(JO_cal_path):
         if not cal_html_file.is_dir():
             case_date = cal_html_file.name.split(".")[0]
-            print(f"Processing cases from {case_date} for {JO_name}")
+            print("Case date:", case_date)
 
             # Read the case URLs from the calendar page html
             with open(cal_html_file.path, "r") as file_handle:
@@ -75,11 +75,12 @@ for JO_name, JO_id in judicial_officer_to_ID.items():
                 # Check if the case is cached
                 if not os.path.exists(case_html_file_path):
                     # Make request for the case
-                    print("Visiting", case_url)
+                    print("Visiting:", case_url)
                     case_results = session.get(case_url)
                     # Error check based on text in html result.
                     if "Date Filed" in case_results.text:
-                        print(f"Writing file: {case_html_file_path}")
+                        print("Writing file:", case_html_file_path)
+                        print("Response string length:", len(case_results.text))
                         with open(case_html_file_path, "w") as file_handle:
                             file_handle.write(case_results.text)
                         # Rate limiting - convert ms to seconds
