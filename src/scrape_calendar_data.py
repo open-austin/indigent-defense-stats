@@ -5,7 +5,7 @@ from time import sleep
 import requests
 from bs4 import BeautifulSoup
 
-from scrape_config import (
+from lib.scrape_config import (
     make_form_data,
     judicial_officer_to_ID,
     argparser,
