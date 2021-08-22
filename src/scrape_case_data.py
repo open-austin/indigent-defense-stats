@@ -1,18 +1,25 @@
 import os
 from time import sleep
 
+import requests
+from bs4 import BeautifulSoup
+
 from config import (
     make_form_data,
     judicial_officer_to_ID,
-    calendar_page_url,
     argparser,
-    session,
-    main_page_url,
-    BeautifulSoup,
 )
 
 argparser.description = "Scrape case data using cached JO calendar html data."
 args = argparser.parse_args()
+
+# Initial setup for the session
+session = requests.Session()
+session.get(args.main_page)
+# May not be necessary, grabbing viewstate for form data
+viewstate_token = BeautifulSoup(
+    session.get(args.calendar_page).text, "html.parser"
+).find(id="__VIEWSTATE")["value"]
 
 # Make data dir if it doesn't exist
 if not os.path.exists("data_by_JO"):
@@ -51,15 +58,15 @@ for JO_name, JO_id in judicial_officer_to_ID.items():
                     continue
                 # We need to visit the calendar page for this set of cases before visiting them with the session
                 session.post(
-                    calendar_page_url,
-                    data=make_form_data(case_date, JO_id),
+                    args.calendar_page,
+                    data=make_form_data(case_date, JO_id, viewstate_token),
                 )
                 # Rate limiting - convert ms to seconds
                 sleep(args.ms_wait / 1000)
 
             # Process each case
             for case_anchor in case_anchors:
-                case_url = main_page_url + case_anchor["href"]
+                case_url = args.main_page + case_anchor["href"]
                 case_id = case_url.split("=")[1]
                 case_html_file_path = os.path.join(
                     JO_case_path, f"{case_date} {case_id}.html"

@@ -1,9 +1,6 @@
 import os
 import argparse
 
-import requests
-from bs4 import BeautifulSoup
-
 argparser = argparse.ArgumentParser()
 argparser.add_argument(
     "--ms_wait",
@@ -12,17 +9,20 @@ argparser.add_argument(
     default=200,
     help="Number of ms to wait between requests.",
 )
-
-main_page_url = "http://public.co.hays.tx.us/"
-calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
-
-# Initial setup for the session
-session = requests.Session()
-session.get(main_page_url)
-# May not be necessary, grabbing viewstate for form data
-viewstate_token = BeautifulSoup(
-    session.get(calendar_page_url).text, "html.parser"
-).find(id="__VIEWSTATE")["value"]
+argparser.add_argument(
+    "--main_page",
+    "--m",
+    type=str,
+    default="http://public.co.hays.tx.us/",
+    help="URL for the main page of the Odyssey site.",
+)
+argparser.add_argument(
+    "--calendar_page",
+    "--c",
+    type=str,
+    default="http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts",
+    help="URL for the calendar page of the Odyssey site.",
+)
 
 # TODO: Find out the timespan when each JO presided?
 judicial_officer_to_ID = {
@@ -38,7 +38,7 @@ judicial_officer_to_ID = {
 }
 
 
-def make_form_data(date, JO_id):
+def make_form_data(date, JO_id, viewstate_token):
     return {
         "__EVENTTARGET": "",
         "__EVENTARGUMENT": "",
