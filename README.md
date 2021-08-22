@@ -12,7 +12,7 @@ This should be adaptable to other Tyler Technologies Odyssey based court records
 1. _(optional)_ Activate it
    - `source bin/activate` (bash)
    - `./Scripts/activate.ps1` (powershell)
-   - `source ./bin/activate.fish` (fish)
+   - `source bin/activate.fish` (fish)
 1. Install libraries - `pip install -r requirements.txt`
 1. Scrape the calendar data - `python ./src/scrape_calendar_data.py`
    - _./data_by_JO/{JO_name}/calendar_html/\*.html_
