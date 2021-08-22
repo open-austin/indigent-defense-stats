@@ -68,10 +68,15 @@ if __name__ == "__main__":
                     sleep(args.ms_wait / 1000)
                 else:
                     print(
-                        f'ERROR: "Record Count" substring not found in calendar html page. Aborting. Writing ./debug.html'
+                        'ERROR: "Record Count" substring not found in calendar html page. Aborting.\n',
+                        "Writing ./debug.html and ./debug.txt with current variables",
                     )
                     with open("debug.html", "w") as file_handle:
                         file_handle.write(cal_results.text)
+                    with open("debug.txt", "w") as file_handle:
+                        file_handle.write(
+                            f"{day_offset = }\n{JO_name = }\n{date_string = }"
+                        )
                     quit()
             else:
                 print("Data is already cached. Skipping.")
