@@ -15,11 +15,12 @@ for JO_folder in os.scandir("data_by_JO"):
             case_html = file_handle.read()
         case_soup = BeautifulSoup(case_html, "html.parser")
         # Gather initial data for filename and date checking
-        case_data["name"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
+        case_data["code"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
             0
         ].text
+        case_data["osyssey_id"] = case_html_file.name.split()[1].split(".")[0]
         case_data["date"] = case_html_file.name.split()[0]
-        case_filename = os.path.join(case_data_path, case_data["name"] + ".json")
+        case_filename = os.path.join(case_data_path, case_data["code"] + ".json")
         # If file exists, check if the cached version has a newer date, if so continue.
         if os.path.exists(case_filename):
             with open(case_filename, "r") as file_handle:
@@ -30,8 +31,42 @@ for JO_folder in os.scandir("data_by_JO"):
                 print("Cached data is newer. Continuing.")
                 continue
         # Continue to parse and gather data.
+        # get all the root tables
+        root_tables = case_soup.select("body>table")
+        for table in root_tables:
+            # The State of Texas vs. X, Cast Type, Date Filed, etc.
+            if "Case Type:" in table.text and "Date Filed:" in table.text:
+                table_values = table.select("b")
+                table_labels = table.select("th")
+                # the first value doesn't have a label, it's the case name
+                case_data["name"] = table_values[0].text
+                for i in range(len(table_labels)):
+                    value = table_values[i + 1].text
+                    # sometimes there is a blank space next to the value
+                    # add that value to the last label
+                    if table_labels[i].text:
+                        label = table_labels[i].text
+                        case_data[label[:-1].lower()] = value
+                    else:
+                        case_data[label[:-1].lower()] += "\n" + value
+            if "Related Case Information" in table.text:
+                case_data["related_cases"] = [
+                    case.text.strip().replace("\xa0", " ")
+                    for case in table.select("td")
+                ]
+            if "Party Information" in table.text:
+                ...
+            if "Charge Information" in table.text:
+                ...
+            if "Events & Orders of the Court" in table.text:
+                ...
+                ## DISPOSITIONS
+                ## OTHER EVENTS AND HEARINGS
+            if "Financial Information" in table.text:
+                ...
 
         # Quit for now so we don't write a bunch of crap
+        print(case_data)
         quit()
         # Write file as json data
         with open(case_filename, "w") as file_handle:
