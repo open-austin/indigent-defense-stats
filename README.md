@@ -17,23 +17,21 @@ This should be adaptable to other Tyler Technologies Odyssey based court records
 
 ### Usage
 
+**Use --help for command line parameter information.**
+
 1. Scrape calendar data by JO and day - `python ./src/scrape_calendar_data.py`
-   - ./data_by_JO/{**JO name**}/calendar_html/{**date**}.html
+   - _./data_by_JO/_{**JO name**}_/calendar_html/_{**date**}_.html_
 1. Scrape individual cases from calendar data `python ./src/scrape_case_data.py`
-   - ./data_by_JO/{**JO name**}/case_html/{**date**} {**odyssey id**}.html
+   - _./data_by_JO/_{**JO name**}_/case_html/_{**date**} {**odyssey id**}_.html_
 1. Process the case data into JSON files `python ./src/process_case_date.py`
-   - ./data_by_JO/{**JO name**}/case_data/{**case code**}.json
+   - _./data_by_JO/_{**JO name**}_/case_data/_{**case code**}_.json_
 1. Print some stats out from the generated JSON files. `python ./src/print_case_stats.py`
-
-### Command line parameter usage info:
-
-    python ./src/scrape_calendar_data.py --help
-    python ./src/scrape_case_data.py --help
-    python ./src/process_case_data.py --help
 
 ## Implementation Details
 
-The session must visit the main page to access the calendar page. Also, you must visit a calendar results page which contains the case page you are trying to access in order to visit it.
+- The session must visit the main page in order to access the calendar search page.
+- To visit a case page, you must have visited a results page containing it.
+- Some form data must be sent with the search request. Data in _./src/config.py_.
 
 ## TODO
 
