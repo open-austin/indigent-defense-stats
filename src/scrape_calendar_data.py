@@ -55,6 +55,7 @@ for day_offset in range(args.start_offset, args.days):
             # Error check based on text in html result.
             if "Record Count" in cal_results.text:
                 print("Writing file:", cal_html_file_path)
+                print("Response string length:", len(cal_results.text))
                 with open(cal_html_file_path, "w") as file_handle:
                     file_handle.write(cal_results.text)
                 # Rate limiting - convert ms to seconds
