@@ -25,17 +25,6 @@ if __name__ == "__main__":
     soup = BeautifulSoup(calendar_page.text, "html.parser")
     viewstate_token = soup.find(id="__VIEWSTATE")["value"]
 
-    # Data dir setup - added this to gitignore for now, may want to remove later
-    if not os.path.exists("data_by_JO"):
-        os.mkdir("data_by_JO")
-    for JO_name in judicial_officer_to_ID.keys():
-        JO_path = os.path.join("data_by_JO", JO_name)
-        JO_cal_path = os.path.join(JO_path, "calendar_html")
-        if not os.path.exists(JO_path):
-            os.mkdir(JO_path)
-        if not os.path.exists(JO_cal_path):
-            os.mkdir(JO_cal_path)
-
     # Days in the past starting with yesterday.
     for DAY_OFFSET in range(1, DAYS_OF_RECORDS):
         date_string = datetime.datetime.strftime(

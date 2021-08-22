@@ -69,3 +69,21 @@ def make_form_data(date, JO_id, viewstate):
         # NOTE: `SearchParams` doesn't seem required. Perhaps it's just used for logging?
         # "SearchParams": "SearchBy~~Search By: ~~Judicial Officer~~Judicial Officer | |chkExactName~~Exact Name: ~~on~~on | |cboJudOffc~~Judicial Officer: ~~Arrington, Tamara~~Arrington, Tamara | |DateSettingOnAfter~~Date On or After: ~~8/11/2005~~8/11/2005 | |DateSettingOnBefore~~Date On or Before: ~~8/11/2021~~8/11/2021 | |selectSortBy~~Sort By: ~~Filed Date~~Filed Date | |CaseCategories~~Case Categories: ~~CR~~Criminal",
     }
+
+
+# Data dir setup
+import os
+
+if not os.path.exists("data_by_JO"):
+    os.mkdir("data_by_JO")
+for JO_name in judicial_officer_to_ID.keys():
+    # Make sub-folders for the JO if they don't exist
+    JO_path = os.path.join("data_by_JO", JO_name)
+    JO_case_path = os.path.join(JO_path, "case_html")
+    JO_cal_path = os.path.join(JO_path, "calendar_html")
+    if not os.path.exists(JO_path):
+        os.mkdir(JO_path)
+    if not os.path.exists(JO_case_path):
+        os.mkdir(JO_case_path)
+    if not os.path.exists(JO_cal_path):
+        os.mkdir(JO_cal_path)

@@ -28,17 +28,8 @@ if __name__ == "__main__":
 
     for JO_name, JO_id in judicial_officer_to_ID.items():
         print(f"Processing {JO_name}")
-
-        # Make sub-folders for the JO if they don't exist
-        JO_path = os.path.join("data_by_JO", JO_name)
-        JO_case_path = os.path.join(JO_path, "case_html")
-        JO_cal_path = os.path.join(JO_path, "calendar_html")
-        if not os.path.exists(JO_path):
-            os.mkdir(JO_path)
-        if not os.path.exists(JO_case_path):
-            os.mkdir(JO_case_path)
-        if not os.path.exists(JO_cal_path):
-            os.mkdir(JO_cal_path)
+        JO_case_path = os.path.join("data_by_JO", JO_name, "case_html")
+        JO_cal_path = os.path.join("data_by_JO", JO_name, "calendar_html")
 
         # Begin processing each calendar html file for this JO
         for cal_html_file in os.scandir(JO_cal_path):
