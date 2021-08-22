@@ -1,6 +1,7 @@
 import os
 import json
 import argparse
+from time import time
 from datetime import datetime
 
 from bs4 import BeautifulSoup
@@ -14,6 +15,7 @@ argparser.add_argument(
 )
 args = argparser.parse_args()
 
+START_TIME = time()
 case_data_list = []
 
 for JO_folder in os.scandir("data_by_JO"):
@@ -21,7 +23,7 @@ for JO_folder in os.scandir("data_by_JO"):
     if not os.path.exists(case_data_path):
         os.mkdir(case_data_path)
     for case_html_file in os.scandir(os.path.join(JO_folder.path, "case_html")):
-        print("Processing", case_html_file.path)
+        print("Processing:", case_html_file.path)
         case_data = {}
         with open(case_html_file.path, "r") as file_handle:
             case_html = file_handle.read()
@@ -30,10 +32,12 @@ for JO_folder in os.scandir("data_by_JO"):
         case_data["code"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
             0
         ].text
-        case_data["file_processed"] = case_html_file.path
         case_data["osyssey id"] = case_html_file.name.split()[1].split(".")[0]
         case_data["date"] = case_html_file.name.split()[0].replace("-", "/")
         case_filename = os.path.join(case_data_path, case_data["code"] + ".json")
+        case_data["judicial officer"] = str(JO_folder.name).replace("_", ", ")
+        case_data["file processed"] = case_html_file.path
+        case_data["filename"] = case_filename
         if args.overwrite:
             try:
                 os.remove(case_filename)
@@ -237,16 +241,27 @@ for JO_folder in os.scandir("data_by_JO"):
 
         case_data_list.append(case_data)
         # Write file as json data
+        json_str = json.dumps(case_data)
+        print("Writing:", case_filename)
+        print("String length of data:", len(json_str))
         with open(case_filename, "w") as file_handle:
-            file_handle.write(json.dumps(case_data))
+            file_handle.write(json_str)
 
 # Print some data for debugging purposes
-print("\n\n====================================\n\n")
 N_LONGEST = 10
+RUN_TIME = time() - START_TIME
+print("\n", N_LONGEST, "longest cases by string length ascending.")
 long_cases = list(sorted(case_data_list, key=lambda x: len(str(x)))[-N_LONGEST:])
 print(
-    "\n".join(f"{i}.\n{case}" for i, case in list(enumerate(long_cases[::-1], 1))[::-1])
+    "\n".join(
+        f"{i}. {len(str(case))} - {case['filename']}"
+        for i, case in enumerate(long_cases[::-1], 1)
+    )
 )
-print(f"{N_LONGEST} longest cases by string length ascending ^")
-print("\n".join(f"{i}. {len(str(case))}" for i, case in enumerate(long_cases[::-1], 1)))
-print(f"Number of cases processed: {len(case_data_list)}")
+print(
+    "Average string length of cases:",
+    int(sum(len(str(case)) for case in case_data_list) / len(case_data_list)),
+)
+print("Number of cases processed:", len(case_data_list))
+print("Time to run script:", RUN_TIME, "seconds")
+print("Seconds per case", RUN_TIME / len(case_data_list))
