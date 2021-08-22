@@ -19,6 +19,10 @@ python ./src/scrape_calendar_data.py --help
 python ./src/scrape_case_data.py --help
 ```
 
+## Implementation Details
+
+The session must visit the main page to access the calendar page. Also, you must visit a calendar results page which contains the case page you are trying to access in order to visit it.
+
 ## TODO
 
 - Write parser for case data and determine schema.
