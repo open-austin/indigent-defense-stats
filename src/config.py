@@ -1,4 +1,15 @@
-MS_WAIT_PER_REQUEST = 200
+import os
+import argparse
+
+argparser = argparse.ArgumentParser()
+argparser.add_argument(
+    "--ms_wait",
+    "--w",
+    type=int,
+    default=200,
+    help="Number of ms to wait between requests.",
+)
+
 
 main_page_url = "http://public.co.hays.tx.us/"
 calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
@@ -72,8 +83,6 @@ def make_form_data(date, JO_id, viewstate):
 
 
 # Data dir setup
-import os
-
 if not os.path.exists("data_by_JO"):
     os.mkdir("data_by_JO")
 for JO_name in judicial_officer_to_ID.keys():

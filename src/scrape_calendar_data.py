@@ -1,5 +1,6 @@
 import os
 import datetime
+import argparse
 from time import sleep
 
 import requests
@@ -10,10 +11,26 @@ from config import (
     judicial_officer_to_ID,
     main_page_url,
     calendar_page_url,
-    MS_WAIT_PER_REQUEST,
+    argparser,
 )
 
-DAYS_OF_RECORDS = 5 * 365
+argparser.description = "Scrape calendar html data from judicial officers."
+argparser.add_argument(
+    "--days",
+    "--d",
+    type=int,
+    default=5 * 365,
+    help="Number of days to scrape (backwards).",
+)
+argparser.add_argument(
+    "--start_offset",
+    "--s",
+    type=int,
+    default=1,
+    help="The number of days ago to start scraping. 1 is Yesterday.",
+)
+args = argparser.parse_args()
+
 TODAY = datetime.datetime.today()
 
 if __name__ == "__main__":
@@ -26,9 +43,9 @@ if __name__ == "__main__":
     viewstate_token = soup.find(id="__VIEWSTATE")["value"]
 
     # Days in the past starting with yesterday.
-    for DAY_OFFSET in range(1, DAYS_OF_RECORDS):
+    for day_offset in range(args.start_offset, args.days):
         date_string = datetime.datetime.strftime(
-            TODAY - datetime.timedelta(days=DAY_OFFSET), format="%m/%d/%Y"
+            TODAY - datetime.timedelta(days=day_offset), format="%m/%d/%Y"
         )
         file_name = f"{date_string.replace('/','-')}.html"
         for JO_name, JO_id in judicial_officer_to_ID.items():
@@ -48,7 +65,7 @@ if __name__ == "__main__":
                     with open(cal_html_file_path, "w") as file_handle:
                         file_handle.write(cal_results.text)
                     # Rate limiting - convert ms to seconds
-                    sleep(MS_WAIT_PER_REQUEST / 1000)
+                    sleep(args.ms_wait / 1000)
                 else:
                     print(
                         f'ERROR: "Record Count" substring not found in calendar html page. Aborting. Writing ./debug.html'

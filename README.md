@@ -11,3 +11,10 @@ This is a simple scraper that uses `requests` and `beautifulsoup` to collect and
 1. Install libraries - `pip install -r requirements.txt`
 1. Scrape the calendar data - `python ./src/scrape_calendar_data.py` - this will go to _./data_by_JO/{JO_name}/calendar_html/\*.html_
 1. Process the calendar data and scrape the individual cases `python ./src/scrape_case_data` - this will go to _./data_by_JO/{JO_name}/case_html/\*.html_
+
+### Command line parameter usage info:
+
+```bash
+python ./src/scrape_calendar_data.py --help
+python ./src/scrape_case_data.py --help
+```

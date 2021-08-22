@@ -1,4 +1,5 @@
 import os
+import argparse
 from time import sleep
 
 import requests
@@ -9,8 +10,11 @@ from config import (
     judicial_officer_to_ID,
     main_page_url,
     calendar_page_url,
-    MS_WAIT_PER_REQUEST,
+    argparser,
 )
+
+argparser.description = "Scrape case data using cached JO calendar html data."
+args = argparser.parse_args()
 
 if __name__ == "__main__":
     # Initial setup for the session
@@ -82,7 +86,7 @@ if __name__ == "__main__":
                             with open(case_html_file_path, "w") as file_handle:
                                 file_handle.write(case_results.text)
                             # Rate limiting - convert ms to seconds
-                            sleep(MS_WAIT_PER_REQUEST / 1000)
+                            sleep(args.ms_wait / 1000)
                         else:
                             print(
                                 f'ERROR: "Date Filed" substring not found in case html page. Aborting. Writing ./debug.html'
@@ -91,6 +95,6 @@ if __name__ == "__main__":
                                 file_handle.write(case_results.text)
                             quit()
                         # Rate limiting - convert ms to seconds
-                        sleep(MS_WAIT_PER_REQUEST / 1000)
+                        sleep(args.ms_wait / 1000)
                     else:
                         print("Data is already cached. Skipping.")
