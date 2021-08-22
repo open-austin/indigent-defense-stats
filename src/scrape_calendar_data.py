@@ -1,5 +1,5 @@
 import os
-import datetime
+from datetime import datetime
 from time import sleep
 
 from config import (
@@ -26,12 +26,12 @@ argparser.add_argument(
     help="The number of days ago to start scraping. 1 is Yesterday.",
 )
 args = argparser.parse_args()
-TODAY = datetime.datetime.today()
+TODAY = datetime.today()
 
 # Days in the past starting with yesterday.
 for day_offset in range(args.start_offset, args.days):
-    date_string = datetime.datetime.strftime(
-        TODAY - datetime.timedelta(days=day_offset), format="%m/%d/%Y"
+    date_string = datetime.strftime(
+        TODAY - datetime.timedelta(days=day_offset), "%m/%d/%Y"
     )
     file_name = f"{date_string.replace('/','-')}.html"
     for JO_name, JO_id in judicial_officer_to_ID.items():
