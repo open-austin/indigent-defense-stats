@@ -39,7 +39,7 @@ This should be adaptable to other Tyler Technologies Odyssey based court records
 
 - The session must visit the main page in order to access the calendar search page.
 - To visit a case page, you must have visited a results page containing it.
-- Some form data must be sent with the search request. Data in _./src/config.py_.
+- Some form data must be sent with the search request. Data in _./src/scrape_config.py_.
 
 ## TODO
 
