@@ -13,7 +13,7 @@ argparser.add_argument(
 main_page_url = "http://public.co.hays.tx.us/"
 calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
 
-# TODO: Find out the timespan when each JO presided.
+# TODO: Find out the timespan when each JO presided?
 judicial_officer_to_ID = {
     "visiting_officer": "37809",
     "Boyer_Bruce": "39607",
@@ -81,11 +81,10 @@ def make_form_data(date, JO_id, viewstate):
     }
 
 
-# Data dir setup
+# Make all data folders if they don't exist
 if not os.path.exists("data_by_JO"):
     os.mkdir("data_by_JO")
 for JO_name in judicial_officer_to_ID.keys():
-    # Make sub-folders for the JO if they don't exist
     JO_path = os.path.join("data_by_JO", JO_name)
     JO_case_path = os.path.join(JO_path, "case_html")
     JO_cal_path = os.path.join(JO_path, "calendar_html")
