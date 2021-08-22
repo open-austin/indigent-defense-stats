@@ -5,6 +5,8 @@ from time import sleep
 import requests
 from bs4 import BeautifulSoup
 
+from aws_s3 import s3_write_html
+
 from config import (
     make_form_data,
     judicial_officer_to_ID,
@@ -16,7 +18,7 @@ argparser.add_argument(
     "--days",
     "--d",
     type=int,
-    default=5 * 365,
+    default=5,
     help="Number of days to scrape (backwards).",
 )
 argparser.add_argument(
@@ -56,8 +58,7 @@ for day_offset in range(args.start_offset, args.days):
             if "Record Count" in cal_results.text:
                 print("Writing file:", cal_html_file_path)
                 print("Response string length:", len(cal_results.text))
-                with open(cal_html_file_path, "w") as file_handle:
-                    file_handle.write(cal_results.text)
+                s3_write_html(filepath=cal_html_file_path, filebody=cal_results.text)
                 # Rate limiting - convert ms to seconds
                 sleep(args.ms_wait / 1000)
             else:
@@ -67,10 +68,8 @@ for day_offset in range(args.start_offset, args.days):
                     "Writing ./debug.html with response and ./debug.txt with current variables.\n",
                     curr_vars,
                 )
-                with open("debug.html", "w") as file_handle:
-                    file_handle.write(cal_results.text)
-                with open("debug.txt", "w") as file_handle:
-                    file_handle.write(curr_vars)
+                s3_write_html(filepath="debug.html", filebody=cal_results.text)
+                s3_write_html(filepath="debug.txt", filebody=curr_vars)
                 quit()
         else:
             print("Data is already cached. Skipping.")
