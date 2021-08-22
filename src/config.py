@@ -10,7 +10,6 @@ argparser.add_argument(
     help="Number of ms to wait between requests.",
 )
 
-
 main_page_url = "http://public.co.hays.tx.us/"
 calendar_page_url = "http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts"
 
