@@ -41,7 +41,7 @@ for JO_name, JO_id in judicial_officer_to_ID.items():
                 cal_html_str = file_handle.read()
             cal_soup = BeautifulSoup(cal_html_str, "html.parser")
             case_anchors = cal_soup.select('a[href^="CaseDetail"]')
-
+            print(len(case_anchors), "cases found.")
             # Setup for processing the cases
             if case_anchors:
                 # If all cases are cached, continue
