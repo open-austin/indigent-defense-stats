@@ -1,5 +1,6 @@
 import os
 import json
+import statistics
 
 from time import time
 
@@ -24,10 +25,12 @@ def print_top_cases_by_lambda(sort_function, description):
         )
     )
     print(
-        "Average:",
-        round(
-            sum(sort_function(case) for case in case_data_list) / len(case_data_list), 2
-        ),
+        "Mean:",
+        round(statistics.mean(sort_function(case) for case in case_data_list), 2),
+        " Median:",
+        round(statistics.median(sort_function(case) for case in case_data_list), 2),
+        " Mode:",
+        round(statistics.mode(sort_function(case) for case in case_data_list), 2),
     )
 
 
