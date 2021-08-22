@@ -4,7 +4,7 @@ This is a scraper to collect and process public case records from the [Hayes Cou
 
 This should be adaptable to other Tyler Technologies Odyssey based court records sites.
 
-### Installation and Usage
+### Installation
 
 1. Clone this repo - `git clone https://github.com/derac/hays-scraper.git`
 1. Go to it - `cd hays-scraper`
@@ -14,6 +14,9 @@ This should be adaptable to other Tyler Technologies Odyssey based court records
    - `./Scripts/activate.ps1` (powershell)
    - `source bin/activate.fish` (fish)
 1. Install libraries - `pip install -r requirements.txt`
+
+### Usage
+
 1. Scrape calendar data by JO and day - `python ./src/scrape_calendar_data.py`
    - ./data_by_JO/{**JO name**}/calendar_html/{**date**}.html
 1. Scrape individual cases from calendar data `python ./src/scrape_case_data.py`
