@@ -88,11 +88,16 @@ if __name__ == "__main__":
                             # Rate limiting - convert ms to seconds
                             sleep(args.ms_wait / 1000)
                         else:
+                            curr_vars = f"{JO_name = }\n{case_url = }"
                             print(
-                                f'ERROR: "Date Filed" substring not found in case html page. Aborting. Writing ./debug.html'
+                                'ERROR: "Date Filed" substring not found in case html page. Aborting.\n',
+                                "Writing ./debug.html with response and ./debug.txt with current variables.\n",
+                                curr_vars,
                             )
                             with open("debug.html", "w") as file_handle:
                                 file_handle.write(case_results.text)
+                            with open("debug.txt", "w") as file_handle:
+                                file_handle.write(curr_vars)
                             quit()
                         # Rate limiting - convert ms to seconds
                         sleep(args.ms_wait / 1000)
