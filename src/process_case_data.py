@@ -16,7 +16,6 @@ argparser.add_argument(
 args = argparser.parse_args()
 
 START_TIME = time()
-case_data_list = []
 
 for JO_folder in os.scandir("data_by_JO"):
     case_data_path = os.path.join(JO_folder.path, "case_data")
@@ -239,7 +238,6 @@ for JO_folder in os.scandir("data_by_JO"):
                 # print to see if there are sections we are missing in any of the table sections
                 # print(table)
 
-        case_data_list.append(case_data)
         # Write file as json data
         json_str = json.dumps(case_data)
         print("Writing:", case_filename)
@@ -248,46 +246,14 @@ for JO_folder in os.scandir("data_by_JO"):
             file_handle.write(json_str)
 
 # Print some data for debugging and statistics purposes
-N_LONGEST = 5
+
 RUN_TIME = time() - START_TIME
 
-if len(case_data_list) >= N_LONGEST:
+from print_case_stats import case_data_list
 
-    def print_top_cases_by_lambda(sort_function, description):
-        print("\n", N_LONGEST, "longest cases by", description + ".")
-        cases_by_lambda = sorted(case_data_list, key=sort_function)[-N_LONGEST:]
-        print(
-            "\n".join(
-                f"{i}. {sort_function(case)} - {case['filename']}"
-                for i, case in enumerate(cases_by_lambda[::-1], 1)
-            )
-        )
-
-    print_top_cases_by_lambda(lambda case: len(str(case)), "string length")
-    print(
-        "Average string length of cases:",
-        int(sum(len(str(case)) for case in case_data_list) / len(case_data_list)),
-    )
-    events_len = lambda case: len(case["other events and hearings"])
-    print_top_cases_by_lambda(
-        events_len,
-        "'other events and hearings' length",
-    )
-    print(
-        "Average 'other events and hearings' length of cases:",
-        int(sum(events_len(case) for case in case_data_list) / len(case_data_list)),
-    )
-    disposition_len = lambda case: len(case["dispositions"])
-    print_top_cases_by_lambda(
-        disposition_len,
-        "'dispositions' length",
-    )
-    print(
-        "Average 'dispositions' length of cases:",
-        int(
-            sum(disposition_len(case) for case in case_data_list) / len(case_data_list)
-        ),
-    )
-    print("\nNumber of cases processed:", len(case_data_list))
-    print("Time to run script:", round(RUN_TIME, 2), "seconds")
-    print("Milliseconds per case:", int(RUN_TIME / len(case_data_list) * 1000), "ms")
+print("\nTime to run script:", round(RUN_TIME, 2), "seconds")
+print(
+    "Milliseconds per case:",
+    int(RUN_TIME / len(case_data_list) * 1000),
+    "ms",
+)
