@@ -61,7 +61,7 @@ if __name__ == "__main__":
                     ):
                         print("All cases are cached for this file.")
                         continue
-                    # We need to visit the calendar page for this case before visiting it with the session
+                    # We need to visit the calendar page for this set of cases before visiting them with the session
                     session.post(
                         calendar_page_url,
                         data=make_form_data(case_date, JO_id, viewstate_token),
