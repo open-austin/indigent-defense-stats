@@ -12,8 +12,6 @@ from config import (
     MS_WAIT_PER_REQUEST,
 )
 
-MS_WAIT_PER_REQUEST = 200
-
 if __name__ == "__main__":
     # Initial setup for the session
     session = requests.Session()
