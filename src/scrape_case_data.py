@@ -66,6 +66,8 @@ if __name__ == "__main__":
                         calendar_page_url,
                         data=make_form_data(case_date, JO_id, viewstate_token),
                     )
+                    # Rate limiting - convert ms to seconds
+                    sleep(args.ms_wait / 1000)
 
                 # Process each case
                 for case_anchor in case_anchors:
@@ -99,7 +101,5 @@ if __name__ == "__main__":
                             with open("debug.txt", "w") as file_handle:
                                 file_handle.write(curr_vars)
                             quit()
-                        # Rate limiting - convert ms to seconds
-                        sleep(args.ms_wait / 1000)
                     else:
                         print("Data is already cached. Skipping.")
