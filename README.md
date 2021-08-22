@@ -1,6 +1,6 @@
 ## Hays County Criminal Records Scraper
 
-This is a scraper to collect and process public case records from the [Hayes County Criminal Records](http://public.co.hays.tx.us/) database. The intention is to gain insight into this opaque system and advocate for defendant's rights.
+This is a scraper to collect and process public case records from the [Hayes County Criminal Records](http://public.co.hays.tx.us/) database. The intention is to gain insight and advocate for defendant's rights.
 
 This should be adaptable to other Tyler Technologies Odyssey based court records sites.
 
