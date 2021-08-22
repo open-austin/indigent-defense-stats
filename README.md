@@ -19,13 +19,17 @@ This should be adaptable to other Tyler Technologies Odyssey based court records
 
 **Use --help for command line parameter information.**
 
-1. Scrape calendar data by JO and day - `python ./src/scrape_calendar_data.py`
+1. Scrape calendar data by JO and day
+   - `python ./src/scrape_calendar_data.py`
    - _./data_by_JO/_{**JO name**}_/calendar_html/_{**date**}_.html_
-1. Scrape individual cases from calendar data `python ./src/scrape_case_data.py`
+1. Scrape individual cases from calendar data
+   - `python ./src/scrape_case_data.py`
    - _./data_by_JO/_{**JO name**}_/case_html/_{**date**} {**odyssey id**}_.html_
-1. Process the case data into JSON files `python ./src/process_case_date.py`
+1. Process the case data into JSON files
+   - `python ./src/process_case_date.py`
    - _./data_by_JO/_{**JO name**}_/case_data/_{**case code**}_.json_
-1. Print some stats from the JSON. `python ./src/print_case_stats.py`
+1. Print some stats from the JSON.
+   - `python ./src/print_case_stats.py`
 
 ## Implementation Details
 
