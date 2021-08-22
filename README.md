@@ -1,6 +1,6 @@
 ## Hays County Criminal Records Scraper
 
-This is a simple scraper that uses `requests` and `beautifulsoup` to collect and process case records from the [Hayes County Criminal Records](http://public.co.hays.tx.us/) public database.
+This is a scraper to collect and process public case records from the [Hayes County Criminal Records](http://public.co.hays.tx.us/) database. The intention is to gain insight into this opaque system and advocate for defendant's rights.
 
 ### Installation and Usage
 
