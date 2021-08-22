@@ -1,14 +1,15 @@
 import os
-import requests
 from time import sleep
 
+import requests
 from bs4 import BeautifulSoup
 
-from scrape_calendar_data import (
+from config import (
     make_form_data,
     judicial_officer_to_ID,
     main_page_url,
     calendar_page_url,
+    MS_WAIT_PER_REQUEST,
 )
 
 MS_WAIT_PER_REQUEST = 200
