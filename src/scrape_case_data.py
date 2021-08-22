@@ -4,17 +4,15 @@ from time import sleep
 from config import (
     make_form_data,
     judicial_officer_to_ID,
-    main_page_url,
     calendar_page_url,
     argparser,
     session,
-    viewstate_token,
+    main_page_url,
     BeautifulSoup,
 )
 
 argparser.description = "Scrape case data using cached JO calendar html data."
 args = argparser.parse_args()
-
 
 # Make data dir if it doesn't exist
 if not os.path.exists("data_by_JO"):
@@ -54,7 +52,7 @@ for JO_name, JO_id in judicial_officer_to_ID.items():
                 # We need to visit the calendar page for this set of cases before visiting them with the session
                 session.post(
                     calendar_page_url,
-                    data=make_form_data(case_date, JO_id, viewstate_token),
+                    data=make_form_data(case_date, JO_id),
                 )
                 # Rate limiting - convert ms to seconds
                 sleep(args.ms_wait / 1000)

@@ -8,7 +8,6 @@ from config import (
     calendar_page_url,
     argparser,
     session,
-    viewstate_token,
 )
 
 argparser.description = "Scrape calendar html data from judicial officers."
@@ -27,7 +26,6 @@ argparser.add_argument(
     help="The number of days ago to start scraping. 1 is Yesterday.",
 )
 args = argparser.parse_args()
-
 TODAY = datetime.datetime.today()
 
 # Days in the past starting with yesterday.
@@ -45,7 +43,7 @@ for day_offset in range(args.start_offset, args.days):
         if not os.path.exists(cal_html_file_path):
             cal_results = session.post(
                 calendar_page_url,
-                data=make_form_data(date_string, JO_id, viewstate_token),
+                data=make_form_data(date_string, JO_id),
             )
             # Error check based on text in html result.
             if "Record Count" in cal_results.text:

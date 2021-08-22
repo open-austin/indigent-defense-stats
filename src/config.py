@@ -38,11 +38,11 @@ judicial_officer_to_ID = {
 }
 
 
-def make_form_data(date, JO_id, viewstate):
+def make_form_data(date, JO_id):
     return {
         "__EVENTTARGET": "",
         "__EVENTARGUMENT": "",
-        "__VIEWSTATE": viewstate,
+        "__VIEWSTATE": viewstate_token,
         "__VIEWSTATEGENERATOR": "BBBC20B8",
         "__EVENTVALIDATION": "/wEWAgKEib6eCQKYxoa5CABRE1bdUnTyMmdE4n0IKj4cWw4t",
         "SearchBy": "3",
