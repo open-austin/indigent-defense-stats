@@ -33,11 +33,12 @@ def print_top_cases_by_lambda(sort_function, description):
     )
 
 
+disposition_len = (lambda case: len(case["dispositions"]), "dispositions length")
+charges_len = (lambda case: len(case["charge information"]), "number of charges")
 events_len = (
     lambda case: len(case["other events and hearings"]),
     "other events and hearings length",
 )
-disposition_len = (lambda case: len(case["dispositions"]), "dispositions length")
 case_cost = (
     lambda case: float(
         case["financial information"]["total financial assessment"].replace(",", "")
@@ -46,7 +47,6 @@ case_cost = (
     else 0.0,
     "highest cost",
 )
-charges_len = (lambda case: len(case["charge information"]), "number of charges")
 for sort_function, description in (events_len, disposition_len, case_cost, charges_len):
     print_top_cases_by_lambda(
         sort_function,
