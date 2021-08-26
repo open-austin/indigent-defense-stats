@@ -21,6 +21,9 @@ main_response = session.get(args.main_page)
 main_soup = BeautifulSoup(main_response.text, "html.parser")
 calendar_response = session.get(args.main_page + "Search.aspx?ID=900")
 calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
+if "Court Calendar" not in calendar_soup.text:
+    print("ERROR: Couldn't access Court Calendar page. Quitting.")
+    quit()
 hidden_values = {
     hidden["name"]: hidden["value"]
     for hidden in calendar_soup.select('input[type="hidden"]')
