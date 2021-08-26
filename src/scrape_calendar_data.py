@@ -7,21 +7,21 @@ from bs4 import BeautifulSoup
 
 from libraries.scrape_config import (
     make_form_data,
-    judicial_officer_to_ID,
+    setup_directories,
     argparser,
 )
 
 argparser.description = "Scrape calendar html data from judicial officers."
 argparser.add_argument(
-    "--days",
-    "--d",
+    "-days",
+    "-d",
     type=int,
     default=5 * 365,
     help="Number of days to scrape (backwards).",
 )
 argparser.add_argument(
-    "--start_offset",
-    "--s",
+    "-start_offset",
+    "-s",
     type=int,
     default=1,
     help="The number of days ago to start scraping. 1 is Yesterday.",
@@ -32,16 +32,24 @@ TODAY = datetime.today()
 # Initial setup for the session
 session = requests.Session()
 session.get(args.main_page)
-# May not be necessary, grabbing viewstate for form data
-viewstate_token = BeautifulSoup(
-    session.get(args.calendar_page).text, "html.parser"
-).find(id="__VIEWSTATE")["value"]
+calendar_response = session.get(args.calendar_page)
+calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
+viewstate_token = calendar_soup.find(id="__VIEWSTATE")["value"]
+judicial_officer_to_ID = {
+    option.text: option["value"]
+    for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
+}
+
+
+# Make all data folders if they don't exist
+setup_directories(args.judicial_officers)
 
 # Days in the past starting with yesterday.
 for day_offset in range(args.start_offset, args.days):
     date_string = datetime.strftime(TODAY - timedelta(days=day_offset), "%m/%d/%Y")
     file_name = f"{date_string.replace('/','-')}.html"
-    for JO_name, JO_id in judicial_officer_to_ID.items():
+    for JO_name in args.judicial_officers:
+        JO_id = judicial_officer_to_ID[JO_name]
         print(f"Capturing data for JO {JO_name} on {date_string}")
         cal_html_file_path = os.path.join(
             "data_by_JO", JO_name, "calendar_html", file_name

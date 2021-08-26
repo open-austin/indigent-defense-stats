@@ -3,39 +3,43 @@ import argparse
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument(
-    "--ms_wait",
-    "--w",
+    "-ms_wait",
+    "-w",
     type=int,
     default=200,
     help="Number of ms to wait between requests.",
 )
 argparser.add_argument(
-    "--main_page",
-    "--m",
+    "-main_page",
+    "-m",
     type=str,
     default="http://public.co.hays.tx.us/",
     help="URL for the main page of the Odyssey site.",
 )
 argparser.add_argument(
-    "--calendar_page",
-    "--c",
+    "-calendar_page",
+    "-c",
     type=str,
     default="http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts",
-    help="URL for the calendar page of the Odyssey site.",
+    help="URL for the calendar page of the Odyssey site. Would need JavaScript to parse otherwise or a workaround.",
 )
-
-# TODO: Find out the timespan when each JO presided?
-judicial_officer_to_ID = {
-    "visiting_officer": "37809",
-    "Boyer_Bruce": "39607",
-    "Johnson_Chris": "48277",
-    "Robison_Jack": "6140",
-    "Sherri_Tibbe": "55054",
-    "Henry_Bill": "25322",
-    "Steel_Gary": "6142",
-    "Updegrove_Robert": "38628",
-    "Zelhart_Tacie": "48274",
-}
+argparser.add_argument(
+    "-judicial_officers",
+    "-j",
+    type=list,
+    default=[
+        "VISITING, JUDGE",
+        "Boyer, Bruce",
+        "Johnson, Chris",
+        "Robison, Jack",
+        "Tibbe, Sherri K.",
+        "Henry, William R",
+        "Steel, Gary L.",
+        "Updegrove, Robert",
+        "Zelhart, Tacie",
+    ],
+    help="Judicial Officers to scrape.",
+)
 
 
 def make_form_data(date, JO_id, viewstate_token):
@@ -92,16 +96,16 @@ def make_form_data(date, JO_id, viewstate_token):
     }
 
 
-# Make all data folders if they don't exist
-if not os.path.exists("data_by_JO"):
-    os.mkdir("data_by_JO")
-for JO_name in judicial_officer_to_ID.keys():
-    JO_path = os.path.join("data_by_JO", JO_name)
-    JO_case_path = os.path.join(JO_path, "case_html")
-    JO_cal_path = os.path.join(JO_path, "calendar_html")
-    if not os.path.exists(JO_path):
-        os.mkdir(JO_path)
-    if not os.path.exists(JO_case_path):
-        os.mkdir(JO_case_path)
-    if not os.path.exists(JO_cal_path):
-        os.mkdir(JO_cal_path)
+def setup_directories(judicial_officers):
+    if not os.path.exists("data_by_JO"):
+        os.mkdir("data_by_JO")
+    for JO_name in judicial_officers:
+        JO_path = os.path.join("data_by_JO", JO_name)
+        JO_case_path = os.path.join(JO_path, "case_html")
+        JO_cal_path = os.path.join(JO_path, "calendar_html")
+        if not os.path.exists(JO_path):
+            os.mkdir(JO_path)
+        if not os.path.exists(JO_case_path):
+            os.mkdir(JO_case_path)
+        if not os.path.exists(JO_cal_path):
+            os.mkdir(JO_cal_path)

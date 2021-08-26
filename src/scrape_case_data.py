@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 from libraries.scrape_config import (
     make_form_data,
-    judicial_officer_to_ID,
+    setup_directories,
     argparser,
 )
 
@@ -16,18 +16,27 @@ args = argparser.parse_args()
 # Initial setup for the session
 session = requests.Session()
 session.get(args.main_page)
-# May not be necessary, grabbing viewstate for form data
-viewstate_token = BeautifulSoup(
-    session.get(args.calendar_page).text, "html.parser"
-).find(id="__VIEWSTATE")["value"]
+calendar_response = session.get(args.calendar_page)
+calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
+viewstate_token = calendar_soup.find(id="__VIEWSTATE")["value"]
+judicial_officer_to_ID = {
+    option.text: option["value"]
+    for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
+}
 
-# Make data dir if it doesn't exist
-if not os.path.exists("data_by_JO"):
-    os.mkdir("data_by_JO")
 
-for JO_name, JO_id in judicial_officer_to_ID.items():
+# Make all data folders if they don't exist
+setup_directories(args.judicial_officers)
+
+for JO_name in args.judicial_officers:
     JO_case_path = os.path.join("data_by_JO", JO_name, "case_html")
     JO_cal_path = os.path.join("data_by_JO", JO_name, "calendar_html")
+    if JO_name not in judicial_officer_to_ID:
+        print(
+            f"ERROR: judicial officer {JO_name} not found on calendar page. Continuing."
+        )
+        continue
+    JO_id = judicial_officer_to_ID[JO_name]
 
     # Begin processing each calendar html file for this JO
     for cal_html_file in os.scandir(JO_cal_path):
