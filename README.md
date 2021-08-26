@@ -1,10 +1,11 @@
 ## Tyler Technologies Odyssey court records scraper
 
-This is a scraper to collect and process public case records from the Tyler Technologies Odyssey County Records system. The intention is to gain insight and advocate for defendant's rights. A google search for ["Copyright \* Tyler Technologies" "Court Calendar"](https://www.google.com/search?q=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&oq=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&aqs=edge..69i57.283j0j1&sourceid=chrome&ie=UTF-8) will show some other possible sites to scrape. You should just need to input parameters for the main page, calendar page, and a list of JOs for the scraping utilities. In practice, you still need to change up the form data a bit, still working it out. For instance with [Hood County](https://txhoododyprod.tylerhost.net/PublicAccess/default.aspx) You need the NodeId and NodeDesc hidden fields, but they have nothing in them on first response.
+This is a scraper to collect and process public case records from the Tyler Technologies Odyssey County Records system. The intention is to gain insight and advocate for defendant's rights. A google search for ["Copyright \* Tyler Technologies" "Court Calendar"](https://www.google.com/search?q=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&oq=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&aqs=edge..69i57.283j0j1&sourceid=chrome&ie=UTF-8) will show some other possible sites to scrape. You should just need to input parameters for the main page and a list of JOs and scrape any Odyssey page.
 
 Tested with:
 
 - http://public.co.hays.tx.us/
+- https://txhoododyprod.tylerhost.net/PublicAccess/
 
 ### Installation
 

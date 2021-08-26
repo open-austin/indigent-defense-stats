@@ -31,8 +31,9 @@ TODAY = datetime.today()
 
 # Initial setup for the session
 session = requests.Session()
-session.get(args.main_page)
-calendar_response = session.get(args.calendar_page)
+main_response = session.get(args.main_page)
+main_soup = BeautifulSoup(main_response.text, "html.parser")
+calendar_response = session.get(args.main_page + "Search.aspx?ID=900")
 calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
 hidden_values = {
     hidden["name"]: hidden["value"]
@@ -42,6 +43,8 @@ judicial_officer_to_ID = {
     option.text: option["value"]
     for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
 }
+node_info = main_soup.select_one('select[id="sbxControlID2"] > option')
+hidden_values.update({"NodeDesc": node_info.text, "NodeID": node_info["value"]})
 
 # Make all data folders if they don't exist
 setup_directories(args.judicial_officers)
@@ -59,7 +62,7 @@ for day_offset in range(args.start_offset, args.days):
         # Check if the file is already cached before requesting
         if not os.path.exists(cal_html_file_path):
             cal_results = session.post(
-                args.calendar_page,
+                args.main_page + "Search.aspx?ID=900",
                 data=make_form_data(date_string, JO_id, hidden_values),
             )
             # Error check based on text in html result.

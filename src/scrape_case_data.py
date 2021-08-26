@@ -15,8 +15,9 @@ args = argparser.parse_args()
 
 # Initial setup for the session
 session = requests.Session()
-session.get(args.main_page)
-calendar_response = session.get(args.calendar_page)
+main_response = session.get(args.main_page)
+main_soup = BeautifulSoup(main_response.text, "html.parser")
+calendar_response = session.get(args.main_page + "Search.aspx?ID=900")
 calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
 hidden_values = {
     hidden["name"]: hidden["value"]
@@ -26,6 +27,8 @@ judicial_officer_to_ID = {
     option.text: option["value"]
     for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
 }
+node_info = main_soup.select_one('select[id="sbxControlID2"] > option')
+hidden_values.update({"NodeDesc": node_info.text, "NodeID": node_info["value"]})
 
 
 # Make all data folders if they don't exist
@@ -69,7 +72,7 @@ for JO_name in args.judicial_officers:
                     continue
                 # We need to visit the calendar page for this set of cases before visiting them with the session
                 session.post(
-                    args.calendar_page,
+                    args.main_page + "Search.aspx?ID=900",
                     data=make_form_data(case_date, JO_id, hidden_values),
                 )
                 # Rate limiting - convert ms to seconds

@@ -17,13 +17,6 @@ argparser.add_argument(
     help="URL for the main page of the Odyssey site.",
 )
 argparser.add_argument(
-    "-calendar_page",
-    "-c",
-    type=str,
-    default="http://public.co.hays.tx.us/Search.aspx?ID=900&NodeID=100,101,102,103,200,201,202,203,204,6112,400,401,402,403,404,405,406,407,6111,6114&NodeDesc=All%20Courts",
-    help="URL for the calendar page of the Odyssey site. Would need JavaScript to parse otherwise or a workaround.",
-)
-argparser.add_argument(
     "-judicial_officers",
     "-j",
     nargs="*",
