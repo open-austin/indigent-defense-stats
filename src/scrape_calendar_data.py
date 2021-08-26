@@ -27,6 +27,8 @@ argparser.add_argument(
     help="The number of days ago to start scraping. 1 is Yesterday.",
 )
 args = argparser.parse_args()
+if "default.aspx" in args.main_page:
+    args.main_page = args.main_page.replace("default.aspx", "")
 TODAY = datetime.today()
 
 # Initial setup for the session

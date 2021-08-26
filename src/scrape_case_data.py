@@ -12,6 +12,8 @@ from libraries.scrape_config import (
 
 argparser.description = "Scrape case data using cached JO calendar html data."
 args = argparser.parse_args()
+if "default.aspx" in args.main_page:
+    args.main_page = args.main_page.replace("default.aspx", "")
 
 # Initial setup for the session
 session = requests.Session()
