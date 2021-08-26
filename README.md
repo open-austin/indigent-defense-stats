@@ -1,4 +1,4 @@
-## Tyler Technologies Odyssey County Records Scraper
+## Tyler Technologies Odyssey court records scraper
 
 This is a scraper to collect and process public case records from the Tyler Technologies Odyssey County Records system. The intention is to gain insight and advocate for defendant's rights.
 
