@@ -26,7 +26,8 @@ argparser.add_argument(
 argparser.add_argument(
     "-judicial_officers",
     "-j",
-    type=list,
+    nargs="*",
+    type=str,
     default=[
         "VISITING, JUDGE",
         "Boyer, Bruce",
@@ -38,7 +39,7 @@ argparser.add_argument(
         "Updegrove, Robert",
         "Zelhart, Tacie",
     ],
-    help="Judicial Officers to scrape.",
+    help="Judicial Officers to scrape. e.g. -j 'mr. something' 'Rob, Albert'",
 )
 
 
