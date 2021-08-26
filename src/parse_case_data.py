@@ -13,11 +13,21 @@ argparser.add_argument(
     action="store_true",
     help="Switch to overwrite all cached case data.",
 )
+argparser.add_argument(
+    "-judicial_officers",
+    "-j",
+    nargs="*",
+    type=str,
+    default=[],
+    help="Judicial Officers to scrape. e.g. -j 'mr. something' 'Rob, Albert'",
+)
 args = argparser.parse_args()
 
 START_TIME = time()
 
 for JO_folder in os.scandir("data_by_JO"):
+    if args.judicial_officers and JO_folder.name not in args.judicial_officers:
+        continue
     case_data_path = os.path.join(JO_folder.path, "case_data")
     if not os.path.exists(case_data_path):
         os.mkdir(case_data_path)
@@ -34,7 +44,7 @@ for JO_folder in os.scandir("data_by_JO"):
         case_data["osyssey id"] = case_html_file.name.split()[1].split(".")[0]
         case_data["date"] = case_html_file.name.split()[0].replace("-", "/")
         case_filename = os.path.join(case_data_path, case_data["code"] + ".json")
-        case_data["judicial officer"] = str(JO_folder.name).replace("_", ", ")
+        case_data["judicial officer"] = str(JO_folder.name)
         case_data["file processed"] = case_html_file.path
         case_data["filename"] = case_filename
         if args.overwrite:

@@ -32,8 +32,8 @@ Tested with:
 1. Scrape individual cases from calendar data.
    - `python ./src/scrape_case_data.py`
    - _./data_by_JO/_{**JO name**}_/case_html/_{**date**} {**odyssey id**}_.html_
-1. Process the case data into JSON files.
-   - `python ./src/process_case_data.py`
+1. Parse the case data into JSON files.
+   - `python ./src/parse_case_data.py`
    - _./data_by_JO/_{**JO name**}_/case_data/_{**case code**}_.json_
 1. Print some stats from the JSON.
    - `python ./src/print_case_stats.py`
