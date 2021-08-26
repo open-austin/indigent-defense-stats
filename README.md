@@ -1,6 +1,6 @@
-## Typer Technologies Odyssey County Records Scraper
+## Tyler Technologies Odyssey County Records Scraper
 
-This is a scraper to collect and process public case records from the [Hayes County Criminal Records](http://public.co.hays.tx.us/) database. The intention is to gain insight and advocate for defendant's rights.
+This is a scraper to collect and process public case records from the Tyler Technologies Odyssey County Records system. The intention is to gain insight and advocate for defendant's rights.
 
 Supported portals:
 - http://public.co.hays.tx.us/
