@@ -1,8 +1,9 @@
 ## Tyler Technologies Odyssey court records scraper
 
-This is a scraper to collect and process public case records from the Tyler Technologies Odyssey County Records system. The intention is to gain insight and advocate for defendant's rights. A google search for ["Copyright * Tyler Technologies" "Court Calendar"](https://www.google.com/search?q=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&oq=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&aqs=edge..69i57.283j0j1&sourceid=chrome&ie=UTF-8) will show some other possible sites to scrape. Need to make setting the JO list in config easier. You should just need to do that and set the main page.
+This is a scraper to collect and process public case records from the Tyler Technologies Odyssey County Records system. The intention is to gain insight and advocate for defendant's rights. A google search for ["Copyright \* Tyler Technologies" "Court Calendar"](https://www.google.com/search?q=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&oq=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&aqs=edge..69i57.283j0j1&sourceid=chrome&ie=UTF-8) will show some other possible sites to scrape. Need to make setting the JO list in config easier. You should just need to do that and set the main and calendar pages.
 
 Tested with:
+
 - http://public.co.hays.tx.us/
 
 ### Installation
@@ -38,6 +39,7 @@ Tested with:
 
 ## Implementation Details
 
+- Can't easily set the calendar page from vising the main page because it uses Javascript to generate the link. Would be nice though.
 - The session must visit the main page in order to access the calendar search page.
 - To visit a case page, you must have visited a results page containing it.
 - Some form data must be sent with the search request. Data in _./src/libraries/scrape_config.py_.
