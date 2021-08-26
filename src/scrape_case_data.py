@@ -18,7 +18,10 @@ session = requests.Session()
 session.get(args.main_page)
 calendar_response = session.get(args.calendar_page)
 calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
-viewstate_token = calendar_soup.find(id="__VIEWSTATE")["value"]
+hidden_values = {
+    hidden["name"]: hidden["value"]
+    for hidden in calendar_soup.select('input[type="hidden"]')
+}
 judicial_officer_to_ID = {
     option.text: option["value"]
     for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
@@ -67,7 +70,7 @@ for JO_name in args.judicial_officers:
                 # We need to visit the calendar page for this set of cases before visiting them with the session
                 session.post(
                     args.calendar_page,
-                    data=make_form_data(case_date, JO_id, viewstate_token),
+                    data=make_form_data(case_date, JO_id, hidden_values),
                 )
                 # Rate limiting - convert ms to seconds
                 sleep(args.ms_wait / 1000)

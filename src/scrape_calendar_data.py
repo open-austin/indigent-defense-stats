@@ -34,12 +34,14 @@ session = requests.Session()
 session.get(args.main_page)
 calendar_response = session.get(args.calendar_page)
 calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
-viewstate_token = calendar_soup.find(id="__VIEWSTATE")["value"]
+hidden_values = {
+    hidden["name"]: hidden["value"]
+    for hidden in calendar_soup.select('input[type="hidden"]')
+}
 judicial_officer_to_ID = {
     option.text: option["value"]
     for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
 }
-
 
 # Make all data folders if they don't exist
 setup_directories(args.judicial_officers)
@@ -58,7 +60,7 @@ for day_offset in range(args.start_offset, args.days):
         if not os.path.exists(cal_html_file_path):
             cal_results = session.post(
                 args.calendar_page,
-                data=make_form_data(date_string, JO_id, viewstate_token),
+                data=make_form_data(date_string, JO_id, hidden_values),
             )
             # Error check based on text in html result.
             if "Record Count" in cal_results.text:
