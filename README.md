@@ -5,7 +5,7 @@ This is a scraper to collect and process public case records from the Tyler Tech
 Tested with:
 
 - http://public.co.hays.tx.us/
-- https://txhoododyprod.tylerhost.net/PublicAccess/ _parser fails, but looks close
+- https://txhoododyprod.tylerhost.net/PublicAccess/ parser fails, but looks close
 
 ### Installation
 
