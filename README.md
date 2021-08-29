@@ -26,11 +26,9 @@ Tested with:
 
 **Use --help for command line parameter information.**
 
-1. Scrape calendar data by JO and day.
-   - `python ./src/scrape_calendar_data.py`
+1. Scrape calendar and case data by JO and day. The data will be cached in the following way.
+   - `python ./src/scrape_html_data.py`
    - _./data_by_JO/_{**JO name**}_/calendar_html/_{**date**}_.html_
-1. Scrape individual cases from calendar data.
-   - `python ./src/scrape_case_data.py`
    - _./data_by_JO/_{**JO name**}_/case_html/_{**date**} {**odyssey id**}_.html_
 1. Parse the case data into JSON files.
    - `python ./src/parse_case_data.py`

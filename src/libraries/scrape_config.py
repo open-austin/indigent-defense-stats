@@ -1,6 +1,11 @@
 import os
 import argparse
 
+import requests
+from bs4 import BeautifulSoup
+
+# initialization
+
 argparser = argparse.ArgumentParser()
 argparser.add_argument(
     "-ms_wait",
@@ -15,6 +20,20 @@ argparser.add_argument(
     type=str,
     default="http://public.co.hays.tx.us/",
     help="URL for the main page of the Odyssey site.",
+)
+argparser.add_argument(
+    "-days",
+    "-d",
+    type=int,
+    default=5 * 365,
+    help="Number of days to scrape (backwards).",
+)
+argparser.add_argument(
+    "-start_offset",
+    "-s",
+    type=int,
+    default=1,
+    help="The number of days ago to start scraping. 1 is Yesterday.",
 )
 argparser.add_argument(
     "-judicial_officers",
@@ -34,8 +53,48 @@ argparser.add_argument(
     ],
     help="Judicial Officers to scrape. e.g. -j 'mr. something' 'Rob, Albert'",
 )
+argparser.description = "Scrape data for list of judicial officers in date range."
+
+args = argparser.parse_args()
+if "default.aspx" in args.main_page:
+    args.main_page = args.main_page.replace("default.aspx", "")
+
+# Initial setup for the session
+session = requests.Session()
+main_response = session.get(args.main_page)
+main_soup = BeautifulSoup(main_response.text, "html.parser")
+calendar_response = session.get(args.main_page + "Search.aspx?ID=900")
+calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
+if "Court Calendar" not in calendar_soup.text:
+    print("ERROR: Couldn't access Court Calendar page. Quitting.")
+    quit()
+hidden_values = {
+    hidden["name"]: hidden["value"]
+    for hidden in calendar_soup.select('input[type="hidden"]')
+}
+judicial_officer_to_ID = {
+    option.text: option["value"]
+    for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
+}
+node_info = main_soup.select_one('select[id="sbxControlID2"] > option')
+hidden_values.update({"NodeDesc": node_info.text, "NodeID": node_info["value"]})
+
+# make directoriesif not present
+if not os.path.exists("data_by_JO"):
+    os.mkdir("data_by_JO")
+for JO_name in args.judicial_officers:
+    JO_path = os.path.join("data_by_JO", JO_name)
+    JO_case_path = os.path.join(JO_path, "case_html")
+    JO_cal_path = os.path.join(JO_path, "calendar_html")
+    if not os.path.exists(JO_path):
+        os.mkdir(JO_path)
+    if not os.path.exists(JO_case_path):
+        os.mkdir(JO_case_path)
+    if not os.path.exists(JO_cal_path):
+        os.mkdir(JO_cal_path)
 
 
+# helper function to make form data
 def make_form_data(date, JO_id, hidden_values):
     form_data = {}
     form_data.update(hidden_values)
@@ -88,18 +147,3 @@ def make_form_data(date, JO_id, hidden_values):
         }
     )
     return form_data
-
-
-def setup_directories(judicial_officers):
-    if not os.path.exists("data_by_JO"):
-        os.mkdir("data_by_JO")
-    for JO_name in judicial_officers:
-        JO_path = os.path.join("data_by_JO", JO_name)
-        JO_case_path = os.path.join(JO_path, "case_html")
-        JO_cal_path = os.path.join(JO_path, "calendar_html")
-        if not os.path.exists(JO_path):
-            os.mkdir(JO_path)
-        if not os.path.exists(JO_case_path):
-            os.mkdir(JO_case_path)
-        if not os.path.exists(JO_cal_path):
-            os.mkdir(JO_cal_path)
