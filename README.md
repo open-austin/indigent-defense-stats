@@ -6,6 +6,7 @@ Tested with:
 
 - http://public.co.hays.tx.us/ (~4k cases from 2 months from 9 JOs)
 - https://txhoododyprod.tylerhost.net/PublicAccess/ (110 cases from 1 JO)
+- https://judicial.smith-county.com/PublicAccess/ (125 cases from 1 JO)
 
 ### Installation
 
