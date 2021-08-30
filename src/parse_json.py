@@ -264,7 +264,7 @@ for JO_folder in os.scandir("data_by_JO"):
 
 RUN_TIME = time() - START_TIME
 
-from print_case_stats import case_data_list
+from print_stats import case_data_list
 
 print("\nTime to run script:", round(RUN_TIME, 2), "seconds")
 print(
