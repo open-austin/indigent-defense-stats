@@ -4,7 +4,7 @@ from time import sleep, time
 
 from bs4 import BeautifulSoup
 
-from libraries.scrape_config import (
+from configs.scrape_config import (
     make_form_data,
     write_debug_and_quit,
     args,
