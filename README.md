@@ -12,7 +12,7 @@ Tested with:
 
 1. Clone this repo.
    - `git clone https://github.com/derac/hays-scraper.git`
-1. Navigate to it.
+1. Navigate to it. (use venv if desired)
    - `cd hays-scraper`
 1. Install libraries.
    - `pip install -r requirements.txt`
