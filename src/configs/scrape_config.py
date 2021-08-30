@@ -10,7 +10,7 @@ def write_debug_and_quit(substr: str, html: str, vars: str):
     print(
         f"ERROR: '{substr}' substring not found in html page. Aborting.\n",
         "Writing ./debug.html with response and ./debug.txt with current variables.\n",
-        "You may need to check the main_page, location, or calendar_text parameters.\n",
+        "You may need to check the main_page, location, or calendar_link_text parameters.\n",
         vars,
     )
     with open("debug.html", "w") as file_handle:
@@ -44,7 +44,7 @@ argparser.add_argument(
     help="'Select a location' select box on the main page. Usually 'All Courts' will work.",
 )
 argparser.add_argument(
-    "-calendar_text",
+    "-calendar_link_text",
     "-c",
     type=str,
     default="Court Calendar",
@@ -101,7 +101,7 @@ main_soup = BeautifulSoup(main_response.text, "html.parser")
 # get path to the calendar page here
 search_page_links = main_soup.select('a[class="ssSearchHyperlink"]')
 for link in search_page_links:
-    if link.text == args.calendar_text:
+    if link.text == args.calendar_link_text:
         search_page_id = link["href"].split("?ID=")[1].split("'")[0]
 if not search_page_id:
     print("Couldn't find the Court Calendar page ID. Quitting.")
