@@ -154,8 +154,10 @@ for JO_folder in os.scandir("data_by_JO"):
                     ]
                     if len(defendant_rows[0]) > 7 + (has_height_and_weight - 1)
                     else "",
-                    "defendant address": ", ".join(defendant_rows[1][:-2]),
-                    "SID": defendant_rows[1][-1],
+                    "defendant address": ", ".join(
+                        defendant_rows[1][:-2] if len(defendant_rows) > 1 else []
+                    ),
+                    "SID": defendant_rows[1][-1] if len(defendant_rows) > 1 else "",
                     "prosecuting attorney": state_rows[0][2]
                     if len(state_rows[0]) > 2
                     else "",
