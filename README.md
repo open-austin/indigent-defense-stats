@@ -45,7 +45,7 @@ Tested with:
 - hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page.
 
 ## TODO
+
 - Some Odyssey sites have a CAPTCHA on the calendar page. This can't beat that yet. Could implement 2Captcha or get input from user potentially.
-- Some Odyssey sites have multiple choices for location and court calendar pages. These could be implemented with parameters. Examples:
-https://publicsearch.ndcourts.gov/
-https://judicialrecords.wilco.org/PublicAccess/default.aspx
+- this site is a special case with multiple "search.aspx" ids:
+  https://judicialrecords.wilco.org/PublicAccess/default.aspx

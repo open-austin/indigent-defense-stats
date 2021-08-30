@@ -1,5 +1,6 @@
 import os
 import argparse
+import re
 
 import requests
 from bs4 import BeautifulSoup
@@ -20,6 +21,13 @@ argparser.add_argument(
     type=str,
     default="http://public.co.hays.tx.us/",
     help="URL for the main page of the Odyssey site.",
+)
+argparser.add_argument(
+    "-location",
+    "-l",
+    type=str,
+    default="All Courts",
+    help="The desired setting for the 'Select a location' box on the main page. Usually All Courts should suffice.",
 )
 argparser.add_argument(
     "-days",
@@ -80,8 +88,8 @@ judicial_officer_to_ID = {
     option.text: option["value"]
     for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
 }
-node_info = main_soup.select_one('select[id="sbxControlID2"] > option')
-hidden_values.update({"NodeDesc": node_info.text, "NodeID": node_info["value"]})
+location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
+hidden_values.update({"NodeDesc": args.location, "NodeID": location_option["value"]})
 
 # make directoriesif not present
 if not os.path.exists("data_by_JO"):
