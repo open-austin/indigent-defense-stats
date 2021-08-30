@@ -12,14 +12,8 @@ Tested with:
 
 1. Clone this repo.
    - `git clone https://github.com/derac/hays-scraper.git`
-1. Navigate to it.
+1. Navigate to it. (use venv if desired)
    - `cd hays-scraper`
-1. _(optional)_ Make a virtual environment.
-   - `python -m venv .`
-1. _(optional)_ Activate it.
-   - _bash_ `source bin/activate`
-   - _powershell_ `./Scripts/activate.ps1`
-   - _fish_ `source bin/activate.fish`
 1. Install libraries.
    - `pip install -r requirements.txt`
 
