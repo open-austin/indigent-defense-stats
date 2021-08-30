@@ -5,8 +5,21 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-# initialization
+# helper logging function
+def write_debug_and_quit(html: str, vars: str):
+    print(
+        'ERROR: "Date Filed" substring not found in case html page. Aborting.\n',
+        "Writing ./debug.html with response and ./debug.txt with current variables.\n",
+        vars,
+    )
+    with open("debug.html", "w") as file_handle:
+        file_handle.write(html)
+    with open("debug.txt", "w") as file_handle:
+        file_handle.write(vars)
+    quit()
 
+
+# get command line parmeter info
 argparser = argparse.ArgumentParser()
 argparser.add_argument(
     "-ms_wait",
@@ -20,7 +33,7 @@ argparser.add_argument(
     "-m",
     type=str,
     default="http://public.co.hays.tx.us/",
-    help="URL for the main page of the Odyssey site.",
+    help="URL for the main page of the Odyssey site. Try to get the whole path with slash up to, but excluding 'default.aspx'",
 )
 argparser.add_argument(
     "-location",
@@ -80,6 +93,7 @@ if args.main_page[-1] != "/":
 
 # Initial setup for the session
 session = requests.Session()
+# allow bad ssh
 session.verify = False
 main_response = session.get(args.main_page)
 main_soup = BeautifulSoup(main_response.text, "html.parser")
@@ -89,13 +103,14 @@ for link in search_page_links:
     if link.text == args.calendar_text:
         search_page_id = link["href"].split("?ID=")[1].split("'")[0]
 if not search_page_id:
-    print("Couldn't find the search page ID. Quitting.")
+    print("Couldn't find the Court Calendar page ID. Quitting.")
     quit()
 calendar_url = args.main_page + "Search.aspx?ID=" + search_page_id
 calendar_response = session.get(calendar_url)
 calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
+# See if we got a good response
 if "Court Calendar" not in calendar_soup.text:
-    print("ERROR: Couldn't access Court Calendar page. Quitting.")
+    write_debug_and_quit(calendar_soup.text, f"{calendar_url = }")
     quit()
 hidden_values = {
     hidden["name"]: hidden["value"]
@@ -176,19 +191,6 @@ def make_form_data(date, JO_id, hidden_values):
         }
     )
     return form_data
-
-
-def write_debug_and_quit(html: str, vars: str):
-    print(
-        'ERROR: "Date Filed" substring not found in case html page. Aborting.\n',
-        "Writing ./debug.html with response and ./debug.txt with current variables.\n",
-        vars,
-    )
-    with open("debug.html", "w") as file_handle:
-        file_handle.write(html)
-    with open("debug.txt", "w") as file_handle:
-        file_handle.write(vars)
-    quit()
 
 
 __all__ = [
