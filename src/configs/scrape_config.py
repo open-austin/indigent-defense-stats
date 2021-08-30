@@ -27,7 +27,14 @@ argparser.add_argument(
     "-l",
     type=str,
     default="All Courts",
-    help="The desired setting for the 'Select a location' box on the main page. Usually All Courts should suffice.",
+    help="'Select a location' select box on the main page. Usually 'All Courts' will work.",
+)
+argparser.add_argument(
+    "-calendar_text",
+    "-c",
+    type=str,
+    default="Court Calendar",
+    help="The text on the main page that you click on to get to your desired calendar. Usually 'Court Calendar' will work.",
 )
 argparser.add_argument(
     "-days",
@@ -65,6 +72,7 @@ argparser.description = "Scrape data for list of judicial officers in date range
 
 args = argparser.parse_args()
 # remove default.aspx as a hacky way to accept not-well-formed urls
+# TODO: do this in a better way with url parser lib
 if "default.aspx" in args.main_page:
     args.main_page = args.main_page.replace("default.aspx", "")
 if args.main_page[-1] != "/":
@@ -75,7 +83,16 @@ session = requests.Session()
 session.verify = False
 main_response = session.get(args.main_page)
 main_soup = BeautifulSoup(main_response.text, "html.parser")
-calendar_response = session.get(args.main_page + "Search.aspx?ID=900")
+# get path to the calendar page here
+search_page_links = main_soup.select('a[class="ssSearchHyperlink"]')
+for link in search_page_links:
+    if link.text == args.calendar_text:
+        search_page_id = link["href"].split("?ID=")[1].split("'")[0]
+if not search_page_id:
+    print("Couldn't find the search page ID. Quitting.")
+    quit()
+calendar_url = args.main_page + "Search.aspx?ID=" + search_page_id
+calendar_response = session.get(calendar_url)
 calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
 if "Court Calendar" not in calendar_soup.text:
     print("ERROR: Couldn't access Court Calendar page. Quitting.")
@@ -181,4 +198,5 @@ __all__ = [
     "hidden_values",
     "judicial_officer_to_ID",
     "session",
+    "calendar_url",
 ]

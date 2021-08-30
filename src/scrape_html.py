@@ -30,7 +30,7 @@ for day_offset in range(args.start_offset, args.days):
         # Check if the file is already cached before requesting and writing
         if not os.path.exists(cal_html_file_path):
             cal_results = session.post(
-                args.main_page + "Search.aspx?ID=900",
+                calendar_url,
                 data=make_form_data(date_string, JO_id, hidden_values),
             )
             VISITED_CAL_PAGE = True
@@ -75,7 +75,7 @@ for day_offset in range(args.start_offset, args.days):
             # visit the calendar page if we haven't yet, needs to be done to scrape cases from it.
             if not VISITED_CAL_PAGE:
                 session.post(
-                    args.main_page + "Search.aspx?ID=900",
+                    calendar_url,
                     data=make_form_data(date_string, JO_id, hidden_values),
                 )
                 VISITED_CAL_PAGE = True

@@ -47,5 +47,3 @@ Tested with:
 ## TODO
 
 - Some Odyssey sites have a CAPTCHA on the calendar page. This can't beat that yet. Could implement 2Captcha or get input from user potentially.
-- this site is a special case with multiple "search.aspx" ids:
-  https://judicialrecords.wilco.org/PublicAccess/default.aspx
