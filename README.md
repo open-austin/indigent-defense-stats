@@ -50,4 +50,5 @@ Tested with:
 - Implement retry behavior when a request fails by starting a new session once, then quitting instead of quitting immediately.
 - Add session persistance across runs, then change the case scraping code which needs to visit the case's calendar page to only do so on failure. Then, try getting a new session, if that doesn't work, quit.
 - Potentially scrape the calendar by doing the entire date range, then if the returned results are more than 200, split the search space in half. Do so over and over. This would complicate the cache checking code. Probably not be necessary as the pages for 5 years and 10 JOs can be scraped with 200ms rate limiting in _(5\*365\*10 pages/5/60/60)_ = ~ 1 hour and 18250 requests.
-- Some Odyssey based sites have a CAPTCHA on the main page. This can't beat that. yet. 😅
+- Some Odyssey sites have a CAPTCHA on the main page. This can't beat that. yet. 😅
+- Some Odysset sites have multiple choices for court calendars and some other options that could be implemented as parameters.
