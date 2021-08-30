@@ -42,7 +42,7 @@ Tested with:
 - The session must visit the main page in order to access the calendar search page.
 - To visit a case page, you must have visited a results page containing it.
 - Some form data must be sent with the search request. Data in _./src/libraries/scrape_config.py_.
-- hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page.
+- hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page location field.
 
 ## TODO
 
