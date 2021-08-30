@@ -147,3 +147,16 @@ def make_form_data(date, JO_id, hidden_values):
         }
     )
     return form_data
+
+
+def write_debug_and_quit(html: str, vars: str):
+    print(
+        'ERROR: "Date Filed" substring not found in case html page. Aborting.\n',
+        "Writing ./debug.html with response and ./debug.txt with current variables.\n",
+        vars,
+    )
+    with open("debug.html", "w") as file_handle:
+        file_handle.write(html)
+    with open("debug.txt", "w") as file_handle:
+        file_handle.write(vars)
+    quit()

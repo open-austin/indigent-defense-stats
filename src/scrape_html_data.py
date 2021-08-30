@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 from libraries.scrape_config import (
     make_form_data,
+    write_debug_and_quit,
     args,
     hidden_values,
     judicial_officer_to_ID,
@@ -50,23 +51,13 @@ for day_offset in range(args.start_offset, args.days):
                 sleep(args.ms_wait / 1000)
             else:
                 curr_vars = f"{day_offset = }\n{JO_name = }\n{date_string = }"
-                print(
-                    'ERROR: "Record Count" substring not found in calendar html page. Aborting.\n',
-                    "Writing ./debug.html with response and ./debug.txt with current variables.\n",
-                    curr_vars,
-                )
-                with open("debug.html", "w") as file_handle:
-                    file_handle.write(cal_results.text)
-                with open("debug.txt", "w") as file_handle:
-                    file_handle.write(curr_vars)
-                quit()
+                write_debug_and_quit(cal_results.text, curr_vars)
 
         else:
             print("Calendar data is already cached. Skip writing.")
 
         # get the case data for this date
         print(f"Getting individual case data for {JO_name} on {date_string}")
-
         # Read the case URLs from the calendar page html
         with open(cal_html_file_path, "r") as file_handle:
             cal_html_str = file_handle.read()
@@ -121,16 +112,7 @@ for day_offset in range(args.start_offset, args.days):
                     sleep(args.ms_wait / 1000)
                 else:
                     curr_vars = f"{JO_name = }\n{case_url = }"
-                    print(
-                        'ERROR: "Date Filed" substring not found in case html page. Aborting.\n',
-                        "Writing ./debug.html with response and ./debug.txt with current variables.\n",
-                        curr_vars,
-                    )
-                    with open("debug.html", "w") as file_handle:
-                        file_handle.write(case_results.text)
-                    with open("debug.txt", "w") as file_handle:
-                        file_handle.write(curr_vars)
-                    quit()
+                    write_debug_and_quit(case_results.text, curr_vars)
             else:
                 print("Data is already cached. Skipping.")
 
