@@ -10,7 +10,7 @@ def write_debug_and_quit(substr: str, html: str, vars: str):
     print(
         f"ERROR: '{substr}' substring not found in html page. Aborting.\n",
         "Writing ./debug.html with response and ./debug.txt with current variables.\n",
-        "You may need to check the main_page, location, or calendar_text parameters.\n"
+        "You may need to check the main_page, location, or calendar_text parameters.\n",
         vars,
     )
     with open("debug.html", "w") as file_handle:
