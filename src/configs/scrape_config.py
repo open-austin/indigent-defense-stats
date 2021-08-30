@@ -112,14 +112,17 @@ calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
 if "Court Calendar" not in calendar_soup.text:
     write_debug_and_quit(calendar_soup.text, f"{calendar_url = }")
     quit()
+# we need these hidden values to access the search page
 hidden_values = {
     hidden["name"]: hidden["value"]
     for hidden in calendar_soup.select('input[type="hidden"]')
 }
+# get a list of JOs to their IDs from the search page
 judicial_officer_to_ID = {
     option.text: option["value"]
     for option in calendar_soup.select('select[labelname="Judicial Officer:"] > option')
 }
+# get nodedesc and nodeid information from main page location select box
 location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
 hidden_values.update({"NodeDesc": args.location, "NodeID": location_option["value"]})
 
