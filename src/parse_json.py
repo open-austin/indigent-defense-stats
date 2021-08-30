@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument(
-    "--overwrite",
-    "--o",
+    "-overwrite",
+    "-o",
     action="store_true",
     help="Switch to overwrite all cached case data.",
 )
