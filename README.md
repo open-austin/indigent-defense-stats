@@ -46,4 +46,6 @@ Tested with:
 
 ## TODO
 - Some Odyssey sites have a CAPTCHA on the calendar page. This can't beat that yet. Could implement 2Captcha or get input from user potentially.
-- Some Odysset sites have multiple choices for court calendars and some other options that could be implemented as parameters.
+- Some Odyssey sites have multiple choices for location and court calendar pages. These could be implemented with parameters. Examples:
+https://publicsearch.ndcourts.gov/
+https://judicialrecords.wilco.org/PublicAccess/default.aspx
