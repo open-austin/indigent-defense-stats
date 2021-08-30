@@ -10,7 +10,7 @@ START_TIME = time()
 case_data_list = []
 
 for JO_dir in os.scandir("data_by_JO"):
-    for case_file in os.scandir(os.path.join(JO_dir.path, "case_data")):
+    for case_file in os.scandir(os.path.join(JO_dir.path, "case_json")):
         with open(case_file.path, "r") as file_handle:
             case_data_list.append(json.loads(file_handle.read()))
 

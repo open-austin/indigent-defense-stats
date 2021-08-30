@@ -27,14 +27,14 @@ Tested with:
 **Use --help for command line parameter information.**
 
 1. Scrape calendar and case data by JO and day. The data will be cached in the following way.
-   - `python ./src/scrape_html_data.py`
+   - `python ./src/scrape_html.py`
    - _./data_by_JO/_{**JO name**}_/calendar_html/_{**date**}_.html_
    - _./data_by_JO/_{**JO name**}_/case_html/_{**date**} {**odyssey id**}_.html_
 1. Parse the case data into JSON files.
-   - `python ./src/parse_case_data.py`
-   - _./data_by_JO/_{**JO name**}_/case_data/_{**case code**}_.json_
+   - `python ./src/parse_json.py`
+   - _./data_by_JO/_{**JO name**}_/case_json/_{**case code**}_.json_
 1. Print some stats from the JSON.
-   - `python ./src/print_case_stats.py`
+   - `python ./src/print_stats.py`
 
 ## Implementation Details
 

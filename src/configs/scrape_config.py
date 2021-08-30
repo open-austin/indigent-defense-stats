@@ -56,8 +56,11 @@ argparser.add_argument(
 argparser.description = "Scrape data for list of judicial officers in date range."
 
 args = argparser.parse_args()
+# remove default.aspx as a hacky way to accept not-well-formed urls
 if "default.aspx" in args.main_page:
     args.main_page = args.main_page.replace("default.aspx", "")
+if args.main_page[-1] != "/":
+    args.main_page += "/"
 
 # Initial setup for the session
 session = requests.Session()

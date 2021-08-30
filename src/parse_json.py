@@ -23,14 +23,17 @@ argparser.add_argument(
 )
 args = argparser.parse_args()
 
+# as a hack just remove '.' char from JOs
+args.judicial_officers = [jo.replace(".", "") for jo in args.judicial_officers]
+
 START_TIME = time()
 
 for JO_folder in os.scandir("data_by_JO"):
     if args.judicial_officers and JO_folder.name not in args.judicial_officers:
         continue
-    case_data_path = os.path.join(JO_folder.path, "case_data")
-    if not os.path.exists(case_data_path):
-        os.mkdir(case_data_path)
+    case_json_path = os.path.join(JO_folder.path, "case_json")
+    if not os.path.exists(case_json_path):
+        os.mkdir(case_json_path)
     for case_html_file in os.scandir(os.path.join(JO_folder.path, "case_html")):
         print("Processing:", case_html_file.path)
         case_data = {}
@@ -43,7 +46,7 @@ for JO_folder in os.scandir("data_by_JO"):
         ].text
         case_data["osyssey id"] = case_html_file.name.split()[1].split(".")[0]
         case_data["date"] = case_html_file.name.split()[0].replace("-", "/")
-        case_filename = os.path.join(case_data_path, case_data["code"] + ".json")
+        case_filename = os.path.join(case_json_path, case_data["code"] + ".json")
         case_data["judicial officer"] = str(JO_folder.name)
         case_data["file processed"] = case_html_file.path
         case_data["filename"] = case_filename
@@ -159,7 +162,9 @@ for JO_folder in os.scandir("data_by_JO"):
                     "prosecuting attorney phone number": state_rows[0][3]
                     if len(state_rows[0]) > 3
                     else "",
-                    "prosecuting attorney address": ", ".join(state_rows[1]),
+                    "prosecuting attorney address": ", ".join(
+                        state_rows[1] if len(state_rows) > 1 else []
+                    ),
                     "bondsman": bondsman_rows[0][1] if bondsman_rows else "",
                     "bondsman address": ", ".join(bondsman_rows[1])
                     if len(bondsman_rows) > 1
