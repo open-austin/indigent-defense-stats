@@ -45,5 +45,5 @@ Tested with:
 - hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page.
 
 ## TODO
-- Some Odyssey sites have a CAPTCHA on the main page. This can't beat that. yet. 😅
+- Some Odyssey sites have a CAPTCHA on the calendar page. This can't beat that yet. Could implement 2Captcha or get input from user potentially.
 - Some Odysset sites have multiple choices for court calendars and some other options that could be implemented as parameters.
