@@ -47,4 +47,4 @@ Tested with:
 ## TODO
 
 - Some Odyssey sites have a CAPTCHA on the calendar page. This can't beat that yet. Could implement 2Captcha or get input from user potentially.
-- The only bit that seems to break is party information. Need to recode this to work in a different way.
+- The only bit that seems to break between sites is parsing party information. Need to recode this to work in a different way.
