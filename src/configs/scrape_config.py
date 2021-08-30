@@ -6,10 +6,11 @@ import requests
 from bs4 import BeautifulSoup
 
 # helper logging function
-def write_debug_and_quit(html: str, vars: str):
+def write_debug_and_quit(substr: str, html: str, vars: str):
     print(
-        'ERROR: "Date Filed" substring not found in case html page. Aborting.\n',
+        f"ERROR: '{substr}' substring not found in html page. Aborting.\n",
         "Writing ./debug.html with response and ./debug.txt with current variables.\n",
+        "You may need to check the main_page, location, or calendar_text parameters.\n"
         vars,
     )
     with open("debug.html", "w") as file_handle:
@@ -110,7 +111,7 @@ calendar_response = session.get(calendar_url)
 calendar_soup = BeautifulSoup(calendar_response.text, "html.parser")
 # See if we got a good response
 if "Court Calendar" not in calendar_soup.text:
-    write_debug_and_quit(calendar_soup.text, f"{calendar_url = }")
+    write_debug_and_quit("Court Calendar", calendar_soup.text, f"{calendar_url = }")
     quit()
 # we need these hidden values to access the search page
 hidden_values = {

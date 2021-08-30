@@ -44,7 +44,7 @@ for day_offset in range(args.start_offset, args.days):
                 sleep(args.ms_wait / 1000)
             else:
                 curr_vars = f"{day_offset = }\n{JO_name = }\n{date_string = }"
-                write_debug_and_quit(cal_results.text, curr_vars)
+                write_debug_and_quit("Record Count", cal_results.text, curr_vars)
 
         else:
             print("Calendar data is already cached. Skip writing.")
@@ -105,7 +105,7 @@ for day_offset in range(args.start_offset, args.days):
                     sleep(args.ms_wait / 1000)
                 else:
                     curr_vars = f"{JO_name = }\n{case_url = }"
-                    write_debug_and_quit(case_results.text, curr_vars)
+                    write_debug_and_quit("Date Filed", case_results.text, curr_vars)
             else:
                 print("Data is already cached. Skipping.")
 
