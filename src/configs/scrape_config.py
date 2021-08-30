@@ -64,6 +64,7 @@ if args.main_page[-1] != "/":
 
 # Initial setup for the session
 session = requests.Session()
+session.verify = False
 main_response = session.get(args.main_page)
 main_soup = BeautifulSoup(main_response.text, "html.parser")
 calendar_response = session.get(args.main_page + "Search.aspx?ID=900")
