@@ -160,3 +160,13 @@ def write_debug_and_quit(html: str, vars: str):
     with open("debug.txt", "w") as file_handle:
         file_handle.write(vars)
     quit()
+
+
+__all__ = [
+    "make_form_data",
+    "write_debug_and_quit",
+    "args",
+    "hidden_values",
+    "judicial_officer_to_ID",
+    "session",
+]

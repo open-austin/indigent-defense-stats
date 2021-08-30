@@ -4,14 +4,7 @@ from time import sleep, time
 
 from bs4 import BeautifulSoup
 
-from configs.scrape_config import (
-    make_form_data,
-    write_debug_and_quit,
-    args,
-    hidden_values,
-    judicial_officer_to_ID,
-    session,
-)
+from configs.scrape_config import *
 
 TODAY = datetime.today()
 START_TIME = time()
