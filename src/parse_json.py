@@ -2,7 +2,6 @@ import os
 import json
 import argparse
 from time import time
-from datetime import datetime
 
 from bs4 import BeautifulSoup
 
