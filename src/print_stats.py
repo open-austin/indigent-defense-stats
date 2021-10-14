@@ -9,10 +9,10 @@ START_TIME = time()
 
 case_data_list = []
 
-for JO_dir in os.scandir("data_by_JO"):
-    for case_file in os.scandir(os.path.join(JO_dir.path, "case_json")):
-        with open(case_file.path, "r") as file_handle:
-            case_data_list.append(json.loads(file_handle.read()))
+case_json_path = os.path.join("data", "case_json")
+for case_file in os.scandir(case_json_path):
+    with open(case_file.path, "r") as file_handle:
+        case_data_list.append(json.loads(file_handle.read()))
 
 
 def print_top_cases_by_lambda(sort_function, description):
