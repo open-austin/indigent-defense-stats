@@ -104,6 +104,7 @@ for case_html_file_name in os.listdir(case_html_path):
     )[0]
     # print(df)
 
+    # Financial Information
     df = pandas.read_html(
         case_html, match="Financial Information", keep_default_na=False
     )[0]

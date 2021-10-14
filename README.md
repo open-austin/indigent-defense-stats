@@ -22,10 +22,10 @@ Tested with:
 **Use --help for command line parameter information.**
 
 1. Scrape calendar and case data by JO and day.
-   - `python ./src/scrape_html.py`
+   - `python ./src/scraper.py`
    - _./data/case_html/_**odyssey id**_.html_
 1. Parse the case data into JSON files.
-   - `python ./src/parse_json.py`
+   - `python ./src/parser.py`
    - _./data/case_json/_**odyssey id**_.json_
 1. Print some stats from the JSON.
    - `python ./src/print_stats.py`
