@@ -6,6 +6,16 @@ from datetime import datetime
 
 from bs4 import BeautifulSoup
 
+argparser = argparse.ArgumentParser()
+argparser.add_argument(
+    "-overwrite",
+    "-o",
+    action="store_true",
+    help="Switch to overwrite already parsed data.",
+)
+argparser.description = "Scrape data for list of judicial officers in date range."
+args = argparser.parse_args()
+
 # get directories and make json dir if not present
 case_html_path = os.path.join("data", "case_html")
 case_json_path = os.path.join("data", "case_json")
@@ -13,10 +23,16 @@ if not os.path.exists(case_json_path):
     os.mkdir(case_json_path)
 
 START_TIME = time()
+cached_case_json_list = [
+    file_name.split(".")[0] for file_name in os.listdir(case_json_path)
+]
 
 for case_html_file_name in os.listdir(case_html_path):
+    case_id = case_html_file_name.split(".")[0]
+    if case_id in cached_case_json_list and not args.overwrite:
+        continue
     case_html_file_path = os.path.join(case_html_path, case_html_file_name)
-    print("Processing:", case_html_file_path)
+    print(case_html_file_path)
     case_data = {}
     with open(case_html_file_path, "r") as file_handle:
         case_html = file_handle.read()
@@ -25,8 +41,8 @@ for case_html_file_name in os.listdir(case_html_path):
     case_data["code"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
         0
     ].text
-    case_data["osyssey id"] = case_html_file_name.split(".")[0]
-    case_filename = os.path.join(case_json_path, case_data["osyssey id"] + ".json")
+    case_data["osyssey id"] = case_id
+    case_filename = os.path.join(case_json_path, case_id + ".json")
     case_data["filename"] = case_filename
     # get all the root tables
     root_tables = case_soup.select("body>table")
@@ -211,8 +227,6 @@ for case_html_file_name in os.listdir(case_html_path):
 
     # Write file as json data
     json_str = json.dumps(case_data)
-    print("Writing:", case_filename)
-    print("String length of data:", len(json_str))
     with open(case_filename, "w") as file_handle:
         file_handle.write(json_str)
 
