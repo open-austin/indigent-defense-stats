@@ -42,8 +42,6 @@ for case_html_file_name in os.listdir(case_html_path):
         0
     ].text
     case_data["osyssey id"] = case_id
-    case_filename = os.path.join(case_json_path, case_id + ".json")
-    case_data["filename"] = case_filename
     # get all the root tables
     root_tables = case_soup.select("body>table")
     for table in root_tables:
@@ -227,6 +225,7 @@ for case_html_file_name in os.listdir(case_html_path):
 
     # Write file as json data
     json_str = json.dumps(case_data)
+    case_filename = os.path.join(case_json_path, case_id + ".json")
     with open(case_filename, "w") as file_handle:
         file_handle.write(json_str)
 
