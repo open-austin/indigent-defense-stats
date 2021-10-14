@@ -126,13 +126,13 @@ argparser.add_argument(
     nargs="*",
     type=str,
     default=[],
-    help="Judicial Officers to scrape. e.g. -j 'mr. something' 'Rob, Albert'",
+    help="Judicial Officers to scrape. For example, -j 'mr. something' 'Rob, Albert'. By default, it will scrape all JOs.",
 )
 argparser.add_argument(
     "-overwrite",
     "-o",
     action="store_true",
-    help="Switch to overwrite cached case html.",
+    help="Switch to overwrite cached case html, use this when updating your data from a small date range to grab new information.",
 )
 argparser.description = "Scrape data for list of judicial officers in date range."
 
