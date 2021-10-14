@@ -206,8 +206,7 @@ for day_offset in range(args.start_offset, args.days):
             )
             continue
         JO_id = judicial_officer_to_ID[JO_name]
-        print(f"Getting calendar page data for JO {JO_name} on {date_string}")
-
+        print(f"Searching cases by {JO_name} on {date_string}")
         cal_results = session.post(
             calendar_url,
             data=make_form_data(date_string, JO_id, hidden_values),
@@ -220,8 +219,6 @@ for day_offset in range(args.start_offset, args.days):
             curr_vars = f"{day_offset = }\n{JO_name = }\n{date_string = }"
             write_debug_and_quit("Record Count", cal_results.text, curr_vars)
 
-        # get the case data for this date
-        print(f"Getting individual case data for {JO_name} on {date_string}")
         # read the case URLs from the calendar page html
         cal_soup = BeautifulSoup(cal_results.text, "html.parser")
         case_anchors = cal_soup.select('a[href^="CaseDetail"]')
@@ -250,7 +247,6 @@ for day_offset in range(args.start_offset, args.days):
                 case_results = session.get(case_url)
                 # error check based on text in html result.
                 if "Date Filed" in case_results.text:
-                    print("Writing file:", case_html_file_path)
                     print("Response string length:", len(case_results.text))
                     with open(case_html_file_path, "w") as file_handle:
                         file_handle.write(case_results.text)
