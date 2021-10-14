@@ -206,7 +206,7 @@ for day_offset in range(args.start_offset, args.days):
             )
             continue
         JO_id = judicial_officer_to_ID[JO_name]
-        print(f"Searching cases by {JO_name} on {date_string} - {day_offset = }")
+        print(f"Searching cases on {date_string} - {day_offset = } for {JO_name}")
         cal_results = session.post(
             calendar_url,
             data=make_form_data(date_string, JO_id, hidden_values),
