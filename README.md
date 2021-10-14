@@ -11,9 +11,9 @@ Tested with:
 ### Installation
 
 1. Clone this repo.
-   - `git clone https://github.com/derac/hays-scraper.git`
+   - `git clone https://github.com/derac/Odyssey-Court-Records-to-JSON.git`
 1. Navigate to it. (use venv if desired)
-   - `cd hays-scraper`
+   - `cd Odyssey-Court-Records-to-JSON`
 1. Install libraries.
    - `pip install -r requirements.txt`
 
@@ -21,21 +21,18 @@ Tested with:
 
 **Use --help for command line parameter information.**
 
-1. Scrape calendar and case data by JO and day. The data will be cached in the following way.
+1. Scrape calendar and case data by JO and day.
    - `python ./src/scrape_html.py`
-   - _./data_by_JO/_{**JO name**}_/calendar_html/_{**date**}_.html_
-   - _./data_by_JO/_{**JO name**}_/case_html/_{**date**} {**odyssey id**}_.html_
+   - _./data/case_html/_**odyssey id**_.html_
 1. Parse the case data into JSON files.
    - `python ./src/parse_json.py`
-   - _./data_by_JO/_{**JO name**}_/case_json/_{**case code**}_.json_
+   - _./data/case_json/_**odyssey id**_.json_
 1. Print some stats from the JSON.
    - `python ./src/print_stats.py`
 
 ## Implementation Details
 
-- The session must visit the main page in order to access the calendar search page.
-- To visit a case page, you must have visited a results page containing it.
-- Some form data must be sent with the search request. Data in _./src/libraries/scrape_config.py_.
+- The session must visit the main page in order to access the calendar search page. To visit a case page, you must have visited a results page containing it.
 - hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page location field.
 
 ## TODO
