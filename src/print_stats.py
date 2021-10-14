@@ -21,7 +21,7 @@ def print_top_cases_by_lambda(sort_function, description):
     converted_data = list(sort_function(case) for case in case_data_list)
     print(
         "\n".join(
-            f"{i}. {sort_function(case)}".ljust(20) + case["filename"]
+            f"{i}. {sort_function(case)}".ljust(20) + case["osyssey id"]
             for i, case in enumerate(cases_by_lambda[::-1], 1)
         ),
         "\nMean:",
