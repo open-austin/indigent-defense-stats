@@ -172,7 +172,7 @@ for case_html_file_name in os.listdir(case_html_path):
                 if row[0] == "OTHER EVENTS AND HEARINGS":
                     SECTION = "dispositions"
                     continue
-                if row[0] == "dispositions":
+                if row[0] == "DISPOSITIONS":
                     break
                 if SECTION == "other_events":
                     other_event_rows.append(row)
