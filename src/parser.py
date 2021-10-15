@@ -72,6 +72,7 @@ for case_html_file_name in os.listdir(case_html_path):
     }
 
     # related cases
+    case_data["related cases"] = []
     try:
         df = pandas.read_html(case_html, match="Related Cases")[0]
         case_data["related cases"] = [
@@ -102,14 +103,51 @@ for case_html_file_name in os.listdir(case_html_path):
     df = pandas.read_html(
         case_html, match="Events & Orders of the Court", keep_default_na=False
     )[0]
-    # print(df)
+    events_index = 1
+    case_data["dispositions"] = []
+    if df.iloc[0, 3] == "DISPOSITIONS":
+        while df.iloc[events_index, 3] != "OTHER EVENTS AND HEARINGS":
+            if not df.iloc[events_index, 0]:
+                events_index += 1
+                continue
+            case_data["dispositions"].append(
+                {
+                    "date": df.iloc[events_index, 0],
+                    "disposition": df.iloc[events_index, 3].replace("\xa0", " "),
+                }
+            )
+            events_index += 1
+    case_data["other events and hearings"] = [
+        {
+            "date": df.iloc[i, 0],
+            "event or hearing": df.iloc[i, 3].replace("\xa0", " "),
+        }
+        for i in range(events_index + 1, len(df))
+    ]
 
     # Financial Information
-    df = pandas.read_html(
-        case_html, match="Financial Information", keep_default_na=False
-    )[0]
-
-    # print(df)
+    case_data["financial information"] = {}
+    try:
+        df = pandas.read_html(
+            case_html, match="Financial Information", keep_default_na=False
+        )[0]
+        case_data["financial information"] = {
+            "total financial assessment": df.iloc[4, 6],
+            "total payments and credits": df.iloc[5, 6],
+            "balance due": df.iloc[6, 6],
+            "transactions": [
+                {
+                    "date": df.iloc[i, 0],
+                    "type": df.iloc[i, 3],
+                    "receipt": df.iloc[i, 4],
+                    "party": df.iloc[i, 5],
+                    "amount": df.iloc[i, 6],
+                }
+                for i in range(8, len(df) - 1)
+            ],
+        }
+    except:
+        ...
 
     # Write file as json data
     json_str = json.dumps(case_data)
