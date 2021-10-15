@@ -72,7 +72,6 @@ for case_html_file_name in os.listdir(case_html_path):
     }
 
     # related cases
-    case_data["related cases"] = []
     try:
         df = pandas.read_html(case_html, match="Related Cases")[0]
         case_data["related cases"] = [
@@ -126,7 +125,6 @@ for case_html_file_name in os.listdir(case_html_path):
     ]
 
     # Financial Information
-    case_data["financial information"] = {}
     try:
         df = pandas.read_html(
             case_html, match="Financial Information", keep_default_na=False
