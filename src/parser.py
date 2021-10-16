@@ -41,7 +41,7 @@ for case_html_file_name in os.listdir(case_html_path):
     case_data["code"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
         0
     ].text
-    case_data["osyssey id"] = case_id
+    case_data["odyssey id"] = case_id
     # get all the root tables
     root_tables = case_soup.select("body>table")
     for table in root_tables:
@@ -100,15 +100,20 @@ for case_html_file_name in os.listdir(case_html_path):
             has_height_and_weight = (
                 len(defendant_rows[0]) > 4 and "," in defendant_rows[0][4]
             )
+            has_sex = (
+                len(defendant_rows[0]) > 2 and "," in defendant_rows[0][2]
+            )
             party_information = {
                 "defendant": defendant_rows[0][1],
-                "sex": defendant_rows[0][2].split()[0],
+                "sex": defendant_rows[0][2].split()[0]
+                if has_sex
+                else "",
                 "race": " ".join(defendant_rows[0][2].split()[1:])
                 if len(defendant_rows[0]) > 3
                 else "",
                 "date of birth": defendant_rows[0][3].split()[1]
                 if len(defendant_rows[0]) > 3
-                else defendant_rows[0][2].split()[1],
+                else "",
                 "height": defendant_rows[0][4].split(",")[0]
                 if has_height_and_weight
                 else "",
