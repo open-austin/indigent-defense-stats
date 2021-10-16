@@ -10,9 +10,9 @@ case_json_path = os.path.join("data", "case_json")
 
 file_list = os.listdir(case_json_path)
 
-# read case ids (first 10 for now)
+# read case ids (first 1000 for now)
 all_case_data = {}
-for case_filename in file_list[:10]:
+for case_filename in file_list[:1000]:
     case_id = os.path.splitext(os.path.basename(case_filename))[0]
     with open(os.path.join(case_json_path, case_filename), "r") as f:
         case_data = json.load(f)
