@@ -38,7 +38,7 @@ for case_html_file_name in os.listdir(case_html_path):
     case_data = {}
     with open(case_html_file_path, "r") as file_handle:
         case_html = file_handle.read().replace("\xa0", " ")
-    case_data["osyssey id"] = case_id
+    case_data["odyssey id"] = case_id
 
     # get the case code
     case_soup = BeautifulSoup(case_html, "html.parser")

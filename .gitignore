@@ -1,5 +1,6 @@
 data
 debug.*
+aws
 
 # venv stuff
 bin/
