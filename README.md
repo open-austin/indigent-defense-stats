@@ -35,6 +35,10 @@ Tested with:
 - The session must visit the main page in order to access the calendar search page. To visit a case page, you must have visited a results page containing it.
 - hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page location field.
 
+## Writing to s3 bucket
+The command `python3.8 src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket. 
+Currently this is running daily on a shell script, on only 1000 files as an example to see schema for Athena.
+
 ## TODO
 
 - Some Odyssey sites have a CAPTCHA on the calendar page. This can't beat that yet. Could implement 2Captcha or get input from user potentially.
