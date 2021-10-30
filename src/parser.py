@@ -246,7 +246,7 @@ for case_html_file_name in os.listdir(case_html_path):
             file_handle.write(json_str)
     except: 
         broken_files.append(case_id)
-        with open(broken_files_path, "w") as file_handle:
+        with open(broken_json_path, "w") as file_handle:
             file_handle.write(case_id + "\n")
 
 # Print some data for debugging and statistics purposes
