@@ -32,7 +32,7 @@ else:
     with open(broken_json_path, "r") as f:
         broken_files = f.readlines()
         broken_files = list(set(broken_files))
-        broken_files.truncate()
+        f.truncate()
 
 START_TIME = time()
 cached_case_json_list = [
@@ -43,6 +43,7 @@ for case_html_file_name in os.listdir(case_html_path):
     try:
         case_id = case_html_file_name.split(".")[0]
         if case_id in cached_case_json_list and not args.overwrite:
+            print(f"Skipping {case_id}")
             continue
         case_html_file_path = os.path.join(case_html_path, case_html_file_name)
         # print(case_html_file_path)
