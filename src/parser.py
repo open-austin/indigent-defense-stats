@@ -31,6 +31,8 @@ if not os.path.exists(broken_json_path):
 else:
     with open(broken_json_path, "r") as f:
         broken_files = f.readlines()
+        broken_files = list(set(broken_files))
+        broken_files.truncate()
 
 START_TIME = time()
 cached_case_json_list = [
@@ -43,7 +45,7 @@ for case_html_file_name in os.listdir(case_html_path):
         if case_id in cached_case_json_list and not args.overwrite:
             continue
         case_html_file_path = os.path.join(case_html_path, case_html_file_name)
-        print(case_html_file_path)
+        # print(case_html_file_path)
         case_data = {}
         with open(case_html_file_path, "r") as file_handle:
             case_html = file_handle.read()
@@ -244,7 +246,7 @@ for case_html_file_name in os.listdir(case_html_path):
         case_filename = os.path.join(case_json_path, case_id + ".json")
         with open(case_filename, "w") as file_handle:
             file_handle.write(json_str)
-    except: 
+    except:
         broken_files.append(case_id)
         with open(broken_json_path, "w") as file_handle:
             file_handle.write(case_id + "\n")
