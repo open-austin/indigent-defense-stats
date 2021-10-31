@@ -29,7 +29,7 @@ broken_json_path = os.path.join(case_json_path, "broken_files.txt")
 if not os.path.exists(broken_json_path):
     broken_files = []
 else:
-    with open(broken_json_path, "r") as f:
+    with open(broken_json_path, "a+") as f:
         broken_files = f.readlines()
         broken_files = list(set(broken_files))
         f.truncate()
