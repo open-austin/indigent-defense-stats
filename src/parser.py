@@ -2,7 +2,7 @@ import os
 import json
 import argparse
 from time import time
-from datetime import datetime
+from print_stats import case_data_list
 
 from bs4 import BeautifulSoup
 
@@ -24,7 +24,7 @@ for directory in [case_html_path, case_json_path]:
     if not os.path.exists(directory):
         os.mkdir(directory)
 
-#read in files that didn't work
+# read in files that didn't work
 broken_json_path = os.path.join(case_json_path, "broken_files.txt")
 if not os.path.exists(broken_json_path):
     broken_files = []
@@ -39,7 +39,7 @@ cached_case_json_list = [
     file_name.split(".")[0] for file_name in os.listdir(case_json_path)
 ]
 
-for case_html_file_name in os.listdir(case_html_path):
+for case_html_file_name in ["13118483.html"]:
     try:
         case_id = case_html_file_name.split(".")[0]
         if case_id in cached_case_json_list and not args.overwrite:
@@ -76,7 +76,8 @@ for case_html_file_name in os.listdir(case_html_path):
                         case_data[label[:-1].lower()] += "\n" + value
             elif "Related Case Information" in table.text:
                 case_data["related cases"] = [
-                    case.text.strip().replace("\xa0", " ") for case in table.select("td")
+                    case.text.strip().replace("\xa0", " ")
+                    for case in table.select("td")
                 ]
             elif "Party Information" in table.text:
                 table_rows = [
@@ -114,14 +115,10 @@ for case_html_file_name in os.listdir(case_html_path):
                 has_height_and_weight = (
                     len(defendant_rows[0]) > 4 and "," in defendant_rows[0][4]
                 )
-                has_sex = (
-                    len(defendant_rows[0]) > 2 and "," in defendant_rows[0][2]
-                )
+                has_sex = len(defendant_rows[0]) > 2 and "," in defendant_rows[0][2]
                 party_information = {
                     "defendant": defendant_rows[0][1],
-                    "sex": defendant_rows[0][2].split()[0]
-                    if has_sex
-                    else "",
+                    "sex": defendant_rows[0][2].split()[0] if has_sex else "",
                     "race": " ".join(defendant_rows[0][2].split()[1:])
                     if len(defendant_rows[0]) > 3
                     else "",
@@ -134,7 +131,9 @@ for case_html_file_name in os.listdir(case_html_path):
                     "weight": defendant_rows[0][4].split(",")[1][1:]
                     if has_height_and_weight
                     else "",
-                    "defense attorney": defendant_rows[0][5 + (has_height_and_weight - 1)]
+                    "defense attorney": defendant_rows[0][
+                        5 + (has_height_and_weight - 1)
+                    ]
                     if len(defendant_rows[0]) > 5 + (has_height_and_weight - 1)
                     else "",
                     "appointed or retained": defendant_rows[0][
@@ -194,7 +193,10 @@ for case_html_file_name in os.listdir(case_html_path):
                     if tr.select("th")
                 ]
                 table_rows = [
-                    [" ".join(word.strip() for word in text.split()) for text in sublist]
+                    [
+                        " ".join(word.strip() for word in text.split())
+                        for text in sublist
+                    ]
                     for sublist in table_rows
                     if sublist
                 ]
@@ -226,7 +228,10 @@ for case_html_file_name in os.listdir(case_html_path):
                     if tr.select("th")
                 ]
                 table_rows = [
-                    [" ".join(word.strip() for word in text.split()) for text in sublist]
+                    [
+                        " ".join(word.strip() for word in text.split())
+                        for text in sublist
+                    ]
                     for sublist in table_rows
                     if sublist
                 ]
@@ -256,7 +261,6 @@ for case_html_file_name in os.listdir(case_html_path):
 
 RUN_TIME = time() - START_TIME
 
-from print_stats import case_data_list
 
 print("\nTime to run script:", round(RUN_TIME, 2), "seconds")
 print(
