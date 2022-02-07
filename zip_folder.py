@@ -3,9 +3,9 @@ from io import BytesIO
 import os
 import boto3
 
-folderpath = 'case_html'
+folderpath = "case_html"
 memory_file = BytesIO()
-with zipfile.ZipFile(memory_file, 'w') as zf:
+with zipfile.ZipFile(memory_file, "w") as zf:
     for root, dirs, files in os.walk(folderpath):
         for file in files:
             filepath = os.path.join(root, file)

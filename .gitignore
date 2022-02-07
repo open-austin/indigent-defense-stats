@@ -152,6 +152,7 @@ dmypy.json
 cython_debug/
 pyvenv.cfg
 
-# Html and json folders
+# ignore data folders
 case_html/
 case_json/
+data/

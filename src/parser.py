@@ -36,7 +36,6 @@ cached_case_json_list = [
 ]
 
 for case_html_file_name in os.listdir(case_html_path):
-    case_html_file_name = f"{case_id}.html"
     try:
         case_id = case_html_file_name.split(".")[0]
         if case_id in cached_case_json_list and not args.overwrite:
