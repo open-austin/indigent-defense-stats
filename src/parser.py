@@ -2,8 +2,6 @@ import os
 import json
 import argparse
 from time import time
-from datetime import datetime
-
 from bs4 import BeautifulSoup
 
 argparser = argparse.ArgumentParser()
@@ -17,10 +15,8 @@ argparser.description = "Scrape data for list of judicial officers in date range
 args = argparser.parse_args()
 
 # get directories and make json dir if not present
-# case_html_path = os.path.join("data", "case_html")
-# case_json_path = os.path.join("data", "case_json")
-case_html_path = "case_html"
-case_json_path = "case_json"
+case_html_path = os.path.join("data", "case_html")
+case_json_path = os.path.join("data", "case_json")
 if not os.path.exists(case_json_path):
     os.mkdir(case_json_path)
 
@@ -39,21 +35,12 @@ cached_case_json_list = [
     file_name.split(".")[0] for file_name in os.listdir(case_json_path)
 ]
 
-import pandas as pd
-import os
-
-bad_vals = pd.read_csv("events_combined.csv")
-allowed_states = ["Appointed", "Retained", "Court Appointed", ""]
-
-bad_vals = bad_vals[(~bad_vals.attorney.isin(allowed_states))]
-
-# for case_html_file_name in os.listdir(case_html_path):
-for case_id in bad_vals.case_id.unique():
+for case_html_file_name in os.listdir(case_html_path):
     case_html_file_name = f"{case_id}.html"
     try:
         case_id = case_html_file_name.split(".")[0]
-        # if case_id in cached_case_json_list and not args.overwrite:
-        #     continue
+        if case_id in cached_case_json_list and not args.overwrite:
+            continue
         case_html_file_path = os.path.join(case_html_path, case_html_file_name)
         print(case_html_file_path)
         case_data = {}
