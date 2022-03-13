@@ -14,21 +14,23 @@ Tested with:
    - `git clone https://github.com/derac/Odyssey-Court-Records-to-JSON.git`
 1. Navigate to it. (use venv if desired)
    - `cd Odyssey-Court-Records-to-JSON`
+1. Install [poetry](https://python-poetry.org/docs/#installation).
+1. (Optional) Install [pyenv](https://github.com/pyenv/pyenv#installation).
 1. Install libraries.
-   - `pip install -r requirements.txt`
+   - `poetry install`
 
 ### Usage
 
 **Use --help for command line parameter information.**
 
 1. Scrape calendar and case data by JO and day.
-   - `python ./src/scraper.py`
+   - `poetry run python ./src/scraper.py`
    - _./data/case_html/_**odyssey id**_.html_
 1. Parse the case data into JSON files.
-   - `python ./src/parser.py`
+   - `poetry run python ./src/parser.py`
    - _./data/case_json/_**odyssey id**_.json_
 1. Print some stats from the JSON.
-   - `python ./src/print_stats.py`
+   - `poetry run python ./src/print_stats.py`
 
 ## Implementation Details
 
@@ -36,7 +38,7 @@ Tested with:
 - hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page location field.
 
 ## Writing to s3 bucket
-The command `python3.8 src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket. 
+The command `poetry run python src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket.
 Currently this is running daily on a shell script, on only 1000 files as an example to see schema for Athena.
 
 ## TODO
