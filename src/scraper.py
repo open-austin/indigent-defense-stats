@@ -237,12 +237,12 @@ def main() -> None:
         for JO_name in args.judicial_officers:
             # error check and initialize variables for this JO
             if JO_name not in judicial_officer_to_ID:
-                print(
-                    f"ERROR: judicial officer {JO_name} not found on calendar page. Continuing."
+                logger.error(
+                    f"judicial officer {JO_name} not found on calendar page. Continuing."
                 )
                 continue
             JO_id = judicial_officer_to_ID[JO_name]
-            print(f"Searching cases on {date_string} - {day_offset = } for {JO_name}")
+            logger.info(f"Searching cases on {date_string} - {day_offset = } for {JO_name}")
             cal_text, failed = request_page(
                 session,
                 calendar_url,
@@ -263,7 +263,7 @@ def main() -> None:
             # read the case URLs from the calendar page html
             cal_soup = BeautifulSoup(cal_text, "html.parser")
             case_anchors = cal_soup.select('a[href^="CaseDetail"]')
-            print(len(case_anchors), "cases found.")
+            logger.info(f"{len(case_anchors)} cases found.")
             # if there are any cases found for this JO and date
             if case_anchors:
                 # if all cases are cached, continue
@@ -271,7 +271,7 @@ def main() -> None:
                     case_anchor["href"].split("=")[1] in cached_case_html_list
                     for case_anchor in case_anchors
                 ) and not args.overwrite:
-                    print("All cases are cached for this JO and date.")
+                    logger.info("All cases are cached for this JO and date.")
                     continue
 
                 # process each case
@@ -284,11 +284,11 @@ def main() -> None:
                     case_html_file_path = os.path.join(case_html_path, f"{case_id}.html")
 
                     # make request for the case
-                    print("Visiting:", case_url)
+                    logger.info("Visiting:", case_url)
                     case_text, failed = request_page(session, case_url, "Date Filed")
                     # error check based on text in html result.
                     if not failed:
-                        print("Response string length:", len(case_results.text))
+                        logger.info(f"Response string length: {len(case_results.text)}")
                         with open(case_html_file_path, "w") as file_handle:
                             file_handle.write(case_results.text)
                         # add case id to cached list
@@ -301,7 +301,7 @@ def main() -> None:
                     sleep(args.ms_wait / 1000)
 
 
-    print("\nTime to run script:", round(time() - START_TIME, 2), "seconds")
+    logger.info(f"\nTime to run script: {round(time() - START_TIME, 2)} seconds")
 
 
 if __name__ == "__main__":
