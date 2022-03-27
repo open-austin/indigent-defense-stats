@@ -110,7 +110,7 @@ argparser.add_argument(
     "-days",
     "-d",
     type=int,
-    default=5 * 365,
+    default=7,
     help="Number of days to scrape (backwards).",
 )
 argparser.add_argument(
