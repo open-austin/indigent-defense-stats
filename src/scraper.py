@@ -303,15 +303,15 @@ def main() -> None:
                     case_text, failed = request_page(session, case_url, "Date Filed")
                     # error check based on text in html result.
                     if not failed:
-                        logger.info(f"Response string length: {len(case_results.text)}")
+                        logger.info(f"Response string length: {len(case_text.text)}")
                         with open(case_html_file_path, "w") as file_handle:
-                            file_handle.write(case_results.text)
+                            file_handle.write(case_text.text)
                         # add case id to cached list
                         if case_id not in cached_case_html_list:
                             cached_case_html_list.append(case_id)
                     else:
                         curr_vars = f"{day_offset = }\n{date_string = }\n{JO_name = }\n{case_url = }"
-                        write_debug_and_quit("Date Filed", case_results.text, curr_vars)
+                        write_debug_and_quit("Date Filed", case_text.text, curr_vars)
                     # rate limiting - convert ms to seconds
                     sleep(args.ms_wait / 1000)
 
