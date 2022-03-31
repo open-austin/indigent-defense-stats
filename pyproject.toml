@@ -2,7 +2,7 @@
 name = "odyssey-court-records-to-json"
 version = "0.1.0"
 description = "Scrape criminal court records from Texas county records websites hosted in Odyssey"
-authors = ["Your Name <you@example.com>"]
+authors = ["Derek <derek@derac.org>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"

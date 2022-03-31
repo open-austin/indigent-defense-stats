@@ -22,8 +22,12 @@ argparser.description = "Parse data for the specified county."
 args = argparser.parse_args()
 
 # get directories and make json dir if not present
-case_html_path = os.path.join("data", args.county, "case_html")
-case_json_path = os.path.join("data", args.county, "case_json")
+case_html_path = os.path.join(
+    os.path.dirname(__file__), "..", "data", args.county, "case_html"
+)
+case_json_path = os.path.join(
+    os.path.dirname(__file__), "..", "data", args.county, "case_json"
+)
 if not os.path.exists(case_json_path):
     os.makedirs(case_json_path, exist_ok=True)
 

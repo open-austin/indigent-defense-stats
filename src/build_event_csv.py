@@ -2,11 +2,25 @@
 Combine hearing & event records from multiple case files into a single csv.
 """
 import csv
-from datetime import datetime
+import argparse
 import json
 import os
+from datetime import datetime
 
-FILE_DIR = os.path.join("data", "case_json")  # relative location of JSON case files
+argparser = argparse.ArgumentParser()
+argparser.add_argument(
+    "-county",
+    "-c",
+    type=str,
+    default="hays",
+    help="The name of the county.",
+)
+argparser.description = "Print stats for the specified county."
+args = argparser.parse_args()
+
+FILE_DIR = os.path.join(
+    os.path.dirname(__file__), "..", "data", args.county, "case_json"
+)
 
 
 def parse_event_date(date_str):

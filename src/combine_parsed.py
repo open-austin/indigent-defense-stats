@@ -14,7 +14,9 @@ argparser.add_argument(
 argparser.description = "Print stats for the specified county."
 args = argparser.parse_args()
 
-case_json_path = os.path.join("data", args.county, "case_json")
+case_json_path = os.path.join(
+    os.path.dirname(__file__), "..", "data", args.county, "case_json"
+)
 
 file_list = os.listdir(case_json_path)
 
