@@ -12,6 +12,12 @@ from bs4 import BeautifulSoup
 
 
 def main() -> None:
+    # disable SSL warnings
+    requests.packages.urllib3.disable_warnings(
+        requests.packages.urllib3.exceptions.InsecureRequestWarning
+    )
+
+    # set up logger
     logger = logging.getLogger(name=__name__)
     logging.basicConfig()
 
