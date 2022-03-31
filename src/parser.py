@@ -1,6 +1,7 @@
 import os
 import json
 import argparse
+import traceback
 from time import time
 from bs4 import BeautifulSoup
 
@@ -276,7 +277,8 @@ for case_html_file_name in os.listdir(case_html_path):
         case_filename = os.path.join(case_json_path, case_id + ".json")
         with open(case_filename, "w") as file_handle:
             file_handle.write(json_str)
-    except:
+    except Exception:
+        print(traceback.format_exc())
         broken_files.append(case_id)
         with open(broken_json_path, "w") as file_handle:
             file_handle.write(case_id + "\n")
