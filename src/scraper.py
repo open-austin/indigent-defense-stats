@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import logging
 import os
 import re
+import csv
 from time import sleep, time
 from typing import Any, Dict, Optional, Tuple
 
@@ -83,37 +84,37 @@ def make_form_data(
     return form_data
 
 
-def request_page(
-    session: requests.Session,
-    url: str,
-    verification_text: str,
-    data: Optional[Dict[str, Any]] = None,
-    max_retries: int = 5,
-    retry_backoff_ms: int = 10 * 1000,
-) -> Tuple[str, bool]:
-    response = ""
-    for i in range(max_retries):
-        failed = False
-        try:
-            if data is None:
-                response = session.get(url)
-            else:
-                response = session.post(url, data=data)
-            response.raise_for_status()
-            if verification_text not in response.text:
-                failed = True
-                logger.error(f"Verification text {verification_text} not in response")
-        except requests.RequestException as e:
-            logger.exception(f"Failed to get url {url}, try {i}")
-            failed = True
-        if not failed:
-            return response.text, failed
-        if i != max_retries - 1:
-            sleep(args.ms_wait / 1000)
-    return response.text, failed
-
-
 def main() -> None:
+    def request_page(
+        session: requests.Session,
+        url: str,
+        verification_text: str,
+        data: Optional[Dict[str, Any]] = None,
+        max_retries: int = 5,
+    ) -> Tuple[str, bool]:
+        response = ""
+        for i in range(max_retries):
+            failed = False
+            try:
+                if data is None:
+                    response = session.get(url)
+                else:
+                    response = session.post(url, data=data)
+                response.raise_for_status()
+                if verification_text not in response.text:
+                    failed = True
+                    logger.error(
+                        f"Verification text {verification_text} not in response"
+                    )
+            except requests.RequestException as e:
+                logger.exception(f"Failed to get url {url}, try {i}")
+                failed = True
+            if not failed:
+                return response.text, failed
+            if i != max_retries - 1:
+                sleep(args.ms_wait / 1000)
+        return response.text, failed
+
     # get command line parmeter info
     argparser = argparse.ArgumentParser()
     argparser.add_argument(
@@ -124,11 +125,11 @@ def main() -> None:
         help="Number of ms to wait between requests.",
     )
     argparser.add_argument(
-        "-main_page",
-        "-m",
+        "-county",
+        "-c",
         type=str,
-        default="http://public.co.hays.tx.us/",
-        help="URL for the main page of the Odyssey site. Try to get the whole path with slash up to, but excluding 'default.aspx'",
+        default="hays",
+        help="The name of the county, the main page for their Odyssey install will be grabbed from resources/text_county_data.csv",
     )
     argparser.add_argument(
         "-location",
@@ -139,7 +140,7 @@ def main() -> None:
     )
     argparser.add_argument(
         "-calendar_link_text",
-        "-c",
+        "-cal",
         type=str,
         default="Court Calendar",
         help="The text on the main page that you click on to get to your desired calendar. Usually 'Court Calendar' will work.",
@@ -191,18 +192,29 @@ def main() -> None:
 
     # remove default.aspx as a hacky way to accept not-well-formed urls
     # TODO: do this in a better way with url parser lib
-    if "default.aspx" in args.main_page:
-        args.main_page = args.main_page.replace("default.aspx", "")
-    if args.main_page[-1] != "/":
-        args.main_page += "/"
+
+    with open(
+        os.path.join(
+            os.path.dirname(__file__), "..", "resources", "texas_county_data.csv"
+        ),
+        mode="r",
+    ) as file_handle:
+        csv_file = csv.DictReader(file_handle)
+        main_page = ""
+        for row in csv_file:
+            if row["county"].lower() == args.county.lower():
+                main_page = row["portal"]
+                break
+        if main_page == "":
+            raise ValueError("There is no portal page for this county.")
 
     # start session
     session = requests.Session()
     # allow bad ssl
     session.verify = False
-    main_text, failed = request_page(session, args.main_page, "ssSearchHyperlink")
+    main_text, failed = request_page(session, main_page, "ssSearchHyperlink")
     if failed:
-        write_debug_and_quit("Main Page", main_text, f"{args.main_page = }")
+        write_debug_and_quit("Main Page", main_text, f"{main_page = }")
     main_soup = BeautifulSoup(main_text, "html.parser")
     # get path to the calendar page here
     search_page_links = main_soup.select('a[class="ssSearchHyperlink"]')
@@ -214,7 +226,7 @@ def main() -> None:
             "Couldn't find the Court Calendar page ID. Quitting.", main_text, ""
         )
 
-    calendar_url = args.main_page + "Search.aspx?ID=" + search_page_id
+    calendar_url = main_page + "Search.aspx?ID=" + search_page_id
     calendar_text, failed = request_page(session, calendar_url, "Court Calendar")
     if failed:
         write_debug_and_quit("Court Calendar", calendar_text, f"{calendar_url = }")
@@ -298,7 +310,7 @@ def main() -> None:
 
                 # process each case
                 for case_anchor in case_anchors:
-                    case_url = args.main_page + case_anchor["href"]
+                    case_url = main_page + case_anchor["href"]
                     case_id = case_url.split("=")[1]
                     # continue if case is already cached, unless using overwrite flag
                     if case_id in cached_case_html_list and not args.overwrite:
