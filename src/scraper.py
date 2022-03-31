@@ -1,9 +1,9 @@
 import argparse
-from datetime import datetime, timedelta
 import logging
 import os
 import re
 import csv
+from datetime import date, datetime, timedelta
 from time import sleep, time
 from typing import Any, Dict, Optional, Tuple
 
@@ -12,15 +12,6 @@ from bs4 import BeautifulSoup
 
 
 def main() -> None:
-    # disable SSL warnings
-    requests.packages.urllib3.disable_warnings(
-        requests.packages.urllib3.exceptions.InsecureRequestWarning
-    )
-
-    # set up logger
-    logger = logging.getLogger(name=__name__)
-    logging.basicConfig()
-
     # get command line parmeter info
     argparser = argparse.ArgumentParser()
     argparser.add_argument(
@@ -45,18 +36,18 @@ def main() -> None:
         help="'Select a location' select box on the main page. Usually 'All Courts' will work.",
     )
     argparser.add_argument(
-        "-days",
-        "-d",
-        type=int,
-        default=7,
-        help="Number of days to scrape (backwards).",
+        "-start_date",
+        "-s",
+        type=lambda d: datetime.strptime(d, "%Y-%m-%d"),
+        default=str(date.today() - timedelta(days=30)),
+        help="The day to start scraping, default today - 30 days. YYYY-mm-dd",
     )
     argparser.add_argument(
-        "-start_offset",
-        "-s",
-        type=int,
-        default=1,
-        help="The number of days ago to start scraping. 1 is Yesterday.",
+        "-end_date",
+        "-e",
+        type=lambda d: datetime.strptime(d, "%Y-%m-%d"),
+        default=str(date.today()),
+        help="The day to end scraping, default today. YYYY-mm-dd",
     )
     argparser.add_argument(
         "-judicial_officers",
@@ -201,6 +192,15 @@ def main() -> None:
         if main_page == "":
             raise ValueError("There is no portal page for this county.")
 
+    # disable SSL warnings
+    requests.packages.urllib3.disable_warnings(
+        requests.packages.urllib3.exceptions.InsecureRequestWarning
+    )
+
+    # set up logger
+    logger = logging.getLogger(name=__name__)
+    logging.basicConfig()
+
     # start session
     session = requests.Session()
     # allow bad ssl
@@ -249,15 +249,16 @@ def main() -> None:
     )
 
     # initialize some variables
-    TODAY = datetime.today()
     START_TIME = time()
     cached_case_html_list = [
         file_name.split(".")[0] for file_name in os.listdir(case_html_path)
     ]
+    day_count = args.end_date - args.start_date
+    day_count = day_count.days
 
     # days in the past starting with yesterday.
-    for day_offset in range(args.start_offset, args.days):
-        date_string = datetime.strftime(TODAY - timedelta(days=day_offset), "%m/%d/%Y")
+    for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)):
+        date_string = datetime.strftime(date_to_process, "%m/%d/%Y")
         for JO_name in args.judicial_officers:
             # error check and initialize variables for this JO
             if JO_name not in judicial_officer_to_ID:
@@ -266,9 +267,7 @@ def main() -> None:
                 )
                 continue
             JO_id = judicial_officer_to_ID[JO_name]
-            logger.info(
-                f"Searching cases on {date_string} - {day_offset = } for {JO_name}"
-            )
+            logger.info(f"Searching cases on {date_string} for {JO_name}")
             cal_text, failed = request_page_with_retry(
                 session,
                 calendar_url,
@@ -280,7 +279,7 @@ def main() -> None:
                 write_debug_and_quit(
                     "Record Count",
                     cal_text,
-                    f"{day_offset = }\n{JO_name = }\n{date_string = }",
+                    f"{JO_name = }\n{date_string = }",
                 )
 
             # rate limiting
@@ -328,7 +327,7 @@ def main() -> None:
                         if case_id not in cached_case_html_list:
                             cached_case_html_list.append(case_id)
                     else:
-                        curr_vars = f"{day_offset = }\n{date_string = }\n{JO_name = }\n{case_url = }"
+                        curr_vars = f"{date_string = }\n{JO_name = }\n{case_url = }"
                         write_debug_and_quit("Date Filed", case_results, curr_vars)
                     # rate limiting - convert ms to seconds
                     sleep(args.ms_wait / 1000)
