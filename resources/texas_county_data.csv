@@ -1,15 +1,15 @@
 county,population,website,portal,type,version
-Anderson,59120,http://www.co.anderson.tx.us/,http://ac5.co.anderson.tx.us/PublicAccess/default.aspx,odyssey,2003
+Anderson,59120,http://www.co.anderson.tx.us/,http://ac5.co.anderson.tx.us/PublicAccess/,odyssey,2003
 Andrews,19588,http://www.co.andrews.tx.us/,,,
-Angelina,90669,http://www.angelinacounty.net/,http://public.angelinacounty.net/default.aspx,odyssey,2003
+Angelina,90669,http://www.angelinacounty.net/,http://public.angelinacounty.net/,odyssey,2003
 Aransas,23649,http://www.aransascountytx.gov/main/,,,
 Archer,9135,http://www.co.archer.tx.us/,,,
 Armstrong,2028,http://www.co.armstrong.tx.us/,,,
 Atascosa,51233,http://www.atascosacounty.texas.gov/,,,
-Austin,32344,http://www.austincounty.com/,http://public.austincounty.com/default.aspx,odyssey,2003
+Austin,32344,http://www.austincounty.com/,http://public.austincounty.com/,odyssey,2003
 Bailey,7082,http://www.co.bailey.tx.us/,,,
 Bandera,23360,http://www.banderacounty.org/,,,
-Bastrop,90262,http://www.co.bastrop.tx.us/,http://records.co.bastrop.tx.us/PublicAccess/default.aspx,odyssey,2003
+Bastrop,90262,http://www.co.bastrop.tx.us/,http://records.co.bastrop.tx.us/PublicAccess/,odyssey,2003
 Baylor,3754,http://www.co.baylor.tx.us/,,,
 Bee,33571,http://www.co.bee.tx.us/,,,
 Bell,362093,http://www.bellcountytx.com/,https://justice.bellcounty.texas.gov/PublicPortal/,odyssey,2017.1.46.2
@@ -18,7 +18,7 @@ Blanco,12365,http://www.co.blanco.tx.us/,,,
 Borden,686,http://www.co.borden.tx.us/,,,
 Bosque,19146,http://www.bosquecounty.us/,,,
 Bowie,95897,http://www.co.bowie.tx.us/,,,
-Brazoria,382874,http://brazoriacountytx.gov/,https://pubweb.brazoriacountytx.gov/PublicAccess/default.aspx,odyssey,2011
+Brazoria,382874,http://brazoriacountytx.gov/,https://pubweb.brazoriacountytx.gov/PublicAccess/,odyssey,2011
 Brazos,233071,http://www.brazoscountytx.gov/,,,
 Brewster,9055,http://www.brewstercountytx.com/,,,
 Briscoe,1599,http://www.co.briscoe.tx.us/,,,
@@ -41,10 +41,10 @@ Clay,10317,http://www.co.clay.tx.us/,,,
 Cochran,2890,http://www.co.cochran.tx.us/,,,
 Coke,3400,http://www.co.coke.tx.us/,,,
 Coleman,8041,http://www.co.coleman.tx.us/,,,
-Collin,1047901,http://www.collincountytx.gov/,https://cijspub.co.collin.tx.us/default.aspx,odyssey,2003
+Collin,1047901,http://www.collincountytx.gov/,https://cijspub.co.collin.tx.us/,odyssey,2003
 Collingsworth,2802,http://www.co.collingsworth.tx.us/,,,
 Colorado,22566,http://www.co.colorado.tx.us/,,,
-Comal,161328,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/default.aspx,odyssey,2003
+Comal,161328,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/,odyssey,2003
 Comanche,13848,http://www.co.comanche.tx.us/,,,
 Concho,2715,http://www.co.concho.tx.us/,,,
 Cooke,40685,http://www.co.cooke.tx.us/,,,
@@ -59,7 +59,7 @@ Dallas,2647627,http://www.dallascounty.org/,https://courtsportal.dallascounty.or
 Dawson,12652,http://www.co.dawson.tx.us/,,,
 Deaf Smith,19572,http://www.co.deaf-smith.tx.us/,,,
 Delta,5304,http://www.deltacountytx.com/,,,
-Denton,904005,https://dentoncounty.gov/,https://justice1.dentoncounty.gov/PublicAccess/default.aspx,odyssey,2003
+Denton,904005,https://dentoncounty.gov/,https://justice1.dentoncounty.gov/PublicAccess/,odyssey,2003
 De Witt,20459,http://www.co.dewitt.tx.us/,,,
 Dickens,2054,http://www.co.dickens.tx.us/,,,
 Dimmit,9426,http://www.dimmitcounty.org/,,,
@@ -69,7 +69,7 @@ Eastland,18278,http://www.eastlandcountytexas.com/,,,
 Ector,169394,http://www.co.ector.tx.us/,https://portal-txector.tylertech.cloud/PortalProd,odyssey,2017.1.46.2
 Edwards,1979,http://www.co.edwards.tx.us/,,,
 Ellis,191469,http://www.co.ellis.tx.us/,,,
-El Paso,851888,http://www.epcounty.com/,https://casesearch.epcounty.com/PublicAccess/default.aspx,odyssey,2003
+El Paso,851888,http://www.epcounty.com/,https://casesearch.epcounty.com/PublicAccess/,odyssey,2003
 Erath,43110,http://co.erath.tx.us/,,,
 Falls,17432,http://co.falls.tx.us/,,,
 Fannin,36727,http://www.co.fannin.tx.us/,https://portal-txfannin.tylertech.cloud/Portal/,odyssey,site down
@@ -77,7 +77,7 @@ Fayette,26522,http://www.co.fayette.tx.us/,,,
 Fisher,3897,http://www.co.fisher.tx.us/,,,
 Floyd,5445,http://co.floyd.tx.us/,,,
 Foard,1102,http://www.foardcounty.texas.gov/,,,
-Fort Bend,818912,http://www.fortbendcountytx.gov/,https://tylerpaw.fortbendcountytx.gov/PublicAccess/default.aspx,odyssey,2003
+Fort Bend,818912,http://www.fortbendcountytx.gov/,https://tylerpaw.fortbendcountytx.gov/PublicAccess/,odyssey,2003
 Franklin,10792,http://co.franklin.tx.us/,,,
 Freestone,20732,http://www.co.freestone.tx.us/,,,
 Frio,18937,http://www.co.frio.tx.us/,,,
@@ -89,30 +89,30 @@ Glasscock,1363,http://www.co.glasscock.tx.us/,,,
 Goliad,8127,http://www.co.goliad.tx.us/,,,
 Gonzales,20819,http://www.co.gonzales.tx.us/,,,
 Gray,21900,http://www.co.gray.tx.us/,,,
-Grayson,136052,http://www.co.grayson.tx.us/,https://judicialsearch.co.grayson.tx.us:8443/default.aspx,odyssey,no version
+Grayson,136052,http://www.co.grayson.tx.us/,https://judicialsearch.co.grayson.tx.us:8443/,odyssey,no version
 Gregg,126225,http://www.co.gregg.tx.us/,,,
 Grimes,29730,http://www.co.grimes.tx.us/,,,
 Guadalupe,169139,http://www.co.guadalupe.tx.us/,,,
-Hale,32864,http://www.halecounty.org/,https://portal-txhale.tylertech.cloud/PublicAccess/default.aspx,odyssey,2011
+Hale,32864,http://www.halecounty.org/,https://portal-txhale.tylertech.cloud/PublicAccess/,odyssey,2011
 Hall,2969,https://www.co.hall.tx.us/,,,
 Hamilton,8637,http://www.co.hamilton.tx.us/,,,
 Hansford,5288,http://www.co.hansford.tx.us/,,,
 Hardeman,3873,http://www.co.hardeman.tx.us/,,,
 Hardin,59592,http://www.co.hardin.tx.us/,,,
 Harris,4703708,http://www.harriscountytx.gov/,https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP,odyssey,2017.1.46.2
-Harrison,68703,http://harrisoncountytexas.org/,http://portal-txharrison.tylertech.cloud/PublicAccess/default.aspx,odyssey,2011
+Harrison,68703,http://harrisoncountytexas.org/,http://portal-txharrison.tylertech.cloud/PublicAccess/,odyssey,2011
 Hartley,5887,http://www.co.hartley.tx.us/,,,
 Haskell,5572,http://www.co.haskell.tx.us/,,,
-Hays,232080,http://www.co.hays.tx.us/,http://public.co.hays.tx.us/default.aspx,odyssey,2003
+Hays,232080,http://www.co.hays.tx.us/,http://public.co.hays.tx.us/,odyssey,2003
 Hemphill,3827,http://www.co.hemphill.tx.us/,,,
-Henderson,83220,http://www.henderson-county.com/,http://txhendersonodyprod.tylerhost.net/PublicAccess/default.aspx,odyssey,2011
-Hidalgo,888958,https://tx-hidalgocounty.civicplus.com/,https://pa.co.hidalgo.tx.us/default.aspx,odyssey,2003
+Henderson,83220,http://www.henderson-county.com/,http://txhendersonodyprod.tylerhost.net/PublicAccess/,odyssey,2011
+Hidalgo,888958,https://tx-hidalgocounty.civicplus.com/,https://pa.co.hidalgo.tx.us/,odyssey,2003
 Hill,37470,http://www.co.hill.tx.us/,,,
 Hockley,22603,http://www.co.hockley.tx.us/,,,
 Hood,61387,http://www.co.hood.tx.us/,,,
 Hopkins,37475,http://www.hopkinscountytx.org/,,,
 Houston,23439,http://www.co.houston.tx.us/,,,
-Howard,36421,http://www.co.howard.tx.us/,https://txhowardodyprod.tylerhost.net/PublicAccess/default.aspx,odyssey,2011
+Howard,36421,http://www.co.howard.tx.us/,https://txhowardodyprod.tylerhost.net/PublicAccess/,odyssey,2011
 Hudspeth,3683,http://www.co.hudspeth.tx.us/,,,
 Hunt,98685,http://www.huntcounty.net/,https://portal-txhunt.tylertech.cloud/Portal,odyssey,2017.1.46.2
 Hutchinson,20439,http://www.co.hutchinson.tx.us/,,,
@@ -124,14 +124,14 @@ Jeff Davis,2408,http://www.co.jeff-davis.tx.us/,,,
 Jefferson,250803,http://www.co.jefferson.tx.us/,,,
 Jim Hogg,5079,http://co.jim-hogg.tx.us/,,,
 Jim Wells,39759,http://www.co.jim-wells.tx.us/,,,
-Johnson,175987,http://www.johnsoncountytx.org/,https://pa.johnsoncountytx.org/PublicAccess/default.aspx,odyssey,2011
+Johnson,175987,http://www.johnsoncountytx.org/,https://pa.johnsoncountytx.org/PublicAccess/,odyssey,2011
 Jones,19745,http://www.co.jones.tx.us/,,,
 Karnes,15778,http://www.co.karnes.tx.us/,,,
-Kaufman,140667,http://www.kaufmancounty.net/,http://txkaufmanodyprod.tylerhost.net/PublicAccess/default.aspx,odyssey,2003
+Kaufman,140667,http://www.kaufmancounty.net/,http://txkaufmanodyprod.tylerhost.net/PublicAccess/,odyssey,2003
 Kendall,47700,http://www.co.kendall.tx.us/,,,
 Kenedy,378,http://www.co.kenedy.tx.us/,,,
 Kent,754,http://www.kentcountytexas.us/,,,
-Kerr,53024,http://www.co.kerr.tx.us/,http://courts.co.kerr.tx.us/PublicAccess/default.aspx,odyssey,2014
+Kerr,53024,http://www.co.kerr.tx.us/,http://courts.co.kerr.tx.us/PublicAccess/,odyssey,2014
 Kimble,4581,http://www.co.kimble.tx.us/,,,
 King,275,http://www.co.king.tx.us/,,,
 Kinney,3594,http://www.co.kinney.tx.us/,,,
@@ -159,29 +159,29 @@ Madison,14088,http://www.co.madison.tx.us/,,,
 Marion,9662,http://www.co.marion.tx.us/,,,
 Martin,5739,http://www.co.martin.tx.us/,,,
 Mason,4318,http://www.co.mason.tx.us/,,,
-Matagorda,36158,http://www.co.matagorda.tx.us/,https://odysseypa.tylerhost.net/Matagorda/default.aspx,odyssey,site down
+Matagorda,36158,http://www.co.matagorda.tx.us/,https://odysseypa.tylerhost.net/Matagorda/,odyssey,site down
 Maverick,58116,http://www.co.maverick.tx.us/,,,
-Medina,54612,http://www.medinacountytexas.org/,https://odysseypa.tylerhost.net/Medina/default.aspx,odyssey,2003
+Medina,54612,http://www.medinacountytexas.org/,https://odysseypa.tylerhost.net/Medina/,odyssey,2003
 Menard,2124,http://co.menard.tx.us/,,,
 Midland,179232,http://www.co.midland.tx.us/,,,
 Milam,25157,http://www.milamcounty.net/,,,
 Mills,4875,http://www.co.mills.tx.us/,,,
 Mitchell,8685,http://www.co.mitchell.tx.us/,,,
 Montague,19712,http://www.co.montague.tx.us/,,,
-Montgomery,609172,http://www.mctx.org/,http://odyssey.mctx.org/Unsecured/default.aspx,odyssey,2011
+Montgomery,609172,http://www.mctx.org/,http://odyssey.mctx.org/Unsecured/,odyssey,2011
 Moore,20902,http://www.co.moore.tx.us/,,,
 Morris,12468,http://www.co.morris.tx.us/,http://txmorrisodyprod.tylerhost.net/PublicAccess/Login.aspx,odyssey,2011
 Motley,1196,http://www.co.motley.tx.us/,,,
 Nacogdoches,64850,http://www.co.nacogdoches.tx.us/,,,
-Navarro,52973,http://www.co.navarro.tx.us/,https://portal-txnavarro.tylertech.cloud/PublicAccess/default.aspx,odyssey,2011
+Navarro,52973,http://www.co.navarro.tx.us/,https://portal-txnavarro.tylertech.cloud/PublicAccess/,odyssey,2011
 Newton,13103,http://www.co.newton.tx.us/,,,
 Nolan,14150,http://www.co.nolan.tx.us/,,,
-Nueces,363776,http://www.co.nueces.tx.us/,https://portal-txnueces.tylertech.cloud/PublicAccess/default.aspx,odyssey,2003
+Nueces,363776,http://www.co.nueces.tx.us/,https://portal-txnueces.tylertech.cloud/PublicAccess/,odyssey,2003
 Ochiltree,10246,http://www.co.ochiltree.tx.us/,,,
 Oldham,2131,http://www.co.oldham.tx.us/,,,
 Orange,82168,http://www.co.orange.tx.us/,,,
 Palo Pinto,29069,http://www.co.palo-pinto.tx.us/,,,
-Panola,24611,http://www.co.panola.tx.us/,https://portal-txpanola.tylertech.cloud/PublicAccess/default.aspx,odyssey,2006
+Panola,24611,http://www.co.panola.tx.us/,https://portal-txpanola.tylertech.cloud/PublicAccess/,odyssey,2006
 Parker,143504,http://www.parkercountytx.com/,,,
 Parmer,9325,http://parmercounty.org/,,,
 Pecos,15033,http://www.co.pecos.tx.us/,,,
@@ -202,7 +202,7 @@ Runnels,10218,http://www.co.runnels.tx.us/,,,
 Rusk,54764,http://www.co.rusk.tx.us/,,,
 Sabine,10859,http://www.co.sabine.tx.us/,,,
 San Augustine,8409,http://www.co.san-augustine.tx.us/,,,
-San Jacinto,29652,http://www.co.san-jacinto.tx.us/,https://txsanjacintoodyprod.tylerhost.net/PublicAccess/default.aspx,odyssey,2011
+San Jacinto,29652,http://www.co.san-jacinto.tx.us/,https://txsanjacintoodyprod.tylerhost.net/PublicAccess/,odyssey,2011
 San Patricio,67033,http://www.co.san-patricio.tx.us/,,,
 San Saba,6223,http://www.co.san-saba.tx.us/,,,
 Schleicher,2727,http://www.co.schleicher.tx.us/,,,
@@ -210,7 +210,7 @@ Scurry,16556,http://www.co.scurry.tx.us/,,,
 Shackelford,3415,http://www.co.shackelford.tx.us/,,,
 Shelby,24054,http://www.co.shelby.tx.us/,,,
 Sherman,3072,http://www.co.sherman.tx.us/,,,
-Smith,232675,http://www.smith-county.com/,https://judicial.smith-county.com/PublicAccess/default.aspx,odyssey,2011
+Smith,232675,http://www.smith-county.com/,https://judicial.smith-county.com/PublicAccess/,odyssey,2011
 Somervell,9605,http://www.somervell.co/,,,
 Starr,63688,http://www.co.starr.tx.us/,,,
 Stephens,9506,http://www.co.stephens.tx.us/,,,
@@ -218,14 +218,14 @@ Sterling,1239,http://www.co.sterling.tx.us/,,,
 Stonewall,1380,http://www.co.stonewall.tx.us/,,,
 Sutton,3619,http://www.co.sutton.tx.us/,,,
 Swisher,7435,http://www.co.swisher.tx.us/,,,
-Tarrant,2063496,http://www.tarrantcounty.com/,https://odyssey.tarrantcounty.com/PublicAccess/default.aspx,odyssey,2003
-Taylor,139083,http://www.taylorcountytexas.org/,http://publicaccess.taylorcountytexas.org/PublicAccess/default.aspx,odyssey,2003
+Tarrant,2063496,http://www.tarrantcounty.com/,https://odyssey.tarrantcounty.com/PublicAccess/,odyssey,2003
+Taylor,139083,http://www.taylorcountytexas.org/,http://publicaccess.taylorcountytexas.org/PublicAccess/,odyssey,2003
 Terrell,776,http://www.co.terrell.tx.us/,,,
 Terry,12538,http://co.terry.tx.us/,,,
 Throckmorton,1407,http://www.throckmortoncounty.org/,,,
 Titus,33596,http://www.co.titus.tx.us/,,,
-Tom Green,117791,http://www.co.tom-green.tx.us/,http://odysseypa.co.tom-green.tx.us/default.aspx,odyssey,2003
-Travis,1285526,https://www.traviscountytx.gov/,https://odysseypa.traviscountytx.gov/JPPublicAccess/default.aspx,odyssey,2011
+Tom Green,117791,http://www.co.tom-green.tx.us/,http://odysseypa.co.tom-green.tx.us/,odyssey,2003
+Travis,1285526,https://www.traviscountytx.gov/,https://odysseypa.traviscountytx.gov/JPPublicAccess/,odyssey,2011
 Trinity,14457,http://www.co.trinity.tx.us/,,,
 Tyler,22966,http://www.co.tyler.tx.us/,,,
 Upshur,41262,http://www.countyofupshur.com/,,,
@@ -233,21 +233,21 @@ Upton,3581,http://www.co.upton.tx.us/,,,
 Uvalde,26260,http://www.uvaldecounty.com/,,,
 Val Verde,50988,http://valverdecounty.texas.gov/,,,
 Van Zandt,56503,http://www.vanzandtcounty.org/,,,
-Victoria,90940,http://www.victoriacountytx.org/,http://odyssey.vctx.org/default.aspx,odyssey,2003
-Walker,77300,http://www.co.walker.tx.us/,https://odysseypa.tylerhost.net/Walker/default.aspx,odyssey,2003
-Waller,55626,http://www.co.waller.tx.us/,https://odysseypa.tylerhost.net/Waller/default.aspx,odyssey,2003
+Victoria,90940,http://www.victoriacountytx.org/,http://odyssey.vctx.org/,odyssey,2003
+Walker,77300,http://www.co.walker.tx.us/,https://odysseypa.tylerhost.net/Walker/,odyssey,2003
+Waller,55626,http://www.co.waller.tx.us/,https://odysseypa.tylerhost.net/Waller/,odyssey,2003
 Ward,11635,http://www.co.ward.tx.us/,,,
 Washington,35612,http://www.co.washington.tx.us/,,,
-Webb,280547,http://www.webbcountytx.gov/,https://publicaccess.webbcountytx.gov/PublicAccess/default.aspx,odyssey,2011
+Webb,280547,http://www.webbcountytx.gov/,https://publicaccess.webbcountytx.gov/PublicAccess/,odyssey,2011
 Wharton,41279,http://www.co.wharton.tx.us/,,,
 Wheeler,5168,http://www.co.wheeler.tx.us/,,,
 Wichita,132756,http://www.co.wichita.tx.us/,https://portal-txwichita.tylertech.cloud/Portal,odyssey,2017.1.46.2
 Wilbarger,12393,http://www.co.wilbarger.tx.us/,,,
 Willacy,21502,http://www.co.willacy.tx.us/,,,
-Williamson,602686,http://www.wilco.org/,https://judicialrecords.wilco.org/PublicAccess/default.aspx,odyssey,2003
+Williamson,602686,http://www.wilco.org/,https://judicialrecords.wilco.org/PublicAccess/,odyssey,2003
 Wilson,52839,http://www.co.wilson.tx.us/,,,
 Winkler,8145,http://www.co.winkler.tx.us/,,,
-Wise,70078,http://www.co.wise.tx.us/,http://jail.co.wise.tx.us:81/default.aspx,odyssey,2003
+Wise,70078,http://www.co.wise.tx.us/,http://jail.co.wise.tx.us:81/,odyssey,2003
 Wood,45528,http://www.mywoodcounty.com/,,,
 Yoakum,8773,http://www.co.yoakum.tx.us/,,,
 Young,19294,http://www.co.young.tx.us/,,,
