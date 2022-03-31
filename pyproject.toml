@@ -5,7 +5,7 @@ description = "Scrape criminal court records from Texas county records websites 
 authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "3.8.5"
+python = "^3.8"
 requests = "^2.27.1"
 bs4 = "^0.0.1"
 pandas = "<1.4"
