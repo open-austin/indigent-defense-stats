@@ -5,7 +5,6 @@ This is a scraper to collect and process public case records from the Tyler Tech
 Tested with:
 
 - http://public.co.hays.tx.us/ (~4k cases from 2 months from 9 JOs)
-- https://txhoododyprod.tylerhost.net/PublicAccess/ (110 cases from 1 JO)
 - https://judicial.smith-county.com/PublicAccess/ (125 cases from 1 JO)
 
 ### Installation
@@ -38,6 +37,7 @@ Tested with:
 - hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page location field.
 
 ## Writing to s3 bucket
+
 The command `poetry run python src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket.
 Currently this is running daily on a shell script, on only 1000 files as an example to see schema for Athena.
 
