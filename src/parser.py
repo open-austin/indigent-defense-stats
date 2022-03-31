@@ -11,14 +11,21 @@ argparser.add_argument(
     action="store_true",
     help="Switch to overwrite already parsed data.",
 )
-argparser.description = "Scrape data for list of judicial officers in date range."
+argparser.add_argument(
+    "-county",
+    "-c",
+    type=str,
+    default="hays",
+    help="The name of the county.",
+)
+argparser.description = "Parse data for the specified county."
 args = argparser.parse_args()
 
 # get directories and make json dir if not present
-case_html_path = os.path.join("data", "case_html")
-case_json_path = os.path.join("data", "case_json")
+case_html_path = os.path.join("data", args.county, "case_html")
+case_json_path = os.path.join("data", args.county, "case_json")
 if not os.path.exists(case_json_path):
-    os.mkdir(case_json_path)
+    os.makedirs(case_json_path, exist_ok=True)
 
 # read in files that didn't work
 broken_json_path = os.path.join(case_json_path, "broken_files.txt")

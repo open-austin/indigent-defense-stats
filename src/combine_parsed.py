@@ -1,12 +1,20 @@
 import os
 import json
 import argparse
-from time import time
-from datetime import datetime
 import boto3
-from bs4 import BeautifulSoup
 
-case_json_path = os.path.join("data", "case_json")
+argparser = argparse.ArgumentParser()
+argparser.add_argument(
+    "-county",
+    "-c",
+    type=str,
+    default="hays",
+    help="The name of the county.",
+)
+argparser.description = "Print stats for the specified county."
+args = argparser.parse_args()
+
+case_json_path = os.path.join("data", args.county, "case_json")
 
 file_list = os.listdir(case_json_path)
 

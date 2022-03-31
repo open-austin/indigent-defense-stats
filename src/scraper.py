@@ -182,7 +182,7 @@ def main() -> None:
     logging.root.setLevel(level=args.log)
 
     # make cache directories if not present
-    case_html_path = os.path.join("data", "case_html")
+    case_html_path = os.path.join("data", args.county, "case_html")
     os.makedirs(case_html_path, exist_ok=True)
 
     # parse county portal from csv file

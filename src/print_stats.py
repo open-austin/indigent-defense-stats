@@ -1,5 +1,6 @@
 import os
 import json
+import argparse
 
 from time import time
 from statistics import mean, median, mode
@@ -9,7 +10,18 @@ START_TIME = time()
 
 case_data_list = []
 
-case_json_path = os.path.join("data", "case_json")
+argparser = argparse.ArgumentParser()
+argparser.add_argument(
+    "-county",
+    "-c",
+    type=str,
+    default="hays",
+    help="The name of the county.",
+)
+argparser.description = "Print stats for the specified county."
+args = argparser.parse_args()
+
+case_json_path = os.path.join("data", args.county, "case_json")
 for case_file in os.scandir(case_json_path):
     with open(case_file.path, "r") as file_handle:
         case_data_list.append(json.loads(file_handle.read()))

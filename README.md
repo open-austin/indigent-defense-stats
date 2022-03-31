@@ -24,10 +24,10 @@ Tested with:
 
 1. Scrape calendar and case data by JO and day.
    - `poetry run python ./src/scraper.py`
-   - _./data/case_html/_**odyssey id**_.html_
+   - _./data/case_html/county/_**odyssey id**_.html_
 1. Parse the case data into JSON files.
    - `poetry run python ./src/parser.py`
-   - _./data/case_json/_**odyssey id**_.json_
+   - _./data/case_json/county/_**odyssey id**_.json_
 1. Print some stats from the JSON.
    - `poetry run python ./src/print_stats.py`
 
