@@ -130,6 +130,7 @@ for case_html_file_name in os.listdir(case_html_path):
                     else "",
                     "date of birth": defendant_rows[0][3].split()[1]
                     if len(defendant_rows[0]) > 3
+                    and len(defendant_rows[0][3].split()) > 1
                     else "",
                     "height": defendant_rows[0][4].split(",")[0]
                     if has_height_and_weight
