@@ -109,7 +109,7 @@ def request_page(
         if not failed:
             return response.text, failed
         if i != max_retries - 1:
-            sleep(retry_backoff_ms / 1000)
+            sleep(args.ms_wait / 1000)
     return response.text, failed
 
 
@@ -308,7 +308,7 @@ def main() -> None:
                     )
 
                     # make request for the case
-                    logger.info("Visiting:", case_url)
+                    logger.info("Visiting: " + case_url)
                     case_results, failed = request_page(session, case_url, "Date Filed")
                     # error check based on text in html result.
                     if not failed:
