@@ -190,9 +190,7 @@ def main() -> None:
     case_html_path = os.path.join("data", "case_html")
     os.makedirs(case_html_path, exist_ok=True)
 
-    # remove default.aspx as a hacky way to accept not-well-formed urls
-    # TODO: do this in a better way with url parser lib
-
+    # parse county portal from csv file
     with open(
         os.path.join(
             os.path.dirname(__file__), "..", "resources", "texas_county_data.csv"
