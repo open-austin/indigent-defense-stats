@@ -1,7 +1,7 @@
-import logging, os, re, csv, traceback, urllib.parse
+import logging, os, re, csv, urllib.parse
 from arguments import args
 from datetime import datetime, timedelta
-from time import sleep, time
+from time import time
 
 from helpers import *
 from arguments import args  # argument settings here
@@ -23,9 +23,7 @@ def main() -> None:
 
     # set up logger
     logging.root.setLevel(level=args.log)
-    logger = logging.getLogger(
-        name="pid: " + str(os.getpid()) + "  filename:" + os.path.basename(__file__)
-    )
+    logger = logging.getLogger(name="pid: " + str(os.getpid()))
     logging.basicConfig()
 
     # make cache directories if not present
@@ -37,6 +35,7 @@ def main() -> None:
     # get county portal and version year information from csv file
     main_page = ""
     odyssey_version = ""
+    base_page = ""
     with open(
         os.path.join(
             os.path.dirname(__file__), "..", "..", "resources", "texas_county_data.csv"
@@ -48,27 +47,31 @@ def main() -> None:
             if row["county"].lower() == args.county.lower():
                 main_page = row["portal"]
                 odyssey_version = int(row["version"].split(".")[0])
+                parsed_url = urllib.parse.urlparse(main_page)
+                base_page = parsed_url.scheme + "://" + parsed_url.netloc
                 break
         if main_page == "":
             raise ValueError("There is no portal page for this county.")
 
     # start scraping
     verification_text = (
-        "ssSearchHyperlink" if odyssey_version < 2017 else "portlet-buttons"
+        "ssSearchHyperlink"
+        if odyssey_version < 2017
+        else "SearchCriteria.SelectedCourt"
     )
     main_text, failed = request_page_with_retry(
         session=session,
         url=main_page,
         verification_text=verification_text,
         logger=logger,
-        headers=None if odyssey_version < 2017 else create_header_data(),
+        http_method=HTTPMethod.GET,
         ms_wait=args.ms_wait,
     )
     if failed:
         write_debug_and_quit(verification_text, main_text, f"{main_page = }", logger)
     main_soup = BeautifulSoup(main_text, "html.parser")
 
-    # get path to the search page here
+    # Visit the search page to gather hidden values
     if odyssey_version < 2017:
         search_page_links = main_soup.select("a.ssSearchHyperlink")
         for link in search_page_links:
@@ -77,29 +80,21 @@ def main() -> None:
         if not search_page_id:
             write_debug_and_quit("Court Calendar page ID", main_text, "", logger)
         calendar_url = main_page + "Search.aspx?ID=" + search_page_id
-    else:
-        try:
-            search_page_relative_url = main_soup.select("a.portlet-buttons")[1]["href"]
-        except Exception:
-            print(traceback.format_exc())
-            write_debug_and_quit("Search page url", main_text, "", logger)
-        calendar_url = urllib.parse.urljoin(main_page, search_page_relative_url)
 
-    logger.info(calendar_url)
-    verification_text = "Court Calendar" if odyssey_version < 2017 else "btnHSSubmit"
-    calendar_text, failed = request_page_with_retry(
-        session=session,
-        url=calendar_url,
-        verification_text=verification_text,
-        logger=logger,
-        headers=None if odyssey_version < 2017 else create_header_data(),
-        ms_wait=args.ms_wait,
-    )
-    if failed:
-        write_debug_and_quit(
-            verification_text, calendar_text, f"{calendar_url = }", logger
+        calendar_text, failed = request_page_with_retry(
+            session=session,
+            url=calendar_url,
+            verification_text="Court Calendar",
+            logger=logger,
+            ms_wait=args.ms_wait,
         )
-    calendar_soup = BeautifulSoup(calendar_text, "html.parser")
+        if failed:
+            write_debug_and_quit(
+                "Court Calendar", calendar_text, f"{calendar_url = }", logger
+            )
+        calendar_soup = BeautifulSoup(calendar_text, "html.parser")
+    else:
+        calendar_soup = main_soup
 
     # we need these hidden values to access the search page
     hidden_values = {
@@ -107,9 +102,16 @@ def main() -> None:
         for hidden in calendar_soup.select('input[type="hidden"]')
         if hidden.has_attr("name")
     }
-    if odyssey_version >= 2017:
-        hidden_values.pop("SearchCriteria.Soundex")
-        hidden_values["Settings.DefaultLocation"] = "Harris+County+JPs+Odyssey+Portal"
+    # get nodedesc and nodeid information from main page location select box
+    if odyssey_version < 2017:
+        location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
+        hidden_values.update(
+            {"NodeDesc": args.location, "NodeID": location_option["value"]}
+        )
+    else:
+        hidden_values["SearchCriteria.SelectedCourt"] = hidden_values[
+            "Settings.DefaultLocation"
+        ]  # TODO: Search in default court. Might need to add further logic later to loop through courts.
 
     # get a list of JOs to their IDs from the search page
     judicial_officer_to_ID = {
@@ -124,12 +126,6 @@ def main() -> None:
     # if juidicial_officers param is not specified, use all of them
     if not args.judicial_officers:
         args.judicial_officers = list(judicial_officer_to_ID.keys())
-    # get nodedesc and nodeid information from main page location select box
-    if odyssey_version < 2017:
-        location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
-        hidden_values.update(
-            {"NodeDesc": args.location, "NodeID": location_option["value"]}
-        )
 
     # initialize some variables
     START_TIME = time()
@@ -154,36 +150,29 @@ def main() -> None:
             verification_text = (
                 "Record Count" if odyssey_version < 2017 else "Search Results"
             )
-            cal_text, failed = request_page_with_retry(
+            results_text, failed = request_page_with_retry(
                 session=session,
                 url=calendar_url  # figure out the right page to hit for search results
                 if odyssey_version < 2017
                 else urllib.parse.urljoin(
-                    main_page, "OdysseyPortalJP/Hearing/SearchHearings/HearingSearch"
+                    base_page, "OdysseyPortalJP/Hearing/SearchHearings/HearingSearch"
                 ),
                 verification_text=verification_text,
                 logger=logger,
                 data=create_search_form_data(
                     date_string, JO_id, hidden_values, odyssey_version
                 ),
-                headers=None if odyssey_version < 2017 else create_header_data(),
                 ms_wait=args.ms_wait,
             )
-
             if failed:
                 write_debug_and_quit(
                     verification_text,
-                    cal_text,
+                    results_text,
                     f"{JO_name = }\n{date_string = }",
                     logger,
                 )
-
-            # rate limiting
-            sleep(args.ms_wait / 1000)
-
-            # read the case URLs from the calendar page html
-            cal_soup = BeautifulSoup(cal_text, "html.parser")
-            case_anchors = cal_soup.select('a[href^="CaseDetail"]')
+            results_soup = BeautifulSoup(results_text, "html.parser")
+            case_anchors = results_soup.select('a[href^="CaseDetail"]')
             logger.info(f"{len(case_anchors)} cases found.")
             # if there are any cases found for this JO and date
             if case_anchors:
@@ -216,9 +205,6 @@ def main() -> None:
                         url=case_url,
                         verification_text="Date Filed",
                         logger=logger,
-                        headers=None
-                        if odyssey_version < 2017
-                        else create_header_data(),
                         ms_wait=args.ms_wait,
                     )
                     # error check based on text in html result.
@@ -234,8 +220,6 @@ def main() -> None:
                         write_debug_and_quit(
                             "Date Filed", case_results, curr_vars, logger
                         )
-                    # rate limiting - convert ms to seconds
-                    sleep(args.ms_wait / 1000)
 
     logger.info(f"\nTime to run script: {round(time() - START_TIME, 2)} seconds")
 

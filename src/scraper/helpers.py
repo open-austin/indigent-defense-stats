@@ -27,53 +27,18 @@ def create_search_form_data(
         form_data.update(
             {
                 "SearchBy": "3",
-                "ExactName": "on",
-                "CaseSearchMode": "CaseNumber",
-                "CaseSearchValue": "",
-                "CitationSearchValue": "",
-                "CourtCaseSearchValue": "",
-                "PartySearchMode": "Name",
-                "AttorneySearchMode": "Name",
-                "LastName": "",
-                "FirstName": "",
-                "cboState": "AA",
-                "MiddleName": "",
-                "DateOfBirth": "",
-                "DriverLicNum": "",
-                "CaseStatusType": "0",
-                "DateFiledOnAfter": "",
-                "DateFiledOnBefore": "",
                 "cboJudOffc": JO_id,
-                "chkCriminal": "on",
-                "chkDtRangeCriminal": "on",
-                "chkDtRangeFamily": "on",
-                "chkDtRangeCivil": "on",
-                "chkDtRangeProbate": "on",
-                "chkCriminalMagist": "on",
-                "chkFamilyMagist": "on",
-                "chkCivilMagist": "on",
-                "chkProbateMagist": "on",
                 "DateSettingOnAfter": date,
                 "DateSettingOnBefore": date,
-                "SortBy": "fileddate",
-                "SearchSubmit": "Search",
-                "SearchType": "JUDOFFC",
+                "SearchType": "JUDOFFC",  # Search by Judicial Officer
                 "SearchMode": "JUDOFFC",
-                "NameTypeKy": "",
-                "BaseConnKy": "",
-                "StatusType": "true",
-                "ShowInactive": "",
-                "AllStatusTypes": "true",
-                "CaseCategories": "CR",
-                "RequireFirstName": "True",
-                "CaseTypeIDs": "",
-                "HearingTypeIDs": "",
+                "CaseCategories": "CR",  # "CR,CV,FAM,PR" criminal, civil, family, probate and mental health - these are the options
             }
         )
     else:
         form_data.update(
             {
-                "SearchCriteria.SelectedHearingType": "Criminal+Hearing+Types",
+                "SearchCriteria.SelectedHearingType": "Criminal Hearing Types",
                 "SearchCriteria.SearchByType": "JudicialOfficer",
                 "SearchCriteria.SelectedJudicialOfficer": JO_id,
                 "SearchCriteria.DateFrom": date,
@@ -84,28 +49,40 @@ def create_search_form_data(
     return form_data
 
 
+from enum import Enum
+from typing import Literal
+
+
+class HTTPMethod(Enum):
+    POST: int = 1
+    GET: int = 2
+
+
 def request_page_with_retry(
     session: requests.Session,
     url: str,
     verification_text: str,
     logger: Logger,
-    headers: Optional[Dict[str, str]] = None,
+    http_method: Literal[HTTPMethod.POST, HTTPMethod.GET] = HTTPMethod.POST,
     data: Optional[Dict[str, str]] = None,
     max_retries: int = 5,
     ms_wait: str = 200,
 ) -> Tuple[str, bool]:
     response = ""
     for i in range(max_retries):
+        sleep(ms_wait / 1000)
         failed = False
         try:
-            if not data and not headers:
-                response = session.post(url)
-            elif not data:
-                response = session.post(url, headers=headers)
-            elif not headers:
-                response = session.post(url, data=data)
-            else:
-                response = session.post(url, data=data, headers=headers)
+            if http_method == HTTPMethod.POST:
+                if not data:
+                    response = session.post(url)
+                else:
+                    response = session.post(url, data=data)
+            elif http_method == HTTPMethod.GET:
+                if not data:
+                    response = session.get(url)
+                else:
+                    response = session.get(url, data=data)
             response.raise_for_status()
             if verification_text not in response.text:
                 failed = True
@@ -115,26 +92,4 @@ def request_page_with_retry(
             failed = True
         if not failed:
             return response.text, failed
-        if i != max_retries - 1:
-            sleep(ms_wait / 1000)
     return response.text, failed
-
-
-def create_header_data():
-    return {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        # 'Accept-Encoding': 'gzip, deflate, br',
-        "Origin": "https://jpodysseyportal.harriscountytx.gov",
-        "DNT": "1",
-        "Connection": "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "same-origin",
-        "Sec-Fetch-User": "?1",
-        # TODO: figure out which headers are needed
-        # "Referer": "https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Home/Dashboard/26",  # ?
-        # "Cookie": "", # ?
-    }
