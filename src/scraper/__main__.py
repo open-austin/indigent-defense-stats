@@ -1,13 +1,9 @@
-import logging
-import os
-import re
-import csv
-import traceback
-import urllib.parse
-from helpers import *
+import logging, os, re, csv, traceback, urllib.parse
 from arguments import args
 from datetime import datetime, timedelta
 from time import sleep, time
+
+from helpers import *
 
 import requests
 from bs4 import BeautifulSoup
@@ -58,20 +54,22 @@ def main() -> None:
     session.verify = False
 
     # start scraping
-    if odyssey_version < 2017:  # versions 2017 and higher have different logic
-        main_text, failed = request_page_with_retry(
-            session=session,
-            url=main_page,
-            verification_text="ssSearchHyperlink",
-            logger=logger,
-            ms_wait=args.ms_wait,
-        )
-        if failed:
-            write_debug_and_quit(
-                "ssSearchHyperlink", main_text, f"{main_page = }", logger
-            )
-        main_soup = BeautifulSoup(main_text, "html.parser")
-        # get path to the calendar page here
+    verification_text = (
+        "ssSearchHyperlink" if odyssey_version < 2017 else "portlet-buttons"
+    )
+    main_text, failed = request_page_with_retry(
+        session=session,
+        url=main_page,
+        verification_text=verification_text,
+        logger=logger,
+        ms_wait=args.ms_wait,
+    )
+    if failed:
+        write_debug_and_quit(verification_text, main_text, f"{main_page = }", logger)
+    main_soup = BeautifulSoup(main_text, "html.parser")
+
+    # get path to the search page here
+    if odyssey_version < 2017:
         search_page_links = main_soup.select("a.ssSearchHyperlink")
         for link in search_page_links:
             if link.text == "Court Calendar":
@@ -79,50 +77,27 @@ def main() -> None:
         if not search_page_id:
             write_debug_and_quit("Court Calendar page ID", main_text, "", logger)
         calendar_url = main_page + "Search.aspx?ID=" + search_page_id
-        calendar_text, failed = request_page_with_retry(
-            session=session,
-            url=calendar_url,
-            verification_text="Court Calendar",
-            logger=logger,
-            ms_wait=args.ms_wait,
-        )
-        if failed:
-            write_debug_and_quit(
-                "Court Calendar", calendar_text, f"{calendar_url = }", logger
-            )
-        calendar_soup = BeautifulSoup(calendar_text, "html.parser")
-    else:  # versions 2017 and higher have different logic
-        main_text, failed = request_page_with_retry(
-            session=session,
-            url=main_page,
-            verification_text="portlet-buttons",
-            logger=logger,
-            ms_wait=args.ms_wait,
-        )
-        if failed:
-            write_debug_and_quit(
-                "portlet-buttons", main_text, f"{main_page = }", logger
-            )
-        main_soup = BeautifulSoup(main_text, "html.parser")
-        # get path to the search page here
+    else:
         try:
             search_page_relative_url = main_soup.select("a.portlet-buttons")[1]["href"]
         except Exception:
             print(traceback.format_exc())
             write_debug_and_quit("Search page url", main_text, "", logger)
-        search_url = urllib.parse.urljoin(main_page, search_page_relative_url)
-        search_text, failed = request_page_with_retry(
-            session=session,
-            url=search_url,
-            verification_text="btnHSSubmit",
-            logger=logger,
-            ms_wait=args.ms_wait,
+        calendar_url = urllib.parse.urljoin(main_page, search_page_relative_url)
+
+    verification_text = "Court Calendar" if odyssey_version < 2017 else "btnHSSubmit"
+    calendar_text, failed = request_page_with_retry(
+        session=session,
+        url=calendar_url,
+        verification_text=verification_text,
+        logger=logger,
+        ms_wait=args.ms_wait,
+    )
+    if failed:
+        write_debug_and_quit(
+            verification_text, calendar_text, f"{calendar_url = }", logger
         )
-        if failed:
-            write_debug_and_quit(
-                "btnHSSubmit", search_text, f"{calendar_url = }", logger
-            )
-        calendar_soup = BeautifulSoup(search_text, "html.parser")
+    calendar_soup = BeautifulSoup(calendar_text, "html.parser")
 
     # we need these hidden values to access the search page
     hidden_values = {
