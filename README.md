@@ -40,3 +40,7 @@ Tested with:
 
 The command `poetry run python src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket.
 Currently this is running daily on a shell script, on only 1000 files as an example to see schema for Athena.
+
+# texas_county_data.csv
+
+- We are storing portal pages and relevant metadata here. For post-2017 pages, please use the direct url to the search page as the portal link, for example: `https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Home/Dashboard/26`
