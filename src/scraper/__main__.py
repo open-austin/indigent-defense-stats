@@ -4,13 +4,22 @@ from datetime import datetime, timedelta
 from time import sleep, time
 
 from helpers import *
+from arguments import args  # argument settings here
 
 import requests
 from bs4 import BeautifulSoup
 
 
 def main() -> None:
-    # get command line parmeter info
+    # disable SSL warnings
+    requests.packages.urllib3.disable_warnings(
+        requests.packages.urllib3.exceptions.InsecureRequestWarning
+    )
+
+    # start session
+    session = requests.Session()
+    # allow bad ssl
+    session.verify = False
 
     # set up logger
     logging.root.setLevel(level=args.log)
@@ -25,9 +34,9 @@ def main() -> None:
     )
     os.makedirs(case_html_path, exist_ok=True)
 
+    # get county portal and version year information from csv file
     main_page = ""
     odyssey_version = ""
-    # parse county portal from csv file
     with open(
         os.path.join(
             os.path.dirname(__file__), "..", "..", "resources", "texas_county_data.csv"
@@ -42,16 +51,6 @@ def main() -> None:
                 break
         if main_page == "":
             raise ValueError("There is no portal page for this county.")
-
-    # disable SSL warnings
-    requests.packages.urllib3.disable_warnings(
-        requests.packages.urllib3.exceptions.InsecureRequestWarning
-    )
-
-    # start session
-    session = requests.Session()
-    # allow bad ssl
-    session.verify = False
 
     # start scraping
     verification_text = (
@@ -103,9 +102,9 @@ def main() -> None:
     hidden_values = {
         hidden["name"]: hidden["value"]
         for hidden in calendar_soup.select('input[type="hidden"]')
-        # if "name" in hidden
-        # TODO: need to figure this out for >2017, the above line breaks <2017
+        if hidden.has_attr("name")
     }
+
     # get a list of JOs to their IDs from the search page
     judicial_officer_to_ID = {
         option.text: option["value"]
