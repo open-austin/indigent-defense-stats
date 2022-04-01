@@ -61,6 +61,7 @@ def main() -> None:
         url=main_page,
         verification_text=verification_text,
         logger=logger,
+        headers=None if odyssey_version < 2017 else create_header_data(),
         ms_wait=args.ms_wait,
     )
     if failed:
@@ -84,12 +85,14 @@ def main() -> None:
             write_debug_and_quit("Search page url", main_text, "", logger)
         calendar_url = urllib.parse.urljoin(main_page, search_page_relative_url)
 
+    logger.info(calendar_url)
     verification_text = "Court Calendar" if odyssey_version < 2017 else "btnHSSubmit"
     calendar_text, failed = request_page_with_retry(
         session=session,
         url=calendar_url,
         verification_text=verification_text,
         logger=logger,
+        headers=None if odyssey_version < 2017 else create_header_data(),
         ms_wait=args.ms_wait,
     )
     if failed:
@@ -104,6 +107,9 @@ def main() -> None:
         for hidden in calendar_soup.select('input[type="hidden"]')
         if hidden.has_attr("name")
     }
+    if odyssey_version >= 2017:
+        hidden_values.pop("SearchCriteria.Soundex")
+        hidden_values["Settings.DefaultLocation"] = "Harris+County+JPs+Odyssey+Portal"
 
     # get a list of JOs to their IDs from the search page
     judicial_officer_to_ID = {
@@ -119,10 +125,11 @@ def main() -> None:
     if not args.judicial_officers:
         args.judicial_officers = list(judicial_officer_to_ID.keys())
     # get nodedesc and nodeid information from main page location select box
-    location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
-    hidden_values.update(
-        {"NodeDesc": args.location, "NodeID": location_option["value"]}
-    )
+    if odyssey_version < 2017:
+        location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
+        hidden_values.update(
+            {"NodeDesc": args.location, "NodeID": location_option["value"]}
+        )
 
     # initialize some variables
     START_TIME = time()
@@ -144,18 +151,31 @@ def main() -> None:
                 continue
             JO_id = judicial_officer_to_ID[JO_name]
             logger.info(f"Searching cases on {date_string} for {JO_name}")
+            verification_text = (
+                "Record Count" if odyssey_version < 2017 else "Search Results"
+            )
             cal_text, failed = request_page_with_retry(
                 session=session,
-                url=calendar_url,
-                verification_text="Record Count",
+                url=calendar_url  # figure out the right page to hit for search results
+                if odyssey_version < 2017
+                else urllib.parse.urljoin(
+                    main_page, "OdysseyPortalJP/Hearing/SearchHearings/HearingSearch"
+                ),
+                verification_text=verification_text,
                 logger=logger,
-                data=make_form_data(date_string, JO_id, hidden_values),
+                data=create_search_form_data(
+                    date_string, JO_id, hidden_values, odyssey_version
+                ),
+                headers=None if odyssey_version < 2017 else create_header_data(),
                 ms_wait=args.ms_wait,
             )
 
             if failed:
                 write_debug_and_quit(
-                    "Record Count", cal_text, f"{JO_name = }\n{date_string = }", logger
+                    verification_text,
+                    cal_text,
+                    f"{JO_name = }\n{date_string = }",
+                    logger,
                 )
 
             # rate limiting
@@ -196,6 +216,9 @@ def main() -> None:
                         url=case_url,
                         verification_text="Date Filed",
                         logger=logger,
+                        headers=None
+                        if odyssey_version < 2017
+                        else create_header_data(),
                         ms_wait=args.ms_wait,
                     )
                     # error check based on text in html result.
