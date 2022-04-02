@@ -121,10 +121,9 @@ for case_html_file_name in os.listdir(case_html_path):
                 has_height_and_weight = (
                     len(defendant_rows[0]) > 4 and "," in defendant_rows[0][4]
                 )
-                has_sex = len(defendant_rows[0]) > 2 and "," in defendant_rows[0][2]
                 party_information = {
                     "defendant": defendant_rows[0][1],
-                    "sex": defendant_rows[0][2].split()[0] if has_sex else "",
+                    "sex": defendant_rows[0][2].split()[0],
                     "race": " ".join(defendant_rows[0][2].split()[1:])
                     if len(defendant_rows[0]) > 3
                     else "",
