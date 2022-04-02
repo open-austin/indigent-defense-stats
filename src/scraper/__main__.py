@@ -161,12 +161,39 @@ def main() -> None:
             )
             results_soup = BeautifulSoup(results_page_html, "html.parser")
 
-            case_urls = case_list_json = None
+            # if there are any cases found for this JO and date, process them
+            # different process for getting case data for pre and post 2017
             if odyssey_version < 2017:
                 case_urls = [
                     main_page + anchor["href"]
                     for anchor in results_soup.select('a[href^="CaseDetail"]')
                 ]
+                logger.info(f"{len(case_urls)} cases found.")
+                for case_url in case_urls:
+                    case_id = case_url.split("=")[1]
+                    if case_id in cached_case_list and not args.overwrite:
+                        logger.info(f"{case_id} - already scraped")
+                        continue
+                    case_html_file_path = os.path.join(
+                        case_html_path, f"{case_id}.html"
+                    )
+
+                    # make request for the case
+                    logger.info(f"{case_id} - scraping")
+                    case_html = request_page_with_retry(
+                        session=session,
+                        url=case_url,
+                        verification_text="Date Filed",
+                        logger=logger,
+                        ms_wait=args.ms_wait,
+                    )
+                    # error check based on text in html result.
+                    logger.info(f"Response string length: {len(case_html)}")
+                    with open(case_html_file_path, "w") as file_handle:
+                        file_handle.write(case_html)
+                    # add case id to cached list
+                    if case_id not in cached_case_list:
+                        cached_case_list.append(case_id)
             else:
                 case_list_json = request_page_with_retry(
                     session=session,
@@ -177,45 +204,9 @@ def main() -> None:
                     logger=logger,
                 )
                 case_list_json = json.loads(case_list_json)
-
-            logger.info(
-                f"{len(case_urls) if odyssey_version<2017 else case_list_json['Total']} cases found."
-            )
-            # if there are any cases found for this JO and date
-            if odyssey_version < 2017:
-                if case_urls:
-                    # process each case
-                    for case_url in case_urls:
-                        case_id = case_url.split("=")[1]
-                        # continue if case is already cached, unless using overwrite flag
-                        if case_id in cached_case_list and not args.overwrite:
-                            logger.info(f"{case_id} - already scraped")
-                            continue
-                        case_html_file_path = os.path.join(
-                            case_html_path, f"{case_id}.html"
-                        )
-
-                        # make request for the case
-                        logger.info(f"{case_id} - scraping")
-                        case_html = request_page_with_retry(
-                            session=session,
-                            url=case_url,
-                            verification_text="Date Filed",
-                            logger=logger,
-                            ms_wait=args.ms_wait,
-                        )
-                        # error check based on text in html result.
-                        logger.info(f"Response string length: {len(case_html)}")
-                        with open(case_html_file_path, "w") as file_handle:
-                            file_handle.write(case_html)
-                        # add case id to cached list
-                        if case_id not in cached_case_list:
-                            cached_case_list.append(case_id)
-            elif int(case_list_json["Total"]):
-                # process each case
+                logger.info(f"{case_list_json['Total']} cases found.")
                 for case_json in case_list_json["Data"]:
                     case_id = case_json["CaseId"]
-                    # continue if case is already cached, unless using overwrite flag
                     if case_id in cached_case_list and not args.overwrite:
                         logger.info(f"{case_id} - already scraped")
                         continue
