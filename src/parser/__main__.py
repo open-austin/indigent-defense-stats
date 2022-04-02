@@ -24,23 +24,13 @@ args = argparser.parse_args()
 
 # get directories and make json dir if not present
 case_html_path = os.path.join(
-    os.path.dirname(__file__), "..", "data", args.county, "case_html"
+    os.path.dirname(__file__), "..", "..", "data", args.county, "case_html"
 )
 case_json_path = os.path.join(
-    os.path.dirname(__file__), "..", "data", args.county, "case_json"
+    os.path.dirname(__file__), "..", "..", "data", args.county, "case_json"
 )
 if not os.path.exists(case_json_path):
     os.makedirs(case_json_path, exist_ok=True)
-
-# read in files that didn't work
-broken_json_path = os.path.join(case_json_path, "broken_files.txt")
-if not os.path.exists(broken_json_path):
-    broken_files = []
-else:
-    with open(broken_json_path, "a+") as f:
-        broken_files = f.readlines()
-        broken_files = list(set(broken_files))
-        f.truncate()
 
 START_TIME = time()
 cached_case_json_list = [
@@ -267,20 +257,23 @@ for case_html_file_name in os.listdir(case_html_path):
                     "transactions": table_rows[4:],
                 }
                 case_data["financial information"] = financial_information
-            elif "Location : All Courts" not in table.text and table.text:
-                ...
-                # print to see if there are sections we are missing in any of the table sections
-                # print(table)
 
-        # Write file as json data
-        json_str = json.dumps(case_data)
-        case_filename = os.path.join(case_json_path, case_id + ".json")
-        with open(case_filename, "w") as file_handle:
-            file_handle.write(json_str)
+        # Write JSON data
+        with open(os.path.join(case_json_path, case_id + ".json"), "w") as file_handle:
+            file_handle.write(json.dumps(case_data))
     except Exception:
         print(traceback.format_exc())
-        broken_files.append(case_id)
-        with open(broken_json_path, "w") as file_handle:
+        with open(
+            os.path.join(
+                os.path.dirname(__file__),
+                "..",
+                "..",
+                "data",
+                args.county,
+                "cases_with_parsing_error.txt",
+            ),
+            "w",
+        ) as file_handle:
             file_handle.write(case_id + "\n")
 
 RUN_TIME = time() - START_TIME
