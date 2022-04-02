@@ -16,7 +16,7 @@ argparser.description = "Print stats for the specified county."
 args = argparser.parse_args()
 
 folderpath = os.path.join(
-    os.path.dirname(__file__), "..", "data", args.county, "case_html"
+    os.path.dirname(__file__), "..", "..", "data", args.county, "case_html"
 )
 memory_file = BytesIO()
 with zipfile.ZipFile(memory_file, "w") as zf:
