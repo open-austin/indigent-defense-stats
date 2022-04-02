@@ -9,20 +9,16 @@ from bs4 import BeautifulSoup
 from helpers import *
 from arguments import args  # argument settings here
 
-# disable SSL warnings
+session = requests.Session()
+# allow bad ssl and turn off warnings
+session.verify = False
 requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning
 )
 
-# start session
-session = requests.Session()
-# allow bad ssl
-session.verify = False
-
-# set up logger
-logging.root.setLevel(level=args.log)
 logger = logging.getLogger(name="pid: " + str(os.getpid()))
 logging.basicConfig()
+logging.root.setLevel(level=args.log)
 
 # make cache directories if not present
 case_html_path = os.path.join(
@@ -31,8 +27,7 @@ case_html_path = os.path.join(
 os.makedirs(case_html_path, exist_ok=True)
 
 # get county portal and version year information from csv file
-base_url = ""
-odyssey_version = ""
+base_url = odyssey_version = None
 with open(
     os.path.join(
         os.path.dirname(__file__), "..", "..", "resources", "texas_county_data.csv"
@@ -43,11 +38,15 @@ with open(
     for row in csv_file:
         if row["county"].lower() == args.county.lower():
             base_url = row["portal"]
+            # add trailing slash if not present, otherwise urljoin breaks
+            if base_url[-1] != "/":
+                base_url += "/"
             odyssey_version = int(row["version"].split(".")[0])
-            parsed_url = urllib.parse.urlparse(base_url)
             break
-    if base_url == "":
-        raise ValueError("There is no portal page for this county.")
+if not base_url or not odyssey_version:
+    raise Exception(
+        "The required data to scrape this county is not in ./resources/texas_county_data.csv"
+    )
 
 # if odyssey_version < 2017, scrape main page first to get necessary data
 if odyssey_version < 2017:
