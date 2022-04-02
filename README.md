@@ -24,7 +24,7 @@ Output of these commands will go to `./data/COUNTY_NAME`
 
 ## Other files
 
-- The command `poetry run python src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket.
 - `texas_county_data.csv` - We are storing portal pages and relevant metadata here. Put the main portal page with a trailing slash.
 - `/resources/minimum_scraper_examples` - Educational resource to understand the flow for scraping each site.
+- `src/combine_parsed.py` - a script to combine JSON files into one and put it in an s3 bucket.
 - `poetry run python ./src/print_stats.py -county hays` - Get some stats from the JSON data
