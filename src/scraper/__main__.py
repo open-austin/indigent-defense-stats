@@ -169,12 +169,8 @@ def main() -> None:
                     if case_id in cached_case_list and not args.overwrite:
                         logger.info(f"{case_id} - already scraped")
                         continue
-                    case_html_file_path = os.path.join(
-                        case_html_path, f"{case_id}.html"
-                    )
-
-                    # make request for the case
                     logger.info(f"{case_id} - scraping")
+                    # make request for the case
                     case_html = request_page_with_retry(
                         session=session,
                         url=case_url,
@@ -182,9 +178,11 @@ def main() -> None:
                         logger=logger,
                         ms_wait=args.ms_wait,
                     )
-                    # error check based on text in html result.
+                    # write html case data
                     logger.info(f"Response string length: {len(case_html)}")
-                    with open(case_html_file_path, "w") as file_handle:
+                    with open(
+                        os.path.join(case_html_path, f"{case_id}.html"), "w"
+                    ) as file_handle:
                         file_handle.write(case_html)
                     # add case id to cached list
                     if case_id not in cached_case_list:
@@ -205,42 +203,36 @@ def main() -> None:
                     if case_id in cached_case_list and not args.overwrite:
                         logger.info(f"{case_id} - already scraped")
                         continue
-                    case_html_file_path = os.path.join(
-                        case_html_path, f"{case_id}.html"
-                    )
-
-                    # make request for the case
                     logger.info(f"{case_id} - scraping")
-                    params = {
-                        "eid": case_json["EncryptedCaseId"],
-                        "CaseNumber": case_json["CaseNumber"],
-                    }
+                    # make request for the case
                     case_html = request_page_with_retry(
                         session=session,
                         url="https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Case/CaseDetail",
                         verification_text="Case Information",
                         logger=logger,
                         ms_wait=args.ms_wait,
-                        params=params,
+                        params={
+                            "eid": case_json["EncryptedCaseId"],
+                            "CaseNumber": case_json["CaseNumber"],
+                        },
                     )
-
-                    params = {
-                        "caseId": case_json["CaseId"],
-                    }
-
-                    financial_html = request_page_with_retry(
+                    # make request for financial info
+                    case_html += request_page_with_retry(
                         session=session,
                         url="https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Case/CaseDetail/LoadFinancialInformation",
                         verification_text="Financial",
                         logger=logger,
                         ms_wait=args.ms_wait,
-                        params=params,
+                        params={
+                            "caseId": case_json["CaseId"],
+                        },
                     )
-                    logger.info(
-                        f"Response string length: {len(case_html + financial_html)}"
-                    )
-                    with open(case_html_file_path, "w") as file_handle:
-                        file_handle.write(case_html + financial_html)
+                    # write case html data
+                    logger.info(f"Response string length: {len(case_html)}")
+                    with open(
+                        os.path.join(case_html_path, f"{case_id}.html"), "w"
+                    ) as file_handle:
+                        file_handle.write(case_html)
                     # add case id to cached list
                     if case_id not in cached_case_list:
                         cached_case_list.append(case_id)
