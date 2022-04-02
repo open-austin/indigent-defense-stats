@@ -18,7 +18,7 @@ Blanco,12365,http://www.co.blanco.tx.us/,,,,
 Borden,686,http://www.co.borden.tx.us/,,,,
 Bosque,19146,http://www.bosquecounty.us/,,,,
 Bowie,95897,http://www.co.bowie.tx.us/,,,,
-Brazoria,382874,http://brazoriacountytx.gov/,https://pubweb.brazoriacountytx.gov/PublicAccess/,odyssey,2011,mutiple court locations
+Brazoria,382874,http://brazoriacountytx.gov/,https://pubweb.brazoriacountytx.gov/PublicAccess/,odyssey,2011,multiple court locations
 Brazos,233071,http://www.brazoscountytx.gov/,,,,
 Brewster,9055,http://www.brewstercountytx.com/,,,,
 Briscoe,1599,http://www.co.briscoe.tx.us/,,,,
@@ -44,7 +44,7 @@ Coleman,8041,http://www.co.coleman.tx.us/,,,,
 Collin,1047901,http://www.collincountytx.gov/,https://cijspub.co.collin.tx.us/,odyssey,2003,has multiple court locations
 Collingsworth,2802,http://www.co.collingsworth.tx.us/,,,,
 Colorado,22566,http://www.co.colorado.tx.us/,,,,
-Comal,161328,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/default.aspx,odyssey,2003,needs default.aspx in url or sends you to IIS default index
+Comal,161328,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/default.aspx,odyssey,2003,has Court Calendar disabled - needs default.aspx in url or sends you to IIS default index
 Comanche,13848,http://www.co.comanche.tx.us/,,,,
 Concho,2715,http://www.co.concho.tx.us/,,,,
 Cooke,40685,http://www.co.cooke.tx.us/,,,,
