@@ -1,13 +1,8 @@
-## Tyler Technologies Odyssey court records scraper and parser
+# Tyler Technologies Odyssey scraper and parser
 
-This is a scraper to collect and process public case records from the Tyler Technologies Odyssey County Records system. The intention is to gain insight and advocate for defendant's rights. A google search for ["Copyright \* Tyler Technologies" "Court Calendar"](https://www.google.com/search?q=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&oq=%22Copyright+*+Tyler+Technologies%22+%22Court+Calendar%22&aqs=edge..69i57.283j0j1&sourceid=chrome&ie=UTF-8) will show some other possible sites to scrape. You should just need to input parameters for the main page and a list of JOs and scrape any Odyssey page.
+This is a scraper to collect and process public case records from the Tyler Technologies Odyssey court records system. Tested with Hays, Smith, and Harris counties.
 
-Tested with:
-
-- http://public.co.hays.tx.us/ (~4k cases from 2 months from 9 JOs)
-- https://judicial.smith-county.com/PublicAccess/ (125 cases from 1 JO)
-
-### Installation
+## Installation
 
 1. Clone this repo.
    - `git clone https://github.com/derac/Odyssey-Court-Records-to-JSON.git`
@@ -18,33 +13,20 @@ Tested with:
 1. Install libraries.
    - `poetry install`
 
-### Usage
+## Usage
 
-**Use --help for command line parameter information.**
+_**Use --help for parameter info.**_
 
-1. Scrape calendar and case data by JO and day.
-   - `poetry run python ./src/scraper`
-   - _./data/case_html/county/_**odyssey id**_.html_
+1. Output of these commands will go to `./data/COUNTY_NAME`
+1. Scrape case HTML data through date range.
+   - `poetry run python ./src/scraper -start_date 01/01/1970 -end_date 01/01/1970 -county hays`
 1. Parse the case data into JSON files.
-   - `poetry run python ./src/parser.py`
-   - _./data/case_json/county/_**odyssey id**_.json_
+   - `poetry run python ./src/parser.py -county hays`
 1. Print some stats from the JSON.
-   - `poetry run python ./src/print_stats.py`
+   - `poetry run python ./src/print_stats.py -county hays`
 
-## Implementation Details
+## Info on other files
 
-- The session must visit the main page in order to access the calendar search page. To visit a case page, you must have visited a results page containing it.
-- hidden values are grabbed from the calendar page, NodeID and NodeDesc are grabbed from the main page location field.
-
-## Writing to s3 bucket
-
-The command `poetry run python src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket.
-Currently this is running daily on a shell script, on only 1000 files as an example to see schema for Athena.
-
-# texas_county_data.csv
-
-- We are storing portal pages and relevant metadata here. For post-2017 pages, please use the direct url to the search page as the portal link, for example: `https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Home/Dashboard/26`
-
-# /resources/minimum_scraper_examples
-
-Educational resource to understand the flow for scraping each site.
+- The command `poetry run python src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket.
+- `texas_county_data.csv` - We are storing portal pages and relevant metadata here. For post-2017 pages, please use the direct url to the search page as the portal link, for example: https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Home/Dashboard/26 version is the number used as the copywright year on the main page.
+- `/resources/minimum_scraper_examples` - Educational resource to understand the flow for scraping each site.
