@@ -1,5 +1,7 @@
-import os, argparse, csv
+import os, argparse, csv, json, traceback
 from time import time
+
+from bs4 import BeautifulSoup
 
 import pre2017, post2017
 
@@ -49,9 +51,42 @@ if not odyssey_version:
     )
 
 START_TIME = time()
-if odyssey_version < 2017:
-    pre2017.parse(case_json_path, case_html_path, args)
-else:
-    post2017.parse(case_json_path, case_html_path, args)
+
+cached_case_json_list = [
+    file_name.split(".")[0] for file_name in os.listdir(case_json_path)
+]
+
+for case_html_file_name in os.listdir(case_html_path):
+    try:
+        case_id = case_html_file_name.split(".")[0]
+        if case_id in cached_case_json_list and not args.overwrite:
+            continue
+        case_html_file_path = os.path.join(case_html_path, case_html_file_name)
+        print(f"Parsing {case_id}")
+        with open(case_html_file_path, "r") as file_handle:
+            case_soup = BeautifulSoup(file_handle, "html.parser", from_encoding="UTF-8")
+
+        if odyssey_version < 2017:
+            case_data = pre2017.parse(case_soup, case_id)
+        else:
+            case_data = post2017.parse(case_soup, case_id)
+
+        # Write JSON data
+        with open(os.path.join(case_json_path, case_id + ".json"), "w") as file_handle:
+            file_handle.write(json.dumps(case_data))
+    except Exception:
+        print(traceback.format_exc())
+        with open(
+            os.path.join(
+                os.path.dirname(__file__),
+                "..",
+                "..",
+                "data",
+                args.county,
+                "cases_with_parsing_error.txt",
+            ),
+            "w",
+        ) as file_handle:
+            file_handle.write(case_id + "\n")
 RUN_TIME = time() - START_TIME
 print(f"Parsing took {RUN_TIME} seconds")
