@@ -1,4 +1,4 @@
-import logging, os, re, csv, urllib.parse
+import logging, os, re, csv, urllib.parse, json
 from arguments import args
 from datetime import datetime, timedelta
 from time import time
@@ -59,7 +59,7 @@ def main() -> None:
         if odyssey_version < 2017
         else "SearchCriteria.SelectedCourt"
     )
-    main_text, failed = request_page_with_retry(
+    main_page_html = request_page_with_retry(
         session=session,
         url=main_page,
         verification_text=verification_text,
@@ -67,9 +67,7 @@ def main() -> None:
         http_method=HTTPMethod.GET,
         ms_wait=args.ms_wait,
     )
-    if failed:
-        write_debug_and_quit(verification_text, main_text, f"{main_page = }", logger)
-    main_soup = BeautifulSoup(main_text, "html.parser")
+    main_soup = BeautifulSoup(main_page_html, "html.parser")
 
     # Visit the search page to gather hidden values
     if odyssey_version < 2017:
@@ -79,21 +77,17 @@ def main() -> None:
             if link.text == "Court Calendar":
                 search_page_id = link["href"].split("?ID=")[1].split("'")[0]
         if not search_page_id:
-            write_debug_and_quit("Court Calendar page ID", main_text, "", logger)
+            write_debug_and_quit("Court Calendar link", main_page_html, logger)
         search_url = main_page + "Search.aspx?ID=" + search_page_id
 
-        search_text, failed = request_page_with_retry(
+        search_page_html = request_page_with_retry(
             session=session,
             url=search_url,
             verification_text="Court Calendar",
             logger=logger,
             ms_wait=args.ms_wait,
         )
-        if failed:
-            write_debug_and_quit(
-                "Court Calendar", search_text, f"{search_url = }", logger
-            )
-        search_soup = BeautifulSoup(search_text, "html.parser")
+        search_soup = BeautifulSoup(search_page_html, "html.parser")
     else:
         search_soup = main_soup
 
@@ -130,7 +124,7 @@ def main() -> None:
 
     # initialize some variables
     START_TIME = time()
-    cached_case_html_list = [
+    cached_case_list = [
         file_name.split(".")[0] for file_name in os.listdir(case_html_path)
     ]
     day_count = args.end_date - args.start_date
@@ -151,7 +145,7 @@ def main() -> None:
             verification_text = (
                 "Record Count" if odyssey_version < 2017 else "Search Results"
             )
-            results_text, failed = request_page_with_retry(
+            results_page_html = request_page_with_retry(
                 session=session,
                 url=search_url
                 if odyssey_version < 2017
@@ -165,62 +159,107 @@ def main() -> None:
                 ),
                 ms_wait=args.ms_wait,
             )
-            if failed:
-                write_debug_and_quit(
-                    verification_text,
-                    results_text,
-                    f"{JO_name = }\n{date_string = }",
-                    logger,
-                )
-            results_soup = BeautifulSoup(results_text, "html.parser")
-            case_anchors = results_soup.select('a[href^="CaseDetail"]')
-            logger.info(f"{len(case_anchors)} cases found.")
-            # if there are any cases found for this JO and date
-            if case_anchors:
-                # if all cases are cached, continue
-                if (
-                    all(
-                        case_anchor["href"].split("=")[1] in cached_case_html_list
-                        for case_anchor in case_anchors
-                    )
-                    and not args.overwrite
-                ):
-                    logger.info("All cases are cached for this JO and date.")
-                    continue
+            results_soup = BeautifulSoup(results_page_html, "html.parser")
 
+            case_urls = case_list_json = None
+            if odyssey_version < 2017:
+                case_urls = [
+                    main_page + anchor["href"]
+                    for anchor in results_soup.select('a[href^="CaseDetail"]')
+                ]
+            else:
+                case_list_json = request_page_with_retry(
+                    session=session,
+                    url=urllib.parse.urljoin(
+                        base_page, "OdysseyPortalJP/Hearing/HearingResults/Read"
+                    ),
+                    verification_text="EncryptedCaseId",
+                    logger=logger,
+                )
+                case_list_json = json.loads(case_list_json)
+
+            logger.info(
+                f"{len(case_urls) if odyssey_version<2017 else case_list_json['Total']} cases found."
+            )
+            # if there are any cases found for this JO and date
+            if odyssey_version < 2017:
+                if case_urls:
+                    # process each case
+                    for case_url in case_urls:
+                        case_id = case_url.split("=")[1]
+                        # continue if case is already cached, unless using overwrite flag
+                        if case_id in cached_case_list and not args.overwrite:
+                            logger.info(f"{case_id} - already scraped")
+                            continue
+                        case_html_file_path = os.path.join(
+                            case_html_path, f"{case_id}.html"
+                        )
+
+                        # make request for the case
+                        logger.info(f"{case_id} - scraping")
+                        case_html = request_page_with_retry(
+                            session=session,
+                            url=case_url,
+                            verification_text="Date Filed",
+                            logger=logger,
+                            ms_wait=args.ms_wait,
+                        )
+                        # error check based on text in html result.
+                        logger.info(f"Response string length: {len(case_html)}")
+                        with open(case_html_file_path, "w") as file_handle:
+                            file_handle.write(case_html)
+                        # add case id to cached list
+                        if case_id not in cached_case_list:
+                            cached_case_list.append(case_id)
+            elif int(case_list_json["Total"]):
                 # process each case
-                for case_anchor in case_anchors:
-                    case_url = main_page + case_anchor["href"]
-                    case_id = case_url.split("=")[1]
+                for case_json in case_list_json["Data"]:
+                    case_id = case_json["CaseId"]
                     # continue if case is already cached, unless using overwrite flag
-                    if case_id in cached_case_html_list and not args.overwrite:
+                    if case_id in cached_case_list and not args.overwrite:
+                        logger.info(f"{case_id} - already scraped")
                         continue
                     case_html_file_path = os.path.join(
                         case_html_path, f"{case_id}.html"
                     )
 
                     # make request for the case
-                    logger.info("Visiting: " + case_url)
-                    case_results, failed = request_page_with_retry(
+                    logger.info(f"{case_id} - scraping")
+                    params = {
+                        "eid": case_json["EncryptedCaseId"],
+                        "CaseNumber": case_json["CaseNumber"],
+                    }
+                    case_html = request_page_with_retry(
                         session=session,
-                        url=case_url,
-                        verification_text="Date Filed",
+                        url="https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Case/CaseDetail",
+                        verification_text="Case Information",
                         logger=logger,
                         ms_wait=args.ms_wait,
+                        params=params,
                     )
+
+                    params = {
+                        "caseId": case_json["CaseId"],
+                    }
+
+                    financial_html = request_page_with_retry(
+                        session=session,
+                        url="https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Case/CaseDetail/LoadFinancialInformation",
+                        verification_text="Financial",
+                        logger=logger,
+                        ms_wait=args.ms_wait,
+                        params=params,
+                    )
+
                     # error check based on text in html result.
-                    if not failed:
-                        logger.info(f"Response string length: {len(case_results)}")
-                        with open(case_html_file_path, "w") as file_handle:
-                            file_handle.write(case_results)
-                        # add case id to cached list
-                        if case_id not in cached_case_html_list:
-                            cached_case_html_list.append(case_id)
-                    else:
-                        curr_vars = f"{date_string = }\n{JO_name = }\n{case_url = }"
-                        write_debug_and_quit(
-                            "Date Filed", case_results, curr_vars, logger
-                        )
+                    logger.info(
+                        f"Response string length: {len(case_html + financial_html)}"
+                    )
+                    with open(case_html_file_path, "w") as file_handle:
+                        file_handle.write(case_html + financial_html)
+                    # add case id to cached list
+                    if case_id not in cached_case_list:
+                        cached_case_list.append(case_id)
 
     logger.info(f"\nTime to run script: {round(time() - START_TIME, 2)} seconds")
 

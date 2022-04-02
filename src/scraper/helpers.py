@@ -1,20 +1,19 @@
-import os
+import os, sys
 import requests
 from time import sleep
 from logging import Logger
-from typing import Any, Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple
 
 
-def write_debug_and_quit(substr: str, html: str, vars: str, logger: Logger) -> None:
+def write_debug_and_quit(
+    verification_text: str, page_text: str, logger: Logger
+) -> None:
     logger.error(
-        f"'{substr}' could not be found in html page. Aborting.\n",
-        "Writing ./debug.html with response and ./debug.txt with current variables.\n {vars}",
+        f"'{verification_text}' could not be found in page. Aborting. Writing /data/debug.html with response. May not be HTML."
     )
     with open(os.path.join("data", "debug.html"), "w") as file_handle:
-        file_handle.write(html)
-    with open(os.path.join("data", "debug.txt"), "w") as file_handle:
-        file_handle.write(vars)
-    quit()
+        file_handle.write(page_text)
+    sys.exit(1)
 
 
 # helper function to make form data
@@ -64,25 +63,26 @@ def request_page_with_retry(
     verification_text: str,
     logger: Logger,
     http_method: Literal[HTTPMethod.POST, HTTPMethod.GET] = HTTPMethod.POST,
+    params: Dict[str, str] = {},
     data: Optional[Dict[str, str]] = None,
     max_retries: int = 5,
     ms_wait: str = 200,
 ) -> Tuple[str, bool]:
-    response = ""
+    response = None
     for i in range(max_retries):
         sleep(ms_wait / 1000)
         failed = False
         try:
             if http_method == HTTPMethod.POST:
                 if not data:
-                    response = session.post(url)
+                    response = session.post(url, params=params)
                 else:
-                    response = session.post(url, data=data)
+                    response = session.post(url, data=data, params=params)
             elif http_method == HTTPMethod.GET:
                 if not data:
-                    response = session.get(url)
+                    response = session.get(url, params=params)
                 else:
-                    response = session.get(url, data=data)
+                    response = session.get(url, data=data, params=params)
             response.raise_for_status()
             if verification_text not in response.text:
                 failed = True
@@ -90,6 +90,6 @@ def request_page_with_retry(
         except requests.RequestException as e:
             logger.exception(f"Failed to get url {url}, try {i}")
             failed = True
-        if not failed:
-            return response.text, failed
-    return response.text, failed
+        if failed:
+            write_debug_and_quit(verification_text, response.text, logger)
+    return response.text
