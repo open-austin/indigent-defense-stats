@@ -3,12 +3,11 @@ from arguments import args
 from datetime import datetime, timedelta
 from time import time
 
-from helpers import *
-from arguments import args  # argument settings here
-
 import requests
 from bs4 import BeautifulSoup
 
+from helpers import *
+from arguments import args  # argument settings here
 
 # disable SSL warnings
 requests.packages.urllib3.disable_warnings(
@@ -121,8 +120,7 @@ if not args.judicial_officers:
 # initialize some variables
 START_TIME = time()
 cached_case_list = [file_name.split(".")[0] for file_name in os.listdir(case_html_path)]
-day_count = args.end_date - args.start_date
-day_count = day_count.days
+day_count = (args.end_date - args.start_date).days
 
 # days in the past starting with yesterday.
 for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)):
