@@ -54,15 +54,12 @@ def main() -> None:
             raise ValueError("There is no portal page for this county.")
 
     # start scraping
-    verification_text = (
-        "ssSearchHyperlink"
-        if odyssey_version < 2017
-        else "SearchCriteria.SelectedCourt"
-    )
     main_page_html = request_page_with_retry(
         session=session,
         url=main_page,
-        verification_text=verification_text,
+        verification_text="ssSearchHyperlink"
+        if odyssey_version < 2017
+        else "SearchCriteria.SelectedCourt",
         logger=logger,
         http_method=HTTPMethod.GET,
         ms_wait=args.ms_wait,
@@ -142,9 +139,6 @@ def main() -> None:
                 continue
             JO_id = judicial_officer_to_ID[JO_name]
             logger.info(f"Searching cases on {date_string} for {JO_name}")
-            verification_text = (
-                "Record Count" if odyssey_version < 2017 else "Search Results"
-            )
             results_page_html = request_page_with_retry(
                 session=session,
                 url=search_url
@@ -152,7 +146,9 @@ def main() -> None:
                 else urllib.parse.urljoin(
                     base_page, "OdysseyPortalJP/Hearing/SearchHearings/HearingSearch"
                 ),
-                verification_text=verification_text,
+                verification_text="Record Count"
+                if odyssey_version < 2017
+                else "Search Results",
                 logger=logger,
                 data=create_search_form_data(
                     date_string, JO_id, hidden_values, odyssey_version
@@ -161,7 +157,6 @@ def main() -> None:
             )
             results_soup = BeautifulSoup(results_page_html, "html.parser")
 
-            # if there are any cases found for this JO and date, process them
             # different process for getting case data for pre and post 2017
             if odyssey_version < 2017:
                 case_urls = [
@@ -200,7 +195,7 @@ def main() -> None:
                     url=urllib.parse.urljoin(
                         base_page, "OdysseyPortalJP/Hearing/HearingResults/Read"
                     ),
-                    verification_text="EncryptedCaseId",
+                    verification_text="AggregateResults",
                     logger=logger,
                 )
                 case_list_json = json.loads(case_list_json)
@@ -241,8 +236,6 @@ def main() -> None:
                         ms_wait=args.ms_wait,
                         params=params,
                     )
-
-                    # error check based on text in html result.
                     logger.info(
                         f"Response string length: {len(case_html + financial_html)}"
                     )
