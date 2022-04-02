@@ -2,7 +2,8 @@ import os, sys
 import requests
 from time import sleep
 from logging import Logger
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, Literal
+from enum import Enum
 
 
 def write_debug_and_quit(
@@ -44,12 +45,7 @@ def create_search_form_data(
                 "SearchCriteria.DateTo": date,
             }
         )
-
     return form_data
-
-
-from enum import Enum
-from typing import Literal
 
 
 class HTTPMethod(Enum):
