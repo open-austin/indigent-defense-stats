@@ -31,9 +31,8 @@ case_html_path = os.path.join(
 os.makedirs(case_html_path, exist_ok=True)
 
 # get county portal and version year information from csv file
-main_page = ""
+base_url = ""
 odyssey_version = ""
-base_page = ""
 with open(
     os.path.join(
         os.path.dirname(__file__), "..", "..", "resources", "texas_county_data.csv"
@@ -43,50 +42,49 @@ with open(
     csv_file = csv.DictReader(file_handle)
     for row in csv_file:
         if row["county"].lower() == args.county.lower():
-            main_page = row["portal"]
+            base_url = row["portal"]
             odyssey_version = int(row["version"].split(".")[0])
-            parsed_url = urllib.parse.urlparse(main_page)
-            base_page = parsed_url.scheme + "://" + parsed_url.netloc
+            parsed_url = urllib.parse.urlparse(base_url)
             break
-    if main_page == "":
+    if base_url == "":
         raise ValueError("There is no portal page for this county.")
 
-# start scraping
-main_page_html = request_page_with_retry(
-    session=session,
-    url=main_page,
-    verification_text="ssSearchHyperlink"
-    if odyssey_version < 2017
-    else "SearchCriteria.SelectedCourt",
-    logger=logger,
-    http_method=HTTPMethod.GET,
-    ms_wait=args.ms_wait,
-)
-main_soup = BeautifulSoup(main_page_html, "html.parser")
-
-# Visit the search page to gather hidden values
+# if odyssey_version < 2017, scrape main page first to get necessary data
 if odyssey_version < 2017:
-    search_page_links = main_soup.select("a.ssSearchHyperlink")
+    main_page_html = request_page_with_retry(
+        session=session,
+        url=base_url,
+        verification_text="ssSearchHyperlink",
+        logger=logger,
+        http_method=HTTPMethod.GET,
+        ms_wait=args.ms_wait,
+    )
+    main_soup = BeautifulSoup(main_page_html, "html.parser")
+    # build url for court calendar
     search_page_id = None
-    for link in search_page_links:
+    for link in main_soup.select("a.ssSearchHyperlink"):
         if link.text == "Court Calendar":
             search_page_id = link["href"].split("?ID=")[1].split("'")[0]
     if not search_page_id:
         write_debug_and_quit("Court Calendar link", main_page_html, logger)
-    search_url = main_page + "Search.aspx?ID=" + search_page_id
+    search_url = base_url + "Search.aspx?ID=" + search_page_id
 
-    search_page_html = request_page_with_retry(
-        session=session,
-        url=search_url,
-        verification_text="Court Calendar",
-        logger=logger,
-        ms_wait=args.ms_wait,
-    )
-    search_soup = BeautifulSoup(search_page_html, "html.parser")
-else:
-    search_soup = main_soup
+# hit the search page to gather initial data
+search_page_html = request_page_with_retry(
+    session=session,
+    url=search_url
+    if odyssey_version < 2017
+    else urllib.parse.urljoin(base_url, "Home/Dashboard/26"),
+    verification_text="Court Calendar"
+    if odyssey_version < 2017
+    else "SearchCriteria.SelectedCourt",
+    http_method=HTTPMethod.GET,
+    logger=logger,
+    ms_wait=args.ms_wait,
+)
+search_soup = BeautifulSoup(search_page_html, "html.parser")
 
-# we need these hidden values to access the search page
+# we need these hidden values to POST a search
 hidden_values = {
     hidden["name"]: hidden["value"]
     for hidden in search_soup.select('input[type="hidden"]')
@@ -138,9 +136,7 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
             session=session,
             url=search_url
             if odyssey_version < 2017
-            else urllib.parse.urljoin(
-                base_page, "OdysseyPortalJP/Hearing/SearchHearings/HearingSearch"
-            ),
+            else urllib.parse.urljoin(base_url, "Hearing/SearchHearings/HearingSearch"),
             verification_text="Record Count"
             if odyssey_version < 2017
             else "Search Results",
@@ -155,7 +151,7 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
         # different process for getting case data for pre and post 2017
         if odyssey_version < 2017:
             case_urls = [
-                main_page + anchor["href"]
+                base_url + anchor["href"]
                 for anchor in results_soup.select('a[href^="CaseDetail"]')
             ]
             logger.info(f"{len(case_urls)} cases found.")
@@ -185,9 +181,7 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
         else:
             case_list_json = request_page_with_retry(
                 session=session,
-                url=urllib.parse.urljoin(
-                    base_page, "OdysseyPortalJP/Hearing/HearingResults/Read"
-                ),
+                url=urllib.parse.urljoin(base_url, "Hearing/HearingResults/Read"),
                 verification_text="AggregateResults",
                 logger=logger,
             )
@@ -202,7 +196,7 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
                 # make request for the case
                 case_html = request_page_with_retry(
                     session=session,
-                    url="https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Case/CaseDetail",
+                    url=urllib.parse.urljoin(base_url, "Case/CaseDetail"),
                     verification_text="Case Information",
                     logger=logger,
                     ms_wait=args.ms_wait,
@@ -214,7 +208,9 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
                 # make request for financial info
                 case_html += request_page_with_retry(
                     session=session,
-                    url="https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Case/CaseDetail/LoadFinancialInformation",
+                    url=urllib.parse.urljoin(
+                        base_url, "Case/CaseDetail/LoadFinancialInformation"
+                    ),
                     verification_text="Financial",
                     logger=logger,
                     ms_wait=args.ms_wait,

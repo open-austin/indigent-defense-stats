@@ -12,8 +12,8 @@ Bandera,23360,http://www.banderacounty.org/,,,
 Bastrop,90262,http://www.co.bastrop.tx.us/,http://records.co.bastrop.tx.us/PublicAccess/,odyssey,2003
 Baylor,3754,http://www.co.baylor.tx.us/,,,
 Bee,33571,http://www.co.bee.tx.us/,,,
-Bell,362093,http://www.bellcountytx.com/,https://justice.bellcounty.texas.gov/PublicPortal/Home/Dashboard/26,odyssey,2017.1.46.2
-Bexar,2006193,http://www.bexar.org/,https://portal-txbexar.tylertech.cloud/Portal/Home/Dashboard/26,odyssey,2017.1.35.6
+Bell,362093,http://www.bellcountytx.com/,https://justice.bellcounty.texas.gov/PublicPortal/,odyssey,2017.1.46.2
+Bexar,2006193,http://www.bexar.org/,https://portal-txbexar.tylertech.cloud/Portal/,odyssey,2017.1.35.6
 Blanco,12365,http://www.co.blanco.tx.us/,,,
 Borden,686,http://www.co.borden.tx.us/,,,
 Bosque,19146,http://www.bosquecounty.us/,,,
@@ -27,7 +27,7 @@ Brown,38874,http://www.browncountytx.org/,,,
 Burleson,18361,http://www.co.burleson.tx.us/,,,
 Burnet,49225,http://www.burnetcountytexas.org/,,,
 Caldwell,43501,http://www.co.caldwell.tx.us/,,,
-Calhoun,22058,http://www.calhouncotx.org/,https://txcalhounportal.tylerhost.net/Portal/Home/Dashboard/26,odyssey,2017.1.46.2
+Calhoun,22058,http://www.calhouncotx.org/,https://txcalhounportal.tylerhost.net/Portal/,odyssey,2017.1.46.2
 Callahan,14027,http://www.co.callahan.tx.us/,,,
 Cameron,426144,http://www.co.cameron.tx.us/,,,
 Camp,12936,http://www.co.camp.tx.us/,,,
@@ -55,7 +55,7 @@ Crockett,3465,http://www.co.crockett.tx.us/,,,
 Crosby,5658,http://www.co.crosby.tx.us/,,,
 Culberson,2228,http://www.co.culberson.tx.us/,,,
 Dallam,6929,http://www.dallam.org/county/,,,
-Dallas,2647627,http://www.dallascounty.org/,https://courtsportal.dallascounty.org/DALLASPROD/Home/Dashboard/26,odyssey,2017.1.46.2
+Dallas,2647627,http://www.dallascounty.org/,https://courtsportal.dallascounty.org/DALLASPROD/,odyssey,2017.1.46.2
 Dawson,12652,http://www.co.dawson.tx.us/,,,
 Deaf Smith,19572,http://www.co.deaf-smith.tx.us/,,,
 Delta,5304,http://www.deltacountytx.com/,,,
@@ -66,13 +66,13 @@ Dimmit,9426,http://www.dimmitcounty.org/,,,
 Donley,3170,http://www.co.donley.tx.us/,,,
 Duval,10860,http://www.co.duval.tx.us/,,,
 Eastland,18278,http://www.eastlandcountytexas.com/,,,
-Ector,169394,http://www.co.ector.tx.us/,https://portal-txector.tylertech.cloud/PortalProd/Home/Dashboard/26,odyssey,2017.1.46.2
+Ector,169394,http://www.co.ector.tx.us/,https://portal-txector.tylertech.cloud/PortalProd/,odyssey,2017.1.46.2
 Edwards,1979,http://www.co.edwards.tx.us/,,,
 Ellis,191469,http://www.co.ellis.tx.us/,,,
 El Paso,851888,http://www.epcounty.com/,https://casesearch.epcounty.com/PublicAccess/,odyssey,2003
 Erath,43110,http://co.erath.tx.us/,,,
 Falls,17432,http://co.falls.tx.us/,,,
-Fannin,36727,http://www.co.fannin.tx.us/,https://portal-txfannin.tylertech.cloud/Portal/Home/Dashboard/26,odyssey,2017.1.46.2
+Fannin,36727,http://www.co.fannin.tx.us/,https://portal-txfannin.tylertech.cloud/Portal/,odyssey,2017.1.46.2
 Fayette,26522,http://www.co.fayette.tx.us/,,,
 Fisher,3897,http://www.co.fisher.tx.us/,,,
 Floyd,5445,http://co.floyd.tx.us/,,,
@@ -82,7 +82,7 @@ Franklin,10792,http://co.franklin.tx.us/,,,
 Freestone,20732,http://www.co.freestone.tx.us/,,,
 Frio,18937,http://www.co.frio.tx.us/,,,
 Gaines,21258,http://www.co.gaines.tx.us/,,,
-Galveston,341146,http://www.galvestoncountytx.gov/,https://portal.galvestoncountytx.gov/portal/Home/Dashboard/26,odyssey,2017.1.46.2
+Galveston,341146,http://www.galvestoncountytx.gov/,https://portal.galvestoncountytx.gov/portal/,odyssey,2017.1.46.2
 Garza,5978,http://www.garzacounty.net/,,,
 Gillespie,27617,http://www.gillespiecounty.org/,,,
 Glasscock,1363,http://www.co.glasscock.tx.us/,,,
@@ -99,7 +99,7 @@ Hamilton,8637,http://www.co.hamilton.tx.us/,,,
 Hansford,5288,http://www.co.hansford.tx.us/,,,
 Hardeman,3873,http://www.co.hardeman.tx.us/,,,
 Hardin,59592,http://www.co.hardin.tx.us/,,,
-Harris,4703708,http://www.harriscountytx.gov/,https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Home/Dashboard/26,odyssey,2017.1.46.2
+Harris,4703708,http://www.harriscountytx.gov/,https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/,odyssey,2017.1.46.2
 Harrison,68703,http://harrisoncountytexas.org/,http://portal-txharrison.tylertech.cloud/PublicAccess/,odyssey,2011
 Hartley,5887,http://www.co.hartley.tx.us/,,,
 Haskell,5572,http://www.co.haskell.tx.us/,,,
@@ -114,7 +114,7 @@ Hopkins,37475,http://www.hopkinscountytx.org/,,,
 Houston,23439,http://www.co.houston.tx.us/,,,
 Howard,36421,http://www.co.howard.tx.us/,https://txhowardodyprod.tylerhost.net/PublicAccess/,odyssey,2011
 Hudspeth,3683,http://www.co.hudspeth.tx.us/,,,
-Hunt,98685,http://www.huntcounty.net/,https://portal-txhunt.tylertech.cloud/Portal/Home/Dashboard/29,odyssey,2017.1.46.2
+Hunt,98685,http://www.huntcounty.net/,https://portal-txhunt.tylertech.cloud/Portal/,odyssey,2017.1.46.2
 Hutchinson,20439,http://www.co.hutchinson.tx.us/,,,
 Irion,1584,http://www.co.irion.tx.us/,,,
 Jack,9305,http://www.jackcounty.org/,,,
@@ -144,13 +144,13 @@ La Salle,7391,http://www.co.la-salle.tx.us/,,,
 Lavaca,20511,http://www.co.lavaca.tx.us/,,,
 Lee,17432,http://www.co.lee.tx.us/,,,
 Leon,17649,http://www.co.leon.tx.us/,,,
-Liberty,93496,http://www.co.liberty.tx.us/,https://portal-txliberty.tylertech.cloud/Portal/Home/Dashboard/26,odyssey,2017.1.46.2
+Liberty,93496,http://www.co.liberty.tx.us/,https://portal-txliberty.tylertech.cloud/Portal/,odyssey,2017.1.46.2
 Limestone,23654,http://www.co.limestone.tx.us/,,,
 Lipscomb,3153,http://www.co.lipscomb.tx.us/,,,
 Live Oak,12208,http://www.co.live-oak.tx.us/,,,
 Llano,21890,http://www.co.llano.tx.us/,,,
 Loving,96,http://www.co.loving.tx.us/,,,
-Lubbock,309880,http://www.co.lubbock.tx.us/,https://publicrecords.lubbockcounty.gov/Portal/Home/Dashboard/26,odyssey,2017.1.40.0
+Lubbock,309880,http://www.co.lubbock.tx.us/,https://publicrecords.lubbockcounty.gov/Portal/,odyssey,2017.1.40.0
 Lynn,6243,http://www.co.lynn.tx.us/,,,
 McCulloch,8313,http://www.co.mcculloch.tx.us/,,,
 McLennan,255372,http://www.co.mclennan.tx.us/,,,
@@ -170,7 +170,7 @@ Mitchell,8685,http://www.co.mitchell.tx.us/,,,
 Montague,19712,http://www.co.montague.tx.us/,,,
 Montgomery,609172,http://www.mctx.org/,http://odyssey.mctx.org/Unsecured/,odyssey,2011
 Moore,20902,http://www.co.moore.tx.us/,,,
-Morris,12468,http://www.co.morris.tx.us/,http://txmorrisodyprod.tylerhost.net/PublicAccess/Login.aspx,odyssey,2011
+Morris,12468,http://www.co.morris.tx.us/,http://txmorrisodyprod.tylerhost.net/PublicAccess/,odyssey,2011
 Motley,1196,http://www.co.motley.tx.us/,,,
 Nacogdoches,64850,http://www.co.nacogdoches.tx.us/,,,
 Navarro,52973,http://www.co.navarro.tx.us/,https://portal-txnavarro.tylertech.cloud/PublicAccess/,odyssey,2011
@@ -186,7 +186,7 @@ Parker,143504,http://www.parkercountytx.com/,,,
 Parmer,9325,http://parmercounty.org/,,,
 Pecos,15033,http://www.co.pecos.tx.us/,,,
 Polk,50717,http://www.co.polk.tx.us/,,,
-Potter,115471,http://www.co.potter.tx.us/,https://portal-txpotter.tylertech.cloud/Portal/Home/Dashboard/26,odyssey,2017.1.46.2
+Potter,115471,http://www.co.potter.tx.us/,https://portal-txpotter.tylertech.cloud/Portal/,odyssey,2017.1.46.2
 Presidio,6302,http://www.co.presidio.tx.us/,,,
 Rains,12493,http://www.co.rains.tx.us/,,,
 Randall,138549,http://randallcounty.com/,,,
@@ -197,7 +197,7 @@ Reeves,16400,http://www.reevescountytexas.net/,,,
 Refugio,6844,http://www.co.refugio.tx.us/,,,
 Roberts,832,http://www.co.roberts.tx.us/,,,
 Robertson,17613,http://www.co.robertson.tx.us/,,,
-Rockwall,105969,https://www.rockwallcountytexas.com/,https://portal-txrockwall.tylertech.cloud/Portal/Home/Dashboard/26,odyssey,2017.1.46.2
+Rockwall,105969,https://www.rockwallcountytexas.com/,https://portal-txrockwall.tylertech.cloud/Portal/,odyssey,2017.1.46.2
 Runnels,10218,http://www.co.runnels.tx.us/,,,
 Rusk,54764,http://www.co.rusk.tx.us/,,,
 Sabine,10859,http://www.co.sabine.tx.us/,,,
@@ -241,7 +241,7 @@ Washington,35612,http://www.co.washington.tx.us/,,,
 Webb,280547,http://www.webbcountytx.gov/,https://publicaccess.webbcountytx.gov/PublicAccess/,odyssey,2011
 Wharton,41279,http://www.co.wharton.tx.us/,,,
 Wheeler,5168,http://www.co.wheeler.tx.us/,,,
-Wichita,132756,http://www.co.wichita.tx.us/,https://portal-txwichita.tylertech.cloud/Portal/Home/Dashboard/26,odyssey,2017.1.46.2
+Wichita,132756,http://www.co.wichita.tx.us/,https://portal-txwichita.tylertech.cloud/Portal/,odyssey,2017.1.46.2
 Wilbarger,12393,http://www.co.wilbarger.tx.us/,,,
 Willacy,21502,http://www.co.willacy.tx.us/,,,
 Williamson,602686,http://www.wilco.org/,https://judicialrecords.wilco.org/PublicAccess/,odyssey,2003

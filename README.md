@@ -28,5 +28,5 @@ _**Use --help for parameter info.**_
 ## Info on other files
 
 - The command `poetry run python src/combine_parsed.py` will run a script to combine html files into a .json in an s3 bucket.
-- `texas_county_data.csv` - We are storing portal pages and relevant metadata here. For post-2017 pages, please use the direct url to the search page as the portal link, for example: https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Home/Dashboard/26 version is the number used as the copywright year on the main page.
+- `texas_county_data.csv` - We are storing portal pages and relevant metadata here. Put the main portal page with a trailing slash.
 - `/resources/minimum_scraper_examples` - Educational resource to understand the flow for scraping each site.
