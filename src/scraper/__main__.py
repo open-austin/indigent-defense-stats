@@ -74,32 +74,33 @@ def main() -> None:
     # Visit the search page to gather hidden values
     if odyssey_version < 2017:
         search_page_links = main_soup.select("a.ssSearchHyperlink")
+        search_page_id = None
         for link in search_page_links:
             if link.text == "Court Calendar":
                 search_page_id = link["href"].split("?ID=")[1].split("'")[0]
         if not search_page_id:
             write_debug_and_quit("Court Calendar page ID", main_text, "", logger)
-        calendar_url = main_page + "Search.aspx?ID=" + search_page_id
+        search_url = main_page + "Search.aspx?ID=" + search_page_id
 
-        calendar_text, failed = request_page_with_retry(
+        search_text, failed = request_page_with_retry(
             session=session,
-            url=calendar_url,
+            url=search_url,
             verification_text="Court Calendar",
             logger=logger,
             ms_wait=args.ms_wait,
         )
         if failed:
             write_debug_and_quit(
-                "Court Calendar", calendar_text, f"{calendar_url = }", logger
+                "Court Calendar", search_text, f"{search_url = }", logger
             )
-        calendar_soup = BeautifulSoup(calendar_text, "html.parser")
+        search_soup = BeautifulSoup(search_text, "html.parser")
     else:
-        calendar_soup = main_soup
+        search_soup = main_soup
 
     # we need these hidden values to access the search page
     hidden_values = {
         hidden["name"]: hidden["value"]
-        for hidden in calendar_soup.select('input[type="hidden"]')
+        for hidden in search_soup.select('input[type="hidden"]')
         if hidden.has_attr("name")
     }
     # get nodedesc and nodeid information from main page location select box
@@ -116,7 +117,7 @@ def main() -> None:
     # get a list of JOs to their IDs from the search page
     judicial_officer_to_ID = {
         option.text: option["value"]
-        for option in calendar_soup.select(
+        for option in search_soup.select(
             'select[labelname="Judicial Officer:"] > option'
             if odyssey_version < 2017
             else 'select[id="selHSJudicialOfficer"] > option'
@@ -142,7 +143,7 @@ def main() -> None:
             # error check and initialize variables for this JO
             if JO_name not in judicial_officer_to_ID:
                 logger.error(
-                    f"judicial officer {JO_name} not found on calendar page. Continuing."
+                    f"judicial officer {JO_name} not found on search page. Continuing."
                 )
                 continue
             JO_id = judicial_officer_to_ID[JO_name]
@@ -152,7 +153,7 @@ def main() -> None:
             )
             results_text, failed = request_page_with_retry(
                 session=session,
-                url=calendar_url  # figure out the right page to hit for search results
+                url=search_url
                 if odyssey_version < 2017
                 else urllib.parse.urljoin(
                     base_page, "OdysseyPortalJP/Hearing/SearchHearings/HearingSearch"
