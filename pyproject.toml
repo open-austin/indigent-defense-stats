@@ -5,11 +5,9 @@ description = "Scrape criminal court records from Texas county records websites 
 authors = ["Derek <derek@derac.org>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.2"
 requests = "^2.27.1"
 bs4 = "^0.0.1"
-pandas = "<1.4"
-html5lib = "^1.1"
 boto3 = "^1.21.18"
 
 [tool.poetry.dev-dependencies]

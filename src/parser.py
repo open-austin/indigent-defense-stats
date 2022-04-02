@@ -284,15 +284,4 @@ for case_html_file_name in os.listdir(case_html_path):
         with open(broken_json_path, "w") as file_handle:
             file_handle.write(case_id + "\n")
 
-# Print some data for debugging and statistics purposes
-
 RUN_TIME = time() - START_TIME
-
-# from print_stats import case_data_list
-
-# print("\nTime to run script:", round(RUN_TIME, 2), "seconds")
-# print(
-#     "Milliseconds per case:",
-#     int(RUN_TIME / len(case_data_list) * 1000),
-#     "ms",
-# )
