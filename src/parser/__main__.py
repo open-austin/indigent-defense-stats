@@ -62,7 +62,7 @@ for case_html_file_name in os.listdir(case_html_path):
         if case_id in cached_case_json_list and not args.overwrite:
             continue
         case_html_file_path = os.path.join(case_html_path, case_html_file_name)
-        print(f"Parsing {case_id}")
+        print(f"{case_id} - parsing")
         with open(case_html_file_path, "r") as file_handle:
             case_soup = BeautifulSoup(file_handle, "html.parser", from_encoding="UTF-8")
 
