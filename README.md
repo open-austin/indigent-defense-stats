@@ -7,7 +7,7 @@ This is a scraper to collect and process public case records from the Tyler Tech
 1. Clone this repo and navigate to it.
    - `git clone https://github.com/open-austin/Odyssey-Court-Records-to-JSON`
    - `cd Odyssey-Court-Records-to-JSON`
-1. Install [poetry](https://python-poetry.org/docs/#installation) and [pyenv](https://github.com/pyenv/pyenv#installation). Benefits are easier env management and reproducable builds.
+     min1. Install [poetry](https://python-poetry.org/docs/#installation) and [pyenv](https://github.com/pyenv/pyenv#installation). Benefits are easier env management and reproducable builds.
 1. Install libraries.
    - `poetry install`
 1. Alternatively with pip, if you don't want to install poetry.
