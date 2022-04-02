@@ -115,16 +115,18 @@ judicial_officer_to_ID = {
 if not args.judicial_officers:
     args.judicial_officers = list(judicial_officer_to_ID.keys())
 
-# initialize some variables
+# initialize variables to time script and build a list of already scraped cases
 START_TIME = time()
 cached_case_list = [file_name.split(".")[0] for file_name in os.listdir(case_html_path)]
-day_count = (args.end_date - args.start_date).days
 
-# days in the past starting with yesterday.
-for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)):
-    date_string = datetime.strftime(date_to_process, "%m/%d/%Y")
+# loop through each day
+for date in (
+    args.start_date + timedelta(n)
+    for n in range((args.end_date - args.start_date).days + 1)
+):
+    date_string = datetime.strftime(date, "%m/%d/%Y")
+    # loop through each judicial officer
     for JO_name in args.judicial_officers:
-        # error check and initialize variables for this JO
         if JO_name not in judicial_officer_to_ID:
             logger.error(
                 f"judicial officer {JO_name} not found on search page. Continuing."
@@ -132,6 +134,7 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
             continue
         JO_id = judicial_officer_to_ID[JO_name]
         logger.info(f"Searching cases on {date_string} for {JO_name}")
+        # POST a request for search results
         results_page_html = request_page_with_retry(
             session=session,
             url=search_url
@@ -148,7 +151,7 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
         )
         results_soup = BeautifulSoup(results_page_html, "html.parser")
 
-        # different process for getting case data for pre and post 2017
+        # different process for getting case data for pre and post 2017 Odyssey versions
         if odyssey_version < 2017:
             case_urls = [
                 base_url + anchor["href"]
@@ -175,10 +178,10 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
                     os.path.join(case_html_path, f"{case_id}.html"), "w"
                 ) as file_handle:
                     file_handle.write(case_html)
-                # add case id to cached list
                 if case_id not in cached_case_list:
                     cached_case_list.append(case_id)
         else:
+            # Need to POST this page to get a JSON of the search results after the initial POST
             case_list_json = request_page_with_retry(
                 session=session,
                 url=urllib.parse.urljoin(base_url, "Hearing/HearingResults/Read"),
@@ -224,7 +227,6 @@ for date_to_process in (args.start_date + timedelta(n) for n in range(day_count)
                     os.path.join(case_html_path, f"{case_id}.html"), "w"
                 ) as file_handle:
                     file_handle.write(case_html)
-                # add case id to cached list
                 if case_id not in cached_case_list:
                     cached_case_list.append(case_id)
 
