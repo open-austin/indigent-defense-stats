@@ -44,3 +44,7 @@ Currently this is running daily on a shell script, on only 1000 files as an exam
 # texas_county_data.csv
 
 - We are storing portal pages and relevant metadata here. For post-2017 pages, please use the direct url to the search page as the portal link, for example: `https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/Home/Dashboard/26`
+
+# /resources/minimum_scraper_examples
+
+Educational resource to understand the flow for scraping each site.
