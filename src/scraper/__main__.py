@@ -201,7 +201,7 @@ def main() -> None:
                 case_list_json = json.loads(case_list_json)
                 logger.info(f"{case_list_json['Total']} cases found.")
                 for case_json in case_list_json["Data"]:
-                    case_id = case_json["CaseId"]
+                    case_id = str(case_json["CaseId"])
                     if case_id in cached_case_list and not args.overwrite:
                         logger.info(f"{case_id} - already scraped")
                         continue
