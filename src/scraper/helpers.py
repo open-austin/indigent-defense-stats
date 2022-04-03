@@ -11,7 +11,7 @@ def write_debug_and_quit(
 ) -> None:
     logger.error(
         (
-            f"'{verification_text}' could not be found in page."
+            f"{verification_text} could not be found in page."
             if verification_text
             else "Failed to load page."
         )
