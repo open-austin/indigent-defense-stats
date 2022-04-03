@@ -35,18 +35,6 @@ Output of these commands will go to `./data/COUNTY_NAME`
 
 I did a manual scraping test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. Here is the data:
 
-12/59 do not work, 79.6% do work. 3 are captcha-blocked, 9 are currently impossible (site down or search disabled). 75.8% of the population should be scrapable without captcha solving. 2.9% of population is under captcha.
+12 out of 65 do not work, 81.5% do work. 3 are captcha-blocked, 9 are currently impossible (site down or search disabled). 77.8% of the population should be scrapable without captcha solving. 2.9% of population is under captcha. All detailed county data in [resources/texas_county_data.csv](resources/texas_county_data.csv).
 
 Parser for post 2017 sites is not complete. Parser for pre-2017 sites works well, but needs a lot more testing.
-
-## Galveston, Cameron, Angelina
-
-captcha on search page, reCaptcha for post-2017 and simple obscured letters image for pre-2017
-
-## Kaufman, Hunt, El Paso, Comal, Chambers
-
-Court Calendar (pre-2017) or Search Hearings (post-2017) disabled
-
-## Matagorda, Gillespie, Bexar, Kerr
-
-503 Service unavailable or 403 Forbidden
