@@ -27,7 +27,7 @@ case_html_path = os.path.join(
 os.makedirs(case_html_path, exist_ok=True)
 
 # get county portal and version year information from csv file
-base_url = odyssey_version = None
+base_url = odyssey_version = notes = None
 with open(
     os.path.join(
         os.path.dirname(__file__), "..", "..", "resources", "texas_county_data.csv"
@@ -42,6 +42,7 @@ with open(
             if base_url[-1] != "/":
                 base_url += "/"
             odyssey_version = int(row["version"].split(".")[0])
+            notes = row["notes"]
             break
 if not base_url or not odyssey_version:
     raise Exception(
@@ -50,6 +51,27 @@ if not base_url or not odyssey_version:
 
 # if odyssey_version < 2017, scrape main page first to get necessary data
 if odyssey_version < 2017:
+    # some sites have a public guest login that must be used
+    if "PUBLICLOGIN#" in notes:
+        userpass = notes.split("#")[1].split("/")
+
+        data = {
+            "UserName": userpass[0],
+            "Password": userpass[1],
+            "ValidateUser": "1",
+            "dbKeyAuth": "Justice",
+            "SignOn": "Sign On",
+        }
+
+        response = request_page_with_retry(
+            session=session,
+            url=urllib.parse.urljoin(base_url, "login.aspx"),
+            logger=logger,
+            http_method=HTTPMethod.GET,
+            ms_wait=args.ms_wait,
+            data=data,
+        )
+
     main_page_html = request_page_with_retry(
         session=session,
         url=base_url,
