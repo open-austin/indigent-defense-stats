@@ -33,7 +33,9 @@ Output of these commands will go to `./data/COUNTY_NAME`
 
 # Compatibility info
 
-these don't get to # cases found, others may error later when scraping case data but it's untested as most searches return 0 results. 22/58 do not work, 62% do work. 12 of these should be easy to fix, 1 is reCaptcha, 9 are impossible (site down or search disabled).
+I did a manual test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. Here is the data:
+
+22/58 do not work, 62% do work. 12 of these should be easy to fix, 1 is reCaptcha, 9 are impossible (site down or search disabled).
 
 ## Williamson, Donton
 
