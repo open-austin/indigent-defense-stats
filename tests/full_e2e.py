@@ -35,6 +35,16 @@ class TestScrapingSites(TestCase):
             self, county="hays", date="2022-03-22", judicial_officer="Updegrove, Robert"
         )
 
+    def test_harris(self):
+        test_scraper(
+            self, county="harris", date="2022-03-02", judicial_officer="Adams, Wanda"
+        )
+
+    def test_dallas(self):
+        test_scraper(
+            self, county="dallas", date="2022-03-01", judicial_officer="BROWN, MARY"
+        )
+
 
 if __name__ == "__main__":
     main(verbosity=2)
