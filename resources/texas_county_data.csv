@@ -70,7 +70,7 @@ Atascosa,51233,http://www.atascosacounty.texas.gov/,,,,
 Val Verde,50988,http://valverdecounty.texas.gov/,,,,
 Polk,50717,http://www.co.polk.tx.us/,,,,
 Lamar,50436,http://www.co.lamar.tx.us/,https://txlamarodyprod.tylerhost.net/PublicAccess/,odyssey,2011,
-Burnet,49225,http://www.burnetcountytexas.org/,https://txburnetodyprod.tylerhost.net/PublicAccess/,odyssey,2003,visitor/visitor# do not edit, used as data in scraper
+Burnet,49225,http://www.burnetcountytexas.org/,https://txburnetodyprod.tylerhost.net/PublicAccess/,odyssey,2003,visitor/visitor# do not edit - used as data in scraper
 Kendall,47700,http://www.co.kendall.tx.us/,,,,
 Wood,45528,http://www.mywoodcounty.com/,,,,
 Chambers,44944,http://www.co.chambers.tx.us/,https://portal-txchambers.tylertech.cloud/Portal/,odyssey,2017.1.46.2,Search Hearings option disabled must pay to get case data
@@ -151,7 +151,7 @@ Camp,12936,http://www.co.camp.tx.us/,,,,
 Dawson,12652,http://www.co.dawson.tx.us/,,,,
 Terry,12538,http://co.terry.tx.us/,,,,
 Rains,12493,http://www.co.rains.tx.us/,,,,
-Morris,12468,http://www.co.morris.tx.us/,http://txmorrisodyprod.tylerhost.net/PublicAccess/,odyssey,2011,Public/Public# do not edit, used as data in scraper
+Morris,12468,http://www.co.morris.tx.us/,http://txmorrisodyprod.tylerhost.net/PublicAccess/,odyssey,2011,Public/Public# do not edit - used as data in scraper
 Lamb,12412,http://www.co.lamb.tx.us/,,,,
 Wilbarger,12393,http://www.co.wilbarger.tx.us/,,,,
 Blanco,12365,http://www.co.blanco.tx.us/,,,,
