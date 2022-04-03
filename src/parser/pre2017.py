@@ -116,8 +116,8 @@ def parse(case_soup: BeautifulSoup, case_id: str) -> Dict:
             }
 
             # Temporary cleanup options for "appointed or retained"
-            # TODO: fix parser for these cases
-            allowed_states = ["Appointed", "Retained", "Court Appointed"]
+            # TODO: fix parser for these cases - need information to get cases to test in issue on GitHub
+            allowed_states = ["Appointed", "Retained", "Court Appointed", "Pro Se"]
             check_phrases = [
                 "Court Appointed",
                 "Retained",
