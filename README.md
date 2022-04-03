@@ -43,15 +43,15 @@ I've recorded county data in the csv for counties representing 97% of Texans.
 
 Marketshare by % of State population (with 97% of data):
 
-| software                   | share |
-| -------------------------- | ----- |
-| Odyssey                    | 85.7% |
-| no online access           | 4.3%  |
-| Local Government Solutions | 1.8%  |
-| Aumentum recorder          | 1%    |
-| Netdata                    | 1%    |
-| edoctec                    | .9%   |
-| iDocket                    | .8%   |
-| myClerkbooks.com           | .3%   |
-| Henschen & Associates, Inc | .2%   |
-| ICON                       | .2%   |
+| software                    | share |
+| --------------------------- | ----- |
+| Odyssey                     | 85.7% |
+| no online access            | 4.3%  |
+| Local Government Solutions  | 1.8%  |
+| Aumentum recorder           | 1%    |
+| Netdata                     | 1%    |
+| edoctec                     | .9%   |
+| iDocket                     | .8%   |
+| myClerkbooks.com            | .3%   |
+| Henschen & Associates, Inc. | .2%   |
+| ICON                        | .2%   |

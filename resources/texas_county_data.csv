@@ -55,7 +55,7 @@ San Patricio,67033,http://www.co.san-patricio.tx.us/,https://www.co.san-patricio
 Nacogdoches,64850,http://www.co.nacogdoches.tx.us/,https://www.co.nacogdoches.tx.us/OpenRecords/Index.asp,,,,,,,,it is unclear how to get criminal records
 Starr,63688,http://www.co.starr.tx.us/,https://www.co.starr.tx.us/page/starr.County.Clerk,,,,,,yes,,criminal case request form
 Hood,61387,http://www.co.hood.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=24,netdata,2013,,,yes,,yes,must register + captcha
-Hardin,59592,http://www.co.hardin.tx.us/,http://www.hardincourts.com/recordSearch.php,"Henschen & Associates, Inc",2022,,,yes,,,scrapable outside of captcha
+Hardin,59592,http://www.co.hardin.tx.us/,http://www.hardincourts.com/recordSearch.php,"Henschen & Associates, Inc.",2022,,,yes,,,scrapable outside of captcha
 Anderson,59120,http://www.co.anderson.tx.us/,http://ac5.co.anderson.tx.us/PublicAccess/,odyssey,2003,,,,,,
 Maverick,58116,http://www.co.maverick.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
 Van Zandt,56503,http://www.vanzandtcounty.org/,https://www.vanzandtcounty.org/page/vanzandt.County.Clerk,,,,,,,yes,uses countygovernmentrecords.com but it's not clear if this includes criminal records. Must register
