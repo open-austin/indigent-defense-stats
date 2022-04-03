@@ -2,7 +2,7 @@ county,population,website,portal,type,version,notes
 Harris,4703708,http://www.harriscountytx.gov/,https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/,odyssey,2017.1.46.2,
 Dallas,2647627,http://www.dallascounty.org/,https://courtsportal.dallascounty.org/DALLASPROD/,odyssey,2017.1.46.2,
 Tarrant,2063496,http://www.tarrantcounty.com/,https://odyssey.tarrantcounty.com/PublicAccess/,odyssey,2003,
-Bexar,2006193,http://www.bexar.org/,https://portal-txbexar.tylertech.cloud/Portal/,odyssey,2017.1.35.6,503 Service Unavailable
+Bexar,2006193,http://www.bexar.org/,https://portal-txbexar.tylertech.cloud/Portal/,odyssey,2017.1.35.6,503 Service Unavailable - down for maintenance atm
 Travis,1285526,https://www.traviscountytx.gov/,https://odysseypa.traviscountytx.gov/JPPublicAccess/,odyssey,2011,
 Collin,1047901,http://www.collincountytx.gov/,https://cijspub.co.collin.tx.us/,odyssey,2003,has multiple court locations
 Denton,904005,https://dentoncounty.gov/,https://justice1.dentoncounty.gov/PublicAccess/,odyssey,2003,nonstandard calendar name
