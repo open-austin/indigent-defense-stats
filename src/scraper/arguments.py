@@ -63,5 +63,15 @@ argparser.add_argument(
     type=str,
     help="'Select a location' select box on the main page. Default to the the first entry, which is usually all courts.",
 )
+argparser.add_argument(
+    "-test",
+    "-t",
+    action="store_true",
+    help="If this parameter is present, the script will stop after the first case is scraped.",
+)
 argparser.description = "Scrape data for list of judicial officers in date range."
 args = argparser.parse_args()
+
+# If we are testing, make sure we are scraping things that have already been scraped
+if args.test:
+    args.overwrite = True

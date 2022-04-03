@@ -207,6 +207,9 @@ for date in (
                     file_handle.write(case_html)
                 if case_id not in cached_case_list:
                     cached_case_list.append(case_id)
+                if args.test:
+                    logger.info("Testing, stopping after first case")
+                    sys.exit()
         else:
             # Need to POST this page to get a JSON of the search results after the initial POST
             case_list_json = request_page_with_retry(
@@ -256,5 +259,8 @@ for date in (
                     file_handle.write(case_html)
                 if case_id not in cached_case_list:
                     cached_case_list.append(case_id)
+                if args.test:
+                    logger.info("Testing, stopping after first case")
+                    sys.exit()
 
 logger.info(f"\nTime to run script: {round(time() - START_TIME, 2)} seconds")
