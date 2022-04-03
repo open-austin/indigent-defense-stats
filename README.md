@@ -40,3 +40,14 @@ I did a manual scraping test up to returning search results, most dates have 0 r
 Parser for post 2017 sites is not complete. Parser for pre-2017 sites works well, but needs a lot more testing.
 
 I've recorded county data in the csv for counties representing 97% of Texans.
+
+Marketshare for other solutions by % of State population:
+
+- Local Government Solutions 1.8%
+- Aumentum recorder 1%
+- Netdata 1%
+- edoctec .9%
+- iDocket .8%
+- myClerkbooks.com .3%
+- Henschen & Associates, Inc - .2%
+- ICON - .2%
