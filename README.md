@@ -33,9 +33,11 @@ Output of these commands will go to `./data/COUNTY_NAME`
 
 # Compatibility info
 
-I did a manual test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. Here is the data:
+I did a manual scraping test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. Here is the data:
 
 23/59 do not work, 61% do work. 12 of these should be easy to fix, 2 are reCaptcha, 9 are impossible (site down or search disabled). ~76.1% of the population should be scrapable after fixes and without captcha solving. ~2.6% of population is under catpcha.
+
+Parser for post 2017 sites is not complete. Parser for pre-2017 sites works well, but needs a lot more testing.
 
 ## Williamson, Donton
 
