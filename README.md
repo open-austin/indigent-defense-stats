@@ -44,6 +44,7 @@ I've recorded county data in the csv for counties representing 97% of Texans.
 Marketshare by % of State population (with 97% of data):
 
 - Odyssey 85.7%
+- no apparent online access to county criminal records - 4.3%
 - Local Government Solutions 1.8%
 - Aumentum recorder 1%
 - Netdata 1%
