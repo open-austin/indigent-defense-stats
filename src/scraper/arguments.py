@@ -39,13 +39,6 @@ argparser.add_argument(
     help="Judicial Officers to scrape. For example, -j 'mr. something' 'Rob, Albert'. By default, it will scrape all JOs.",
 )
 argparser.add_argument(
-    "-location",
-    "-l",
-    type=str,
-    default="All Courts",
-    help="'Select a location' select box on the main page. Usually 'All Courts' will work.",
-)
-argparser.add_argument(
     "-overwrite",
     "-o",
     action="store_true",
@@ -56,6 +49,19 @@ argparser.add_argument(
     type=str,
     default="INFO",
     help="Set the level to log at.",
+)
+argparser.add_argument(
+    "-court_calendar_link_text",
+    "-cclt",
+    type=str,
+    default="Court Calendar",
+    help="This is the link to the Court Calendar search page at default.aspx, usually it will be 'Court Calendar', but some sites have multiple calendars e.g. Williamson",
+)
+argparser.add_argument(
+    "-location",
+    "-l",
+    type=str,
+    help="'Select a location' select box on the main page. Default to the the first entry, which is usually all courts.",
 )
 argparser.description = "Scrape data for list of judicial officers in date range."
 args = argparser.parse_args()

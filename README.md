@@ -35,38 +35,13 @@ Output of these commands will go to `./data/COUNTY_NAME`
 
 I did a manual scraping test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. Here is the data:
 
-21/59 do not work, 64.4% do work. 10 of these should be easy to fix, 2 are reCaptcha, 9 are currently impossible (site down or search disabled). ~76.1% of the population should be scrapable after fixes and without captcha solving. ~2.6% of population is under catpcha.
+12/59 do not work, 79.6% do work. 3 are captcha-blocked, 9 are currently impossible (site down or search disabled). 75.8% of the population should be scrapable without captcha solving. 2.9% of population is under catpcha.
 
 Parser for post 2017 sites is not complete. Parser for pre-2017 sites works well, but needs a lot more testing.
 
-## Williamson, Donton
+## Galveston, Cameron, Angelina
 
-```
-ERROR:pid: 5408:'Court Calendar link' could not be found in page. Aborting. Writing /data/debug.html with response. May not be HTML.
-```
-
-## Angelina
-
-```
-ERROR:pid: 19484:Verification text Record Count not in response
-```
-
-## Victoria, Tarrant, Howard, Grayson, Fort Bend, Collin, Austin
-
-```
-Traceback (most recent call last):
-  File "c:\Users\Derek\.pyenv\pyenv-win\versions\3.8.10\lib\runpy.py", line 194, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File "c:\Users\Derek\.pyenv\pyenv-win\versions\3.8.10\lib\runpy.py", line 87, in _run_code
-    exec(code, run_globals)
-  File "F:\Projects\Odyssey-Court-Records-to-JSON\.\src\scraper\__main__.py", line 94, in <module>
-    location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
-IndexError: list index out of range
-```
-
-## Galveston, Cameron
-
-reCaptcha on search page
+captcha on search page, reCaptcha for post-2017 and simple obscured letters image for pre-2017
 
 ## Kaufman, Hunt, El Paso, Comal, Chambers
 

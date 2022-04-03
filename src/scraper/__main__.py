@@ -41,7 +41,7 @@ with open(
             # add trailing slash if not present, otherwise urljoin breaks
             if base_url[-1] != "/":
                 base_url += "/"
-            logger.info(f"Scraping {base_url}")
+            logger.info(f"{base_url} - scraping this url")
             odyssey_version = int(row["version"].split(".")[0])
             notes = row["notes"]
             break
@@ -85,7 +85,7 @@ if odyssey_version < 2017:
     # build url for court calendar
     search_page_id = None
     for link in main_soup.select("a.ssSearchHyperlink"):
-        if link.text == "Court Calendar":
+        if args.court_calendar_link_text in link.text:
             search_page_id = link["href"].split("?ID=")[1].split("'")[0]
     if not search_page_id:
         write_debug_and_quit(
@@ -118,7 +118,8 @@ hidden_values = {
 }
 # get nodedesc and nodeid information from main page location select box
 if odyssey_version < 2017:
-    location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
+    location_option = main_soup.findAll("option")[0]
+    logger.info(f"location: {location_option.text}")
     hidden_values.update(
         {"NodeDesc": args.location, "NodeID": location_option["value"]}
     )
@@ -183,13 +184,13 @@ for date in (
                 base_url + anchor["href"]
                 for anchor in results_soup.select('a[href^="CaseDetail"]')
             ]
-            logger.info(f"{len(case_urls)} cases found.")
+            logger.info(f"{len(case_urls)} cases found")
             for case_url in case_urls:
                 case_id = case_url.split("=")[1]
                 if case_id in cached_case_list and not args.overwrite:
-                    logger.info(f"{case_id} - already scraped")
+                    logger.info(f"{case_id} - already scraped case")
                     continue
-                logger.info(f"{case_id} - scraping")
+                logger.info(f"{case_id} - scraping case")
                 # make request for the case
                 case_html = request_page_with_retry(
                     session=session,
@@ -199,7 +200,7 @@ for date in (
                     ms_wait=args.ms_wait,
                 )
                 # write html case data
-                logger.info(f"Response string length: {len(case_html)}")
+                logger.info(f"{len(case_html)} response string length")
                 with open(
                     os.path.join(case_html_path, f"{case_id}.html"), "w"
                 ) as file_handle:
@@ -215,13 +216,13 @@ for date in (
                 logger=logger,
             )
             case_list_json = json.loads(case_list_json)
-            logger.info(f"{case_list_json['Total']} cases found.")
+            logger.info(f"{case_list_json['Total']} cases found")
             for case_json in case_list_json["Data"]:
                 case_id = str(case_json["CaseId"])
                 if case_id in cached_case_list and not args.overwrite:
-                    logger.info(f"{case_id} - already scraped")
+                    logger.info(f"{case_id} already scraped case")
                     continue
-                logger.info(f"{case_id} - scraping")
+                logger.info(f"{case_id} scraping case")
                 # make request for the case
                 case_html = request_page_with_retry(
                     session=session,
@@ -248,7 +249,7 @@ for date in (
                     },
                 )
                 # write case html data
-                logger.info(f"Response string length: {len(case_html)}")
+                logger.info(f"{len(case_html)} response string length")
                 with open(
                     os.path.join(case_html_path, f"{case_id}.html"), "w"
                 ) as file_handle:
