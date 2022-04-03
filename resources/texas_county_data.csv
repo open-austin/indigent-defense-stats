@@ -18,16 +18,16 @@ Bell,362093,http://www.bellcountytx.com/,https://justice.bellcounty.texas.gov/Pu
 Galveston,341146,http://www.galvestoncountytx.gov/,https://portal.galvestoncountytx.gov/portal/,odyssey,2017.1.46.2,,,yes,,
 Lubbock,309880,http://www.co.lubbock.tx.us/,https://publicrecords.lubbockcounty.gov/Portal/,odyssey,2017.1.40.0,,,,,
 Webb,280547,http://www.webbcountytx.gov/,https://publicaccess.webbcountytx.gov/PublicAccess/,odyssey,2011,,,,,
-McLennan,255372,http://www.co.mclennan.tx.us/,,,,,,,,
-Jefferson,250803,http://www.co.jefferson.tx.us/,,,,,,,,
-Brazos,233071,http://www.brazoscountytx.gov/,,,,,,,,
+McLennan,255372,http://www.co.mclennan.tx.us/,https://mclennan.edoctec.com/McLennanDCWeb/,edoctec,2022,,,,,looks scrapable
+Jefferson,250803,http://www.co.jefferson.tx.us/,https://jeffersontxclerk.manatron.com/Court/SearchEntry.aspx?cabinet=COURT_CRIMINAL,Aumentum recorder,3,,,,,looks scrapable
+Brazos,233071,http://www.brazoscountytx.gov/,https://brazoscountytx.gov/237/Public-Records,,,,,,,does records requests through e-mail and fax as far as I can tell
 Smith,232675,http://www.smith-county.com/,https://judicial.smith-county.com/PublicAccess/,odyssey,2011,,,,,
 Hays,232080,http://www.co.hays.tx.us/,http://public.co.hays.tx.us/,odyssey,2003,,,,,
-Ellis,191469,http://www.co.ellis.tx.us/,,,,,,,,
-Midland,179232,http://www.co.midland.tx.us/,,,,,,,,
+Ellis,191469,http://www.co.ellis.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,looks scrapable
+Midland,179232,http://www.co.midland.tx.us/,http://jp.co.midland.tx.us/districtclerk/,netdata,2008,,,,,"login required, registration through District Clerk's office"
 Johnson,175987,http://www.johnsoncountytx.org/,https://pa.johnsoncountytx.org/PublicAccess/,odyssey,2011,,,,,
 Ector,169394,http://www.co.ector.tx.us/,https://portal-txector.tylertech.cloud/PortalProd/,odyssey,2017.1.46.2,,,,,
-Guadalupe,169139,http://www.co.guadalupe.tx.us/,,,,,,,,
+Guadalupe,169139,http://www.co.guadalupe.tx.us/,https://portal-txguadalupe.tylertech.cloud/PublicAccess/,odyssey,2015,,,,,
 Comal,161328,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/default.aspx,odyssey,2003,yes,,,,needs default.aspx in url or sends you to IIS default index
 Parker,143504,http://www.parkercountytx.com/,https://txparkerodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,
 Kaufman,140667,http://www.kaufmancounty.net/,http://txkaufmanodyprod.tylerhost.net/PublicAccess/,odyssey,2003,yes,,,,
