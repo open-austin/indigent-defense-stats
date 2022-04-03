@@ -1,6 +1,6 @@
 # Tyler Technologies Odyssey scraper and parser
 
-This is a scraper to collect and process public case records from the Tyler Technologies Odyssey court records system.
+This is a scraper to collect and process public case records from the Tyler Technologies Odyssey court records system. If you are a dev or want to file an Issue, please read [CONTRIBUTING](CONTRIBUTING.md).
 
 ## Install
 
