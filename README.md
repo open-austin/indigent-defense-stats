@@ -35,7 +35,7 @@ Output of these commands will go to `./data/COUNTY_NAME`
 
 I did a manual test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. Here is the data:
 
-22/58 do not work, 62% do work. 12 of these should be easy to fix, 1 is reCaptcha, 9 are impossible (site down or search disabled).
+23/59 do not work, 61% do work. 12 of these should be easy to fix, 2 is reCaptcha, 9 are impossible (site down or search disabled).
 
 ## Williamson, Donton
 
@@ -66,7 +66,7 @@ IndexError: list index out of range
 
 needs public login
 
-## Galveston
+## Galveston, Cameron
 
 reCaptcha on search page
 
