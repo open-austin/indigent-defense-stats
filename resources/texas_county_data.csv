@@ -4,15 +4,15 @@ Dallas,2647627,http://www.dallascounty.org/,https://courtsportal.dallascounty.or
 Tarrant,2063496,http://www.tarrantcounty.com/,https://odyssey.tarrantcounty.com/PublicAccess/,odyssey,2003,
 Bexar,2006193,http://www.bexar.org/,https://portal-txbexar.tylertech.cloud/Portal/,odyssey,2017.1.35.6,503 Service Unavailable - down for maintenance atm
 Travis,1285526,https://www.traviscountytx.gov/,https://odysseypa.traviscountytx.gov/JPPublicAccess/,odyssey,2011,
-Collin,1047901,http://www.collincountytx.gov/,https://cijspub.co.collin.tx.us/,odyssey,2003,has multiple court locations
-Denton,904005,https://dentoncounty.gov/,https://justice1.dentoncounty.gov/PublicAccess/,odyssey,2003,nonstandard calendar name
+Collin,1047901,http://www.collincountytx.gov/,https://cijspub.co.collin.tx.us/,odyssey,2003,
+Denton,904005,https://dentoncounty.gov/,https://justice1.dentoncounty.gov/PublicAccess/,odyssey,2003,
 Hidalgo,888958,https://tx-hidalgocounty.civicplus.com/,https://pa.co.hidalgo.tx.us/,odyssey,2003,
 El Paso,851888,http://www.epcounty.com/,https://casesearch.epcounty.com/PublicAccess/,odyssey,2003,Court Calendar disabled – Court Data Download enabled but must pay to get case data
 Fort Bend,818912,http://www.fortbendcountytx.gov/,https://tylerpaw.fortbendcountytx.gov/PublicAccess/,odyssey,2003,
 Montgomery,609172,http://www.mctx.org/,http://odyssey.mctx.org/Unsecured/,odyssey,2011,
-Williamson,602686,http://www.wilco.org/,https://judicialrecords.wilco.org/PublicAccess/,odyssey,2003,nonstandard calendar name and multiple calendars
+Williamson,602686,http://www.wilco.org/,https://judicialrecords.wilco.org/PublicAccess/,odyssey,2003,
 Cameron,426144,http://www.co.cameron.tx.us/,https://portal.co.cameron.tx.us/portalprod/,odyssey,2017.1.46.2,reCaptcha on search page
-Brazoria,382874,http://brazoriacountytx.gov/,https://pubweb.brazoriacountytx.gov/PublicAccess/,odyssey,2011,multiple court locations
+Brazoria,382874,http://brazoriacountytx.gov/,https://pubweb.brazoriacountytx.gov/PublicAccess/,odyssey,2011,
 Nueces,363776,http://www.co.nueces.tx.us/,https://portal-txnueces.tylertech.cloud/PublicAccess/,odyssey,2003,
 Bell,362093,http://www.bellcountytx.com/,https://justice.bellcounty.texas.gov/PublicPortal/,odyssey,2017.1.46.2,
 Galveston,341146,http://www.galvestoncountytx.gov/,https://portal.galvestoncountytx.gov/portal/,odyssey,2017.1.46.2,reCaptcha on search page
@@ -28,7 +28,7 @@ Midland,179232,http://www.co.midland.tx.us/,,,,
 Johnson,175987,http://www.johnsoncountytx.org/,https://pa.johnsoncountytx.org/PublicAccess/,odyssey,2011,
 Ector,169394,http://www.co.ector.tx.us/,https://portal-txector.tylertech.cloud/PortalProd/,odyssey,2017.1.46.2,
 Guadalupe,169139,http://www.co.guadalupe.tx.us/,,,,
-Comal,161328,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/default.aspx,odyssey,2003,has Court Calendar disabled - needs default.aspx in url or sends you to IIS default index
+Comal,161328,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/default.aspx,odyssey,2003,Court Calendar disabled - needs default.aspx in url or sends you to IIS default index
 Parker,143504,http://www.parkercountytx.com/,https://txparkerodyprod.tylerhost.net/PublicAccess/,odyssey,2011,
 Kaufman,140667,http://www.kaufmancounty.net/,http://txkaufmanodyprod.tylerhost.net/PublicAccess/,odyssey,2003,Court Calendar disabled
 Taylor,139083,http://www.taylorcountytexas.org/,http://publicaccess.taylorcountytexas.org/PublicAccess/,odyssey,2003,
@@ -39,7 +39,7 @@ Gregg,126225,http://www.co.gregg.tx.us/,,,,
 Tom Green,117791,http://www.co.tom-green.tx.us/,http://odysseypa.co.tom-green.tx.us/,odyssey,2003,
 Potter,115471,http://www.co.potter.tx.us/,https://portal-txpotter.tylertech.cloud/Portal/,odyssey,2017.1.46.2,
 Rockwall,105969,https://www.rockwallcountytexas.com/,https://portal-txrockwall.tylertech.cloud/Portal/,odyssey,2017.1.46.2,
-Hunt,98685,http://www.huntcounty.net/,https://portal-txhunt.tylertech.cloud/Portal/,odyssey,2017.1.46.2,Search Hearings option disabled must pay to get case data
+Hunt,98685,http://www.huntcounty.net/,https://portal-txhunt.tylertech.cloud/Portal/,odyssey,2017.1.46.2,Search Hearings disabled – must pay to get case data
 Bowie,95897,http://www.co.bowie.tx.us/,,,,
 Liberty,93496,http://www.co.liberty.tx.us/,https://portal-txliberty.tylertech.cloud/Portal/,odyssey,2017.1.46.2,
 Victoria,90940,http://www.victoriacountytx.org/,http://odyssey.vctx.org/,odyssey,2003,
@@ -73,7 +73,7 @@ Lamar,50436,http://www.co.lamar.tx.us/,https://txlamarodyprod.tylerhost.net/Publ
 Burnet,49225,http://www.burnetcountytexas.org/,https://txburnetodyprod.tylerhost.net/PublicAccess/,odyssey,2003,visitor/visitor# do not edit - used as data in scraper
 Kendall,47700,http://www.co.kendall.tx.us/,,,,
 Wood,45528,http://www.mywoodcounty.com/,,,,
-Chambers,44944,http://www.co.chambers.tx.us/,https://portal-txchambers.tylertech.cloud/Portal/,odyssey,2017.1.46.2,Search Hearings option disabled must pay to get case data
+Chambers,44944,http://www.co.chambers.tx.us/,https://portal-txchambers.tylertech.cloud/Portal/,odyssey,2017.1.46.2,Search Hearings disabled - must pay to get case data
 Caldwell,43501,http://www.co.caldwell.tx.us/,,,,
 Erath,43110,http://co.erath.tx.us/,,,,
 Wharton,41279,http://www.co.wharton.tx.us/,,,,
