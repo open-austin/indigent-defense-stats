@@ -31,10 +31,12 @@ Output of these commands will go to `./data/COUNTY_NAME`
 - [src/tools/combine_parsed.py](src/tools/combine_parsed.py) - a script to combine JSON files into one and put it in an s3 bucket.
 - [src/tools/print_stats.py](src/tools/print_stats.py) - Get some stats from the JSON data
 
-# Compatibility info
+# Compatibility info and stats
 
 I did a manual scraping test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. Here is the data:
 
 12 out of 65 do not work, 81.5% do work. 3 are captcha-blocked, 9 are currently impossible (site down or search disabled). 77.8% of the population should be scrapable without captcha solving. 2.9% of population is under captcha. All detailed county data in [resources/texas_county_data.csv](resources/texas_county_data.csv).
 
 Parser for post 2017 sites is not complete. Parser for pre-2017 sites works well, but needs a lot more testing.
+
+I've recorded county data in the csv for counties representing 97% of Texans.
