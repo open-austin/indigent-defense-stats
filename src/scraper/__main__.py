@@ -41,6 +41,7 @@ with open(
             # add trailing slash if not present, otherwise urljoin breaks
             if base_url[-1] != "/":
                 base_url += "/"
+            logger.info(f"Scraping {base_url}")
             odyssey_version = int(row["version"].split(".")[0])
             notes = row["notes"]
             break
