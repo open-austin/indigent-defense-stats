@@ -33,9 +33,9 @@ Output of these commands will go to `./data/COUNTY_NAME`
 
 # Compatibility info and stats
 
-I did a manual scraping test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. Here is the data:
+I did a manual scraping test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. All detailed county data in [resources/texas_county_data.csv](resources/texas_county_data.csv). Here is are stats pulled from this data:
 
-12 out of 65 do not work, 81.5% do work. 3 are captcha-blocked, 9 are currently impossible (site down or search disabled). 77.8% of the population should be scrapable without captcha solving on Odyssey sites. 2.9% of population is under captcha on them. All detailed county data in [resources/texas_county_data.csv](resources/texas_county_data.csv).
+12 out of 65 do not work, 81.5% do work. 3 are captcha-blocked, 9 are currently impossible (site down or search disabled). 77.8% of the population should be scrapable without captcha solving on Odyssey sites. 2.9% of population is under captcha on them.
 
 4.2% more records could be scraped on non-Odyssey software. On all sites, 84.9% of records are scrapable with captcha circumvention.
 
