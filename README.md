@@ -27,10 +27,10 @@ Output of these commands will go to `./data/COUNTY_NAME`
 
 ## Other files
 
-- `resources/texas_county_data.csv` - We are storing portal pages and relevant metadata here. Put the main portal page with a trailing slash.
-- `resources/minimum_scraper_examples` - Educational resource to understand the flow for scraping each site.
-- `src/tools/combine_parsed.py -county hays` - a script to combine JSON files into one and put it in an s3 bucket.
-- `src/tools/print_stats.py -county hays` - Get some stats from the JSON data
+- [resources/texas_county_data.csv](resources/texas_county_data.csv) - We are storing portal pages and relevant metadata here. Put the main portal page with a trailing slash.
+- [resources/minimum_scraper_examples](resources/minimum_scraper_examples) - Educational resource to understand the flow for scraping each site.
+- [src/tools/combine_parsed.py](src/tools/combine_parsed.py) - a script to combine JSON files into one and put it in an s3 bucket.
+- [src/tools/print_stats.py](src/tools/print_stats.py) - Get some stats from the JSON data
 
 # Compatibility info
 
