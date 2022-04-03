@@ -7,10 +7,15 @@ from enum import Enum
 
 
 def write_debug_and_quit(
-    verification_text: str, page_text: str, logger: Logger
+    page_text: str, logger: Logger, verification_text: Optional[str] = None
 ) -> None:
     logger.error(
-        f"'{verification_text}' could not be found in page. Aborting. Writing /data/debug.html with response. May not be HTML."
+        (
+            "'{verification_text}' could not be found in page."
+            if verification_text
+            else "Failed to load page."
+        )
+        + f" Aborting. Writing /data/debug.html with response. May not be HTML."
     )
     with open(os.path.join("data", "debug.html"), "w") as file_handle:
         file_handle.write(page_text)
@@ -56,8 +61,8 @@ class HTTPMethod(Enum):
 def request_page_with_retry(
     session: requests.Session,
     url: str,
-    verification_text: str,
     logger: Logger,
+    verification_text: Optional[str] = None,
     http_method: Literal[HTTPMethod.POST, HTTPMethod.GET] = HTTPMethod.POST,
     params: Dict[str, str] = {},
     data: Optional[Dict[str, str]] = None,
@@ -80,9 +85,12 @@ def request_page_with_retry(
                 else:
                     response = session.get(url, data=data, params=params)
             response.raise_for_status()
-            if verification_text not in response.text:
-                failed = True
-                logger.error(f"Verification text {verification_text} not in response")
+            if verification_text:
+                if verification_text not in response.text:
+                    failed = True
+                    logger.error(
+                        f"Verification text {verification_text} not in response"
+                    )
         except requests.RequestException as e:
             logger.exception(f"Failed to get url {url}, try {i}")
             failed = True
