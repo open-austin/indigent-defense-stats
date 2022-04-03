@@ -25,12 +25,6 @@ Output of these commands will go to `./data/COUNTY_NAME`
 1. Parse the case data into JSON files.
    - `poetry run python ./src/parser -county hays`
 
-## Other files
-
-- [resources/texas_county_data.csv](resources/texas_county_data.csv) - We are storing portal pages and relevant metadata here. Put the main portal page with a trailing slash.
-- [src/tools/combine_parsed.py](src/tools/combine_parsed.py) - a script to combine JSON files into one and put it in an s3 bucket.
-- [src/tools/print_stats.py](src/tools/print_stats.py) - Get some stats from the JSON data
-
 # Compatibility info and stats
 
 I did a manual scraping test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. All detailed county data in [resources/texas_county_data.csv](resources/texas_county_data.csv). Here is are stats pulled from this data:
