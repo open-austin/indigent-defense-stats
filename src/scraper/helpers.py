@@ -11,7 +11,7 @@ def write_debug_and_quit(
 ) -> None:
     logger.error(
         (
-            "'{verification_text}' could not be found in page."
+            f"'{verification_text}' could not be found in page."
             if verification_text
             else "Failed to load page."
         )
@@ -95,5 +95,9 @@ def request_page_with_retry(
             logger.exception(f"Failed to get url {url}, try {i}")
             failed = True
         if failed:
-            write_debug_and_quit(verification_text, response.text, logger)
+            write_debug_and_quit(
+                verification_text=verification_text,
+                page_text=response.text,
+                logger=logger,
+            )
     return response.text

@@ -88,7 +88,11 @@ if odyssey_version < 2017:
         if link.text == "Court Calendar":
             search_page_id = link["href"].split("?ID=")[1].split("'")[0]
     if not search_page_id:
-        write_debug_and_quit("Court Calendar link", main_page_html, logger)
+        write_debug_and_quit(
+            verification_text="Court Calendar link",
+            page_text=main_page_html,
+            logger=logger,
+        )
     search_url = base_url + "Search.aspx?ID=" + search_page_id
 
 # hit the search page to gather initial data
