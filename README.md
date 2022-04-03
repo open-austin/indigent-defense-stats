@@ -41,8 +41,9 @@ Parser for post 2017 sites is not complete. Parser for pre-2017 sites works well
 
 I've recorded county data in the csv for counties representing 97% of Texans.
 
-Marketshare for other solutions by % of State population:
+Marketshare by % of State population (with 97% of data):
 
+- Odyssey 85.7%
 - Local Government Solutions 1.8%
 - Aumentum recorder 1%
 - Netdata 1%
