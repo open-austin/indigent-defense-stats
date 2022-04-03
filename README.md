@@ -1,6 +1,6 @@
 # Tyler Technologies Odyssey scraper and parser
 
-This is a scraper to collect and process public case records from the Tyler Technologies Odyssey court records system. Tested with Hays, Smith, and Harris counties.
+This is a scraper to collect and process public case records from the Tyler Technologies Odyssey court records system.
 
 ## Install
 
@@ -31,3 +31,48 @@ Output of these commands will go to `./data/COUNTY_NAME`
 - `resources/minimum_scraper_examples` - Educational resource to understand the flow for scraping each site.
 - `src/tools/combine_parsed.py -county hays` - a script to combine JSON files into one and put it in an s3 bucket.
 - `src/tools/print_stats.py -county hays` - Get some stats from the JSON data
+
+# Compatibility info
+
+      these don't get to # cases found, others may error later when scraping case data but it's untested as most searches return 0 results. 22/58 do not work, 62% do work. 12 of these should be easy to fix, 1 is reCaptcha, 9 are impossible (site down or search disabled).
+
+## Williamson, Donton
+
+```
+ERROR:pid: 5408:'Court Calendar link' could not be found in page. Aborting. Writing /data/debug.html with response. May not be HTML.
+```
+
+## Angelina
+
+```
+ERROR:pid: 19484:Verification text Record Count not in response
+```
+
+## Victoria, Tarrant, Howard, Grayson, Fort Bend, Collin, Austin
+
+```
+Traceback (most recent call last):
+  File "c:\Users\Derek\.pyenv\pyenv-win\versions\3.8.10\lib\runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "c:\Users\Derek\.pyenv\pyenv-win\versions\3.8.10\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "F:\Projects\Odyssey-Court-Records-to-JSON\.\src\scraper\__main__.py", line 94, in <module>
+    location_option = main_soup.findAll("option", text=re.compile(args.location))[0]
+IndexError: list index out of range
+```
+
+## Morris, Burnet
+
+needs public login
+
+## Galveston
+
+reCaptcha on search page
+
+## Kaufman, Hunt, El Paso, Comal, Chambers
+
+Court Calendar (pre-2017) or Search Hearings (post-2017) disabled
+
+## Matagorda, Gillespie, Bexar, Kerr
+
+503 Service unavailable or 403 Forbidden
