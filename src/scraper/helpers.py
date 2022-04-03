@@ -66,7 +66,7 @@ def request_page_with_retry(
 ) -> Tuple[str, bool]:
     response = None
     for i in range(max_retries):
-        sleep(ms_wait / 1000)
+        sleep(ms_wait / 1000 * (i + 1))
         failed = False
         try:
             if http_method == HTTPMethod.POST:
