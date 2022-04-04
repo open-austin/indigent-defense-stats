@@ -59,9 +59,9 @@ def parse(case_soup: BeautifulSoup, case_id: str) -> Dict:
                     SECTION = "bondsman"
                 if row[0] == "Bondsman":
                     break
-            state_rows = state_rows.reverse()
-            defendant_rows = defendant_rows.reverse()
-            bondsman_rows = bondsman_rows.reverse()
+            state_rows = state_rows[::-1]
+            defendant_rows = defendant_rows[::-1]
+            bondsman_rows = bondsman_rows[::-1]
             if bondsman_rows[0][0] != "Bondsman":
                 bondsman_rows = []
 
@@ -177,8 +177,8 @@ def parse(case_soup: BeautifulSoup, case_id: str) -> Dict:
                     other_event_rows.append(row)
                 if SECTION == "dispositions":
                     disposition_rows.append(row)
-            other_event_rows = other_event_rows.reverse()
-            disposition_rows = disposition_rows.reverse()
+            other_event_rows = other_event_rows[::-1]
+            disposition_rows = disposition_rows[::-1]
             case_data["other events and hearings"] = other_event_rows
             case_data["dispositions"] = disposition_rows
 
