@@ -159,3 +159,6 @@ data/
 
 # asdf
 .tool-versions
+
+# libreoffice makes this lock file when opening csvs
+.~lock.*
