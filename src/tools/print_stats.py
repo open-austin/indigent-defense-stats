@@ -36,7 +36,7 @@ def print_top_cases_by_lambda(sort_function, description):
     print(
         "\n".join(
             f"{i}. {sort_function(case)}".ljust(20) + case["odyssey id"]
-            for i, case in enumerate(cases_by_lambda[::-1], 1)
+            for i, case in enumerate(cases_by_lambda.reverse(), 1)
         ),
         "\nMean:",
         round(mean(converted_data), 2),
