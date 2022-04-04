@@ -1,255 +1,255 @@
 county,population,website,portal,type,version,search_disabled,site_down,captcha,must_pay,must_register,notes
-Harris,4703708,http://www.harriscountytx.gov/,https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/,odyssey,2017.1.46.2,,,,,,
-Dallas,2647627,http://www.dallascounty.org/,https://courtsportal.dallascounty.org/DALLASPROD/,odyssey,2017.1.46.2,,,,,,
-Tarrant,2063496,http://www.tarrantcounty.com/,https://odyssey.tarrantcounty.com/PublicAccess/,odyssey,2003,,,,,,
-Bexar,2006193,http://www.bexar.org/,https://portal-txbexar.tylertech.cloud/Portal/,odyssey,2017.1.35.6,,yes – maintenance,,,,
-Travis,1285526,https://www.traviscountytx.gov/,https://odysseypa.traviscountytx.gov/JPPublicAccess/,odyssey,2011,,,,,,
-Collin,1047901,http://www.collincountytx.gov/,https://cijspub.co.collin.tx.us/,odyssey,2003,,,,,,
-Denton,904005,https://dentoncounty.gov/,https://justice1.dentoncounty.gov/PublicAccess/,odyssey,2003,,,,,,
-Hidalgo,888958,https://tx-hidalgocounty.civicplus.com/,https://pa.co.hidalgo.tx.us/,odyssey,2003,,,,,,
-El Paso,851888,http://www.epcounty.com/,https://casesearch.epcounty.com/PublicAccess/,odyssey,2003,yes,,,yes,,
-Fort Bend,818912,http://www.fortbendcountytx.gov/,https://tylerpaw.fortbendcountytx.gov/PublicAccess/,odyssey,2003,,,,,,
-Montgomery,609172,http://www.mctx.org/,http://odyssey.mctx.org/Unsecured/,odyssey,2011,,,,,,
-Williamson,602686,http://www.wilco.org/,https://judicialrecords.wilco.org/PublicAccess/,odyssey,2003,,,,,,
-Cameron,426144,http://www.co.cameron.tx.us/,https://portal.co.cameron.tx.us/portalprod/,odyssey,2017.1.46.2,,,yes,,,
-Brazoria,382874,http://brazoriacountytx.gov/,https://pubweb.brazoriacountytx.gov/PublicAccess/,odyssey,2011,,,,,,
-Nueces,363776,http://www.co.nueces.tx.us/,https://portal-txnueces.tylertech.cloud/PublicAccess/,odyssey,2003,,,,,,
-Bell,362093,http://www.bellcountytx.com/,https://justice.bellcounty.texas.gov/PublicPortal/,odyssey,2017.1.46.2,,,,,,
-Galveston,341146,http://www.galvestoncountytx.gov/,https://portal.galvestoncountytx.gov/portal/,odyssey,2017.1.46.2,,,yes,,,
-Lubbock,309880,http://www.co.lubbock.tx.us/,https://publicrecords.lubbockcounty.gov/Portal/,odyssey,2017.1.40.0,,,,,,
-Webb,280547,http://www.webbcountytx.gov/,https://publicaccess.webbcountytx.gov/PublicAccess/,odyssey,2011,,,,,,
-McLennan,255372,http://www.co.mclennan.tx.us/,https://mclennan.edoctec.com/McLennanDCWeb/,edoctec,2022,,,,,,scrapable
-Jefferson,250803,http://www.co.jefferson.tx.us/,https://jeffersontxclerk.manatron.com/Court/SearchEntry.aspx?cabinet=COURT_CRIMINAL,Aumentum recorder,3,,,,,,scrapable
-Brazos,233071,http://www.brazoscountytx.gov/,https://brazoscountytx.gov/237/Public-Records,,,,,,,,does records requests through e-mail and fax as far as I can tell
-Smith,232675,http://www.smith-county.com/,https://judicial.smith-county.com/PublicAccess/,odyssey,2011,,,,,,
-Hays,232080,http://www.co.hays.tx.us/,http://public.co.hays.tx.us/,odyssey,2003,,,,,,
-Ellis,191469,http://www.co.ellis.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Midland,179232,http://www.co.midland.tx.us/,http://jp.co.midland.tx.us/countyclerk/,netdata,2008,,,,,yes,must register. registration through County Clerk's office
-Johnson,175987,http://www.johnsoncountytx.org/,https://pa.johnsoncountytx.org/PublicAccess/,odyssey,2011,,,,,,
-Ector,169394,http://www.co.ector.tx.us/,https://portal-txector.tylertech.cloud/PortalProd/,odyssey,2017.1.46.2,,,,,,
-Guadalupe,169139,http://www.co.guadalupe.tx.us/,https://portal-txguadalupe.tylertech.cloud/PublicAccess/,odyssey,2015,,,,,,
-Comal,161328,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/default.aspx,odyssey,2003,yes,,,,,needs default.aspx in url or sends you to IIS default index
-Parker,143504,http://www.parkercountytx.com/,https://txparkerodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
-Kaufman,140667,http://www.kaufmancounty.net/,http://txkaufmanodyprod.tylerhost.net/PublicAccess/,odyssey,2003,yes,,,,,
-Taylor,139083,http://www.taylorcountytexas.org/,http://publicaccess.taylorcountytexas.org/PublicAccess/,odyssey,2003,,,,,,
-Randall,138549,http://randallcounty.com/,https://odysseypa.tylerhost.net/Randall/,odyssey,2011,,,,,,
-Grayson,136052,http://www.co.grayson.tx.us/,https://judicialsearch.co.grayson.tx.us:8443/,odyssey,2011,,,,,,
-Wichita,132756,http://www.co.wichita.tx.us/,https://portal-txwichita.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
-Gregg,126225,http://www.co.gregg.tx.us/,http://beta.co.gregg.tx.us/OdysseyPA/,odyssey,2003,,,,,,
-Tom Green,117791,http://www.co.tom-green.tx.us/,http://odysseypa.co.tom-green.tx.us/,odyssey,2003,,,,,,
-Potter,115471,http://www.co.potter.tx.us/,https://portal-txpotter.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
-Rockwall,105969,https://www.rockwallcountytexas.com/,https://portal-txrockwall.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
-Hunt,98685,http://www.huntcounty.net/,https://portal-txhunt.tylertech.cloud/Portal/,odyssey,2017.1.46.2,yes,,,yes,,
-Bowie,95897,http://www.co.bowie.tx.us/,https://portal-txbowie.tylertech.cloud/PublicAccess/,odyssey,2013,,,,,,
-Liberty,93496,http://www.co.liberty.tx.us/,https://portal-txliberty.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
-Victoria,90940,http://www.victoriacountytx.org/,http://odyssey.vctx.org/,odyssey,2003,,,,,,
-Angelina,90669,http://www.angelinacounty.net/,http://public.angelinacounty.net/,odyssey,2003,,,yes,,,
-Bastrop,90262,http://www.co.bastrop.tx.us/,http://records.co.bastrop.tx.us/PublicAccess/,odyssey,2003,,,,,,
-Henderson,83220,http://www.henderson-county.com/,http://txhendersonodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
-Orange,82168,http://www.co.orange.tx.us/,https://www.co.orange.tx.us/departments/CountyClerk/OnlineRecordsSearch,myClerkbooks.com,2022,,,,,,scrapable
-Walker,77300,http://www.co.walker.tx.us/,https://odysseypa.tylerhost.net/Walker/,odyssey,2003,,,,,,
-Coryell,75657,https://www.coryellcounty.org/,https://www.coryellcounty.org/page/coryell.County.Clerk,,,,,,,,it appears that you need to pay. it’s unclear though
-Wise,70078,http://www.co.wise.tx.us/,http://jail.co.wise.tx.us:81/,odyssey,2003,,,,,,
-Harrison,68703,http://harrisoncountytexas.org/,http://portal-txharrison.tylertech.cloud/PublicAccess/,odyssey,2011,,,,,,
-San Patricio,67033,http://www.co.san-patricio.tx.us/,https://www.co.san-patricio.tx.us/page/sanpatricio.County.Clerk,,,,,,,,I believe you need to call or email for records
-Nacogdoches,64850,http://www.co.nacogdoches.tx.us/,https://www.co.nacogdoches.tx.us/OpenRecords/Index.asp,,,,,,,,it is unclear how to get criminal records
-Starr,63688,http://www.co.starr.tx.us/,https://www.co.starr.tx.us/page/starr.County.Clerk,,,,,,yes,,criminal case request form
-Hood,61387,http://www.co.hood.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=24,netdata,2013,,,yes,,yes,must register + captcha
-Hardin,59592,http://www.co.hardin.tx.us/,http://www.hardincourts.com/recordSearch.php,"Henschen & Associates, Inc.",2022,,,yes,,,scrapable outside of captcha
-Anderson,59120,http://www.co.anderson.tx.us/,http://ac5.co.anderson.tx.us/PublicAccess/,odyssey,2003,,,,,,
-Maverick,58116,http://www.co.maverick.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Van Zandt,56503,http://www.vanzandtcounty.org/,https://www.vanzandtcounty.org/page/vanzandt.County.Clerk,,,,,,,yes,uses countygovernmentrecords.com but it's not clear if this includes criminal records. Must register
-Waller,55626,http://www.co.waller.tx.us/,https://odysseypa.tylerhost.net/Waller/,odyssey,2003,,,,,,
-Rusk,54764,http://www.co.rusk.tx.us/,https://www.co.rusk.tx.us/page/rusk.County.Clerk,,,,,,,,it is unclear how to get criminal records. There is a civil records request sheet
-Medina,54612,http://www.medinacountytexas.org/,https://odysseypa.tylerhost.net/Medina/,odyssey,2003,,,,,,
-Cherokee,53558,http://www.co.cherokee.tx.us/,https://cherokeeclerkofcourt.com/mainpage.aspx,ICON,5.1.1.1,,,,,,scrapable
-Kerr,53024,http://www.co.kerr.tx.us/,http://courts.co.kerr.tx.us/PublicAccess/,odyssey,2014,,yes - 403 Forbidden,,,,
-Navarro,52973,http://www.co.navarro.tx.us/,https://portal-txnavarro.tylertech.cloud/PublicAccess/,odyssey,2011,,,,,,
-Wilson,52839,http://www.co.wilson.tx.us/,https://www.co.wilson.tx.us/page/wilson.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Atascosa,51233,http://www.atascosacounty.texas.gov/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,looks scrapable but this is for district rather than county clerk. Could not find county records
-Val Verde,50988,http://valverdecounty.texas.gov/,https://www.valverdecounty.texas.gov/153/County-Clerk,,,,,,,,it is unclear how to get criminal records
-Polk,50717,http://www.co.polk.tx.us/,https://www.co.polk.tx.us/page/polk.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Lamar,50436,http://www.co.lamar.tx.us/,https://txlamarodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
-Burnet,49225,http://www.burnetcountytexas.org/,https://txburnetodyprod.tylerhost.net/PublicAccess/,odyssey,2003,,,,,,PUBLICLOGIN#visitor/visitor# do not edit - used as data in scraper
-Kendall,47700,http://www.co.kendall.tx.us/,https://www.co.kendall.tx.us/page/County.Clerk,,,,,,,,it is unclear how to get criminal records
-Wood,45528,http://www.mywoodcounty.com/,https://portal-txwood.tylertech.cloud/PublicAccess/,odyssey,2011,,,,,,
-Chambers,44944,http://www.co.chambers.tx.us/,https://portal-txchambers.tylertech.cloud/Portal/,odyssey,2017.1.46.2,yes,,,yes,,
-Caldwell,43501,http://www.co.caldwell.tx.us/,https://www.co.caldwell.tx.us/page/caldwell.County.Clerk,iDocket,,,,,,yes,must register to iDocket.
-Erath,43110,http://co.erath.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=21,netdata,2022,,,yes,,yes,must register + captcha
-Wharton,41279,http://www.co.wharton.tx.us/,https://www.co.wharton.tx.us/page/wharton.County.Clerk,iDocket,,,,,,yes,must register to iDocket.
-Upshur,41262,http://www.countyofupshur.com/,https://www.texasonlinerecords.com/clerk/?office_id=43,netdata,2022,,,yes,,yes,must register + captcha
-Cooke,40685,http://www.co.cooke.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=101,netdata,2022,,,yes,,yes,must register + captcha
-Jim Wells,39759,http://www.co.jim-wells.tx.us/,https://courtportal.co.jim-wells.tx.us/eservices/home.page.23,courtview,1.32.01,,,,,,scrapable
-Brown,38874,http://www.browncountytx.org/,https://www.browncountytx.org/page/brown.County.Clerk,iDocket,,,,,,yes,must register to iDocket.
-Hopkins,37475,http://www.hopkinscountytx.org/,https://www.texasonlinerecords.com/clerk/?office_id=1,netdata,2022,,,yes,,yes,must register + captcha
-Hill,37470,http://www.co.hill.tx.us/,https://www.co.hill.tx.us/page/hill.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Fannin,36727,http://www.co.fannin.tx.us/,https://portal-txfannin.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
-Howard,36421,http://www.co.howard.tx.us/,https://txhowardodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
-Matagorda,36158,http://www.co.matagorda.tx.us/,https://odysseypa.tylerhost.net/Matagorda/,odyssey,,,yes - 503 Service Unavailable,,,,
-Washington,35612,http://www.co.washington.tx.us/,https://www.co.washington.tx.us/page/washington.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Jasper,35353,http://www.co.jasper.tx.us/,https://www.co.jasper.tx.us/page/jasper.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Titus,33596,http://www.co.titus.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=2,netdata,2022,,,yes,,yes,must register + captcha. Looks like this may not include criminal data as well
-Bee,33571,http://www.co.bee.tx.us/,https://www.co.bee.tx.us/page/bee.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Hale,32864,http://www.halecounty.org/,https://portal-txhale.tylertech.cloud/PublicAccess/,odyssey,2011,,,,,,
-Austin,32344,http://www.austincounty.com/,http://public.austincounty.com/,odyssey,2003,,,,,,
-Kleberg,32158,http://www.co.kleberg.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=81,netdata,2022,,,yes,,yes,must register + captcha. Looks like this may not include criminal data as well
-Cass,30243,http://www.co.cass.tx.us/,https://cc.co.cass.tx.us/Court/SearchEntry.aspx?cabinet=COURT_CRIMINAL,Aumentum recorder,2020.2.0,,,,,,scrapable
-Grimes,29730,http://www.co.grimes.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-San Jacinto,29652,http://www.co.san-jacinto.tx.us/,https://txsanjacintoodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
-Palo Pinto,29069,http://www.co.palo-pinto.tx.us/,https://www.co.palo-pinto.tx.us/page/palopinto.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Gillespie,27617,http://www.gillespiecounty.org/,https://odysseypa.tylerhost.net/Gillespie/,odyssey,,,yes - 503 Service Unavailable,,,,
-Fayette,26522,http://www.co.fayette.tx.us/,https://www.co.fayette.tx.us/page/fayette.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Uvalde,26260,http://www.uvaldecounty.com/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Milam,25157,http://www.milamcounty.net/,https://www.milamcounty.net/page/milam.countyclerk,iDocket,,,,,,,must register to iDocket.
-Panola,24611,http://www.co.panola.tx.us/,https://portal-txpanola.tylertech.cloud/PublicAccess/,odyssey,2006,,,,,,
-Shelby,24054,http://www.co.shelby.tx.us/,http://cc.co.shelby.tx.us/localization/notavailable.aspx,Aumentum Recorder ,2021.1.0 ,yes,,,,,search disabled. Must get records in person.
-Limestone,23654,http://www.co.limestone.tx.us/,https://www.co.limestone.tx.us/page/limestone.County.Clerk,iDocket,,,,,,,must register to iDocket.
-Aransas,23649,http://www.aransascountytx.gov/main/,https://www.aransascountytx.gov/clerk/,,,,,,,,it is unclear how to get criminal records
-Houston,23439,http://www.co.houston.tx.us/,https://www.co.houston.tx.us/page/houston.County.Clerk,iDocket,,,,,,,must register to iDocket.
-Bandera,23360,http://www.banderacounty.org/,https://www.banderacounty.org/departments/RecordSearch.htm,iDocket,,,,,,,must register to iDocket.
-Tyler,22966,http://www.co.tyler.tx.us/,https://www.co.tyler.tx.us/page/tyler.CriminalRecordsRequestInstructions,,,,,,yes,,must make request and pay as far as I can tell
-Hockley,22603,http://www.co.hockley.tx.us/,https://www.co.hockley.tx.us/page/hockley.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Colorado,22566,http://www.co.colorado.tx.us/,https://www.co.colorado.tx.us/page/colorado.County.Clerk,iDocket,,,,,,,must register to iDocket.
-Calhoun,22058,http://www.calhouncotx.org/,https://txcalhounportal.tylerhost.net/Portal/,odyssey,2017.1.46.2,,,,,,
-Gray,21900,http://www.co.gray.tx.us/,http://www.lgs-hosted.com/rmtgraycck.html,Local Government Solutions,2017,,,,,yes,must register. Seems broken orguest/orguest doesn’t work which Is default on other LGS sites. Nor does GRAYCCKINQ / 20!DiMe14
-Llano,21890,http://www.co.llano.tx.us/,https://www.co.llano.tx.us/page/llano.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Willacy,21502,http://www.co.willacy.tx.us/,https://www.co.willacy.tx.us/page/willacy.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Lampasas,21395,http://www.co.lampasas.tx.us/,https://www.co.lampasas.tx.us/page/lampasas.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Gaines,21258,http://www.co.gaines.tx.us/,https://www.co.gaines.tx.us/page/gaines.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Moore,20902,http://www.co.moore.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Gonzales,20819,http://www.co.gonzales.tx.us/,https://www.co.gonzales.tx.us/page/gonzales.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Freestone,20732,http://www.co.freestone.tx.us/,https://www.co.freestone.tx.us/page/freestone.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Lavaca,20511,http://www.co.lavaca.tx.us/,https://www.co.lavaca.tx.us/page/lavaca.County.Clerk,,,,,,,,it is unclear how to get criminal records
-De Witt,20459,http://www.co.dewitt.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Hutchinson,20439,http://www.co.hutchinson.tx.us/,https://portal-txhutchinson.tylertech.cloud/OdysseyPA/Login.aspx,odyssey,2011,,,,,yes,requires login. Not clear how to get one.
-Jones,19745,http://www.co.jones.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Montague,19712,http://www.co.montague.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Andrews,19588,http://www.co.andrews.tx.us/,https://www.co.andrews.tx.us/181/County-Clerk,,,,,,,,it is unclear how to get criminal records
-Deaf Smith,19572,http://www.co.deaf-smith.tx.us/,,,,,,,,,
-Young,19294,http://www.co.young.tx.us/,,,,,,,,,
-Bosque,19146,http://www.bosquecounty.us/,,,,,,,,,
-Frio,18937,http://www.co.frio.tx.us/,,,,,,,,,
-Burleson,18361,http://www.co.burleson.tx.us/,,,,,,,,,
-Eastland,18278,http://www.eastlandcountytexas.com/,,,,,,,,,
-Leon,17649,http://www.co.leon.tx.us/,,,,,,,,,
-Robertson,17613,http://www.co.robertson.tx.us/,,,,,,,,,
-Lee,17432,http://www.co.lee.tx.us/,http://www.lgs-hosted.com/rmtleecck.html,Local Government Solutions,2014,,,,,,LEECCKINQ / 20!DiMe14 default works. Scrapable
-Falls,17432,http://co.falls.tx.us/,,,,,,,,,
-Scurry,16556,http://www.co.scurry.tx.us/,,,,,,,,,
-Reeves,16400,http://www.reevescountytexas.net/,,,,,,,,,
-Karnes,15778,http://www.co.karnes.tx.us/,,,,,,,,,
-Pecos,15033,http://www.co.pecos.tx.us/,,,,,,,,,
-Trinity,14457,http://www.co.trinity.tx.us/,,,,,,,,,
-Zapata,14280,http://www.co.zapata.tx.us/,,,,,,,,,
-Jackson,14256,http://www.co.jackson.tx.us/,,,,,,,,,
-Nolan,14150,http://www.co.nolan.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Madison,14088,http://www.co.madison.tx.us/,,,,,,,,,
-Callahan,14027,http://www.co.callahan.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Comanche,13848,http://www.co.comanche.tx.us/,,,,,,,,,
-Newton,13103,http://www.co.newton.tx.us/,,,,,,,,,
-Camp,12936,http://www.co.camp.tx.us/,,,,,,,,,
-Dawson,12652,http://www.co.dawson.tx.us/,,,,,,,,,
-Terry,12538,http://co.terry.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Rains,12493,http://www.co.rains.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
-Morris,12468,http://www.co.morris.tx.us/,http://txmorrisodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,PUBLICLOGIN#Public/Public# do not edit - used as data in scraper
-Lamb,12412,http://www.co.lamb.tx.us/,,,,,,,,,
-Wilbarger,12393,http://www.co.wilbarger.tx.us/,,,,,,,,,
-Blanco,12365,http://www.co.blanco.tx.us/,,,,,,,,,
-Live Oak,12208,http://www.co.live-oak.tx.us/,,,,,,,,,
-Zavala,12077,http://www.co.zavala.tx.us/,,,,,,,,,
-Ward,11635,http://www.co.ward.tx.us/,,,,,,,,,
-Red River,11479,http://www.co.red-river.tx.us/,,,,,,,,,
-Duval,10860,http://www.co.duval.tx.us/,,,,,,,,,
-Sabine,10859,http://www.co.sabine.tx.us/,,,,,,,,,
-Franklin,10792,http://co.franklin.tx.us/,,,,,,,,,
-Clay,10317,http://www.co.clay.tx.us/,,,,,,,,,
-Ochiltree,10246,http://www.co.ochiltree.tx.us/,,,,,,,,,
-Runnels,10218,http://www.co.runnels.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,,scrapable
-Marion,9662,http://www.co.marion.tx.us/,,,,,,,,,
-Somervell,9605,http://www.somervell.co/,,,,,,,,,
-Stephens,9506,http://www.co.stephens.tx.us/,,,,,,,,,
-Dimmit,9426,http://www.dimmitcounty.org/,,,,,,,,,
-Parmer,9325,http://parmercounty.org/,,,,,,,,,
-Jack,9305,http://www.jackcounty.org/,,,,,,,,,
-Archer,9135,http://www.co.archer.tx.us/,,,,,,,,,
-Brewster,9055,http://www.brewstercountytx.com/,,,,,,,,,
-Yoakum,8773,http://www.co.yoakum.tx.us/,,,,,,,,,
-Mitchell,8685,http://www.co.mitchell.tx.us/,,,,,,,,,
-Hamilton,8637,http://www.co.hamilton.tx.us/,,,,,,,,,
-San Augustine,8409,http://www.co.san-augustine.tx.us/,,,,,,,,,
-McCulloch,8313,http://www.co.mcculloch.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,,scrapable
-Winkler,8145,http://www.co.winkler.tx.us/,,,,,,,,,
-Goliad,8127,http://www.co.goliad.tx.us/,,,,,,,,,
-Coleman,8041,http://www.co.coleman.tx.us/,,,,,,,,,
-Swisher,7435,http://www.co.swisher.tx.us/,,,,,,,,,
-La Salle,7391,http://www.co.la-salle.tx.us/,,,,,,,,,
-Castro,7260,http://www.co.castro.tx.us/,,,,,,,,,
-Bailey,7082,http://www.co.bailey.tx.us/,,,,,,,,,
-Brooks,7060,http://www.co.brooks.tx.us/,,,,,,,,,
-Childress,7052,http://www.childresscountytexas.us/,,,,,,,,,
-Dallam,6929,http://www.dallam.org/county/,,,,,,,,,
-Refugio,6844,http://www.co.refugio.tx.us/,,,,,,,,,
-Presidio,6302,http://www.co.presidio.tx.us/,,,,,,,,,
-Lynn,6243,http://www.co.lynn.tx.us/,,,,,,,,,
-San Saba,6223,http://www.co.san-saba.tx.us/,,,,,,,,,
-Garza,5978,http://www.garzacounty.net/,,,,,,,,,
-Hartley,5887,http://www.co.hartley.tx.us/,,,,,,,,,
-Carson,5875,http://www.co.carson.tx.us/,,,,,,,,,
-Martin,5739,http://www.co.martin.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,,scrapable
-Crosby,5658,http://www.co.crosby.tx.us/,,,,,,,,,
-Haskell,5572,http://www.co.haskell.tx.us/,,,,,,,,,
-Floyd,5445,http://co.floyd.tx.us/,,,,,,,,,
-Delta,5304,http://www.deltacountytx.com/,,,,,,,,,
-Hansford,5288,http://www.co.hansford.tx.us/,,,,,,,,,
-Wheeler,5168,http://www.co.wheeler.tx.us/,,,,,,,,,
-Jim Hogg,5079,http://co.jim-hogg.tx.us/,,,,,,,,,
-Mills,4875,http://www.co.mills.tx.us/,,,,,,,,,
-Crane,4670,http://www.co.crane.tx.us/,,,,,,,,,
-Kimble,4581,http://www.co.kimble.tx.us/,,,,,,,,,
-Mason,4318,http://www.co.mason.tx.us/,,,,,,,,,
-Fisher,3897,http://www.co.fisher.tx.us/,,,,,,,,,
-Reagan,3895,http://www.co.reagan.tx.us/,,,,,,,,,
-Hardeman,3873,http://www.co.hardeman.tx.us/,,,,,,,,,
-Hemphill,3827,http://www.co.hemphill.tx.us/,,,,,,,,,
-Knox,3796,http://www.knoxcountytexas.org/,,,,,,,,,
-Baylor,3754,http://www.co.baylor.tx.us/,,,,,,,,,
-Hudspeth,3683,http://www.co.hudspeth.tx.us/,,,,,,,,,
-Sutton,3619,http://www.co.sutton.tx.us/,,,,,,,,,
-Kinney,3594,http://www.co.kinney.tx.us/,,,,,,,,,
-Upton,3581,http://www.co.upton.tx.us/,,,,,,,,,
-Crockett,3465,http://www.co.crockett.tx.us/,,,,,,,,,
-Real,3464,http://www.co.real.tx.us/,,,,,,,,,
-Shackelford,3415,http://www.co.shackelford.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,,scrapable
-Coke,3400,http://www.co.coke.tx.us/,,,,,,,,,
-Donley,3170,http://www.co.donley.tx.us/,,,,,,,,,
-Lipscomb,3153,http://www.co.lipscomb.tx.us/,,,,,,,,,
-Sherman,3072,http://www.co.sherman.tx.us/,,,,,,,,,
-Hall,2969,https://www.co.hall.tx.us/,,,,,,,,,
-Cochran,2890,http://www.co.cochran.tx.us/,,,,,,,,,
-Collingsworth,2802,http://www.co.collingsworth.tx.us/,,,,,,,,,
-Schleicher,2727,http://www.co.schleicher.tx.us/,,,,,,,,,
-Concho,2715,http://www.co.concho.tx.us/,,,,,,,,,
-Jeff Davis,2408,http://www.co.jeff-davis.tx.us/,,,,,,,,,
-Culberson,2228,http://www.co.culberson.tx.us/,,,,,,,,,
-Oldham,2131,http://www.co.oldham.tx.us/,,,,,,,,,
-Menard,2124,http://co.menard.tx.us/,,,,,,,,,
-Dickens,2054,http://www.co.dickens.tx.us/,,,,,,,,,
-Armstrong,2028,http://www.co.armstrong.tx.us/,,,,,,,,,
-Edwards,1979,http://www.co.edwards.tx.us/,,,,,,,,,
-Briscoe,1599,http://www.co.briscoe.tx.us/,,,,,,,,,
-Irion,1584,http://www.co.irion.tx.us/,,,,,,,,,
-Throckmorton,1407,http://www.throckmortoncounty.org/,,,,,,,,,
-Stonewall,1380,http://www.co.stonewall.tx.us/,,,,,,,,,
-Glasscock,1363,http://www.co.glasscock.tx.us/,,,,,,,,,
-Cottle,1346,http://www.co.cottle.tx.us/,,,,,,,,,
-Sterling,1239,http://www.co.sterling.tx.us/,,,,,,,,,
-Motley,1196,http://www.co.motley.tx.us/,,,,,,,,,
-Foard,1102,http://www.foardcounty.texas.gov/,,,,,,,,,
-Roberts,832,http://www.co.roberts.tx.us/,,,,,,,,,
-Terrell,776,http://www.co.terrell.tx.us/,,,,,,,,,
-Kent,754,http://www.kentcountytexas.us/,,,,,,,,,
-McMullen,748,http://www.mcmullencountytexas.us/,,,,,,,,,
-Borden,686,http://www.co.borden.tx.us/,,,,,,,,,
-Kenedy,378,http://www.co.kenedy.tx.us/,,,,,,,,,
-King,275,http://www.co.king.tx.us/,,,,,,,,,
-Loving,96,http://www.co.loving.tx.us/,,,,,,,,,
+Harris,4731145,http://www.harriscountytx.gov/,https://jpodysseyportal.harriscountytx.gov/OdysseyPortalJP/,odyssey,2017.1.46.2,,,,,,
+Dallas,2613539,http://www.dallascounty.org/,https://courtsportal.dallascounty.org/DALLASPROD/,odyssey,2017.1.46.2,,,,,,
+Tarrant,2110640,http://www.tarrantcounty.com/,https://odyssey.tarrantcounty.com/PublicAccess/,odyssey,2003,,,,,,
+Bexar,2009324,http://www.bexar.org/,https://portal-txbexar.tylertech.cloud/Portal/,odyssey,2017.1.35.6,,yes – maintenance,,,,
+Travis,1290188,https://www.traviscountytx.gov/,https://odysseypa.traviscountytx.gov/JPPublicAccess/,odyssey,2011,,,,,,
+Collin,1064465,http://www.collincountytx.gov/,https://cijspub.co.collin.tx.us/,odyssey,2003,,,,,,
+Denton,906422,https://dentoncounty.gov/,https://justice1.dentoncounty.gov/PublicAccess/,odyssey,2003,,,,,,
+Hidalgo,870781,https://tx-hidalgocounty.civicplus.com/,https://pa.co.hidalgo.tx.us/,odyssey,2003,,,,,,
+El Paso,865657,http://www.epcounty.com/,https://casesearch.epcounty.com/PublicAccess/,odyssey,2003,yes,,,yes,,
+Fort Bend,822779,http://www.fortbendcountytx.gov/,https://tylerpaw.fortbendcountytx.gov/PublicAccess/,odyssey,2003,,,,,,
+Montgomery,620443,http://www.mctx.org/,http://odyssey.mctx.org/Unsecured/,odyssey,2011,,,,,,
+Williamson,609017,http://www.wilco.org/,https://judicialrecords.wilco.org/PublicAccess/,odyssey,2003,,,,,,
+Cameron,421017,http://www.co.cameron.tx.us/,https://portal.co.cameron.tx.us/portalprod/,odyssey,2017.1.46.2,,,yes,,,
+Brazoria,372031,http://brazoriacountytx.gov/,https://pubweb.brazoriacountytx.gov/PublicAccess/,odyssey,2011,,,,,,
+Bell,370647,http://www.bellcountytx.com/,https://justice.bellcounty.texas.gov/PublicPortal/,odyssey,2017.1.46.2,,,,,,
+Nueces,353178,http://www.co.nueces.tx.us/,https://portal-txnueces.tylertech.cloud/PublicAccess/,odyssey,2003,,,,,,
+Galveston,350682,http://www.galvestoncountytx.gov/,https://portal.galvestoncountytx.gov/portal/,odyssey,2017.1.46.2,,,yes,,,
+Lubbock,310639,http://www.co.lubbock.tx.us/,https://publicrecords.lubbockcounty.gov/Portal/,odyssey,2017.1.40.0,,,,,,
+Webb,267114,http://www.webbcountytx.gov/,https://publicaccess.webbcountytx.gov/PublicAccess/,odyssey,2011,,,,,,
+McLennan,260579,http://www.co.mclennan.tx.us/,https://mclennan.edoctec.com/McLennanDCWeb/,edoctec,2022,,,,,,scrapable
+Jefferson,256526,http://www.co.jefferson.tx.us/,https://jeffersontxclerk.manatron.com/Court/SearchEntry.aspx?cabinet=COURT_CRIMINAL,Aumentum recorder,3,,,,,,scrapable
+Hays,241067,http://www.co.hays.tx.us/,http://public.co.hays.tx.us/,odyssey,2003,,,,,,
+Brazos,233849,http://www.brazoscountytx.gov/,https://brazoscountytx.gov/237/Public-Records,,,,,,,,does records requests through e-mail and fax as far as I can tell
+Smith,233479,http://www.smith-county.com/,https://judicial.smith-county.com/PublicAccess/,odyssey,2011,,,,,,
+Ellis,192455,http://www.co.ellis.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Johnson,179927,http://www.johnsoncountytx.org/,https://pa.johnsoncountytx.org/PublicAccess/,odyssey,2011,,,,,,
+Guadalupe,172706,http://www.co.guadalupe.tx.us/,https://portal-txguadalupe.tylertech.cloud/PublicAccess/,odyssey,2015,,,,,,
+Midland,169983,http://www.co.midland.tx.us/,http://jp.co.midland.tx.us/countyclerk/,netdata,2008,,,,,yes,must register. registration through County Clerk's office
+Ector,165171,http://www.co.ector.tx.us/,https://portal-txector.tylertech.cloud/PortalProd/,odyssey,2017.1.46.2,,,,,,
+Comal,161501,http://www.co.comal.tx.us/,http://public.co.comal.tx.us/default.aspx,odyssey,2003,yes,,,,,needs default.aspx in url or sends you to IIS default index
+Parker,148222,http://www.parkercountytx.com/,https://txparkerodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
+Kaufman,145310,http://www.kaufmancounty.net/,http://txkaufmanodyprod.tylerhost.net/PublicAccess/,odyssey,2003,yes,,,,,
+Taylor,143208,http://www.taylorcountytexas.org/,http://publicaccess.taylorcountytexas.org/PublicAccess/,odyssey,2003,,,,,,
+Randall,140753,http://randallcounty.com/,https://odysseypa.tylerhost.net/Randall/,odyssey,2011,,,,,,
+Grayson,135543,http://www.co.grayson.tx.us/,https://judicialsearch.co.grayson.tx.us:8443/,odyssey,2011,,,,,,
+Wichita,129350,http://www.co.wichita.tx.us/,https://portal-txwichita.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
+Gregg,124239,http://www.co.gregg.tx.us/,http://beta.co.gregg.tx.us/OdysseyPA/,odyssey,2003,,,,,,
+Tom Green,120003,http://www.co.tom-green.tx.us/,http://odysseypa.co.tom-green.tx.us/,odyssey,2003,,,,,,
+Potter,118525,http://www.co.potter.tx.us/,https://portal-txpotter.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
+Rockwall,107819,https://www.rockwallcountytexas.com/,https://portal-txrockwall.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
+Hunt,99956,http://www.huntcounty.net/,https://portal-txhunt.tylertech.cloud/Portal/,odyssey,2017.1.46.2,yes,,,yes,,
+Bastrop,97216,http://www.co.bastrop.tx.us/,http://records.co.bastrop.tx.us/PublicAccess/,odyssey,2003,,,,,,
+Bowie,92893,http://www.co.bowie.tx.us/,https://portal-txbowie.tylertech.cloud/PublicAccess/,odyssey,2013,,,,,,
+Liberty,91628,http://www.co.liberty.tx.us/,https://portal-txliberty.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
+Victoria,91319,http://www.victoriacountytx.org/,http://odyssey.vctx.org/,odyssey,2003,,,,,,
+Angelina,86395,http://www.angelinacounty.net/,http://public.angelinacounty.net/,odyssey,2003,,,yes,,,
+Orange,84808,http://www.co.orange.tx.us/,https://www.co.orange.tx.us/departments/CountyClerk/OnlineRecordsSearch,myClerkbooks.com,2022,,,,,,scrapable
+Coryell,83093,https://www.coryellcounty.org/,https://www.coryellcounty.org/page/coryell.County.Clerk,,,,,,,,it appears that you need to pay. it’s unclear though
+Henderson,82150,http://www.henderson-county.com/,http://txhendersonodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
+Walker,76400,http://www.co.walker.tx.us/,https://odysseypa.tylerhost.net/Walker/,odyssey,2003,,,,,,
+Harrison,68839,http://harrisoncountytexas.org/,http://portal-txharrison.tylertech.cloud/PublicAccess/,odyssey,2011,,,,,,
+San Patricio,68755,http://www.co.san-patricio.tx.us/,https://www.co.san-patricio.tx.us/page/sanpatricio.County.Clerk,,,,,,,,I believe you need to call or email for records
+Wise,68632,http://www.co.wise.tx.us/,http://jail.co.wise.tx.us:81/,odyssey,2003,,,,,,
+Starr,65920,http://www.co.starr.tx.us/,https://www.co.starr.tx.us/page/starr.County.Clerk,,,,,,yes,,criminal case request form
+Nacogdoches,64653,http://www.co.nacogdoches.tx.us/,https://www.co.nacogdoches.tx.us/OpenRecords/Index.asp,,,,,,,,it is unclear how to get criminal records
+Hood,61598,http://www.co.hood.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=24,netdata,2013,,,yes,,yes,must register + captcha
+Van Zandt,59541,http://www.vanzandtcounty.org/,https://www.vanzandtcounty.org/page/vanzandt.County.Clerk,,,,,,,yes,uses countygovernmentrecords.com but it's not clear if this includes criminal records. Must register
+Anderson,57922,http://www.co.anderson.tx.us/,http://ac5.co.anderson.tx.us/PublicAccess/,odyssey,2003,,,,,,
+Maverick,57887,http://www.co.maverick.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Waller,56794,http://www.co.waller.tx.us/,https://odysseypa.tylerhost.net/Waller/,odyssey,2003,,,,,,
+Hardin,56231,http://www.co.hardin.tx.us/,http://www.hardincourts.com/recordSearch.php,"Henschen & Associates, Inc.",2022,,,yes,,,scrapable outside of captcha
+Navarro,52624,http://www.co.navarro.tx.us/,https://portal-txnavarro.tylertech.cloud/PublicAccess/,odyssey,2011,,,,,,
+Kerr,52598,http://www.co.kerr.tx.us/,http://courts.co.kerr.tx.us/PublicAccess/,odyssey,2014,,yes - 403 Forbidden,,,,
+Rusk,52214,http://www.co.rusk.tx.us/,https://www.co.rusk.tx.us/page/rusk.County.Clerk,,,,,,,,it is unclear how to get criminal records. There is a civil records request sheet
+Medina,50748,http://www.medinacountytexas.org/,https://odysseypa.tylerhost.net/Medina/,odyssey,2003,,,,,,
+Cherokee,50412,http://www.co.cherokee.tx.us/,https://cherokeeclerkofcourt.com/mainpage.aspx,ICON,5.1.1.1,,,,,,scrapable
+Polk,50123,http://www.co.polk.tx.us/,https://www.co.polk.tx.us/page/polk.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Lamar,50088,http://www.co.lamar.tx.us/,https://txlamarodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
+Wilson,49753,http://www.co.wilson.tx.us/,https://www.co.wilson.tx.us/page/wilson.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Burnet,49130,http://www.burnetcountytexas.org/,https://txburnetodyprod.tylerhost.net/PublicAccess/,odyssey,2003,,,,,,PUBLICLOGIN#visitor/visitor# do not edit - used as data in scraper
+Atascosa,48981,http://www.atascosacounty.texas.gov/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,looks scrapable but this is for district rather than county clerk. Could not find county records
+Val Verde,47586,http://valverdecounty.texas.gov/,https://www.valverdecounty.texas.gov/153/County-Clerk,,,,,,,,it is unclear how to get criminal records
+Chambers,46571,http://www.co.chambers.tx.us/,https://portal-txchambers.tylertech.cloud/Portal/,odyssey,2017.1.46.2,yes,,,yes,,
+Caldwell,45883,http://www.co.caldwell.tx.us/,https://www.co.caldwell.tx.us/page/caldwell.County.Clerk,iDocket,,,,,,yes,must register to iDocket.
+Wood,44843,http://www.mywoodcounty.com/,https://portal-txwood.tylertech.cloud/PublicAccess/,odyssey,2011,,,,,,
+Kendall,44279,http://www.co.kendall.tx.us/,https://www.co.kendall.tx.us/page/County.Clerk,,,,,,,,it is unclear how to get criminal records
+Erath,42545,http://co.erath.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=21,netdata,2022,,,yes,,yes,must register + captcha
+Cooke,41668,http://www.co.cooke.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=101,netdata,2022,,,yes,,yes,must register + captcha
+Wharton,41570,http://www.co.wharton.tx.us/,https://www.co.wharton.tx.us/page/wharton.County.Clerk,iDocket,,,,,,yes,must register to iDocket.
+Upshur,40892,http://www.countyofupshur.com/,https://www.texasonlinerecords.com/clerk/?office_id=43,netdata,2022,,,yes,,yes,must register + captcha
+Jim Wells,38891,http://www.co.jim-wells.tx.us/,https://courtportal.co.jim-wells.tx.us/eservices/home.page.23,courtview,1.32.01,,,,,,scrapable
+Brown,38095,http://www.browncountytx.org/,https://www.browncountytx.org/page/brown.County.Clerk,iDocket,,,,,,yes,must register to iDocket.
+Hopkins,36787,http://www.hopkinscountytx.org/,https://www.texasonlinerecords.com/clerk/?office_id=1,netdata,2022,,,yes,,yes,must register + captcha
+Matagorda,36255,http://www.co.matagorda.tx.us/,https://odysseypa.tylerhost.net/Matagorda/,odyssey,,,yes - 503 Service Unavailable,,,,
+Hill,35874,http://www.co.hill.tx.us/,https://www.co.hill.tx.us/page/hill.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Washington,35805,http://www.co.washington.tx.us/,https://www.co.washington.tx.us/page/washington.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Fannin,35662,http://www.co.fannin.tx.us/,https://portal-txfannin.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
+Howard,34860,http://www.co.howard.tx.us/,https://txhowardodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
+Jasper,32980,http://www.co.jasper.tx.us/,https://www.co.jasper.tx.us/page/jasper.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Hale,32522,http://www.halecounty.org/,https://portal-txhale.tylertech.cloud/PublicAccess/,odyssey,2011,,,,,,
+Titus,31247,http://www.co.titus.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=2,netdata,2022,,,yes,,yes,must register + captcha. Looks like this may not include criminal data as well
+Bee,31047,http://www.co.bee.tx.us/,https://www.co.bee.tx.us/page/bee.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Kleberg,31040,http://www.co.kleberg.tx.us/,https://www.texasonlinerecords.com/clerk/?office_id=81,netdata,2022,,,yes,,yes,must register + captcha. Looks like this may not include criminal data as well
+Austin,30167,http://www.austincounty.com/,http://public.austincounty.com/,odyssey,2003,,,,,,
+Grimes,29268,http://www.co.grimes.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Cass,28454,http://www.co.cass.tx.us/,https://cc.co.cass.tx.us/Court/SearchEntry.aspx?cabinet=COURT_CRIMINAL,Aumentum recorder,2020.2.0,,,,,,scrapable
+Palo Pinto,28409,http://www.co.palo-pinto.tx.us/,https://www.co.palo-pinto.tx.us/page/palopinto.County.Clerk,,,,,,,,it is unclear how to get criminal records
+San Jacinto,27402,http://www.co.san-jacinto.tx.us/,https://txsanjacintoodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
+Gillespie,26725,http://www.gillespiecounty.org/,https://odysseypa.tylerhost.net/Gillespie/,odyssey,,,yes - 503 Service Unavailable,,,,
+Milam,24754,http://www.milamcounty.net/,https://www.milamcounty.net/page/milam.countyclerk,iDocket,,,,,,,must register to iDocket.
+Uvalde,24564,http://www.uvaldecounty.com/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Fayette,24435,http://www.co.fayette.tx.us/,https://www.co.fayette.tx.us/page/fayette.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Shelby,24022,http://www.co.shelby.tx.us/,http://cc.co.shelby.tx.us/localization/notavailable.aspx,Aumentum Recorder ,2021.1.0 ,yes,,,,,search disabled. Must get records in person.
+Aransas,23830,http://www.aransascountytx.gov/main/,https://www.aransascountytx.gov/clerk/,,,,,,,,it is unclear how to get criminal records
+Panola,22491,http://www.co.panola.tx.us/,https://portal-txpanola.tylertech.cloud/PublicAccess/,odyssey,2006,,,,,,
+Limestone,22146,http://www.co.limestone.tx.us/,https://www.co.limestone.tx.us/page/limestone.County.Clerk,iDocket,,,,,,,must register to iDocket.
+Houston,22066,http://www.co.houston.tx.us/,https://www.co.houston.tx.us/page/houston.County.Clerk,iDocket,,,,,,,must register to iDocket.
+Lampasas,21627,http://www.co.lampasas.tx.us/,https://www.co.lampasas.tx.us/page/lampasas.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Gaines,21598,http://www.co.gaines.tx.us/,https://www.co.gaines.tx.us/page/gaines.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Hockley,21537,http://www.co.hockley.tx.us/,https://www.co.hockley.tx.us/page/hockley.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Moore,21358,http://www.co.moore.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Llano,21243,http://www.co.llano.tx.us/,https://www.co.llano.tx.us/page/llano.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Gray,21227,http://www.co.gray.tx.us/,http://www.lgs-hosted.com/rmtgraycck.html,Local Government Solutions,2017,,,,,yes,must register. Seems broken orguest/orguest doesn’t work which Is default on other LGS sites. Nor does GRAYCCKINQ / 20!DiMe14
+Bandera,20851,http://www.banderacounty.org/,https://www.banderacounty.org/departments/RecordSearch.htm,iDocket,,,,,,,must register to iDocket.
+Hutchinson,20617,http://www.co.hutchinson.tx.us/,https://portal-txhutchinson.tylertech.cloud/OdysseyPA/Login.aspx,odyssey,2011,,,,,yes,requires login. Not clear how to get one.
+Colorado,20557,http://www.co.colorado.tx.us/,https://www.co.colorado.tx.us/page/colorado.County.Clerk,iDocket,,,,,,,must register to iDocket.
+Lavaca,20337,http://www.co.lavaca.tx.us/,https://www.co.lavaca.tx.us/page/lavaca.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Willacy,20164,http://www.co.willacy.tx.us/,https://www.co.willacy.tx.us/page/willacy.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Calhoun,20106,http://www.calhouncotx.org/,https://txcalhounportal.tylerhost.net/Portal/,odyssey,2017.1.46.2,,,,,,
+Montague,19965,http://www.co.montague.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+DeWitt,19824,http://www.co.dewitt.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Tyler,19798,http://www.co.tyler.tx.us/,https://www.co.tyler.tx.us/page/tyler.CriminalRecordsRequestInstructions,,,,,,yes,,must make request and pay as far as I can tell
+Jones,19663,http://www.co.jones.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Gonzales,19653,http://www.co.gonzales.tx.us/,https://www.co.gonzales.tx.us/page/gonzales.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Freestone,19435,http://www.co.freestone.tx.us/,https://www.co.freestone.tx.us/page/freestone.County.Clerk,,,,,,,,it is unclear how to get criminal records
+Andrews,18610,http://www.co.andrews.tx.us/,https://www.co.andrews.tx.us/181/County-Clerk,,,,,,,,it is unclear how to get criminal records
+Deaf Smith,18583,http://www.co.deaf-smith.tx.us/,,,,,,,,,
+Frio,18385,http://www.co.frio.tx.us/,,,,,,,,,
+Bosque,18235,http://www.bosquecounty.us/,,,,,,,,,
+Young,17867,http://www.co.young.tx.us/,,,,,,,,,
+Eastland,17725,http://www.eastlandcountytexas.com/,,,,,,,,,
+Burleson,17642,http://www.co.burleson.tx.us/,,,,,,,,,
+Lee,17478,http://www.co.lee.tx.us/,http://www.lgs-hosted.com/rmtleecck.html,Local Government Solutions,2014,,,,,,LEECCKINQ / 20!DiMe14 default works. Scrapable
+Falls,16968,http://co.falls.tx.us/,,,,,,,,,
+Scurry,16932,http://www.co.scurry.tx.us/,,,,,,,,,
+Robertson,16757,http://www.co.robertson.tx.us/,,,,,,,,,
+Leon,15719,http://www.co.leon.tx.us/,,,,,,,,,
+Pecos,15193,http://www.co.pecos.tx.us/,,,,,,,,,
+Jackson,14988,http://www.co.jackson.tx.us/,,,,,,,,,
+Reeves,14748,http://www.reevescountytexas.net/,,,,,,,,,
+Nolan,14738,http://www.co.nolan.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Karnes,14710,http://www.co.karnes.tx.us/,,,,,,,,,
+Zapata,13889,http://www.co.zapata.tx.us/,,,,,,,,,
+Callahan,13708,http://www.co.callahan.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Trinity,13602,http://www.co.trinity.tx.us/,,,,,,,,,
+Comanche,13594,http://www.co.comanche.tx.us/,,,,,,,,,
+Madison,13455,http://www.co.madison.tx.us/,,,,,,,,,
+Lamb,13045,http://www.co.lamb.tx.us/,,,,,,,,,
+Wilbarger,12887,http://www.co.wilbarger.tx.us/,,,,,,,,,
+Camp,12464,http://www.co.camp.tx.us/,,,,,,,,,
+Dawson,12456,http://www.co.dawson.tx.us/,,,,,,,,,
+Newton,12217,http://www.co.newton.tx.us/,,,,,,,,,
+Rains,12164,http://www.co.rains.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Morris,11973,http://www.co.morris.tx.us/,http://txmorrisodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,PUBLICLOGIN#Public/Public# do not edit - used as data in scraper
+Terry,11831,http://co.terry.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
+Ward,11644,http://www.co.ward.tx.us/,,,,,,,,,
+Red River,11587,http://www.co.red-river.tx.us/,,,,,,,,,
+Blanco,11374,http://www.co.blanco.tx.us/,,,,,,,,,
+Live Oak,11335,http://www.co.live-oak.tx.us/,,,,,,,,,
+Franklin,10359,http://co.franklin.tx.us/,,,,,,,,,
+Clay,10218,http://www.co.clay.tx.us/,,,,,,,,,
+Ochiltree,10015,http://www.co.ochiltree.tx.us/,,,,,,,,,
+Runnels,9900,http://www.co.runnels.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,,scrapable
+Sabine,9894,http://www.co.sabine.tx.us/,,,,,,,,,
+Parmer,9869,http://parmercounty.org/,,,,,,,,,
+Duval,9831,http://www.co.duval.tx.us/,,,,,,,,,
+Marion,9725,http://www.co.marion.tx.us/,,,,,,,,,
+Zavala,9670,http://www.co.zavala.tx.us/,,,,,,,,,
+Brewster,9546,http://www.brewstercountytx.com/,,,,,,,,,
+Somervell,9205,http://www.somervell.co/,,,,,,,,,
+Stephens,9101,http://www.co.stephens.tx.us/,,,,,,,,,
+Mitchell,8990,http://www.co.mitchell.tx.us/,,,,,,,,,
+Dimmit,8615,http://www.dimmitcounty.org/,,,,,,,,,
+Archer,8560,http://www.co.archer.tx.us/,,,,,,,,,
+Jack,8472,http://www.jackcounty.org/,,,,,,,,,
+Hamilton,8222,http://www.co.hamilton.tx.us/,,,,,,,,,
+San Augustine,7918,http://www.co.san-augustine.tx.us/,,,,,,,,,
+Winkler,7791,http://www.co.winkler.tx.us/,,,,,,,,,
+Yoakum,7694,http://www.co.yoakum.tx.us/,,,,,,,,,
+Coleman,7684,http://www.co.coleman.tx.us/,,,,,,,,,
+McCulloch,7630,http://www.co.mcculloch.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,,scrapable
+Castro,7371,http://www.co.castro.tx.us/,,,,,,,,,
+Dallam,7115,http://www.dallam.org/county/,,,,,,,,,
+Brooks,7076,http://www.co.brooks.tx.us/,,,,,,,,,
+Goliad,7012,http://www.co.goliad.tx.us/,,,,,,,,,
+Swisher,6971,http://www.co.swisher.tx.us/,,,,,,,,,
+Bailey,6904,http://www.co.bailey.tx.us/,,,,,,,,,
+Refugio,6741,http://www.co.refugio.tx.us/,,,,,,,,,
+Childress,6664,http://www.childresscountytexas.us/,,,,,,,,,
+La Salle,6664,http://www.co.la-salle.tx.us/,,,,,,,,,
+Presidio,6131,http://www.co.presidio.tx.us/,,,,,,,,,
+Garza,5816,http://www.garzacounty.net/,,,,,,,,,
+Carson,5807,http://www.co.carson.tx.us/,,,,,,,,,
+San Saba,5730,http://www.co.san-saba.tx.us/,,,,,,,,,
+Lynn,5596,http://www.co.lynn.tx.us/,,,,,,,,,
+Haskell,5416,http://www.co.haskell.tx.us/,,,,,,,,,
+Floyd,5402,http://co.floyd.tx.us/,,,,,,,,,
+Hartley,5382,http://www.co.hartley.tx.us/,,,,,,,,,
+Hansford,5285,http://www.co.hansford.tx.us/,,,,,,,,,
+Martin,5237,http://www.co.martin.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,,scrapable
+Delta,5230,http://www.deltacountytx.com/,,,,,,,,,
+Crosby,5133,http://www.co.crosby.tx.us/,,,,,,,,,
+Wheeler,4990,http://www.co.wheeler.tx.us/,,,,,,,,,
+Jim Hogg,4838,http://co.jim-hogg.tx.us/,,,,,,,,,
+Crane,4675,http://www.co.crane.tx.us/,,,,,,,,,
+Mills,4456,http://www.co.mills.tx.us/,,,,,,,,,
+Kimble,4286,http://www.co.kimble.tx.us/,,,,,,,,,
+Mason,3953,http://www.co.mason.tx.us/,,,,,,,,,
+Fisher,3672,http://www.co.fisher.tx.us/,,,,,,,,,
+Hardeman,3549,http://www.co.hardeman.tx.us/,,,,,,,,,
+Baylor,3465,http://www.co.baylor.tx.us/,,,,,,,,,
+Reagan,3385,http://www.co.reagan.tx.us/,,,,,,,,,
+Hemphill,3382,http://www.co.hemphill.tx.us/,,,,,,,,,
+Sutton,3372,http://www.co.sutton.tx.us/,,,,,,,,,
+Knox,3353,http://www.knoxcountytexas.org/,,,,,,,,,
+Upton,3308,http://www.co.upton.tx.us/,,,,,,,,,
+Concho,3303,http://www.co.concho.tx.us/,,,,,,,,,
+Coke,3285,http://www.co.coke.tx.us/,,,,,,,,,
+Donley,3258,http://www.co.donley.tx.us/,,,,,,,,,
+Hudspeth,3202,http://www.co.hudspeth.tx.us/,,,,,,,,,
+Kinney,3129,http://www.co.kinney.tx.us/,,,,,,,,,
+Shackelford,3105,http://www.co.shackelford.tx.us/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,,,,,,,scrapable
+Crockett,3098,http://www.co.crockett.tx.us/,,,,,,,,,
+Lipscomb,3059,http://www.co.lipscomb.tx.us/,,,,,,,,,
+Hall,2825,https://www.co.hall.tx.us/,,,,,,,,,
+Sherman,2782,http://www.co.sherman.tx.us/,,,,,,,,,
+Real,2758,http://www.co.real.tx.us/,,,,,,,,,
+Collingsworth,2652,http://www.co.collingsworth.tx.us/,,,,,,,,,
+Cochran,2547,http://www.co.cochran.tx.us/,,,,,,,,,
+Schleicher,2451,http://www.co.schleicher.tx.us/,,,,,,,,,
+Culberson,2188,http://www.co.culberson.tx.us/,,,,,,,,,
+Jeff Davis,1996,http://www.co.jeff-davis.tx.us/,,,,,,,,,
+Menard,1962,http://co.menard.tx.us/,,,,,,,,,
+Armstrong,1848,http://www.co.armstrong.tx.us/,,,,,,,,,
+Dickens,1770,http://www.co.dickens.tx.us/,,,,,,,,,
+Oldham,1758,http://www.co.oldham.tx.us/,,,,,,,,,
+Irion,1513,http://www.co.irion.tx.us/,,,,,,,,,
+Throckmorton,1440,http://www.throckmortoncounty.org/,,,,,,,,,
+Briscoe,1435,http://www.co.briscoe.tx.us/,,,,,,,,,
+Edwards,1422,http://www.co.edwards.tx.us/,,,,,,,,,
+Cottle,1380,http://www.co.cottle.tx.us/,,,,,,,,,
+Sterling,1372,http://www.co.sterling.tx.us/,,,,,,,,,
+Stonewall,1245,http://www.co.stonewall.tx.us/,,,,,,,,,
+Glasscock,1116,http://www.co.glasscock.tx.us/,,,,,,,,,
+Foard,1095,http://www.foardcounty.texas.gov/,,,,,,,,,
+Motley,1063,http://www.co.motley.tx.us/,,,,,,,,,
+Roberts,827,http://www.co.roberts.tx.us/,,,,,,,,,
+Terrell,760,http://www.co.terrell.tx.us/,,,,,,,,,
+Kent,753,http://www.kentcountytexas.us/,,,,,,,,,
+Borden,631,http://www.co.borden.tx.us/,,,,,,,,,
+McMullen,600,http://www.mcmullencountytexas.us/,,,,,,,,,
+Kenedy,350,http://www.co.kenedy.tx.us/,,,,,,,,,
+King,265,http://www.co.king.tx.us/,,,,,,,,,
+Loving,64,http://www.co.loving.tx.us/,,,,,,,,,
