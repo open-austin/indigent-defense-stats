@@ -31,7 +31,7 @@ I did a manual scraping test up to returning search results, most dates have 0 r
 
 12 out of 65 do not work, 81.5% do work. 3 are captcha-blocked, 9 are currently impossible (site down or search disabled). 77.8% of the population should be scrapable without captcha solving on Odyssey sites. 2.9% of population is under captcha on them.
 
-4.2% more records could be scraped on non-Odyssey software. On all sites, 84.9% of records are scrapable with captcha circumvention.
+4.2% more records could be scraped on non-Odyssey software. On all sites, 84.9% of records are scrapable with captcha solving.
 
 Parser for post 2017 sites is not complete. Parser for pre-2017 sites works well, but needs a lot more testing.
 
