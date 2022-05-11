@@ -68,7 +68,7 @@ Cherokee,50412,http://www.co.cherokee.tx.us/,https://cherokeeclerkofcourt.com/ma
 Polk,50123,http://www.co.polk.tx.us/,https://www.co.polk.tx.us/page/polk.County.Clerk,,,,,,,,it is unclear how to get criminal records
 Lamar,50088,http://www.co.lamar.tx.us/,https://txlamarodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
 Wilson,49753,http://www.co.wilson.tx.us/,https://www.co.wilson.tx.us/page/wilson.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Burnet,49130,http://www.burnetcountytexas.org/,https://txburnetodyprod.tylerhost.net/PublicAccess/,odyssey,2003,,,,,,PUBLICLOGIN#visitor/visitor# do not edit - used as data in scraper
+Burnet,49130,http://www.burnetcountytexas.org/,https://portal-txburnet.tylertech.cloud/ProdPortal,odyssey,2003,,,,,,PUBLICLOGIN#visitor/visitor# do not edit - used as data in scraper
 Atascosa,48981,http://www.atascosacounty.texas.gov/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,looks scrapable but this is for district rather than county clerk. Could not find county records
 Val Verde,47586,http://valverdecounty.texas.gov/,https://www.valverdecounty.texas.gov/153/County-Clerk,,,,,,,,it is unclear how to get criminal records
 Chambers,46571,http://www.co.chambers.tx.us/,https://portal-txchambers.tylertech.cloud/Portal/,odyssey,2017.1.46.2,yes,,,yes,,
@@ -97,7 +97,7 @@ Grimes,29268,http://www.co.grimes.tx.us/,https://public.lgsonlinesolutions.com/o
 Cass,28454,http://www.co.cass.tx.us/,https://cc.co.cass.tx.us/Court/SearchEntry.aspx?cabinet=COURT_CRIMINAL,Aumentum recorder,2020.2.0,,,,,,scrapable
 Palo Pinto,28409,http://www.co.palo-pinto.tx.us/,https://www.co.palo-pinto.tx.us/page/palopinto.County.Clerk,,,,,,,,it is unclear how to get criminal records
 San Jacinto,27402,http://www.co.san-jacinto.tx.us/,https://txsanjacintoodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
-Gillespie,26725,http://www.gillespiecounty.org/,https://odysseypa.tylerhost.net/Gillespie/,odyssey,,,yes - 503 Service Unavailable,,,,
+Gillespie,26725,http://www.gillespiecounty.org/,https://portal-txgillespie.tylertech.cloud/PublicAccess/default.aspx,odyssey,,,yes - 503 Service Unavailable,,,,
 Milam,24754,http://www.milamcounty.net/,https://www.milamcounty.net/page/milam.countyclerk,iDocket,,,,,,,must register to iDocket.
 Uvalde,24564,http://www.uvaldecounty.com/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
 Fayette,24435,http://www.co.fayette.tx.us/,https://www.co.fayette.tx.us/page/fayette.County.Clerk,,,,,,,,it is unclear how to get criminal records
