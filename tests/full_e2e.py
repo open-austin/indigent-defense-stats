@@ -23,7 +23,7 @@ def test_scraper(self, county: str, date: str, judicial_officer: str):
         shell=True,
     )
     self.assertIn(
-        b"Testing, stopping after first case",
+        output[0],
         output,
         "Assert that testing message is logged after first case is scraped successfully.",
     )
