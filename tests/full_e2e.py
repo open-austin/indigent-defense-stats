@@ -3,7 +3,9 @@ from unittest import main, TestCase
 
 
 def test_scraper(self, county: str, date: str, judicial_officer: str):
-    output = check_output(
+    key = b'Testing, stopping after first case'
+    message = "Assert that testing message is logged after first case is scraped successfully."
+    container = check_output(
         [
             "poetry",
             "run",
@@ -23,9 +25,9 @@ def test_scraper(self, county: str, date: str, judicial_officer: str):
         shell=True,
     )
     self.assertIn(
-        output[0],
-        output,
-        "Assert that testing message is logged after first case is scraped successfully.",
+        key,
+        container,
+        message
     )
 
 class TestScrapingSites(TestCase):
@@ -36,7 +38,7 @@ class TestScrapingSites(TestCase):
 
     def test_angelina(self):
         test_scraper(
-            self, county="angelina", date="2022-02-23", judicial_officer="Cheshire, Rodney"
+            self, county="angelina", date="2022-01-19", judicial_officer="GRUBBS, PATRICIA"
         )
 
     def test_austin(self):
@@ -51,7 +53,7 @@ class TestScrapingSites(TestCase):
 
     def test_bell(self):
         test_scraper(
-            self, county="bell", date="2022-05-10", judicial_officer="Coleman, Clifford"
+            self, county="bell", date="2022-04-29", judicial_officer="Coleman, Clifford"
         )
 
     def test_bexar(self):
@@ -68,6 +70,11 @@ class TestScrapingSites(TestCase):
         test_scraper(
             self, county="brazoria", date="2022-04-14", judicial_officer="Bulanek, Patrick"
         )
+    
+    def test_burnet(self):
+        test_scraper(
+            self, county="burnet", date="2019-03-05", judicial_officer="Arrington, Tamera S"
+        )
 
     def test_calhoun(self):
         test_scraper(
@@ -76,12 +83,22 @@ class TestScrapingSites(TestCase):
 
     def test_cameron(self):
         test_scraper(
-            self, county="cameron", date="2022-03-24", judicial_officer="Alejandro, Leonel"
+            self, county="cameron", date="2022-02-23", judicial_officer="Alejandro, Leonel"
+        )
+    
+    def test_chambers(self):
+        test_scraper(
+            self, county="chambers", date="2022-03-25", judicial_officer="Baker, Jennifer"
         )
 
     def test_collin(self):
         test_scraper(
             self, county="collin", date="2022-04-14", judicial_officer="Baxter, Lance"
+        )
+    
+    def test_comal(self):
+        test_scraper(
+            self, county="comal", date="2021-01-05", judicial_officer="Wigington, Deborah"
         )
 
     def test_dallas(self):
@@ -98,6 +115,8 @@ class TestScrapingSites(TestCase):
         test_scraper(
             self, county="ector", date="2022-02-28", judicial_officer="Wilson, Kathy"
         )
+
+    # El Paso - Unable to search by judical officer.
 
     def test_fannin(self):
         test_scraper(
@@ -116,7 +135,7 @@ class TestScrapingSites(TestCase):
 
     def test_gillespie(self):
         test_scraper(
-            self, county="gillespie", date="2022-01-25", judicial_officer="Mabray, Cheryll"
+            self, county="gillespie", date="2022-03-24", judicial_officer="Mabray, Cheryll"
         )
 
     def test_grayson(self):
@@ -169,10 +188,21 @@ class TestScrapingSites(TestCase):
             self, county="howard", date="2022-03-24", judicial_officer="Yeats, Timothy D"
         )
 
+    def test_hunt(self):
+        test_scraper(
+            self, county="howard", date="2022-06-08", judicial_officer="Aiken, Keli M."
+        )
+
+    # Hutchison - Requires login, unsure how to obtain.
+
     def test_johnson(self):
         test_scraper(
             self, county="johnson", date="2022-02-28", judicial_officer="Monk, Jeff"
         )
+
+    # Kaufman - Unable to search by judical officer.
+
+    # Kerr - Unable to search by judical officer.
 
     def test_lamar(self):
         test_scraper(
@@ -187,6 +217,11 @@ class TestScrapingSites(TestCase):
     def test_lubbock(self):
         test_scraper(
             self, county="lubbock", date="2022-03-03", judicial_officer="Darnell, Kara"
+        )
+
+    def test_matagorda(self):
+        test_scraper(
+            self, county="matagorda", date="2022-03-08", judicial_officer="Sanders, Jason K."
         )
 
     def test_medina(self):
@@ -251,7 +286,7 @@ class TestScrapingSites(TestCase):
 
     def test_tarrant(self):
         test_scraper(
-            self, county="tarrant", date="2022-01-26", judicial_officer="Kelly, Lynn"
+            self, county="tarrant", date="2022-03-21", judicial_officer="Ponder, Christopher W."
         )
 
     def test_taylor(self):
@@ -271,17 +306,17 @@ class TestScrapingSites(TestCase):
 
     def test_victoria(self):
         test_scraper(
-            self, county="victoria", date="2022-04-28", judicial_officer="Ernst, Travis H."
+            self, county="victoria", date="2022-01-31", judicial_officer="Ernst, Travis H."
         )
 
     def test_walker(self):
         test_scraper(
-            self, county="walker", date="2022-02-17", judicial_officer="Cole, Stephen"
+            self, county="walker", date="2022-04-12", judicial_officer="Holt, Mark"
         )
 
     def test_waller(self):
         test_scraper(
-            self, county="waller", date="2022-02-08", judicial_officer="Chaney, Carol"
+            self, county="waller", date="2022-03-23", judicial_officer="Jackson, Marian E."
         )
 
     def test_webb(self):
@@ -296,7 +331,7 @@ class TestScrapingSites(TestCase):
 
     def test_williamson(self):
         test_scraper(
-            self, county="williamson", date="2022-02-28", judicial_officer="McLean, Evelyn"
+            self, county="williamson", date="2022-03-22", judicial_officer="McLean, Evelyn"
         )
 
     def test_wise(self):
@@ -306,7 +341,7 @@ class TestScrapingSites(TestCase):
 
     def test_wood(self):
         test_scraper(
-            self, county="wood", date="2022-02-17", judicial_officer="Gilbreath, Tony"
+            self, county="wood", date="2022-03-10", judicial_officer="McCampbell, J Brad"
         )
 
 if __name__ == "__main__":
