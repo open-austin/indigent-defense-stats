@@ -68,7 +68,7 @@ Cherokee,50412,http://www.co.cherokee.tx.us/,https://cherokeeclerkofcourt.com/ma
 Polk,50123,http://www.co.polk.tx.us/,https://www.co.polk.tx.us/page/polk.County.Clerk,,,,,,,,it is unclear how to get criminal records
 Lamar,50088,http://www.co.lamar.tx.us/,https://txlamarodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
 Wilson,49753,http://www.co.wilson.tx.us/,https://www.co.wilson.tx.us/page/wilson.County.Clerk,,,,,,,,it is unclear how to get criminal records
-Burnet,49130,http://www.burnetcountytexas.org/,https://txburnetodyprod.tylerhost.net/PublicAccess/,odyssey,2003,,,,,,PUBLICLOGIN#visitor/visitor# do not edit - used as data in scraper
+Burnet,49130,http://www.burnetcountytexas.org/,https://portal-txburnet.tylertech.cloud/ProdPortal,odyssey,2003,,,,,,PUBLICLOGIN#visitor/visitor# do not edit - used as data in scraper
 Atascosa,48981,http://www.atascosacounty.texas.gov/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,looks scrapable but this is for district rather than county clerk. Could not find county records
 Val Verde,47586,http://valverdecounty.texas.gov/,https://www.valverdecounty.texas.gov/153/County-Clerk,,,,,,,,it is unclear how to get criminal records
 Chambers,46571,http://www.co.chambers.tx.us/,https://portal-txchambers.tylertech.cloud/Portal/,odyssey,2017.1.46.2,yes,,,yes,,
@@ -82,7 +82,7 @@ Upshur,40892,http://www.countyofupshur.com/,https://www.texasonlinerecords.com/c
 Jim Wells,38891,http://www.co.jim-wells.tx.us/,https://courtportal.co.jim-wells.tx.us/eservices/home.page.23,courtview,1.32.01,,,,,,scrapable
 Brown,38095,http://www.browncountytx.org/,https://www.browncountytx.org/page/brown.County.Clerk,iDocket,,,,,,yes,must register to iDocket.
 Hopkins,36787,http://www.hopkinscountytx.org/,https://www.texasonlinerecords.com/clerk/?office_id=1,netdata,2022,,,yes,,yes,must register + captcha
-Matagorda,36255,http://www.co.matagorda.tx.us/,https://odysseypa.tylerhost.net/Matagorda/,odyssey,,,yes - 503 Service Unavailable,,,,
+Matagorda,36255,http://www.co.matagorda.tx.us/,https://portal-txmatagorda.tylertech.cloud/Matagorda/,odyssey,2011,,,,,,
 Hill,35874,http://www.co.hill.tx.us/,https://www.co.hill.tx.us/page/hill.County.Clerk,,,,,,,,it is unclear how to get criminal records
 Washington,35805,http://www.co.washington.tx.us/,https://www.co.washington.tx.us/page/washington.County.Clerk,,,,,,,,it is unclear how to get criminal records
 Fannin,35662,http://www.co.fannin.tx.us/,https://portal-txfannin.tylertech.cloud/Portal/,odyssey,2017.1.46.2,,,,,,
@@ -97,7 +97,7 @@ Grimes,29268,http://www.co.grimes.tx.us/,https://public.lgsonlinesolutions.com/o
 Cass,28454,http://www.co.cass.tx.us/,https://cc.co.cass.tx.us/Court/SearchEntry.aspx?cabinet=COURT_CRIMINAL,Aumentum recorder,2020.2.0,,,,,,scrapable
 Palo Pinto,28409,http://www.co.palo-pinto.tx.us/,https://www.co.palo-pinto.tx.us/page/palopinto.County.Clerk,,,,,,,,it is unclear how to get criminal records
 San Jacinto,27402,http://www.co.san-jacinto.tx.us/,https://txsanjacintoodyprod.tylerhost.net/PublicAccess/,odyssey,2011,,,,,,
-Gillespie,26725,http://www.gillespiecounty.org/,https://odysseypa.tylerhost.net/Gillespie/,odyssey,,,yes - 503 Service Unavailable,,,,
+Gillespie,26725,http://www.gillespiecounty.org/,https://portal-txgillespie.tylertech.cloud/PublicAccess/,odyssey,2006,,,,,,
 Milam,24754,http://www.milamcounty.net/,https://www.milamcounty.net/page/milam.countyclerk,iDocket,,,,,,,must register to iDocket.
 Uvalde,24564,http://www.uvaldecounty.com/,https://public.lgsonlinesolutions.com/ors.html,Local Government Solutions,2022,,,,,,scrapable
 Fayette,24435,http://www.co.fayette.tx.us/,https://www.co.fayette.tx.us/page/fayette.County.Clerk,,,,,,,,it is unclear how to get criminal records
