@@ -5,8 +5,8 @@ This is a scraper to collect and process public case records from the Tyler Tech
 ## Install
 
 1. Clone this repo and navigate to it.
-   - `git clone https://github.com/open-austin/Odyssey-Court-Records-to-JSON`
-   - `cd Odyssey-Court-Records-to-JSON`
+   - `git clone https://github.com/open-austin/indigent-court-stats`
+   - `cd indigent-court-stats`
 1. Install [poetry](https://python-poetry.org/docs/#installation) and [pyenv](https://github.com/pyenv/pyenv#installation). Benefits are easier env management and reproducable builds.
 1. Install libraries.
    - `poetry install`
@@ -20,7 +20,8 @@ _**--help for parameter details.**_
 Output of these commands will go to `./data/COUNTY_NAME`
 
 1. Scrape case HTML data through date range.
-   - `poetry run python ./src/scraper -start_date 1985-01-01 -end_date 1985-01-01 -county hays`
+   - `poetry run python ./src/scraper -start_date 2021-01-01 -end_date 2021-01-10 -county hays`
+     - This will scrape 10 days worth of data.
    - Use "python3" instead of "poetry run python" if you are not using poetry.
 1. Parse the case data into JSON files.
    - `poetry run python ./src/parser -county hays`
