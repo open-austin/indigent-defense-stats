@@ -20,7 +20,7 @@ _**--help for parameter details.**_
 Output of these commands will go to `./data/COUNTY_NAME`
 
 1. Scrape case HTML data through date range.
-   - `poetry run python ./src/scraper -start_date 01/01/1970 -end_date 01/01/1970 -county hays`
+   - `poetry run python ./src/scraper -start_date 1985-01-01 -end_date 1985-01-01 -county hays`
    - Use "python3" instead of "poetry run python" if you are not using poetry.
 1. Parse the case data into JSON files.
    - `poetry run python ./src/parser -county hays`
