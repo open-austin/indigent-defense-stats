@@ -5,8 +5,8 @@ This is a scraper to collect and process public case records from the Tyler Tech
 ## Install
 
 1. Clone this repo and navigate to it.
-   - `git clone https://github.com/open-austin/indigent-court-stats`
-   - `cd indigent-court-stats`
+   - `git clone https://github.com/open-austin/indigent-defense-stats`
+   - `cd indigent-defense-stats`
 1. Install [poetry](https://python-poetry.org/docs/#installation) and [pyenv](https://github.com/pyenv/pyenv#installation). Benefits are easier env management and reproducable builds.
 1. Install libraries.
    - `poetry install`
