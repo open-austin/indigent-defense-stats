@@ -24,4 +24,5 @@ container_client = blob_service_client.get_container_client(
     container="indigentdefensepublicblob"
 )
 blob_list = container_client.list_blobs()
-print(blob_list)
+for blob_name in blob_list:
+    print(blob_name)
