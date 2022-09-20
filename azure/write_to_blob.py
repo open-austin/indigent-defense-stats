@@ -12,7 +12,8 @@ blob_service_client = BlobServiceClient(
 blob_client = blob_service_client.get_blob_client(
     container="indigentdefensepublicblob", blob="test_write.txt"
 )
-blob_client.upload_blob("hello world")
+if not blob_client.exists():
+    blob_client.upload_blob("hello world")
 
 # Read from blob
 data = blob_client.download_blob()
