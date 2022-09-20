@@ -9,6 +9,8 @@ python = "^3.8"
 requests = "^2.27.1"
 bs4 = "^0.0.1"
 boto3 = "^1.21.18"
+azure-storage-blob = "^12.13.1"
+azure-identity = "^1.11.0"
 
 [tool.poetry.dev-dependencies]
 
