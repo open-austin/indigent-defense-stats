@@ -20,7 +20,7 @@ logger = logging.getLogger(name="pid: " + str(os.getpid()))
 logging.basicConfig()
 logging.root.setLevel(level=args.log)
 
-today_date = datetime.strftime(datetime.today(), "%m/%d/%Y")
+today_date = datetime.strftime(datetime.today(), "%m-%d-%Y")
 # make cache directories if not present
 case_html_path = os.path.join(
     os.path.dirname(__file__), "..", "..", "data", args.county, "case_html", today_date
