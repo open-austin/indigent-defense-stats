@@ -20,9 +20,10 @@ logger = logging.getLogger(name="pid: " + str(os.getpid()))
 logging.basicConfig()
 logging.root.setLevel(level=args.log)
 
+today_date = datetime.strftime(datetime.today(), "%m/%d/%Y")
 # make cache directories if not present
 case_html_path = os.path.join(
-    os.path.dirname(__file__), "..", "..", "data", args.county, "case_html"
+    os.path.dirname(__file__), "..", "..", "data", args.county, "case_html", today_date
 )
 os.makedirs(case_html_path, exist_ok=True)
 
@@ -151,7 +152,7 @@ for date in (
     args.start_date + timedelta(n)
     for n in range((args.end_date - args.start_date).days + 1)
 ):
-    date_string = datetime.strftime(date, "%m/%d/%Y")
+    date_string = datetime.strftime(date, "%m-%d-%Y")
     # loop through each judicial officer
     for JO_name in args.judicial_officers:
         if JO_name not in judicial_officer_to_ID:
@@ -202,7 +203,7 @@ for date in (
                 # write html case data
                 logger.info(f"{len(case_html)} response string length")
                 with open(
-                    os.path.join(case_html_path, f"{case_id}.html"), "w"
+                    os.path.join(case_html_path, f"{case_id}__{date_string}.html"), "w"
                 ) as file_handle:
                     file_handle.write(case_html)
                 if case_id not in cached_case_list:
