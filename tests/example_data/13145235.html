@@ -1,0 +1,99 @@
+
+
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="CSS/PublicAccess.css"/>
+    <script language="javascript" type="text/javascript">
+    // allowRefresh is set to false when the Make Payment button is clicked to keep the browser
+    // from refreshing the page in middle of the request for the sonant payment page
+    // if the browser automatically refreshes itself, then the sonant page response will be ignored
+    var allowRefresh = true;
+
+    function checkRefresh()
+    {
+      if (0 == '1')
+        setTimeout('performPageRefresh()',20000);
+    }
+
+    function performPageRefresh()
+    {
+      if (allowRefresh == true)
+        window.location.href = window.location.href;
+    }
+    
+    function ViewMugshots(PartyID, CaseID)
+		{
+		  var URL = "ViewMugshots.aspx?PartyID=" + PartyID + "&CaseID=" + CaseID;
+      var newWindow = window.open(URL,"","width=450,height=500");
+		}
+		
+		function EPaymentCheckoutCitation(paymentProcessor, CaseID, CitationNumber)
+		{
+		  allowRefresh = false;
+		  window.location.href = "PaymentCheckout.aspx?PP=" + paymentProcessor + "&CaseID=" + CaseID + "&CitNum=" + CitationNumber
+		}
+		
+		function EPaymentCheckoutCase(paymentProcessor, CaseID, CaseNumber)
+		{
+		  allowRefresh = false;
+		  window.location.href = "PaymentCheckout.aspx?PP=" + paymentProcessor + "&CaseID=" + CaseID + "&CasNum=" + CaseNumber
+		}
+
+    </script>
+  </head>
+
+  <body onload="Javascript:checkRefresh()">
+    <?xml version="1.0" encoding="utf-8"?><table cellspacing="0" cellpadding="0" width="100%" border="0" style="table-layout: fixed; margin:0px; padding:0px;" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:PublicAccessUser="urn:PublicAccessUser"></table><table cellspacing="0" cellpadding="0" width="100%" border="0" style="table-layout: fixed; margin:0px; padding:0px;" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:PublicAccessUser="urn:PublicAccessUser"><tr><td bgcolor="#000000" height="20px"><table cellspacing="0" cellpadding="0" width="100%" border="0"><tr><td align="left" style="padding-left: 5px"><font size="1"><a class="ssBlackNavBarHyperlink" href="#MainContent">Skip to Main Content</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="logout.aspx">Logout</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="MyAccount.aspx?ReturnURL=default.aspx">My Account</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="default.aspx">Search Menu</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="Search.aspx?ID=900">New Calendar Search</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="Search.aspx?ID=900&amp;RefineSearch=1">Refine Search</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="&#xD;&#xA;                          javascript:if((new String(window.location)).indexOf(&quot;#MainContent&quot;) &gt; 0)&#xD;&#xA;                          {&#xD;&#xA;                          history.back();&#xD;&#xA;                          history.back();&#xD;&#xA;                          }&#xD;&#xA;                          else history.back();&#xD;&#xA;                        ">
+                        Back</a>&nbsp;</font></td><td align="center" class="ssBlackNavBarLocation"></td><td align="right" style="padding-right: 10px"><table cellspacing="0" cellpadding="0" border="0"><tr><td class="ssBlackNavBarLocation">
+                          Location : All Courts</td><td><font size="1"><a class="ssBlackNavBarHyperlink" target="_blank" href="help.aspx">Help</a></font></td></tr></table></td></tr></table></td></tr></table><a id="MainContent" name="MainContent" tabindex="-1" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:msxml="urn:schemas-microsoft-com:xslt" xmlns:user="http://www.tylertechnologies.com" xmlns:PublicAccessUser="urn:PublicAccessUser"></a><div class="ssCaseDetailROA" nowrap="true" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:msxml="urn:schemas-microsoft-com:xslt" xmlns:user="http://www.tylertechnologies.com" xmlns:PublicAccessUser="urn:PublicAccessUser">Register of Actions</div><div class="ssCaseDetailCaseNbr" nowrap="true" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:msxml="urn:schemas-microsoft-com:xslt" xmlns:user="http://www.tylertechnologies.com" xmlns:PublicAccessUser="urn:PublicAccessUser">
+          Case No. <span style="font-variant: normal">20-2423CR-1</span></div><table cellpadding="0" cellspacing="0" border="0" width="100%" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:msxml="urn:schemas-microsoft-com:xslt" xmlns:user="http://www.tylertechnologies.com" xmlns:PublicAccessUser="urn:PublicAccessUser"><tr><td width="50%" valign="top"><b>The State of Texas vs. Garrett Mitchell Daniels</b></td><td>&sect;<br />&sect;<br />&sect;<br />&sect;<br />&sect;<br /></td><td width="50%" valign="top" align="center"><table cellpadding="0" cellspacing="0" width="90%" border="0"><tr><td width="70%"><table cellpadding="0" cellspacing="0" width="100%" border="0"><cols><col width="50%" /><col width="50%" /></cols><tr><th class="ssTableHeaderLabel">Case Type:</th><td style="padding-left:10px"><b>Adult Misdemeanor</b></td></tr><tr><th class="ssTableHeaderLabel">Date Filed:</th><td style="padding-left:10px"><b>06/09/2020</b></td></tr><tr><th class="ssTableHeaderLabel">Location:</th><td style="padding-left:10px"><b>County Court at Law #1</b></td></tr></table></td></tr></table></td></tr></table><table cellpadding="0" cellspacing="0" width="100%" border="0" style="table-layout: fixed" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:msxml="urn:schemas-microsoft-com:xslt" xmlns:user="http://www.tylertechnologies.com" xmlns:PublicAccessUser="urn:PublicAccessUser"><col width="10%" /><col width="30%" /><col width="10%" /><col width="30%" /><col width="20%" /><caption><div class="ssCaseDetailSectionTitle">Party Information</div></caption><tr><td colspan="4"></td><th class="ssTableHeader" id="PIc5">Lead Attorneys</th></tr><tr><th class="ssTableHeader" valign="top" rowspan="2" id="PIr01">Defendant</th><th class="ssTableHeader" valign="top" id="PIr11">Daniels, Garrett Mitchell</th><td rowspan="2"></td><td rowspan="2" valign="top" headers="&#xD;&#xA;              PIr01 &#xD;&#xA;              PIr11">Male <br />
+                      DOB: 04/18/1998<br />145 lbs</td><td rowspan="2" valign="top" headers="&#xD;&#xA;              PIr01 &#xD;&#xA;              PIr11 &#xD;&#xA;              PIc5&#xD;&#xA;            "><b>Richard Vestal</b><br />  <I>Court Appointed</I><br />830-708-0505(W)</td></tr><tr><td valign="top" headers="&#xD;&#xA;              PIr01 &#xD;&#xA;              PIr11">&nbsp;&nbsp;6300 Linne Rd<br />&nbsp;&nbsp;Seguin, TX 78155<br /><nobr>&nbsp;&nbsp;SID:
+                </nobr>TX50762437<br /></td></tr><tr height="25"><td colspan="5">&nbsp;</td></tr><tr><th class="ssTableHeader" valign="top" rowspan="2" id="PIr02">State</th><th class="ssTableHeader" valign="top" id="PIr12">The State of Texas</th><td rowspan="2"></td><td rowspan="2" valign="top" headers="&#xD;&#xA;              PIr02 &#xD;&#xA;              PIr12"> </td><td rowspan="2" valign="top" headers="&#xD;&#xA;              PIr02 &#xD;&#xA;              PIr12 &#xD;&#xA;              PIc5&#xD;&#xA;            "><b>Melissa Pulido</b></td></tr><tr><td valign="top" headers="&#xD;&#xA;              PIr02 &#xD;&#xA;              PIr12">&nbsp;&nbsp;712 S Stagecoach TRL <br />&nbsp;&nbsp;San Marcos, TX 78666<br /></td></tr></table><table cellpadding="0" cellspacing="0" width="100%" border="0" style="table-layout: fixed" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:msxml="urn:schemas-microsoft-com:xslt" xmlns:user="http://www.tylertechnologies.com" xmlns:PublicAccessUser="urn:PublicAccessUser"><col width="2%" /><col width="40%" /><col width="15%" /><col width="15%" /><col width="15%" /><col width="10%" /><caption><div class="ssCaseDetailSectionTitle">Charge Information</div></caption><tr><th class="ssTableHeader" nowrap="true" colspan="2">
+              Charges: Daniels, Garrett Mitchell</th><th class="ssTableHeader"></th><th class="ssTableHeader">
+              Statute
+            </th><th class="ssTableHeader">
+              Level
+            </th><th class="ssTableHeader">
+              Date
+            </th></tr><tr><td valign="top">1.
+            &nbsp;</td><td valign="top">ASSAULT CAUSES BODILY INJURY FAMILY MEMBER</td><td valign="top"></td><td valign="top">22.01(a)(1)</td><td valign="top" nowrap="true">Misdemeanor A</td><td valign="top" nowrap="true">05/05/2019</td></tr><tr><td /><td></td></tr></table><table cellpadding="0" cellspacing="0" width="100%" border="0" style="table-layout:fixed;" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:msxml="urn:schemas-microsoft-com:xslt" xmlns:user="http://www.tylertechnologies.com" xmlns:PublicAccessUser="urn:PublicAccessUser"><col width="54px" /><col width="3px" /><col width="3px" /><col width="700px" /><col width="100%" /><caption><div class="ssCaseDetailSectionTitle">Events &amp; Orders of the Court</div></caption><tr><td>&nbsp;</td><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><th id="COtherEventsAndHearings" class="ssEventsAndOrdersSubTitle">OTHER EVENTS AND HEARINGS</th></tr><tr><th class="ssTableHeaderLabel" valign="top" id="RCDER1">06/09/2020</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDER1"><b>Complaint &amp; Information (Open Case)</b></td></tr><tr><th class="ssTableHeaderLabel" valign="top" id="RCDER2">06/11/2020</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDER2"><b>Order for Summons</b>
+            (Judicial Officer:
+            Updegrove, Robert
+            )
+          </td></tr><tr><th class="ssTableHeaderLabel" valign="top" id="RCDSE3">06/11/2020</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDSE3"><table cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;"><tr><td width="35%"><b>Summons</b></td><td width="65%" style="padding-left: 16px"></td></tr></table><table cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" border="0"><tr><td width="40%" style="padding-left: 16px" valign="top"><table cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" border="0"><tr><td width="95%"></td><td width="5%"></td></tr></table></td><td width="60%" valign="top"></td></tr></table><table cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;"><tr><td width="40%" style="padding-left:16px" valign="top">Daniels, Garrett Mitchell</td><td width="60%"><table cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" border="0"><tr><td align="left" width="30%">Served</td><td align="left" width="40%" nowrap="true">06/11/2020</td><td width="30%"></td></tr></table></td></tr></table></td></tr><tr><th class="ssTableHeaderLabel" valign="top" ID="RCDHR4">11/17/2020</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDHR4"><i>CANCELED</i>&nbsp;&nbsp;
+          <b>Arraignment</b>&nbsp;
+            (9:00 AM)
+          
+    (Judicial Officers&nbsp;Updegrove, Robert,&nbsp;Glickler, David)
+  <div style="padding-left: 10px"><i>Reset</i></div><table></table></td></tr><tr><th class="ssTableHeaderLabel" valign="top" ID="RCDHR5">12/09/2020</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDHR5"><b>Arraignment</b>&nbsp;
+            (9:00 AM)
+          
+    (Judicial Officers&nbsp;Updegrove, Robert,&nbsp;Glickler, David)
+  <table></table> Result: Arraigned</td></tr><tr><th class="ssTableHeaderLabel" valign="top" id="RCDER6">02/25/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDER6"><b>Discovery Receipt</b></td></tr><tr><th class="ssTableHeaderLabel" valign="top" id="RCDER7">02/26/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDER7"><b>Certificate of Contact</b></td></tr><tr><th class="ssTableHeaderLabel" valign="top" ID="RCDHR8">03/09/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDHR8"><i>CANCELED</i>&nbsp;&nbsp;
+          <b>Announcement</b>&nbsp;
+            (1:30 PM)
+          
+    (Judicial Officer&nbsp;Updegrove, Robert)
+  <div style="padding-left: 10px"><i>Reset</i></div><div style="padding-left: 10px"><i>ARRG 12.09 REQ WOC</i></div><table></table></td></tr><tr><th class="ssTableHeaderLabel" valign="top" ID="RCDHR9">04/29/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDHR9"><i>CANCELED</i>&nbsp;&nbsp;
+          <b>Announcement</b>&nbsp;
+            (8:30 AM)
+          
+    (Judicial Officer&nbsp;Updegrove, Robert)
+  <div style="padding-left: 10px"><i>Reset</i></div><table></table></td></tr><tr><th class="ssTableHeaderLabel" valign="top" ID="RCDHR10">06/17/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDHR10"><i>CANCELED</i>&nbsp;&nbsp;
+          <b>Announcement</b>&nbsp;
+            (1:30 PM)
+          
+    (Judicial Officer&nbsp;Updegrove, Robert)
+  <div style="padding-left: 10px"><i>Reset</i></div><table></table></td></tr><tr><th class="ssTableHeaderLabel" valign="top" id="RCDER11">06/25/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDER11"><b>Discovery Receipt</b></td></tr><tr><th class="ssTableHeaderLabel" valign="top" id="RCDER12">06/28/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDER12"><b>Discovery Receipt</b></td></tr><tr><th class="ssTableHeaderLabel" valign="top" id="RCDER13">08/16/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDER13"><b>Discovery Receipt</b></td></tr><tr><th class="ssTableHeaderLabel" valign="top" ID="RCDHR14">09/02/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDHR14"><i>CANCELED</i>&nbsp;&nbsp;
+          <b>Announcement</b>&nbsp;
+            (1:30 PM)
+          
+    (Judicial Officer&nbsp;Updegrove, Robert)
+  <div style="padding-left: 10px"><i>Court</i></div><table></table></td></tr><tr><th class="ssTableHeaderLabel" valign="top" ID="RCDHR15">10/27/2021</th><td style="border-right: 1px solid black">&nbsp;</td><td>&nbsp;</td><td headers="COtherEventsAndHearings RCDHR15"><b>Announcement</b>&nbsp;
+            (8:30 AM)
+          
+    (Judicial Officer&nbsp;Updegrove, Robert)
+  <table></table></td></tr></table>
+    <form id="Form1" action="" method="post"></form>
+  </body>
+</html>
