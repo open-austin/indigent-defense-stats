@@ -165,7 +165,7 @@ if args.case_number:
         os.path.join(case_html_path, f"{case_id}.html"), "w"
     ) as file_handle:
         file_handle.write(case_html)
-    quit()
+    sys.exit()
 
 # get a list of JOs to their IDs from the search page
 judicial_officer_to_ID = {
