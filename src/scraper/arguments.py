@@ -69,6 +69,12 @@ argparser.add_argument(
     action="store_true",
     help="If this parameter is present, the script will stop after the first case is scraped.",
 )
+argparser.add_argument(
+    "-case_number",
+    "-cnum",
+    type=str,
+    help="If a case number is entered, only that single case is scraped. ex. 12-2521CR",
+)
 argparser.description = "Scrape data for list of judicial officers in date range."
 args = argparser.parse_args()
 
