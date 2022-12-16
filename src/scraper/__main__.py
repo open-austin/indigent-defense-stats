@@ -140,11 +140,32 @@ if args.case_number:
         url=search_url,
         verification_text="Record Count",
         logger=logger,
-        data=create_single_case_search_form_data(hidden_values),
+        data=create_single_case_search_form_data(hidden_values, args.case_number),
         ms_wait=args.ms_wait,
     )
     results_soup = BeautifulSoup(results_page_html, "html.parser")
-    pass
+    case_urls = [
+        base_url + anchor["href"]
+        for anchor in results_soup.select('a[href^="CaseDetail"]')
+    ]
+    logger.info(f"{len(case_urls)} entries found")
+    case_id = case_urls[0].split("=")[1]
+    logger.info(f"{case_id} - scraping case")
+    # make request for the case
+    case_html = request_page_with_retry(
+        session=session,
+        url=case_urls[0],
+        verification_text="Date Filed",
+        logger=logger,
+        ms_wait=args.ms_wait,
+    )
+    # write html case data
+    logger.info(f"{len(case_html)} response string length")
+    with open(
+        os.path.join(case_html_path, f"{case_id}.html"), "w"
+    ) as file_handle:
+        file_handle.write(case_html)
+    quit()
 
 # get a list of JOs to their IDs from the search page
 judicial_officer_to_ID = {

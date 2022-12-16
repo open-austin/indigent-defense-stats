@@ -53,18 +53,21 @@ def create_search_form_data(
         )
     return form_data
 
-def create_single_case_search_form_data(hidden_values: Dict[str, str]):
+def create_single_case_search_form_data(hidden_values: Dict[str, str], case_number: str):
     form_data = {}
     form_data.update(hidden_values)
     os_specific_time_format = "%#m/%#d/%Y" if os.name == 'nt' else "%-m/%-d/%Y"
     form_data.update(
         {
+            "__EVENTTARGET":"",
             "SearchBy": "0",
             "DateSettingOnAfter": "1/1/1970",
             "DateSettingOnBefore": date.today().strftime(os_specific_time_format),
             "SearchType": "CASE",  # Search by case id
             "SearchMode": "CASENUMBER",
+            "CourtCaseSearchValue": case_number,
             "CaseCategories": "",
+            "cboJudOffc":"38501",
         }
     )
     return form_data
@@ -102,7 +105,7 @@ def request_page_with_retry(
                 else:
                     response = session.get(url, data=data, params=params)
             response.raise_for_status()
-            print(response.text)
+            #print(response.text)
             if verification_text:
                 if verification_text not in response.text:
                     failed = True
