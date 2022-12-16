@@ -2,7 +2,6 @@ library(tidyverse)
 
 charges <- read_csv('data/output/charges_cleaned_normalized.csv')
 
-
 events <- read_csv('data/events_2022-03-27.csv', col_select=-1) %>%
   mutate(event_date = lubridate::as_date(event_date),
          first_event_date = lubridate::as_date(first_event_date))
@@ -10,28 +9,20 @@ events <- read_csv('data/events_2022-03-27.csv', col_select=-1) %>%
 select_events <- charges %>%
   select(case_number, earliest_charge_date) %>%
   left_join(events) %>%
-  filter(event_date >= earliest_charge_date)
+  group_by(case_number) %>%
+  filter(all(event_date >= earliest_charge_date)) %>%
+  ungroup()
 
-good_motion_dismiss <- c("Motion and Order To Dismiss", "Motion To Dismiss")
-good_motion_itemized_payment <- c("Motion/Order for Payment of Itemized Time/Services",
-                                  "Motion For Payment of Itemized Time and Services",
-                                  "Motion for Payment of Itemized Time & Services")
-other_good_motions <- c("Motion To Suppress", "Motion to Reduce Bond", 
-                        "Motion for Production", "Motion For Speedy Trial", 
-                        "Motion for Discovery", "Motion In Limine")
-
-all_good_motions <- c(good_motion_dismiss, good_motion_itemized_payment, 
-                      other_good_motions)
+good_motions <- c("Motion To Suppress", "Motion to Reduce Bond", 
+                  "Motion for Production", "Motion For Speedy Trial", 
+                  "Motion for Discovery", "Motion In Limine")
 
 events_cleaned <- select_events %>%
-  mutate(event_name_lower = tolower(event_name),
-         event_name = case_when((event_name_lower %in% tolower(good_motion_dismiss)) ~ 
-                                  good_motion_dismiss[1],
-                                (event_name_lower %in% tolower(good_motion_itemized_payment)) ~ 
-                                  good_motion_itemized_payment[1],
-                                TRUE ~ event_name),
-         event_name_formatted = str_to_title(event_name)) %>%
-  select(case_number, event_name_formatted, event_date, first_event_date, attorney) 
+  mutate(event_name_formatted = str_to_title(tolower(event_name)),
+         is_evidence_of_representation = event_name_formatted %in% good_motions) %>%
+  rename(attorney_type = attorney) %>%
+  select(case_number, case_id, event_name, event_name_formatted, is_evidence_of_representation,
+         event_date, attorney_type, defense_attorney) 
 
 write_csv(events_cleaned, 'data/output/events_cleaned.csv')
 
