@@ -118,15 +118,54 @@ hidden_values = {
 }
 # get nodedesc and nodeid information from main page location select box
 if odyssey_version < 2017:
-    location_option = main_soup.findAll("option")[0]
+    if args.location:
+        # TODO: Made this properly sleect based on args.location
+        location_option = main_soup.findAll("option")[0]
+    else:
+        location_option = main_soup.findAll("option")[0]
     logger.info(f"location: {location_option.text}")
     hidden_values.update(
-        {"NodeDesc": args.location, "NodeID": location_option["value"]}
+        {"NodeDesc": location_option.text, "NodeID": location_option["value"]}
     )
 else:
     hidden_values["SearchCriteria.SelectedCourt"] = hidden_values[
         "Settings.DefaultLocation"
     ]  # TODO: Search in default court. Might need to add further logic later to loop through courts.
+
+# Individual case search logic
+if args.case_number:
+    # POST a request for search results
+    results_page_html = request_page_with_retry(
+        session=session,
+        url=search_url,
+        verification_text="Record Count",
+        logger=logger,
+        data=create_single_case_search_form_data(hidden_values, args.case_number),
+        ms_wait=args.ms_wait,
+    )
+    results_soup = BeautifulSoup(results_page_html, "html.parser")
+    case_urls = [
+        base_url + anchor["href"]
+        for anchor in results_soup.select('a[href^="CaseDetail"]')
+    ]
+    logger.info(f"{len(case_urls)} entries found")
+    case_id = case_urls[0].split("=")[1]
+    logger.info(f"{case_id} - scraping case")
+    # make request for the case
+    case_html = request_page_with_retry(
+        session=session,
+        url=case_urls[0],
+        verification_text="Date Filed",
+        logger=logger,
+        ms_wait=args.ms_wait,
+    )
+    # write html case data
+    logger.info(f"{len(case_html)} response string length")
+    with open(
+        os.path.join(case_html_path, f"{case_id}.html"), "w"
+    ) as file_handle:
+        file_handle.write(case_html)
+    sys.exit()
 
 # get a list of JOs to their IDs from the search page
 judicial_officer_to_ID = {
