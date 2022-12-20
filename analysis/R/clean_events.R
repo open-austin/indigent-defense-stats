@@ -13,9 +13,9 @@ select_events <- charges %>%
   filter(all(event_date >= earliest_charge_date)) %>%
   ungroup()
 
-good_motions <- c("Motion To Suppress", "Motion to Reduce Bond", 
-                  "Motion for Production", "Motion For Speedy Trial", 
-                  "Motion for Discovery", "Motion In Limine")
+good_motions <- c('Motion To Suppress', 'Motion to Reduce Bond', 
+                  'Motion for Production', 'Motion For Speedy Trial', 
+                  'Motion for Discovery', 'Motion In Limine')
 
 events_cleaned <- select_events %>%
   mutate(event_name_formatted = str_to_title(tolower(event_name)),
