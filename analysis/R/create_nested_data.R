@@ -11,25 +11,18 @@ cases <- events %>%
   select(case_id, case_number, attorney_type) %>% 
   left_join(select(charges, case_number, earliest_charge_date)) %>%
   distinct() %>%
-  group_by(case_number) %>%
-  # Remove cases with more than one case_id per case_number - it is rare and we are not reconciling these at this time
-  filter(n_distinct(case_id) == 1) %>%
-  ungroup() %>%
-  filter(attorney_type %in% c('Retained', 'Court Appointed')) %>%
   arrange(case_number)
 
 charges_dm <- charges %>%
   filter(case_number %in% cases$case_number) %>%
   select(case_number, case_id, charge_id, charge_desc, offense_type_desc,
          num_counts, charge_date, is_primary_charge, level, offense_type_desc) %>%
-  rename(charge_category = offense_type_desc)
+  rename(charge_category = offense_type_desc,
+         charge_name = charge_desc,
+         charge_level = level)
 
-charges_by_case <- charges_dm %>%
-  group_by(case_number, case_id) %>%
-  arrange(charge_id) %>%
-  summarise(charge_desc=list(charge_desc),
-            charge_category = list(charge_category),
-            charge_level = list(level))
+charges_nested <- charges_dm %>%
+  nest(charges=c('charge_id', 'charge_name', 'charge_category', 'charge_date', 'charge_level', 'is_primary_charge', 'num_counts'))
 
 events_dm <- events %>%
   filter(case_number %in% cases$case_number) %>%
@@ -55,15 +48,34 @@ combined <- cases_dm %>%
   left_join(charges_dm)
 
 combined_by_charge <- combined %>%
-  group_by(charge_desc, charge_category, level) %>%
-  mutate(num_cases_charge = n()) %>%
+  filter(attorney_type %in% c('Retained', 'Court Appointed')) %>%
+  mutate(charge_level = case_when(str_detect(charge_level, 'Felony') ~ 'Felony',
+                                  str_detect(charge_level, 'Misdemeanor') ~ 'Misdemeanor')) %>%
+  group_by(charge_name, charge_level, attorney_type, has_evidence_of_representation) %>%
+  summarise(count = n()) %>%
   ungroup() %>%
-  filter(num_cases_charge >= 50) %>%
-  group_by(charge_desc, charge_category, attorney_type, has_evidence_of_representation) %>%
-  summarise(count = n())
+  group_by(charge_name, charge_level) %>%
+  filter(min(count) >= 30) %>%
+  summarise(lr_num = max(count[has_evidence_of_representation & (attorney_type == 'Retained')]) / max(count[(attorney_type == 'Retained')]),
+            lr_denom = max(count[has_evidence_of_representation & (attorney_type == 'Court Appointed')]) / max(count[(attorney_type == 'Court Appointed')]),
+            likelihood_ratio = lr_num / lr_denom) %>%
+  ungroup()
+
+plot_data <- combined_by_charge %>%
+  mutate(charge = paste(charge_name, '-', charge_level)) %>%
+  select(charge, likelihood_ratio) %>%
+  arrange(desc(likelihood_ratio)) %>%
+  mutate(charge = fct_inorder(charge))
+
+ggplot(data=plot_data, aes(x=charge, y=likelihood_ratio)) +
+  geom_bar(stat = 'identity', fill = 'dodgerblue3') +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 14)) +
+  geom_hline(yintercept = 1) +
+  labs(x = '\nCharge', y='Likelihood Ratio\n', title='') +
+  theme(axis.text.x = element_text(angle=90))
 
 combined_nested <- cases_dm %>%
-  left_join(charges_by_case) %>%
+  left_join(charges_nested) %>%
   left_join(events_by_case) %>%
   mutate(motions = map_if(motions, is.null, ~list()))
 
@@ -71,7 +83,9 @@ combined_json <- jsonlite::toJSON(combined_nested)
 combined_json_sample <- jsonlite::toJSON(combined_nested %>% sample_n(2000))
 
 jsonlite::prettify(combined_json_sample)
-write(combined_json, "data/output/nested_cases.json")
-write(combined_json_sample, 'data/output/nested_cases_sample.json')
+write(combined_json, "data/output/clean_cases_vis.json")
+write(combined_json_sample, 'data/output/clean_cases_vis_sample.json')
+
+
 
 
