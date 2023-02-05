@@ -74,8 +74,8 @@ def output_13145235():
                                 'date of birth': '04/18/1998',
                                 'defendant': 'Daniels, Garrett Mitchell',
                                 'defendant address': '6300 Linne Rd, Seguin, TX 78155',
-                                'defense attorney': '145 lbs',
-                                'defense attorney phone number': 'Court Appointed',
+                                'defense attorney': 'Richard Vestal',
+                                'defense attorney phone number': '830-708-0505(W)',
                                 'height': '',
                                 'prosecuting attorney': 'Melissa Pulido',
                                 'prosecuting attorney address': '712 S Stagecoach TRL, '
@@ -83,4 +83,4 @@ def output_13145235():
                                 'prosecuting attorney phone number': '',
                                 'race': '',
                                 'sex': 'Male',
-                                'weight': ''}}
+                                'weight': '145 lbs'}}
