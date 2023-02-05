@@ -94,6 +94,31 @@ charges_rolled_up <- charges_count_extracted %>%
   mutate(charge_id = row_number()) %>%
   ungroup() %>%
   mutate(is_primary_charge = (charge_id == 1))
+  #filter(case_id %in% cases_filtered$case_id)
+
+# Extract count data from charge name using regular expressions. This will allow us to normalize the charge names with better accuracy.
+charges_count_extracted <- select_case_charges %>%
+  mutate(charge_name = trimws(toupper(charge_name))) %>%
+  mutate(is_motion_charge = charge_name %in% motion_charges) %>%
+  mutate(charge_count_extracted_first_pass = str_extract(charge_name, count_extraction_regex_first_pass),
+         charge_count_extracted_second_pass = ifelse(is.na(charge_count_extracted_first_pass), str_extract(charge_name, count_extraction_regex_second_pass), NA),
+         charge_count_extracted = coalesce(charge_count_extracted_first_pass, charge_count_extracted_second_pass),
+         charge_name_original = charge_name,
+         charge_name =  if_else(is.na(charge_count_extracted), charge_name, trimws(str_remove(charge_name, fixed(charge_count_extracted))))) %>%
+  group_by(case_id, charge_name, statute, level) %>%
+  arrange(charge_id) %>%
+  mutate(charge_count_freq = row_number()) %>%
+  ungroup()
+
+# Roll up charges so there is only one charge within each case and charge type with annotated count information
+charges_rolled_up <- charges_count_extracted %>%
+  group_by(case_id, charge_name, statute, level, charge_date, is_motion_charge) %>%
+  summarise(num_counts = max(charge_count_freq)) %>%
+  ungroup() %>%
+  group_by(case_id) %>%
+  arrange(charge_date, is_motion_charge) %>%
+  mutate(charge_id = row_number()) %>%
+  ungroup()
 
 # Use regular expressions to break statute field apart into its components - chapter, section, and subsection(s). This allows us to normalize charge
 # names using metadata associated with the charge statute.
@@ -103,33 +128,27 @@ statute_expanded <- charges_rolled_up %>%
   distinct() %>%
   mutate(statute_component = str_split(statute, statute_split_regex)) %>%
   unnest(statute_component) %>%
-  mutate(statute_component = tolower(statute_component)) %>%
   filter(statute_component != "") %>%
-  filter(!is.na(as.numeric(statute_component)) | (statute_component %in% letters)) %>%
   group_by(statute) %>%
   mutate(num = row_number()) %>%
   ungroup() %>%
-  mutate(classification = case_when((num == 1) & !is.na(as.numeric(statute_component)) ~ 'statute_chapter',
-                                    (num == 2) & !is.na(as.numeric(statute_component)) ~ 'statute_section',
-                                    (num > 2) & ((statute_component %in% letters) | (statute_component %in% 0:9)) ~ 'statute_subsection')) %>%
+  mutate(classification = case_when((num == 1) & !is.na(statute_component) ~ 'statute_chapter',
+                                    (num == 2) & !is.na(statute_component) ~ 'statute_section',
+                                    (num > 2) & ((tolower(statute_component) %in% letters) | (statute_component %in% 0:9)) ~ 'statute_subsection')) %>%
   filter(!is.na(classification)) %>%
   group_by(statute, classification) %>%
   arrange(num) %>%
-  mutate(statute_component = ifelse(classification == 'statute_subsection', paste(statute_component, collapse = ' - '), statute_component)) %>%
+  mutate(statute_component = ifelse(classification == 'statute_subsection', paste(tolower(statute_component), collapse = ' - '), statute_component)) %>%
   select(-num) %>%
   distinct() %>%
   ungroup() %>%
-  pivot_wider(id_cols = statute, names_from = classification, values_from = statute_component) %>%
-  filter(!is.na(statute_chapter) & !(is.na(statute_section) & !is.na(statute_subsection)))
+  pivot_wider(id_cols = statute, names_from = classification, values_from = statute_component)
 
-charges_cleaned <- charges_rolled_up %>% 
-  left_join(statute_expanded) %>%
-  mutate(charge_name = str_replace_all(charge_name, charge_abbrev_lookup_regex))
+charges_expanded <- charges_rolled_up %>% 
+  left_join(statute_expanded)
 
 # Get distinct charge names for Umich classifier
-charge_names_umich <- charges_cleaned %>% 
-  select(charge_name) %>%
-  distinct()
+charge_names_umich <- charges_expanded %>% 
+  select(charge_name)
 
-write_csv(charges_cleaned, 'data/output/charges_cleaned_unnormalized.csv')
 write_csv(charge_names_umich, 'data/output/charge_names_umich.csv')
