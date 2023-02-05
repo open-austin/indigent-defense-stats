@@ -49,6 +49,7 @@ cases <- charges %>%
   group_by(case_number) %>%
   # Keep only cases with a single Odyssey case ID
   filter(n_distinct(case_id) == 1) %>%
+  ungroup() %>%
   group_by(case_number, case_id) %>%
   summarise(num_distinct_charges = n_distinct(charge_id),
             earliest_charge_date = min(charge_date),
