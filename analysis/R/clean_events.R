@@ -21,6 +21,7 @@ events_cleaned <- select_events %>%
   mutate(event_name_formatted = str_to_title(tolower(event_name)),
          is_evidence_of_representation = event_name_formatted %in% good_motions) %>%
   rename(attorney_type = attorney) %>%
+  mutate(attorney_type = if_else(is.na(attorney_type), 'None / Other', str_to_title(attorney_type))) %>%
   select(case_number, case_id, event_name, event_name_formatted, is_evidence_of_representation,
          event_date, attorney_type, defense_attorney) 
 
