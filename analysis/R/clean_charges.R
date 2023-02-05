@@ -46,6 +46,9 @@ charges <- read_csv("data/charges_2022-03-27.csv", col_select=-1, col_types = li
                                  str_detect(level, 'Misdemeanor') ~ 'Misdemeanor'))
 
 cases <- charges %>%
+  group_by(case_number) %>%
+  # Keep only cases with a single Odyssey case ID
+  filter(n_distinct(case_id) == 1) %>%
   group_by(case_number, case_id) %>%
   summarise(num_distinct_charges = n_distinct(charge_id),
             earliest_charge_date = min(charge_date),
