@@ -127,5 +127,5 @@ charge_names_umich <- charges_expanded %>%
   select(charge_name) %>%
   distinct()
 
-write_csv(charges_expanded, 'data/output/charges_clean_unnormalized.csv')
+write_csv(charges_expanded, 'data/output/charges_cleaned_unnormalized.csv')
 write_csv(charge_names_umich, 'data/output/charge_names_umich.csv')

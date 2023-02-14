@@ -49,9 +49,8 @@ vis_data <- cases_dm %>%
 vis_json <- jsonlite::toJSON(vis_data)
 vis_json_sample <- jsonlite::toJSON(vis_data %>% sample_n(2000))
 
-jsonlite::prettify(combined_json_sample)
-write(combined_json, "data/output/clean_cases_vis.json")
-write(combined_json_sample, 'data/output/clean_cases_vis_sample.json')
+jsonlite::prettify(vis_json_sample)
+write(vis_json, "data/output/clean_cases_vis.json")
 
 
 
