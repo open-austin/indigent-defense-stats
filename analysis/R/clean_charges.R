@@ -94,31 +94,6 @@ charges_rolled_up <- charges_count_extracted %>%
   mutate(charge_id = row_number()) %>%
   ungroup() %>%
   mutate(is_primary_charge = (charge_id == 1))
-  #filter(case_id %in% cases_filtered$case_id)
-
-# Extract count data from charge name using regular expressions. This will allow us to normalize the charge names with better accuracy.
-charges_count_extracted <- select_case_charges %>%
-  mutate(charge_name = trimws(toupper(charge_name))) %>%
-  mutate(is_motion_charge = charge_name %in% motion_charges) %>%
-  mutate(charge_count_extracted_first_pass = str_extract(charge_name, count_extraction_regex_first_pass),
-         charge_count_extracted_second_pass = ifelse(is.na(charge_count_extracted_first_pass), str_extract(charge_name, count_extraction_regex_second_pass), NA),
-         charge_count_extracted = coalesce(charge_count_extracted_first_pass, charge_count_extracted_second_pass),
-         charge_name_original = charge_name,
-         charge_name =  if_else(is.na(charge_count_extracted), charge_name, trimws(str_remove(charge_name, fixed(charge_count_extracted))))) %>%
-  group_by(case_id, charge_name, statute, level) %>%
-  arrange(charge_id) %>%
-  mutate(charge_count_freq = row_number()) %>%
-  ungroup()
-
-# Roll up charges so there is only one charge within each case and charge type with annotated count information
-charges_rolled_up <- charges_count_extracted %>%
-  group_by(case_id, charge_name, statute, level, charge_date, is_motion_charge) %>%
-  summarise(num_counts = max(charge_count_freq)) %>%
-  ungroup() %>%
-  group_by(case_id) %>%
-  arrange(charge_date, is_motion_charge) %>%
-  mutate(charge_id = row_number()) %>%
-  ungroup()
 
 # Use regular expressions to break statute field apart into its components - chapter, section, and subsection(s). This allows us to normalize charge
 # names using metadata associated with the charge statute.
@@ -149,6 +124,8 @@ charges_expanded <- charges_rolled_up %>%
 
 # Get distinct charge names for Umich classifier
 charge_names_umich <- charges_expanded %>% 
-  select(charge_name)
+  select(charge_name) %>%
+  distinct()
 
+write_csv(charges_expanded, 'data/output/charges_clean_unnormalized.csv')
 write_csv(charge_names_umich, 'data/output/charge_names_umich.csv')
