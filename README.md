@@ -26,6 +26,13 @@ Output of these commands will go to `./data/COUNTY_NAME`
 1. Parse the case data into JSON files.
    - `poetry run python ./src/parser -county hays`
 
+# Test
+
+1. Test one site:
+   - i.e. `python3 -m unittest -v full_e2e.TestScrapingSites.test_williamson`
+1. Test all sites:
+   - `python3 -m unittest -v full_e2e`
+
 # Compatibility info and stats
 
 I did a manual scraping test up to returning search results, most dates have 0 results, so I didn't test scraping case data from the search on any of these. All detailed county data in [resources/texas_county_data.csv](resources/texas_county_data.csv). Here is are stats pulled from this data:
