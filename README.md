@@ -29,9 +29,9 @@ Output of these commands will go to `./data/COUNTY_NAME`
 # Test
 
 1. Test one site:
-   - i.e. `python3 -m unittest -v full_e2e.TestScrapingSites.test_williamson`
+   - i.e. `python3 -m unittest -v tests.full_e2e.TestScrapingSites.test_williamson`
 1. Test all sites:
-   - `python3 -m unittest -v full_e2e`
+   - `python3 -m unittest -v tests.full_e2e`
 
 # Compatibility info and stats
 
