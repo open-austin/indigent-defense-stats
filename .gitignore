@@ -162,3 +162,5 @@ data/
 
 # libreoffice makes this lock file when opening csvs
 .~lock.*
+
+.DS_Store
