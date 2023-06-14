@@ -3,7 +3,7 @@ from unittest import main, TestCase
 
 
 def test_scraper(self, county: str, date: str, judicial_officer: str):
-    key = b'Testing, stopping after first case'
+    key = b"Testing, stopping after first case"
     message = "Assert that testing message is logged after first case is scraped successfully."
     container = check_output(
         [
@@ -24,11 +24,8 @@ def test_scraper(self, county: str, date: str, judicial_officer: str):
         stderr=STDOUT,
         shell=True,
     )
-    self.assertIn(
-        key,
-        container,
-        message
-    )
+    self.assertIn(key, container, message)
+
 
 class TestScrapingSites(TestCase):
     # pass
@@ -37,10 +34,13 @@ class TestScrapingSites(TestCase):
             self, county="anderson", date="2022-03-28", judicial_officer="Calhoon, Mark"
         )
 
-    #error - captcha?
+    # error - captcha?
     def test_angelina(self):
         test_scraper(
-            self, county="angelina", date="2022-01-19", judicial_officer="GRUBBS, PATRICIA"
+            self,
+            county="angelina",
+            date="2022-01-19",
+            judicial_officer="GRUBBS, PATRICIA",
         )
 
     # pass
@@ -78,7 +78,7 @@ class TestScrapingSites(TestCase):
         test_scraper(
             self, county="brazoria", date="2022-01-10", judicial_officer="Holder, Terri"
         )
-    
+
     # error - unable to search easily?
     def test_burnet(self):
         test_scraper(
@@ -88,31 +88,46 @@ class TestScrapingSites(TestCase):
     # fail ?
     def test_calhoun(self):
         test_scraper(
-            self, county="calhoun", date="2022-01-12", judicial_officer="Williams, Stephen"
+            self,
+            county="calhoun",
+            date="2022-01-12",
+            judicial_officer="Williams, Stephen",
         )
 
     # error - captcha?
     def test_cameron(self):
         test_scraper(
-            self, county="cameron", date="2022-02-23", judicial_officer="Alejandro, Leonel"
+            self,
+            county="cameron",
+            date="2022-02-23",
+            judicial_officer="Alejandro, Leonel",
         )
 
-     # error - unable to search easily?
+    # error - unable to search easily?
     def test_chambers(self):
         test_scraper(
-            self, county="chambers", date="2022-03-25", judicial_officer="Baker, Jennifer"
+            self,
+            county="chambers",
+            date="2022-03-25",
+            judicial_officer="Baker, Jennifer",
         )
 
     # pass
     def test_collin(self):
         test_scraper(
-            self, county="collin", date="2022-03-04", judicial_officer="Mason, Corinne A."
+            self,
+            county="collin",
+            date="2022-03-04",
+            judicial_officer="Mason, Corinne A.",
         )
 
-    # error - unable to search court calendar? 
+    # error - unable to search court calendar?
     def test_comal(self):
         test_scraper(
-            self, county="comal", date="2021-01-05", judicial_officer="Wigington, Deborah"
+            self,
+            county="comal",
+            date="2021-01-05",
+            judicial_officer="Wigington, Deborah",
         )
 
     # fail ?
@@ -144,19 +159,28 @@ class TestScrapingSites(TestCase):
     # pass
     def test_fortbend(self):
         test_scraper(
-            self, county="fort bend", date="2022-05-19", judicial_officer="Wallace, Toni"
+            self,
+            county="fort bend",
+            date="2022-05-19",
+            judicial_officer="Wallace, Toni",
         )
 
     # error - captcha?
     def test_galveston(self):
         test_scraper(
-            self, county="galveston", date="2022-01-13", judicial_officer="Ellisor, John"
+            self,
+            county="galveston",
+            date="2022-01-13",
+            judicial_officer="Ellisor, John",
         )
 
     # pass
     def test_gillespie(self):
         test_scraper(
-            self, county="gillespie", date="2022-02-17", judicial_officer="McCann, Linda Meier"
+            self,
+            county="gillespie",
+            date="2022-02-17",
+            judicial_officer="McCann, Linda Meier",
         )
 
     # pass
@@ -168,13 +192,19 @@ class TestScrapingSites(TestCase):
     # pass
     def test_gregg(self):
         test_scraper(
-            self, county="gregg", date="2022-03-03", judicial_officer="Phillips, R. Kent"
+            self,
+            county="gregg",
+            date="2022-03-03",
+            judicial_officer="Phillips, R. Kent",
         )
 
     # fail ?
     def test_guadalupe(self):
         test_scraper(
-            self, county="guadalupe", date="2022-02-04", judicial_officer="Crawford, Jessica"
+            self,
+            county="guadalupe",
+            date="2022-02-04",
+            judicial_officer="Crawford, Jessica",
         )
 
     # pass
@@ -204,7 +234,10 @@ class TestScrapingSites(TestCase):
     # pass
     def test_henderson(self):
         test_scraper(
-            self, county="henderson", date="2022-02-15", judicial_officer="Perryman, Nancy"
+            self,
+            county="henderson",
+            date="2022-02-15",
+            judicial_officer="Perryman, Nancy",
         )
 
     # pass
@@ -216,7 +249,10 @@ class TestScrapingSites(TestCase):
     # pass
     def test_howard(self):
         test_scraper(
-            self, county="howard", date="2022-03-24", judicial_officer="Yeats, Timothy D"
+            self,
+            county="howard",
+            date="2022-03-24",
+            judicial_officer="Yeats, Timothy D",
         )
 
     # error ?
@@ -246,7 +282,10 @@ class TestScrapingSites(TestCase):
     # fail ?
     def test_liberty(self):
         test_scraper(
-            self, county="liberty", date="2022-01-11", judicial_officer="Chambers, Thomas"
+            self,
+            county="liberty",
+            date="2022-01-11",
+            judicial_officer="Chambers, Thomas",
         )
 
     # fail ?
@@ -258,7 +297,10 @@ class TestScrapingSites(TestCase):
     # pass
     def test_matagorda(self):
         test_scraper(
-            self, county="matagorda", date="2022-03-08", judicial_officer="Sanders, Jason K."
+            self,
+            county="matagorda",
+            date="2022-03-08",
+            judicial_officer="Sanders, Jason K.",
         )
 
     # pass
@@ -282,7 +324,10 @@ class TestScrapingSites(TestCase):
     # pass
     def test_navarro(self):
         test_scraper(
-            self, county="navarro", date="2022-03-23", judicial_officer="LAGOMARSINO, JAMES"
+            self,
+            county="navarro",
+            date="2022-03-23",
+            judicial_officer="LAGOMARSINO, JAMES",
         )
 
     # pass
@@ -312,7 +357,10 @@ class TestScrapingSites(TestCase):
     # pass
     def test_randall(self):
         test_scraper(
-            self, county="randall", date="2022-01-25", judicial_officer="Anderson, James"
+            self,
+            county="randall",
+            date="2022-01-25",
+            judicial_officer="Anderson, James",
         )
 
     # fail ?
@@ -321,10 +369,13 @@ class TestScrapingSites(TestCase):
             self, county="rockwall", date="2022-01-20", judicial_officer="Hall, Brett"
         )
 
-    # pass     
+    # pass
     def test_sanjacinto(self):
         test_scraper(
-            self, county="san jacinto", date="2022-05-10", judicial_officer="Faulkner, Fritz"
+            self,
+            county="san jacinto",
+            date="2022-05-10",
+            judicial_officer="Faulkner, Fritz",
         )
 
     # pass
@@ -336,7 +387,10 @@ class TestScrapingSites(TestCase):
     # fail ?
     def test_tarrant(self):
         test_scraper(
-            self, county="tarrant", date="2022-03-02", judicial_officer="McGown, Quentin"
+            self,
+            county="tarrant",
+            date="2022-03-02",
+            judicial_officer="McGown, Quentin",
         )
 
     # pass
@@ -360,7 +414,10 @@ class TestScrapingSites(TestCase):
     # pass
     def test_victoria(self):
         test_scraper(
-            self, county="victoria", date="2022-01-31", judicial_officer="Ernst, Travis H."
+            self,
+            county="victoria",
+            date="2022-01-31",
+            judicial_officer="Ernst, Travis H.",
         )
 
     # pass
@@ -372,25 +429,37 @@ class TestScrapingSites(TestCase):
     # pass
     def test_waller(self):
         test_scraper(
-            self, county="waller", date="2022-03-23", judicial_officer="Jackson, Marian E."
+            self,
+            county="waller",
+            date="2022-03-23",
+            judicial_officer="Jackson, Marian E.",
         )
 
     # pass
     def test_webb(self):
         test_scraper(
-            self, county="webb", date="2022-05-02", judicial_officer="Villarreal, Victor"
+            self,
+            county="webb",
+            date="2022-05-02",
+            judicial_officer="Villarreal, Victor",
         )
 
     # fail ?
     def test_wichita(self):
         test_scraper(
-            self, county="wichita", date="2022-01-05", judicial_officer="Barnard, Charles"
+            self,
+            county="wichita",
+            date="2022-01-05",
+            judicial_officer="Barnard, Charles",
         )
 
     # pass
     def test_williamson(self):
         test_scraper(
-            self, county="williamson", date="2022-03-22", judicial_officer="McLean, Evelyn"
+            self,
+            county="williamson",
+            date="2022-03-22",
+            judicial_officer="McLean, Evelyn",
         )
 
     # pass
@@ -402,10 +471,12 @@ class TestScrapingSites(TestCase):
     # pass
     def test_wood(self):
         test_scraper(
-            self, county="wood", date="2022-03-10", judicial_officer="McCampbell, J Brad"
+            self,
+            county="wood",
+            date="2022-03-10",
+            judicial_officer="McCampbell, J Brad",
         )
 
 
 if __name__ == "__main__":
     main(verbosity=2)
-
