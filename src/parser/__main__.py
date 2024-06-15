@@ -70,7 +70,8 @@ for case_html_file_name in os.listdir(case_html_path):
             case_data = pre2017.parse(case_soup, case_id)
         else:
             case_data = post2017.parse(case_soup, case_id)
-
+        #Adds county field to data
+        case_data['county'] = args.county
         # Write JSON data
         with open(os.path.join(case_json_path, case_id + ".json"), "w") as file_handle:
             file_handle.write(json.dumps(case_data))
