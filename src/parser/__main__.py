@@ -1,4 +1,4 @@
-import os, argparse, csv, json, traceback
+import os, argparse, csv, json, traceback, xxhash
 from time import time
 
 from bs4 import BeautifulSoup
