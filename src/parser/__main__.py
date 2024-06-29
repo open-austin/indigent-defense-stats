@@ -71,6 +71,13 @@ for case_html_file_name in os.listdir(case_html_path):
         else:
             case_data = post2017.parse(case_soup, case_id)
 
+        #Adds a hash to the JSON file of the underlying HTML
+        body = case_soup.find("body")
+        balance_table = body.find_all("table")[-1]
+        if "Balance Due" in balance_table.text:
+            balance_table.decompose()
+        case_data["html_hash"] = xxhash.xxh64(str(body)).hexdigest()
+        
         # Write JSON data
         with open(os.path.join(case_json_path, case_id + ".json"), "w") as file_handle:
             file_handle.write(json.dumps(case_data))
