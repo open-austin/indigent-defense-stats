@@ -1,4 +1,4 @@
-import os, argparse, csv, json, traceback
+import os, argparse, csv, json, traceback, xxhash
 from time import time
 
 from bs4 import BeautifulSoup
@@ -71,6 +71,14 @@ for case_html_file_name in os.listdir(case_html_path):
         else:
             case_data = post2017.parse(case_soup, case_id, args.county)
 
+        #Adds a hash to the JSON file of the underlying HTML
+        body = case_soup.find("body")
+        #This section removes the "balance due" table, which changes frequently with payment even if the case data itself isn't updated, so it makes the hashes look unique even when things haven't changed. 
+        balance_table = body.find_all("table")[-1]
+        if "Balance Due" in balance_table.text:
+            balance_table.decompose()
+        case_data["html_hash"] = xxhash.xxh64(str(body)).hexdigest()
+        
         # Write JSON data
         with open(os.path.join(case_json_path, case_id + ".json"), "w") as file_handle:
             file_handle.write(json.dumps(case_data))
