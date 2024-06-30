@@ -3,13 +3,15 @@ from typing import Dict
 from bs4 import BeautifulSoup
 
 
-def parse(case_soup: BeautifulSoup, case_id: str) -> Dict:
+def parse(case_soup: BeautifulSoup, case_id: str, county: str) -> Dict:
     case_data = {}
     # Gather initial data for filename and date checking
     case_data["code"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
         0
     ].text
     case_data["odyssey id"] = case_id
+    #Adds county field to data
+    case_data['county'] = county
     # get all the root tables
     root_tables = case_soup.select("body>table")
     for table in root_tables:
