@@ -63,6 +63,24 @@ def parse(case_soup: BeautifulSoup, case_id: str, county: str) -> Dict:
                     break
             state_rows = state_rows[::-1]
             defendant_rows = defendant_rows[::-1]
+            # Get the position of the item containing gender
+            gender_position = 0
+            for i, row in enumerate(defendant_rows[0]):
+                if row[:5] == "Male " or row[:7] == "Female ":
+                    gender_position = i
+                if row[:5] == ["DOB: "]:
+                    dob_position = i
+            # Handle "Also Known as" which will mess with positions
+            if gender_position > 2:
+                full_name = " ".join(defendant_rows[0][1:gender_position])
+                defendant_rows[0] = (
+                    [defendant_rows[0][0]]
+                    + [full_name]
+                    + defendant_rows[0][gender_position:]
+                )
+            if gender_position == 0:
+                defendant_rows[0].insert(2, "Unavailable Unavailable")
+            
             bondsman_rows = bondsman_rows[::-1]
             if bondsman_rows[0][0] != "Bondsman":
                 bondsman_rows = []
