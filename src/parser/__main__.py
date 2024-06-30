@@ -73,6 +73,7 @@ for case_html_file_name in os.listdir(case_html_path):
 
         #Adds a hash to the JSON file of the underlying HTML
         body = case_soup.find("body")
+        #This section removes the "balance due" table, which changes frequently with payment even if the case data itself isn't updated, so it makes the hashes look unique even when things haven't changed. 
         balance_table = body.find_all("table")[-1]
         if "Balance Due" in balance_table.text:
             balance_table.decompose()
