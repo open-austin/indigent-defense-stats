@@ -67,9 +67,9 @@ for case_html_file_name in os.listdir(case_html_path):
             case_soup = BeautifulSoup(file_handle, "html.parser", from_encoding="UTF-8")
 
         if odyssey_version < 2017:
-            case_data = pre2017.parse(case_soup, case_id)
+            case_data = pre2017.parse(case_soup, case_id, args.county)
         else:
-            case_data = post2017.parse(case_soup, case_id)
+            case_data = post2017.parse(case_soup, case_id, args.county)
 
         # Write JSON data
         with open(os.path.join(case_json_path, case_id + ".json"), "w") as file_handle:
