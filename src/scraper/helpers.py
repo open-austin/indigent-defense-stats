@@ -5,8 +5,9 @@ from datetime import date
 from logging import Logger
 from typing import Dict, Optional, Tuple, Literal
 from enum import Enum
+from datetime import datetime, timezone, timedelta
 
-
+#This is called debug and quit and but the quit part has been removed.
 def write_debug_and_quit(
     page_text: str, logger: Logger, verification_text: Optional[str] = None
 ) -> None:
@@ -18,10 +19,9 @@ def write_debug_and_quit(
         )
         + f" Aborting. Writing /data/debug.html with response. May not be HTML."
     )
-    with open(os.path.join("data", "debug.html"), "w") as file_handle:
+    with open(os.path.join(os.path.dirname(__file__), "..","..","logging", f"debug.html"), "w") as file_handle:
         file_handle.write(page_text)
     sys.exit(1)
-
 
 # helper function to make form data
 def create_search_form_data(
@@ -116,9 +116,13 @@ def request_page_with_retry(
             logger.exception(f"Failed to get url {url}, try {i}")
             failed = True
         if failed:
+            if response == None:
+                response_text = 'No response from Odyssey.'
+            else:
+                response_text = response.text
             write_debug_and_quit(
                 verification_text=verification_text,
-                page_text=response.text,
+                page_text=response_text,
                 logger=logger,
             )
     return response.text
