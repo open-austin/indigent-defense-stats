@@ -1,10 +1,10 @@
 argparse
-azure.cosmosCosmosClient
+azure-cosmos
 boto3
-bs4BeautifulSoup
+beautifulsoup4
 csv
 datetime
-dotenvload_dotenv
+python-dotenv
 ioBytesIO
 json
 os

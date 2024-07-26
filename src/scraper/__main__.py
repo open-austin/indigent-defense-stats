@@ -7,7 +7,7 @@ from .helpers import *
 
 class scraper:
 
-    def __init__(self, county, start_date, end_date, case_number = None):
+    def __init__(self, county = 'hays', start_date = '2024-07-01', end_date = '2024-07-01', case_number = None):
         self.county = county.lower()
         self.start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
         self.end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
