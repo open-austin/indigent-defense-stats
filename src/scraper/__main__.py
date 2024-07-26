@@ -1,5 +1,4 @@
 import logging, os, re, csv, urllib.parse, json, sys
-from .arguments import args
 from datetime import datetime, timedelta
 from time import time
 import requests
@@ -8,10 +7,20 @@ from .helpers import *
 
 class scraper:
 
-    def __init__(self, county, start_date, end_date):
+    def __init__(self, county, start_date, end_date, case_number = None):
         self.county = county.lower()
         self.start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
         self.end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+
+        self.ms_wait = 200 #"Number of ms to wait between requests."
+        self.judicial_officers = [] #"Judicial Officers to scrape. For example, -j 'mr. something' 'Rob, Albert'. By default, it will scrape all JOs.",
+        self.no_overwrite = False #"Switch to don't overwrite cached html files if you want to speed up the process (but may not get the most up to date version).",
+        self.log = "INFO" #"Set the level to log at.",
+        self.court_calendar_link_text ="Court Calendar" #"This is the link to the Court Calendar search page at default.aspx, usually it will be 'Court Calendar', but some sites have multiple calendars e.g. Williamson",
+        self.test = False #"If this parameter is present, the script will stop after the first case is scraped.",
+        self.case_number = case_number #"If a case number is entered, only that single case is scraped. ex. 12-2521CR",
+        self.location = False
+
         self.session = requests.Session()
         # allow bad ssl and turn off warnings
         self.session.verify = False
@@ -20,7 +29,7 @@ class scraper:
         )
         self.logger = logging.getLogger(name="pid: " + str(os.getpid()))
         logging.basicConfig()
-        logging.root.setLevel(level=args.log)
+        logging.root.setLevel(level=self.log)
 
         # make cache directories if not present
         self.case_html_path = os.path.join(
@@ -73,7 +82,7 @@ class scraper:
                     url=urllib.parse.urljoin(base_url, "login.aspx"),
                     logger=self.logger,
                     http_method=HTTPMethod.GET,
-                    ms_wait=args.ms_wait,
+                    ms_wait=self.ms_wait,
                     data=data,
                 )
 
@@ -83,13 +92,13 @@ class scraper:
                 verification_text="ssSearchHyperlink",
                 logger=self.logger,
                 http_method=HTTPMethod.GET,
-                ms_wait=args.ms_wait,
+                ms_wait=self.ms_wait,
             )
             main_soup = BeautifulSoup(main_page_html, "html.parser")
             # build url for court calendar
             search_page_id = None
             for link in main_soup.select("a.ssSearchHyperlink"):
-                if args.court_calendar_link_text in link.text:
+                if self.court_calendar_link_text in link.text:
                     search_page_id = link["href"].split("?ID=")[1].split("'")[0]
             if not search_page_id:
                 write_debug_and_quit(
@@ -110,7 +119,7 @@ class scraper:
             else "SearchCriteria.SelectedCourt",
             http_method=HTTPMethod.GET,
             logger=self.logger,
-            ms_wait=args.ms_wait,
+            ms_wait=self.ms_wait,
         )
         search_soup = BeautifulSoup(search_page_html, "html.parser")
 
@@ -122,8 +131,8 @@ class scraper:
         }
         # get nodedesc and nodeid information from main page location select box
         if odyssey_version < 2017:
-            if args.location:
-                # TODO: Made this properly sleect based on args.location
+            if self.location:
+                # TODO: Made this properly sleect based on self.location
                 location_option = main_soup.findAll("option")[0]
             else:
                 location_option = main_soup.findAll("option")[0]
@@ -137,15 +146,15 @@ class scraper:
             ]  # TODO: Search in default court. Might need to add further logic later to loop through courts.
 
         # Individual case search logic
-        if args.case_number:
+        if self.case_number:
             # POST a request for search results
             results_page_html = request_page_with_retry(
                 session=self.session,
                 url=search_url,
                 verification_text="Record Count",
                 logger=self.logger,
-                data=create_single_case_search_form_data(hidden_values, args.case_number),
-                ms_wait=args.ms_wait,
+                data=create_single_case_search_form_data(hidden_values, self.case_number),
+                ms_wait=self.ms_wait,
             )
             results_soup = BeautifulSoup(results_page_html, "html.parser")
             case_urls = [
@@ -161,7 +170,7 @@ class scraper:
                 url=case_urls[0],
                 verification_text="Date Filed",
                 logger=self.logger,
-                ms_wait=args.ms_wait,
+                ms_wait=self.ms_wait,
             )
             # write html case data
             self.logger.info(f"{len(case_html)} response string length")
@@ -169,7 +178,8 @@ class scraper:
                 os.path.join(self.case_html_path, f"{case_id}.html"), "w"
             ) as file_handle:
                 file_handle.write(case_html)
-            sys.exit()
+            return
+            #sys.exit()
 
         # get a list of JOs to their IDs from the search page
         judicial_officer_to_ID = {
@@ -182,8 +192,8 @@ class scraper:
             if option.text
         }
         # if juidicial_officers param is not specified, use all of them
-        if not args.judicial_officers:
-            args.judicial_officers = list(judicial_officer_to_ID.keys())
+        if not self.judicial_officers:
+            self.judicial_officers = list(judicial_officer_to_ID.keys())
 
         # initialize variables to time script and build a list of already scraped cases
         START_TIME = time()
@@ -196,7 +206,7 @@ class scraper:
         ):
             date_string = datetime.strftime(date, "%m/%d/%Y")
             # loop through each judicial officer
-            for JO_name in args.judicial_officers:
+            for JO_name in self.judicial_officers:
                 if JO_name not in judicial_officer_to_ID:
                     self.logger.error(
                         f"judicial officer {JO_name} not found on search page. Continuing."
@@ -217,7 +227,7 @@ class scraper:
                     data=create_search_form_data(
                         date_string, JO_id, hidden_values, odyssey_version
                     ),
-                    ms_wait=args.ms_wait,
+                    ms_wait=self.ms_wait,
                 )
                 results_soup = BeautifulSoup(results_page_html, "html.parser")
 
@@ -230,7 +240,7 @@ class scraper:
                     self.logger.info(f"{len(case_urls)} cases found")
                     for case_url in case_urls:
                         case_id = case_url.split("=")[1]
-                        if case_id in cached_case_list and not args.overwrite:
+                        if case_id in cached_case_list and not self.overwrite:
                             self.logger.info(f"{case_id} - already scraped case")
                             continue
                         self.logger.info(f"{case_id} - scraping case")
@@ -241,7 +251,7 @@ class scraper:
                                 url=case_url,
                                 verification_text="Date Filed",
                                 logger=self.logger,
-                                ms_wait=args.ms_wait,
+                                ms_wait=self.ms_wait,
                             )
                         except:
                             self.logger.info(f"Issue with scraping this case: {case_id}. Moving to next one.")
@@ -253,7 +263,7 @@ class scraper:
                             file_handle.write(case_html)
                         if case_id not in cached_case_list:
                             cached_case_list.append(case_id)
-                        if args.test:
+                        if self.test:
                             self.logger.info("Testing, stopping after first case")
                             sys.exit()
                 else:
@@ -268,7 +278,7 @@ class scraper:
                     self.logger.info(f"{case_list_json['Total']} cases found")
                     for case_json in case_list_json["Data"]:
                         case_id = str(case_json["CaseId"])
-                        if case_id in cached_case_list and not args.overwrite:
+                        if case_id in cached_case_list and not self.overwrite:
                             self.logger.info(f"{case_id} already scraped case")
                             continue
                         self.logger.info(f"{case_id} scraping case")
@@ -278,7 +288,7 @@ class scraper:
                             url=urllib.parse.urljoin(base_url, "Case/CaseDetail"),
                             verification_text="Case Information",
                             logger=self.logger,
-                            ms_wait=args.ms_wait,
+                            ms_wait=self.ms_wait,
                             params={
                                 "eid": case_json["EncryptedCaseId"],
                                 "CaseNumber": case_json["CaseNumber"],
@@ -292,7 +302,7 @@ class scraper:
                             ),
                             verification_text="Financial",
                             logger=self.logger,
-                            ms_wait=args.ms_wait,
+                            ms_wait=self.ms_wait,
                             params={
                                 "caseId": case_json["CaseId"],
                             },
@@ -305,7 +315,7 @@ class scraper:
                             file_handle.write(case_html)
                         if case_id not in cached_case_list:
                             cached_case_list.append(case_id)
-                        if args.test:
+                        if self.test:
                             self.logger.info("Testing, stopping after first case")
                             sys.exit()
 
