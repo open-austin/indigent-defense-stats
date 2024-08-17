@@ -16,14 +16,24 @@ class parser:
     def parse(self):
 
         # get directories and make json dir if not present
-        case_html_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", self.county, "case_html"
-        )
-        case_json_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", self.county, "case_json"
-        )
-        if not os.path.exists(case_json_path):
-            os.makedirs(case_json_path, exist_ok=True)
+        if not self.test:
+            case_html_path = os.path.join(
+                os.path.dirname(__file__), "..", "..", "data", self.county, "case_html"
+            )
+            case_json_path = os.path.join(
+                os.path.dirname(__file__), "..", "..", "data", self.county, "case_json"
+            )
+            if not os.path.exists(case_json_path):
+                os.makedirs(case_json_path, exist_ok=True)
+        else: # if test = True
+            case_html_path = os.path.join(
+                os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_data', self.county, "case_html"
+            )
+            case_json_path = os.path.join(
+                os.path.dirname(__file__),  "..", "..", "resources", 'test_files', 'test_data', self.county, "case_json"
+            )
+            if not os.path.exists(case_json_path):
+                os.makedirs(case_json_path, exist_ok=True)
 
         # get county version year information to determine which parser to use
         base_url = odyssey_version = None
@@ -77,7 +87,7 @@ class parser:
 
                 # This will change the file path to look at the test function if it is a test. 
                 if self.test:
-                    case_html_file_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", self.case_number + '.html')
+                    case_html_file_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_'+ self.case_number + '.html')
                 else:
                     case_html_file_path = os.path.join(case_html_path, case_html_file_name)
 
@@ -99,8 +109,12 @@ class parser:
                 case_data["html_hash"] = xxhash.xxh64(str(body)).hexdigest()
 
                 # Write JSON data
-                with open(os.path.join(case_json_path, case_id + ".json"), "w") as file_handle:
-                    file_handle.write(json.dumps(case_data))
+                if not self.test:
+                    with open(os.path.join(case_json_path, case_id + ".json"), "w") as file_handle:
+                        file_handle.write(json.dumps(case_data))
+                else: # if test = True
+                    with open(os.path.join(case_json_path, 'test_'+ case_id + ".json"), "w") as file_handle:
+                        file_handle.write(json.dumps(case_data))
             except Exception:
                 print(traceback.format_exc())
                 with open(
