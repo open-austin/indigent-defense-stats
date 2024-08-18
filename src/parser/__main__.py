@@ -50,7 +50,7 @@ class parser:
                     break
         if not odyssey_version:
             raise Exception(
-                "The required data to parser this county is not in ./resources/texas_county_data.csv"
+                "The required data to parse this county is not in ./resources/texas_county_data.csv"
             )
 
         START_TIME = time()
@@ -74,8 +74,7 @@ class parser:
             )
             # If this is a test then use the file path to the redacted test json file in the resources folder.
             if self.test:
-                case_html_list = []
-                case_html_list.append(self.case_number + '.html')                
+                case_html_list = [self.case_number + '.html')]
 
         #Loops through all of the case html either in the folder where it was scraped, only a single case if specified, or a single test case.
         for case_html_file_name in case_html_list:
