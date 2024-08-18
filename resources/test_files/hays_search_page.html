@@ -1,0 +1,3605 @@
+
+
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="CSS/PublicAccess.css">
+</head>
+
+
+<body onload="return ReloadPage()" style="overflow: auto">
+
+  <form name="SearchParameters" method="post" action="Search.aspx?ID=900" id="SearchParameters" onsubmit="return ValidateSearchParameters()">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwOTk1NTcyNzAPZBYCZg9kFgICAQ8WAh4HVmlzaWJsZWgWAgIDDw9kFgIeB29ua2V5dXAFJnRoaXMudmFsdWUgPSB0aGlzLnZhbHVlLnRvTG93ZXJDYXNlKCk7ZGSnBpspJun0H8O1uyepgbYYqxCR2g==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="BBBC20B8" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWAgLohsKOBgKYxoa5CF1tgF3CUdvlNXx3DxVd7HpMX9tL" />
+    <input type="hidden" name="NodeID" value="" />
+    <input type="hidden" name="NodeDesc" value="" />
+    <?xml version="1.0" encoding="utf-8"?><table cellspacing="0" cellpadding="0" width="100%" border="0" style="table-layout: fixed; margin:0px; padding:0px;" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:PublicAccessUser="urn:PublicAccessUser"><tr><td class="ssHeaderTitleBanner">Hays County Courts Records Inquiry</td></tr></table><table cellspacing="0" cellpadding="0" width="100%" border="0" style="table-layout: fixed; margin:0px; padding:0px;" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:PublicAccessUser="urn:PublicAccessUser"><tr><td bgcolor="#000000" height="20px"><table cellspacing="0" cellpadding="0" width="100%" border="0"><tr><td align="left" style="padding-left: 5px"><font size="1"><a class="ssBlackNavBarHyperlink" href="#MainContent">Skip to Main Content</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="logout.aspx">Logout</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="MyAccount.aspx?ReturnURL=default.aspx">My Account</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="default.aspx">Search Menu</a>&nbsp;</font></td><td align="center" class="ssBlackNavBarLocation"></td><td align="right" style="padding-right: 10px"><table cellspacing="0" cellpadding="0" border="0"><tr><td><font size="1"><a class="ssBlackNavBarHyperlink" target="_blank" href="help.aspx">Help</a></font></td></tr></table></td></tr></table></td></tr></table><table align="center" cellspacing="0" cellpadding="5" width="100%" border="0" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:PublicAccessUser="urn:PublicAccessUser"><colgroup><col style="width: 15%" /><col style="width: 70%" /><col style="width: 15%" /></colgroup><tr><td></td><td><font size="5" color="#999966" style="font-weight: bold">Court Calendar</font></td><td></td></tr></table>    
+
+    <a id="MainContent" name="MainContent" tabindex="-1"></a>
+    <table id="tblSearch" cellspacing="0" cellpadding="0" width="100%" border="0" style="table-layout: fixed;display:none" >  
+    <!-- Parameter listing -->
+    <tr>
+      <td>
+        <table align="center" cellspacing="0" cellpadding="5" width="100%" border="0">
+        <colgroup>
+          <col style="width: 15%"/>
+          <col style="width: 70%"/>
+          <col style="width: 15%"/>
+        </colgroup>
+        
+        <!-- Description of the search -->
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+           &nbsp;
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            
+
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- Required Fields -->
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <font color="#D90000" style="font-weight: bolder" size="2">
+              (*) Required Fields
+            </font>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <!-- Selector for the case search type -->
+        <tr id='trSearchBy'><td/><td/><table cellspacing='0' cellpadding='0' border='0' style='width: 100%;'><tr><td style='padding-right: 5px; padding-top: 5px; width: 75px; vertical-align: top'><label style='font-weight: bolder; white-space:nowrap;' for='SearchBy'>Search By: </label></td><td style='width: 100%'><select id='SearchBy' name='SearchBy' onChange='SwitchCourtSearch(this.value, true)' onKeyUp='SwitchCourtSearch(this.value, true)' LabelName='Search By:'><option value='2'>Attorney</option><option value='0'>Case</option><option value='3'>Judicial Officer</option><option value='1' selected>Party or Defendant Name</option><option value='5'>Date Range</option></select></td><td><table cellspacing='0' cellpadding='0' id='tblSoundex'><tr><td id='tdexactname' style='padding-right: 5px;display: none;'><span title='Click to do an exact name search on last name, first or middle.'><input type='checkbox' id='chkExactName'  name='ExactName'  LabelName='Exact Name:'/></span></td><td style='display: none;'><span title='Click to do an exact name search on last name, first or middle.'><label for='chkExactName'><nobr>Exact Name</nobr></label></span></td><td style='padding-right: 5px;padding-left:2px'><span title='Click to do a sounds like (i.e. Soundex) on a Last Name, First Name, or Middle.'><input type='checkbox' id='chkSoundex' onclick='FlipCheck(this.id, this.value)' name='UseSoundex' checked='checked' LabelName='Use Soundex:'/></span></td><td><span title='Click to do a sounds like (i.e. Soundex) on a Last Name, First Name, or Middle.'><label for='chkSoundex'><nobr>Use Soundex</nobr></label></span></td></tr></table></td></tr></table></td></tr>
+        
+        <!-- Parameters for search -->
+        <tr id="trParamsForSearch">
+          <td>&nbsp;</td>
+          <td>
+            
+            <!-- Case Search By Case Number -->
+            <table id='CaseNumberSearch' cellspacing='0' cellpadding='10' border='0' width='100%' style='display: none'> 
+            <tr>
+              <td>   
+                <div style="border: 1px solid #AAAAAA;">
+                  <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                  <tr>
+                    <td>
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <colgroup>
+                        <col style="width: 30%"/>
+                        <col style="width: 70%"/>
+                      </colgroup>
+                      <tr>
+                        <td style="vertical-align: top; padding-right: 10px">
+                          <table cellpadding="0" cellspacing="0" style="width: 100%">
+                            <tr>
+                              <td>
+                                <font style="font-weight: bolder" size="2">
+                                  Case:
+                                </font>
+                              </td>
+                            </tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr>
+                              <td>
+                                
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        
+                        <td style="vertical-align: top;">
+                          <table cellspacing="0" cellpadding="0" style="width: 100%;" id="CaseSearchTable">
+                            <tr  id='trCaseSearchMode'><td><table cellspacing='0' cellpadding='0' style='padding-bottom: 3px;'><tr><td><input type='radio' name='CaseSearchMode' onclick='SwitchCaseSearchMode(this.value, true)' value='CaseNumber' id='CaseNumberOption' checked='checked' LabelName='Case Search Mode:' LabelValue='Number'><label for='CaseNumberOption'>Number</label></td><td><input type='radio' name='CaseSearchMode' onclick='SwitchCaseSearchMode(this.value, true)' value='CrossRefNumber' id='CrossRefNumberOption' LabelName='Case Search Mode:' LabelValue='Cross Ref Number'><label for='CrossRefNumberOption'>Cross Ref Number</label></td></tr></table></td></tr>
+                            
+                            <tr>
+                              <td style="color: #D90000; font-weight: bolder; font-size: larger;">
+                                <label id="CaseSearchHeader" for="CaseSearchValue">* Case Number</label>:<!-- Case Number History, Cross Reference Number -->
+                              </td>
+                            </tr>
+                            
+                            <tr>
+                              <td>
+                                <input id="CaseSearchValue" type="text" name="CaseSearchValue" size="30" maxlength="30" style="width: 225px" value="" LabelName="Case Number:"/>
+                              </td>
+                            </tr>
+                            
+                            <!-- Inactive judgment checkbox -->
+                            <tr style='display: none;'><td colspan='3'><table cellpadding='0' cellspacing='0'><tr><td><input type='checkbox' name='chkShowInactiveCase' id='chkShowInactiveCase' style='display: none;' LabelName='Show Inactive and Satisfied Judgments:'></td><td><label for='chkShowInactiveCase'>Include Inactive and Satisfied Judgments</label></td></tr></table></td></tr>
+                          </table>
+                          
+                        </td>
+                      </tr>
+                      
+                      </table>
+                    </td>
+                  </tr>
+            
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </table>
+          
+          <!-- Case Search By Citation Number -->
+            <table id='CitationNumberSearch' cellspacing='0' cellpadding='10' border='0' width='100%' style='display: none'> 
+            <tr>
+              <td>   
+                <div style="border: 1px solid #AAAAAA;">
+                  <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                  <tr>
+                    <td>
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <colgroup>
+                        <col style="width: 30%"/>
+                        <col style="width: 70%"/>
+                      </colgroup>
+                      <tr>
+                        <td style="vertical-align: top; padding-right: 10px">
+                          <table cellpadding="0" cellspacing="0" style="width: 100%" >
+                            <tr>
+                             <td style="vertical-align: top;">
+                              <font style="font-weight: bolder" size="2">
+                                Citation:
+                              </font>
+                            </td>
+                            </tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr>
+                              <td>
+                                
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        
+                        <td style="vertical-align: top;">
+                          <table cellspacing="0" cellpadding="0" style="width: 100%">
+                            <tr>
+                              <td style="color: #D90000; font-weight: bolder; font-size: larger;">
+                                <label id="CitationSearchHeader" for="CitationSearchValue">
+                                 * Citation Number
+                                </label>
+                              </td>
+                            </tr>
+                            
+                            <tr>
+                              <td>
+                                <input id="CitationSearchValue" type="text" name="CitationSearchValue" size="30" maxlength="30" style="width: 250px" value="" LabelName="Citation Number:"/>
+                              </td>
+                            </tr>
+                          </table>
+                          
+                        </td>
+                      </tr>
+                      
+                      </table>
+                    </td>
+                  </tr>
+            
+                  </table>
+                </div>
+              </td>
+            </tr>
+            
+
+    </table>
+            
+            <!-- Court Calendar Search by Case Number -->
+            <table id='CourtCaseNumberSearch' cellspacing='0' cellpadding='10' border='0' width='100%'>
+            <tr>
+              <td>
+                <div style="border: 1px solid #AAAAAA;">
+                  <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                  <tr>
+                    <td>
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <colgroup>
+                        <col style="width: 30%"/>
+                        <col style="width: 70%"/>
+                      </colgroup>
+                      <tr>                        
+                        <td style="vertical-align: top; padding-right: 10px">
+                          <table cellpadding="0" cellspacing="0" style="width: 100%">
+                            <tr>
+                             <td style="vertical-align: top;">
+                              <font style="font-weight: bolder" size="2">
+                                Case:
+                              </font>
+                            </td>
+                            </tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr>
+                              <td>
+                                
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        
+                        <td style="vertical-align: top;">
+                          <table cellspacing="0" cellpadding="0" style="width: 100%">
+                            
+                            <tr>
+                              <td style="color: #D90000; font-weight: bolder; font-size: larger;">
+                                <label id="CourtCaseSearchHeader" for="CourtCaseSearchValue">* Case Number</label>: <!-- Case Number History, Cross Reference Number -->
+                              </td>
+                            </tr>
+                            
+                            <tr>
+                              <td>
+                                <input id="CourtCaseSearchValue" type="text" name="CourtCaseSearchValue" size="30" maxlength="30" style="width: 225px" LabelName="Case Number:"/>
+                              </td>
+                            </tr>
+                          </table>
+                          
+                        </td>
+                      </tr>
+                      
+                      </table>
+                    </td>
+                  </tr>
+            
+                  </table>
+                </div>
+              </td>
+            </tr>
+            </table>
+            
+            <!-- Case Search By Name-->
+            <table id='CaseNameSearch' cellspacing='0' cellpadding='10' border='0' width='100%' style='display: none' > 
+            <tr>
+              <td>   
+                <div style="border: 1px solid #AAAAAA;">
+                  <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                    <tr>
+                      <td>
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                          <colgroup>
+                            <col style="width: 30%"/>
+                            <col style="width: 70%"/>
+                          </colgroup>
+                          <tr>
+                            <td>
+                              <!-- Left side sub table -->
+                              <table cellpadding="0" cellspacing="0" style="width: 100%; padding-right: 10px">
+                                <tr id='BusinessOrIndividualLeft'> 
+                                  <td>
+                                    <font style="font-weight: bolder" size="2">
+                                     Party Information:
+                                    </font>
+                                  </td>
+                                </tr>
+                                
+                                <tr id='BarNumberOrNameLeft' style="display: none">
+                                  <td>
+                                    <font style="font-weight: bolder" size="2">
+                                      Attorney Information:
+                                    </font>
+                                  </td>
+                                </tr>
+                                
+                                <tr><td>&nbsp;</td></tr>
+                                
+                                <tr>
+                                  <td>
+                                    
+                                  </td>
+                                </tr>
+                                
+                              </table>
+                            </td>
+                            
+                            <td style="vertical-align: top;">
+                              <!-- Right side sub table -->
+                              <table cellpadding="0" cellspacing="0" style="width: 100%">
+                                <colgroup>
+                                  <col style="width: 30%"/>
+                                  <col style="width: 30%"/>
+                                  <col style="width: 30%"/>                              
+                                </colgroup>
+                                <tr id='BusinessOrIndividualRight'>
+                                  <td colspan="3" style="vertical-align: top;">
+                                    <table cellspacing='0' cellpadding='0' ><tr style='white-space: nowrap'><td id='PNOption'><input type='radio' name='PartySearchMode' onclick='SwitchPartyType(this.value, true)' value='Name' id='PartyNameOption' checked='checked' LabelName='Party Search Mode:'><label for='PartyNameOption'>Name</label></td><td><input type='radio' name='PartySearchMode' onclick='SwitchPartyType(this.value, true)' value='BusinessName' id='PartyBusinessOption' LabelName='Party Search Mode:' LabelValue='Business Name'><label for='PartyBusinessOption'>Business</label></td></tr></table>
+                                  </td>
+                                </tr>
+                                
+                                <tr id='BarNumberOrNameRight' style="display: none">
+                                  <td colspan="3">
+                                    <table cellspacing='0' cellpadding='0' ><tr style='white-space: nowrap'><td id='PNOption'><input type='radio' name='AttorneySearchMode' onclick='SwitchAttorneyType(this.value, true)' value='Name' id='AttorneyNameOption' checked='checked' LabelName='Party Search Mode:'><label for='AttorneyNameOption'>Name</label></td><td><input type='radio' name='AttorneySearchMode' onclick='SwitchAttorneyType(this.value, true)' value='BarNumber' id='AttorneyBarNumberOption' LabelName='Party Search Mode:' LabelValue='Bar Number'><label for='AttorneyBarNumberOption'>Bar Number</label></td></tr></table>
+                                  </td>
+                                </tr>
+                                
+                                 <tr id="trNameDiv">
+                                  <td>
+                                    <font color="#D90000" style="font-weight: bolder" size="2">
+                                      <div id="LastNameDiv" style="display: inline"><label for="LastName" style="white-space:nowrap"> * Last Name </label></div>
+                                      <div id="BusinessDiv" style="display: none"><label for="LastName" style="white-space:nowrap"> * Business Name </label></div>
+                                      <div id="OtherAgencyDiv" style="display: none"><label for="LastName" style="white-space:nowrap"> * Other Agency Number </label></div>
+                                      <div id="BarNumberDiv" style="display: none"><label for="LastName" style="white-space:nowrap"> * Bar Number </label></div>
+                                      <div id="StateIDDiv" style="display: none"><label for="LastName" style="white-space:nowrap"> * State Identification Number </label></div>
+                                    </font>
+                                  </td>
+                                  <td>
+                                    <!-- Judgment and Calendar search requires firstname regardless of the requirefirstname setting-->
+                                    <font color='#D90000' style='font-weight: bolder' size='2' id='NameFirstLabel'><label for='FirstName'> * First Name </label></font>
+                                    <font color="#D90000" style="font-weight: bolder" size="2">
+                                      <div id="StateDiv" style="display:none"><label for="cboState" style="white-space:nowrap"> * State </label></div>
+                                    </font>
+                                  </td>
+                                  <td>
+                                    <font color="#000000" size="2" id="NameMiddleLabel">
+                                      <label for="MiddleName">Middle Name</label>
+                                    </font>
+                                  </td>
+                                </tr>
+                                
+                                <tr id="trNameDiv2">
+                                  <td id="NameLastColumn" >
+                                    <input id="LastName" type="text" name="LastName" size="40" maxlength="80" style="width: 100px" value="" LabelName="Last Name:"/>
+                                  </td>
+                                  <td>
+                                    <input id="FirstName" type="text" name="FirstName" size="40" maxlength="40" style="width: 100px" value="" LabelName="First Name:"/>
+                                    <div id="StateComboDiv" style="display:none">
+                                      <select id='cboState' name='cboState' style='display:none' LabelName='State:'><option value='AA'>AA</option><option value='AE'>AE</option><option value='AK'>AK</option><option value='AL'>AL</option><option value='AP'>AP</option><option value='AR'>AR</option><option value='AS'>AS</option><option value='AZ'>AZ</option><option value='CA'>CA</option><option value='CD'>CD</option><option value='CO'>CO</option><option value='CT'>CT</option><option value='DC'>DC</option><option value='DE'>DE</option><option value='FL'>FL</option><option value='FM'>FM</option><option value='GA'>GA</option><option value='GU'>GU</option><option value='HI'>HI</option><option value='IA'>IA</option><option value='ID'>ID</option><option value='IL'>IL</option><option value='IN'>IN</option><option value='KS'>KS</option><option value='KY'>KY</option><option value='LA'>LA</option><option value='MA'>MA</option><option value='MD'>MD</option><option value='ME'>ME</option><option value='MH'>MH</option><option value='MI'>MI</option><option value='MM'>MM</option><option value='MN'>MN</option><option value='MO'>MO</option><option value='MP'>MP</option><option value='MS'>MS</option><option value='MT'>MT</option><option value='NC'>NC</option><option value='ND'>ND</option><option value='NE'>NE</option><option value='NH'>NH</option><option value='NJ'>NJ</option><option value='NM'>NM</option><option value='NV'>NV</option><option value='NY'>NY</option><option value='OA'>OA</option><option value='OH'>OH</option><option value='OK'>OK</option><option value='OR'>OR</option><option value='PA'>PA</option><option value='PR'>PR</option><option value='RI'>RI</option><option value='SC'>SC</option><option value='SD'>SD</option><option value='TN'>TN</option><option value='TX'>TX</option><option value='US'>US</option><option value='UT'>UT</option><option value='VA'>VA</option><option value='VI'>VI</option><option value='VT'>VT</option><option value='WA'>WA</option><option value='WI'>WI</option><option value='WV'>WV</option><option value='WY'>WY</option></select>
+                                    </div>
+                                  </td> 
+                                  <td>
+                                    <input id="MiddleName" type="text" name="MiddleName" size="40" maxlength="40" style="width: 100px" value="" LabelName="Middle Name:"/>
+                                  </td>  
+                                </tr>
+                                
+                                <!-- Inactive judgment checkbox -->
+                                <tr style='display: none;'><td colspan='3'><table cellpadding='0' cellspacing='0'><tr><td><input type='checkbox' name='chkShowInactiveParty' id='chkShowInactiveParty' style='display: none;' LabelName='Show Inactive and Satisfied Judgments:'></td><td><label for='chkShowInactiveParty'>Include Inactive and Satisfied Judgments</label></td></tr></table></td></tr>
+
+                              </table>
+                            </td>
+                          </tr>
+                          
+                          
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                          </tr>
+                            <tr id= 'DateOfBirthRow' > 
+                          
+                            <td>
+                              <font color="#000000" style="font-weight: bolder" size="2">
+                                <label for="DateOfBirth">Date of Birth</label>:
+                              </font>
+                            </td>
+                            <td>
+                           
+                              <input id="DateOfBirth" type="text" name="DateOfBirth" size="20" maxlength="20" style="width: 100px" value="" LabelName="Date of Birth:"/>
+                            </td>
+                          </tr>
+                          <tr id='DateOfBirthRowExample'> 
+                            <td>
+                              (e.g. 11/12/1955)
+                            </td>
+                          </tr>
+                          
+                            <tr id= 'DriverLicenseRow' style='display: none' >
+                                 <td>
+                              <font color="#000000" style="font-weight: bolder" size="2">
+                                <label for="DriverLicNum">Driver's License #</label>:
+                              </font>
+                            </td>
+                            <td>
+                              <input id="DriverLicNum" type="text" name="DriverLicNum" size="20" maxlength="20" style="width: 100px" value="" LabelName="Driver's License #:"/>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+            </table>
+            
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <!-- Case Status Buttons -->
+        <tr style='display: none' > 
+        
+          <td>&nbsp;</td>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0" width="100%">
+            <tr>
+              <td>   
+                <div style="border: 1px solid #AAAAAA;" >
+                  <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                  <tr>
+                    <td>
+                    
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <colgroup>
+                          <col style="width: 30%"/>
+                          <col style="width: 70%"/>
+                        </colgroup>
+                  
+                      <!-- Radio Case Status selector -->
+                      <tr style='padding-top: 0px'> 
+                        <td>
+                          <font color="#000000" style="font-weight: bolder" size="2">
+                            Case Status:
+                          </font>
+                        </td>
+                        <td>
+                          <input type="radio" name="CaseStatusType" value="0" checked id="AllOption" onclick="SwitchDateFiledType()" LabelName="All"><label for="AllOption">All</label>
+                          <input type="radio" name="CaseStatusType" value="1" id="OpenOption" onclick="SwitchDateFiledType()" LabelName="Open"><label for="OpenOption">Open</label>
+                          <input type="radio" name="CaseStatusType" value="2" id="ClosedOption" onclick="SwitchDateFiledType()" LabelName="Closed"><label for="ClosedOption">Closed</label>
+                         </td>
+                      </tr>
+
+                      <tr id="trCaseStatusHelpTextSpace">
+                        <td>&nbsp;</td><td>&nbsp;</td>
+                      </tr>
+                      
+                      <tr id="trCaseStatusHelpText">
+                        <td>
+                                                 
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      
+                      <tr style='padding-top: 0px'> 
+                        <td>&nbsp;</td><td>&nbsp;</td>
+                      </tr>
+                  
+                      <!-- Heading for the On or After and On or Before -->
+                      <tr style='padding-top: 0px'>                    
+                        <td>&nbsp;</td>
+                        <td>
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                          <colgroup>
+                            <col style="width: 100px"/>
+                            <col style="width: 50px"/>
+                            <col style="width: *"/>
+                          </colgroup>
+                          <tr id="trOnOrAfterNotRequired">
+                            <td style="width: 100px">
+                              <label for="DateFiledOnAfter">On or After</label>
+                            </td>
+                            <td style="width: 50px">
+                              &nbsp;
+                            </td>
+                            <td>
+                              <label for="DateFiledOnBefore">On or Before</label>
+                            </td>
+                          </tr>
+                          <tr id="trOnOrAfterRequired">
+                            <td style="width: 100px">
+                              <font color="#D90000" style="font-weight: bolder;" size="2">
+                                <label for="DateFiledOnAfter">* On or After</label>
+                              </font>
+                            </td>
+                            <td style="width: 50px">
+                              &nbsp;
+                            </td>
+                            <td>
+                              <font color="#D90000" style="font-weight: bolder;" size="2">
+                                <label for="DateFiledOnBefore">* On or Before</label>
+                              </font>
+                            </td>
+                          </tr>
+                          </table>
+                        </td>
+                      </tr>
+                  
+                      <!-- Input the status date -->
+                       <tr style='padding-top: 0px'>            
+                        <td>
+                          <font color="#000000" style="font-weight: bolder" size="2">
+                            Date Filed: 
+                          </font>
+                        </td>
+                        <td>
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                          <colgroup>
+                            <col style="width: 100px"/>
+                            <col style="width: 50px"/>
+                            <col style="width: *"/>
+                          </colgroup>
+                          <tr>
+                            <td>
+                              <input type="text" size="20" maxlength="20" style="width: 100px" id="DateFiledOnAfter" Name="DateFiledOnAfter" value="" LabelName="Date Filed On or After:"/>
+                            </td>
+                            <td align="center">
+                              and
+                            </td>
+                            <td>
+                              <input type="text" size="20" maxlength="20" style="width: 100px" id="DateFiledOnBefore" Name="DateFiledOnBefore" value="" LabelName="Date Filed On or Before:"/>
+                            </td>
+                          </tr> 
+                          </table>
+                        <td>
+                      </tr>
+                  
+                      <!-- Example of the input date -->
+                        <tr style='padding-top: 0px'> 
+                        <td>
+                          (e.g. 11/12/1955)
+                        </td>
+                      </tr>
+                  
+                      </table>
+                    </td>
+                  </tr>
+                  </table>
+                
+                </div>
+              </td>
+            </tr>
+            </table>
+          </td>
+          <td></td>
+        </tr>
+        
+        <!-- Court Calendar Judicial Officer Search -->
+        <tr id='trJudOffc' style='padding-top: 0px' > 
+        
+          <td>&nbsp;</td>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0" width="100%">
+            <tr>
+              <td>   
+                <div style="border: 1px solid #AAAAAA;" >
+                  <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                  <tr>
+                    <td>
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <colgroup>
+                        <col style="width: 30%"/>
+                        <col style="width: 70%"/>
+                      </colgroup>
+                      
+                      <!-- Judicial Officer Select Control -->
+                      <tr>
+                        <td>
+                          <font color="#000000" style="font-weight: bolder" size="2">
+                            <label for="cboJudOffc">Judicial Officer</label>:
+                          </font>
+                        </td>
+                        <td style="text-align:left;">
+                          <select id='cboJudOffc' name='cboJudOffc' style='display:none;' LabelName='Judicial Officer:'><option value='38501'>Ables, Stephen</option><option value='41807'>Arrington, Tamara</option><option value='55118'>Baardsen, Dawn E.</option><option value='25374'>Barton, Robert R.</option><option value='53519'>Becerra, Ruben</option><option value='38680'>Beck, Dan</option><option value='25320'>Bender, Bill</option><option value='41393'>Blomerth, Todd</option><option value='38091'>Boling, Anna Martinez</option><option value='37229'>Bonicoro, Karen</option><option value='212'>Bork, Robert H</option><option value='39607'>Boyer, Bruce</option><option value='211'>Bradshaw, John</option><option value='55788'>Brown, Elaine</option><option value='55785'>Bryant, Sandra</option><option value='39581'>Burgess, Don</option><option value='36873'>Burke, John</option><option value='50566'>Burke, John</option><option value='51321'>Burns, Daniel "Matt"</option><option value='48870'>Burns, John</option><option value='25318'>Cable, Andrew W.</option><option value='25327'>Campbell, Charles</option><option value='25370'>Carr, Ron</option><option value='37981'>Cary, Scott J.</option><option value='38709'>Chapman, Brenda</option><option value='25342'>Clark, Fred</option><option value='25351'>Clawson, James F.</option><option value='25345'>Cofer, Hume</option><option value='25329'>Davis, Claude</option><option value='55569'>Davis, Paul</option><option value='25334'>Delaney, John</option><option value='36876'>Detainee, Detainee</option><option value='55654'>Devlin, Glenn</option><option value='25350'>Dibrell, Joe</option><option value='42081'>District, Judge</option><option value='25373'>Donohoe, Robert</option><option value='25339'>Duncan, C.W.</option><option value='25340'>Eschenburg, Robert</option><option value='55647'>Farr, David</option><option value='25352'>Gallardo, Juan</option><option value='40848'>Glickler, David</option><option value='55787'>Hall, Jimmy Alan</option><option value='25335'>Hammond, Don</option><option value='38840'>Harger, Gary</option><option value='55551'>Harle, Sid</option><option value='49303'>Hays, Karl</option><option value='25322'>Henry, William R</option><option value='38696'>Holcomb, Charles</option><option value='55475'>Jarden-Holter, Brenda</option><option value='48277'>Johnson, Chris</option><option value='38766'>Jones, Robert</option><option value='25357'>JP2, Not Known</option><option value='25369'>Judge, No</option><option value='29866'>Judge, Precinct 11</option><option value='29867'>Judge, Precinct 12</option><option value='29869'>Judge, Precinct 5</option><option value='29870'>Judge, Precinct DPS</option><option value='48279'>Junkin, David</option><option value='47751'>Kirkendall, W.C.</option><option value='40982'>Landry, Dallari</option><option value='38889'>Law, Ken</option><option value='25337'>Leonard, Don</option><option value='25326'>Lilly, C.B.</option><option value='38031'>Luitjen, Mark</option><option value='36872'>Luizzi, Vincent</option><option value='41739'>Madrigal, Dulce</option><option value='25343'>Maloney, Frank</option><option value='25376'>Mansfield, Stephen</option><option value='213'>Marshall, Thurgood</option><option value='25365'>Master, Court</option><option value='40124'>McClenahan, Melissa</option><option value='40319'>McClenahan, Melissa</option><option value='40556'>McClenahan, Melissa</option><option value='25368'>McCormick, Michael</option><option value='56201'>Mendoza, J.R.</option><option value='37181'>Mendoza-Waterhouse, Angelita</option><option value='25330'>Miller, Chuck</option><option value='25353'>Miller, Jack</option><option value='46474'>Mills, Dan</option><option value='51181'>Mirabal, Margaret G</option><option value='51282'>Moore, Benjamin T.</option><option value='25341'>Moore, Fred A.</option><option value='46460'>Moreno, Maggie H.</option><option value='25333'>Morgan, Don B.</option><option value='47823'>Morton, Mary Ann</option><option value='25381'>Mulahax, Virgil</option><option value='55784'>Neidhardt, Tanner</option><option value='55169'>O'Brien, Daniel</option><option value='39210'>Patterson, Jan</option><option value='25338'>Peeples, David</option><option value='25379'>Pemberton, Stan</option><option value='39675'>Peschel, Dwight</option><option value='25375'>Pfeuffer, Robert T</option><option value='49329'>Phillips, John</option><option value='25355'>Placke, John</option><option value='25360'>PM, J</option><option value='55790'>Pool, Joe R</option><option value='26479'>Prado, Jo Anne</option><option value='37625'>Probation Violations/other, Previously Magistrated</option><option value='55119'>Puryear, David</option><option value='6141'>Ramsay, Charles</option><option value='4209'>Rand, Sue</option><option value='40755'>Rausch, Jim</option><option value='50575'>Rayes, Donna</option><option value='38318'>Richardson, Robert</option><option value='25364'>Rodriguez, Linda A</option><option value='48079'>Schneider, Frederick</option><option value='25321'>Schraub, B.B.</option><option value='37568'>Shakelford, Jerry</option><option value='25344'>Shannon, Fred</option><option value='48204'>Shaver, Doug</option><option value='25332'>Sherrill, Charles E.</option><option value='25325'>Smith, Beth</option><option value='25323'>Smith, Brenda</option><option value='36871'>Spears, Sondra</option><option value='6142'>Steel, Gary L.</option><option value='25347'>Strauss, Henry J.</option><option value='37551'>Strauss, Olin</option><option value='39609'>Stubblefield, Billy Ray</option><option value='46692'>Stuckey, Thomas</option><option value='55142'>Sulak, Tim</option><option value='55055'>Thompson, Millie</option><option value='55054'>Tibbe, Sherri K.</option><option value='37730'>Towslee, Harold R.</option><option value='38628'>Updegrove, Robert</option><option value='37809'>VISITING, JUDGE</option><option value='37567'>Waldrip, Dib</option><option value='4210'>Wapner, Albert</option><option value='55812'>Weatherford, Jeffrey</option><option value='39226'>Williams, K. Stephen</option><option value='38869'>Wisser, Jon</option><option value='55789'>WrightReneau, Tracie</option><option value='48274'>Zelhart, Tacie</option></select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <font color="#000000" style="font-weight: bolder" size="2">
+                            Case Category:
+                          </font>
+                        </td>
+                        <td style="text-align:left;">
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                              <td style="width:108px;">
+                                <input type="checkbox" name="chkCriminal" id="chkCriminal" style="display:none;" checked>
+                                <label for="chkCriminal">Criminal</label>
+                              </td>
+                          
+                              <td style="width:*;">
+                                <input type="checkbox" name="chkFamily" id="chkFamily" style="display:none;" checked>
+                                <label for="chkFamily">Family</label>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td style="text-align:left;">
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                              <td style="width:108px;">
+                                <input type="checkbox" name="chkCivil" id="chkCivil" style="display:none;" checked>
+                                <label for="chkCivil">Civil</label>
+                              </td>
+                          
+                              <td style="width:*;">
+                                <input type="checkbox" name="chkProbate" id="chkProbate" style="display:none;" checked>
+                                <label for="chkProbate">Probate and Mental Health</label>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  </table>
+                
+                </div>
+              </td>
+            </tr>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+
+        <!-- Court Calendar Judicial Officer Search -->
+        <tr id='trDateRange' style='padding-top: 0px' > 
+        
+          <td>&nbsp;</td>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0" width="100%">
+            <tr>
+              <td>   
+                <div style="border: 1px solid #AAAAAA;" >
+                  <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                  <tr>
+                    <td>
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <colgroup>
+                        <col style="width: 30%"/>
+                        <col style="width: 70%"/>
+                      </colgroup>
+                      
+                      <tr>
+                        <td>
+                          <font color="#000000" style="font-weight: bolder" size="2">
+                            Case Category:
+                          </font>
+                        </td>
+                        <td style="text-align:left;">
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                              <td style="width:108px;">
+                                <input type="checkbox" name="chkDtRangeCriminal" id="chkDtRangeCriminal" style="display:none;" checked>
+                                <label for="chkCriminal">Criminal</label>
+                              </td>
+                          
+                              <td style="width:*;">
+                                <input type="checkbox" name="chkDtRangeFamily" id="chkDtRangeFamily" style="display:none;" checked>
+                                <label for="chkFamily">Family</label>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td style="text-align:left;">
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                              <td style="width:108px;">
+                                <input type="checkbox" name="chkDtRangeCivil" id="chkDtRangeCivil" style="display:none;" checked>
+                                <label for="chkCivil">Civil</label>
+                              </td>
+                          
+                              <td style="width:*;">
+                                <input type="checkbox" name="chkDtRangeProbate" id="chkDtRangeProbate" style="display:none;" checked>
+                                <label for="chkProbate">Probate and Mental Health</label>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+
+        
+        <!-- Court Calendar Magistrate Search -->
+        <tr id='trMagist' style='padding-top: 0px' > 
+        
+          <td>&nbsp;</td>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0" width="100%">
+              <tr>
+                <td>   
+                  <div style="border: 1px solid #AAAAAA;">
+                    <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                      <tr>
+                        <td>		                    
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <colgroup>
+                              <col style="width:30%"/>
+                              <col style="width:70%"/>
+                            </colgroup>			                      
+                            <tr>
+                              <td>
+                                <font color="#000000" style="font-weight:bolder" size="2">
+                                  <label for="cboMagist">
+                                  Magistrate: 
+                                  </label>
+                                </font>
+                              </td>
+                              <td style="text-align:left">
+                                <select id='cboMagist' name='cboMagist' style='display:none;' LabelName='Magistrate:'></select>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                
+                              </td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <font color="#000000" style="font-weight: bolder" size="2">
+                                  Case Category:
+                                </font>
+                              </td>
+                              <td style="text-align:left">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                  <tr>
+                                    <td style="width:108px">
+                                      <input type="checkbox" name="chkCriminalMagist" id="chkCriminalMagist" style="display:none" checked>
+                                      <label for="chkCriminalMagist">Criminal</label>
+                                    </td>			                          
+                                    <td style="width:*;">
+                                      <input type="checkbox" name="chkFamilyMagist" id="chkFamilyMagist" style="display:none" checked>
+                                      <label for="chkFamilyMagist">Family</label>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>		                            
+                            <tr>
+                              <td>&nbsp;</td>
+                              <td style="text-align:left">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                  <tr>
+                                    <td style="width:108px">
+                                      <input type="checkbox" name="chkCivilMagist" id="chkCivilMagist" style="display:none" checked>
+                                      <label for="chkCivilMagist">Civil</label>
+                                    </td>			                          
+                                    <td style="width:*;">
+                                      <input type="checkbox" name="chkProbateMagist" id="chkProbateMagist" style="display:none" checked>
+                                      <label for="chkProbateMagist">Probate and Mental Health</label>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>		
+                            <tr>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>	                
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <!-- Court Calendar Date Range Section -->
+        <tr style='padding-top: 0px' > 
+        
+          <td>&nbsp;</td>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0" width="100%">
+            <tr>
+              <td>   
+                <div style="border: 1px solid #AAAAAA;" >
+                  <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                  <tr>
+                    <td>
+                    
+                      <table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+                      <colgroup>
+                        <col style="width: 30%"/>
+                        <col style="width: 70%"/>
+                      </colgroup>
+                      
+                      <tr>
+                        <td>&nbsp;</td><td>&nbsp;</td>
+                      </tr>
+                  
+                      <!-- Heading for the On or After and On or Before -->
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                          <colgroup>
+                            <col style="width: 100px"/>
+                            <col style="width: 50px"/>
+                            <col style="width: *"/>
+                          </colgroup>
+                          <tr>
+                            <td>
+                              <font color="#D90000" style="font-weight: bolder;" size="2">
+                                <label for="DateSettingOnAfter">* On or After</label>
+                              </font>
+                            </td>
+                            <td>
+                              &nbsp;
+                            </td>
+                            <td>
+                              <font color="#D90000" style="font-weight: bolder;" size="2">
+                                <label for="DateSettingOnBefore">* On or Before</label>
+                              </font>
+                            </td>
+                          </tr>
+                          </table>
+                        </td>
+                      </tr>
+                  
+                      <!-- Input the date range -->
+                      <tr>
+                        <td>
+                          <font color="#000000" style="font-weight: bolder" size="2">
+                            Date Range: 
+                          </font>
+                        </td>
+                        <td>
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                          <colgroup>
+                            <col style="width: 100px"/>
+                            <col style="width: 50px"/>
+                            <col style="width: *"/>
+                          </colgroup>
+                          <tr>
+                            <td>
+                              <input type="text" size="20" maxlength="20" style="width: 100px" id="DateSettingOnAfter" Name="DateSettingOnAfter" value="" LabelName="Date On or After:"/>
+                            </td>
+                            <td align="center">
+                              and
+                            </td>
+                            <td>
+                              <input type="text" size="20" maxlength="20" style="width: 100px" id="DateSettingOnBefore" Name="DateSettingOnBefore" value="" LabelName="Date On or Before:"/>
+                            </td>
+                          </tr> 
+                          </table>
+                        </td>
+                      </tr>
+                  
+                      <!-- Example of the input date -->
+                        <tr style='padding-top: 0px'> 
+                        <td>
+                          (e.g. 11/12/1955)
+                        </td>
+                      </tr>
+                  
+                      </table>
+                    </td>
+                  </tr>
+                  </table>
+                
+                </div>
+              </td>
+            </tr>
+            </table>
+          </td>
+          <td></td>
+        </tr>
+        
+        
+        <!-- Case Types Section -->
+        <tr style='display: none'> 
+          <td>&nbsp;</td>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0" width="100%">
+              <tr>
+                <td>   
+                  <div style="border: 1px solid #AAAAAA;" >
+                    <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                      <tr>
+                        <td>
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <colgroup>
+                              <col width="30%" />
+                              <col width="40%" />
+                              <col width="30%" />
+                            </colgroup>
+                            <tr>
+                              <td style="vertical-align: top; padding-right: 10px">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                  <tr>
+                                    <td>
+                                      <font style="font-weight: bolder" size="2">
+                                        <label for="selCaseTypeGroups">Case Types</label>:
+                                      </font>
+                                    </td>
+                                  </tr>
+                                  <tr><td style="height: 4px"/></tr>
+                                  <tr>
+                                    <td>All case types will be searched if none are selected in this list.</td>
+                                  </tr>
+                                </table>
+                              </td>
+                              <td>
+                              <select id='selCaseTypeGroups' style='width: 100%; height: 120px' multiple name='CaseTypes' LabelName='Case Types:'></select>
+                              </td>
+                              <td style="padding-left: 10px">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                  <tr>
+                                    <td>To return only certain case types, select them in this list.</td>
+                                  </tr>
+                                  <tr><td style="height: 10px"/></tr>
+                                  <tr>
+                                    <td>Hold down the Shift key to select a range of case types.</td>
+                                  </tr>
+                                  <tr><td style="height: 10px"/></tr>
+                                  <tr>
+                                    <td>Hold down the Ctrl key to select or deselect a single case type at a time.</td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        
+        
+        <!-- Hearing Types Section -->
+        <tr style='display: none'> 
+          <td>&nbsp;</td>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0" width="100%">
+              <tr>
+                <td>   
+                  <div style="border: 1px solid #AAAAAA;" >
+                    <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                      <tr>
+                        <td>
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <colgroup>
+                              <col width="30%" />
+                              <col width="40%" />
+                              <col width="30%" />
+                            </colgroup>
+                            <tr>
+                              <td style="vertical-align: top; padding-right: 10px">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                  <tr>
+                                    <td>
+                                      <font style="font-weight: bolder" size="2">
+                                        <label for="selHearingTypeGroups">Hearing Types</label>:
+                                      </font>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                              <td>
+                              <select id='selHearingTypeGroups' style='width: 225px' disabled='true' />
+                              </td>
+                              <td style="padding-left: 10px"/>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        
+        <!-- Sort By -->
+        <tr style='display: none'> 
+          <td>&nbsp;</td>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0" width="100%">
+              <tr>
+                <td>   
+                  <div style="border: 1px solid #AAAAAA;">
+                    <table cellspacing="0" cellpadding="10" border="0" width="100%">
+                      <tr>
+                        <td>
+                          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <colgroup>
+                              <col width="30%" />
+                              <col width="70%" />
+                            </colgroup>
+                            <tr>
+                              <td style="padding-right: 10px">
+                                <font style="font-weight: bolder" size="2">
+                                  <label for="selectSortBy">Sort By</label>
+                                </font>
+                              </td>
+                              <td>
+                                <select name="SortBy" id="selectSortBy" style="width: 250px;" LabelName="Sort By:">
+                                  <option value="casenumber">Case Number</option>
+                                  <option value="fileddate" selected>Filed Date</option>
+                                  <option value="fileddaterev">Filed Date Rev</option>
+                                  <option value="status">Status</option>
+                                  
+                                </select>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>        
+        
+        <!-- Search and Clear buttons -->
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <input type="submit" name="SearchSubmit" value="Search" id="SearchSubmit" />
+            <input type="reset" name="ClearSearch" id="ClearSearch" value="Clear Form" onClick="return InitializeForm(true)"/>
+          </td>
+          <td></td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    </table>
+    
+    <input id="SearchType"       name="SearchType"       type="hidden" value="" />   <!-- The type of search this is: by case or by party -->
+    <input id="SearchMode"       name="SearchMode"       type="hidden" value="" />   <!-- The specific search mode of SearchType - like Search Case by CaseNumber -->
+    <input id="NameTypeKy"       name="NameTypeKy"       type="hidden" value="" />
+    <input id="BaseConnKy"       name="BaseConnKy"       type="hidden" value="" />
+    <input id="StatusType"       name="StatusType"       type="hidden" value="" />
+    <input id="ShowInactive"     name="ShowInactive"     type="hidden" value="" />
+    <input id="AllStatusTypes"   name="AllStatusTypes"   type="hidden" value="" />
+    <input id="CaseCategories"   name="CaseCategories"   type="hidden" value="" LabelName="Case Categories:"/>
+    <input id="RequireFirstName" name="RequireFirstName" type="hidden" value="" />
+    <input id="CaseTypeIDs"      name="CaseTypeIDs"      type="hidden" value="" />
+    <input id="HearingTypeIDs"   name="HearingTypeIDs"   type="hidden" value="" />
+
+
+    <input id="SearchParams" name="SearchParams" type="hidden" value="" />
+
+   </form>
+
+</body>
+<script language="javascript" type="text/javascript">
+  var passedRefinedSearchPageLoad;
+  var strCheckControlCheckList = "";
+  var searchParams;
+
+  // This adds a trim() function to the String class.
+  String.prototype.trim = function() { return this.replace(/^\s+|\s+$/g, ''); }
+
+
+  function ReloadPage(){
+    var SearchValue; 
+    passedRefinedSearchPageLoad = false;
+    document.getElementById("SearchParameters").reset();
+    
+    // Grab the search by type for searchs that have more than one type so the switch court & case search methods can display the correct parameters
+    //PopulateFormFromSearchParams();
+           
+    // Populate the UI from the values in the stash because the first call doesn't do it (for some reason)
+    PopulateFormFromSearchParams();
+    ShowControls();   
+    InitializeForm(false);
+    return true;
+  }
+
+  function CheckCheckboxControlsFromList(controlList)
+  {
+    var controlArray = controlList.split(',');
+    
+    for (var i = 0; i < controlArray.length; i++)
+    {
+      var htmlElement = document.getElementById(controlArray[i]);
+      
+      if (htmlElement != null)
+      {
+        htmlElement.checked = true;
+      }
+    }
+  }
+  
+  function DecodeXML(xmlString)
+  {
+    return xmlString.replace('&amp;', '&').replace('&quot;', '"').replace('&gt;', '>').replace('&lt;', '<').replace('&apos;', "'");
+  }
+
+  function PopulateFormFromSearchParams()
+  {
+    searchParams = DecodeXML("");
+    
+    if (searchParams != "")    
+    {
+      var elementArray = searchParams.split("||");
+      
+      if (elementArray != null)
+      {
+        for (var i = 0; i < elementArray.length; i++)
+        {
+          var valueArray = elementArray[i].split("~~");
+          //valueArray[0] = control name
+          //valueArray[1] = label name
+          //valueArray[2] = actual value
+          //valueArray[3] = user-friendly value
+          
+          PopulateControlFromValueArray(valueArray);         
+        }
+      }
+    }
+    
+    //Population of some intermediate control can change the check state of these checkboxes
+    //So, to ensure they are populated with the refine search params, we populate these last
+    if (strCheckControlCheckList.length > 0)
+    {
+      CheckCheckboxControlsFromList(strCheckControlCheckList);
+      
+      strCheckControlCheckList = "";
+    }      
+  }
+  
+  function PopulateControlFromValueArray(valueArray)
+  {  
+    var htmlElement = document.getElementById(valueArray[0]);
+    
+    if (htmlElement != null)
+    {
+      var isInputControl  = (htmlElement.nodeName.toUpperCase() == "INPUT");
+      var isSelectControl = (htmlElement.nodeName.toUpperCase() == "SELECT");
+      
+      var typeAttribute   = htmlElement.attributes.getNamedItem("type");
+      var isRadioControl  = false;
+      var isCheckControl  = false;
+      var isHiddenControl = false;
+      
+      if (typeAttribute != null)
+      {
+        switch (typeAttribute.value.toUpperCase())
+        {
+          case "RADIO":
+            isRadioControl = true;
+            break;
+          case "CHECKBOX":
+            isCheckControl = true;
+            break;
+          case "HIDDEN":
+            isHiddenControl = true;
+            break;
+        }
+      }
+      
+      if (isInputControl)
+      {
+        if (isRadioControl)
+        {
+          htmlElement.checked = true;
+          htmlElement.click();
+        }
+        else if (isCheckControl)
+        {
+          if (strCheckControlCheckList.length > 0)
+            strCheckControlCheckList = strCheckControlCheckList + "," + valueArray[0];
+          else
+            strCheckControlCheckList = valueArray[0];
+        }
+        else if (isHiddenControl)
+        {
+          PopulateControlsFromHiddenControl(htmlElement, valueArray);
+        }
+        else
+        {
+          htmlElement.value = valueArray[2];
+        }
+      }
+      else if (isSelectControl)
+      {      
+        SelectSelectControlValues(htmlElement, valueArray[2]);
+      }
+    }
+  }
+  
+  function PopulateControlsFromHiddenControl(htmlElement, valueArray)
+  {
+    switch (valueArray[0])
+    {
+      case "CaseCategories" :
+        var searchBy = GetSearchBy();
+          
+        var valueString = valueArray[2];
+        
+        var caseCatArray = valueString.split(',');
+        
+        //First, unselect the checkboxes for this search type
+        if (searchBy == "3")
+        {
+          document.getElementById("chkCriminal").checked = false;
+          document.getElementById("chkCivil").checked    = false;
+          document.getElementById("chkFamily").checked   = false;
+          document.getElementById("chkProbate").checked  = false;
+        }
+        
+        if (searchBy == "4")
+        {
+          document.getElementById("chkCriminalMagist").checked = false;
+          document.getElementById("chkCivilMagist").checked    = false;
+          document.getElementById("chkFamilyMagist").checked   = false;
+          document.getElementById("chkProbateMagist").checked  = false;
+        }
+        
+        //Second, select the values from session values
+        for (var i = 0; i < caseCatArray.length; i++)
+        {
+          switch (caseCatArray[i])
+          {
+            case "CR":
+              if (searchBy == "3")
+                document.getElementById("chkCriminal").checked = true;
+              else if (searchBy == "4")
+                document.getElementById("chkCriminalMagist").checked = true;                
+              break;
+            case "CV":
+              if (searchBy == "3")
+                document.getElementById("chkCivil").checked = true;
+              else if (searchBy == "4")
+                document.getElementById("chkCivilMagist").checked = true;
+              break;
+            case "FAM":
+              if (searchBy == "3")
+                document.getElementById("chkFamily").checked = true;
+              else if (searchBy == "4")
+                document.getElementById("chkFamilyMagist").checked = true;
+              break;
+            case "PR":
+              if (searchBy == "3")
+                document.getElementById("chkProbate").checked = true;
+              else if (searchBy == "4")
+                document.getElementById("chkProbateMagist").checked = true;
+              break;
+          }
+        }
+           
+        break;      
+    }
+  }
+  
+  function SelectSelectControlValues(htmlElement, textValues)
+  { 
+    var multipleAttr = htmlElement.attributes.getNamedItem("multiple");    
+    var isMultiple = false;
+    if (multipleAttr != null)
+      isMultiple = (multipleAttr.value == "true");
+      
+    var valueArray;
+
+    if (isMultiple)
+    {
+      valueArray = textValues.split("^^");
+    }
+    else
+    {
+      valueArray = new Array(textValues);      
+    }
+    
+    for (var i = 0; i < htmlElement.options.length; i++)
+    {
+      for (var j = 0; j < valueArray.length; j++)
+      {
+        if (htmlElement.options[i].text == valueArray[j])
+        {
+          if (isMultiple)
+          {
+            htmlElement.options[i].selected = true;
+          }
+          else
+          {
+            htmlElement.selectedIndex = i;            
+          }
+        }
+      }
+    }    
+  }
+
+  function InitializeForm(blnClear) 
+  {
+    if (blnClear) 
+    {
+      var SearchValue = '0'; //Default to Case Search
+
+      if ("True" == "True")
+      {
+        SearchValue = '1'; //Default to Party Search
+      }
+    }
+    else {
+      SearchValue = GetSearchBy();
+    }
+    
+    if ("CALENDAR" == "JUDGMENT" || "CALENDAR" == "ND" || "CALENDAR" == "OR")
+    {
+      if (blnClear)
+      {
+        document.getElementById("PartyNameOption").checked = true;
+      }
+
+      if (document.getElementById("PartyOtherAgencyOption") != null && document.getElementById("PartyOtherAgencyOption").checked) {
+        SwitchPartyType(document.getElementById("PartyOtherAgencyOption").value, blnClear);
+      }
+      else if (document.getElementById("PartyStateIDOption") != null && document.getElementById("PartyStateIDOption").checked) {
+        SwitchPartyType(document.getElementById("PartyStateIDOption").value, blnClear);
+      }
+      else if (document.getElementById("PartyBusinessOption") != null && document.getElementById("PartyBusinessOption").checked) {
+        SwitchPartyType(document.getElementById("PartyBusinessOption").value, blnClear);
+      }
+      else {
+        SwitchPartyType(document.getElementById("PartyNameOption").value, blnClear);
+      }
+    }
+    else
+    {
+      if ("CALENDAR" == "CALENDAR")
+      {
+        SwitchCourtSearch(SearchValue, blnClear);
+      }
+      else
+      {
+        SwitchCaseSearch(SearchValue, blnClear);
+      }
+    }
+
+    if ("False" != "True")
+    {
+        if (blnClear) 
+        {
+           if ("False" != "True") {
+            document.getElementById("SearchBy").focus();
+          }
+          else if ("CALENDAR" == "JUDGMENT" || "CALENDAR" == "ND" || "CALENDAR" == "OR") {
+            document.getElementById("PartyNameOption").focus();
+          }
+          else if ("CALENDAR" == "CITATION") {
+            document.getElementById("Citation").focus();
+          }
+          else if (SearchValue == '0') {
+            document.getElementById("Case").focus();
+          }
+          else {
+            document.getElementById("Party").focus();
+          }
+        }
+    }
+    else
+    {
+    setTimeout(function() {   document.getElementById("CodeTextBox").focus(); document.getElementById("CodeTextBox").select(); }, 1000);
+    }
+    return true;
+  }
+  
+  function ToggleDateRangeRequired(bRequired)
+  {
+    if( bRequired) 
+    {
+      trOnOrAfterRequired.style.display = "inline"
+      trOnOrAfterNotRequired.style.display = "none"
+    }
+    else
+    {
+      trOnOrAfterRequired.style.display = "none"
+      trOnOrAfterNotRequired.style.display = "inline"
+    }
+  }
+  
+  // Use to control the style of controls that may not be there
+  function SetControlDisplay(oControlName, sDisplayValue)
+  {
+    var oControl = document.getElementById(oControlName);
+    
+    if (oControl != null)
+    {
+      oControl.style.display = sDisplayValue;
+    }
+  }
+  
+  function SwitchCourtSearch(SearchType, blnClear)
+  {
+    var DocImp          = document.implementation;
+    var RowDisplayType  = (DocImp && DocImp.hasFeature && DocImp.hasFeature("CSS","2.0")) ? "table-row" :  "inline";
+    var DisplayType     = (DocImp && DocImp.hasFeature && DocImp.hasFeature("CSS","2.0")) ? "table"     :  "inline";
+    var now = new Date();
+    var bDisplaySoundex = true;
+    
+    //HD - now.getYear() returns "107" for 2007. Find fix/correct call to getFullYear to get the value of the year
+    var year = now.getFullYear();
+    var day = now.getDate();
+    var month = now.getMonth() + 1;
+    
+    if (day.length == 1)
+      day = "0" + day;
+      
+    if (month.length == 1)
+      month = "0" + month;
+    
+    var fullDate = month + "/" + day + "/" + year;
+
+    if (blnClear) 
+    {
+      ClearSearchControls();
+    }
+    
+//  document.getElementById("CaseStatusType").style.display          = "none";
+    document.getElementById("DateFiledOnAfter").style.display        = "none";
+    document.getElementById("DateFiledOnBefore").style.display       = "none";
+    document.getElementById("DateOfBirth").style.display             = "none";
+    document.getElementById("DateOfBirthRow").style.display          = "none";
+    document.getElementById("DateOfBirthRowExample").style.display   = "none";
+    document.getElementById("OpenOption").style.display              = "none";
+    document.getElementById("ClosedOption").style.display            = "none";
+    document.getElementById("chkShowInactiveParty").style.display    = "none";
+    document.getElementById("PartyBusinessOption").style.display     = "none";
+    document.getElementById("AttorneyBarNumberOption").style.display = "none";
+    
+    //Don't overwrite the 'refine' values
+    if (document.getElementById("DateSettingOnAfter").value.length == 0)
+    {
+      document.getElementById("DateSettingOnAfter").value = fullDate;
+    }
+    if (document.getElementById("DateSettingOnBefore").value.length == 0)
+    {
+      document.getElementById("DateSettingOnBefore").value = fullDate;
+    }
+    
+    switch (SearchType)
+    {
+      case "0":     // By Case
+        
+        document.getElementById("CaseNameSearch").style.display           = "none";
+        document.getElementById("trParamsForSearch").style.display        = RowDisplayType;
+        document.getElementById("CourtCaseNumberSearch").style.display    = DisplayType;              
+        document.getElementById("trJudOffc").style.display                = "none";
+        document.getElementById("cboJudOffc").style.display               = "none";
+        document.getElementById("trMagist").style.display                 = "none";
+        document.getElementById("cboMagist").style.display                = "none";
+        document.getElementById("trDateRange").style.display              = "none";
+        document.getElementById("chkCriminal").style.display              = "none";
+        document.getElementById("chkCivil").style.display                 = "none";
+        document.getElementById("chkFamily").style.display                = "none";
+        document.getElementById("chkProbate").style.display               = "none";
+        document.getElementById("PartyNameOption").style.display          = "none";
+        document.getElementById("AttorneyNameOption").style.display       = "none";
+        document.getElementById("SearchMode").value                       = "CASENUMBER";
+
+        if (blnClear) {
+          document.getElementById("CaseNumberOption").checked = true;
+        }
+        bDisplaySoundex = false;
+
+        setTimeout(function() { document.getElementById("CourtCaseSearchValue").focus(); }, 1000);
+        
+        break;
+        
+      case "1":     // By Party
+        document.getElementById("BusinessOrIndividualLeft").style.display = RowDisplayType;
+        document.getElementById("BusinessOrIndividualRight").style.display= RowDisplayType;
+        document.getElementById("trParamsForSearch").style.display        = RowDisplayType;
+        document.getElementById("PartyNameOption").style.display          = "inline";
+        document.getElementById("AttorneyNameOption").style.display       = "none";
+        document.getElementById("CourtCaseNumberSearch").style.display    = "none";
+        document.getElementById("CaseNameSearch").style.display           = DisplayType;
+        document.getElementById("BarNumberOrNameLeft").style.display      = "none";
+        document.getElementById("BarNumberOrNameRight").style.display     = "none";
+        document.getElementById("trJudOffc").style.display                = "none";
+        document.getElementById("cboJudOffc").style.display               = "none";
+        document.getElementById("trMagist").style.display                 = "none";
+        document.getElementById("cboMagist").style.display                = "none";
+        document.getElementById("trDateRange").style.display              = "none";
+        document.getElementById("chkCriminal").style.display              = "none";
+        document.getElementById("chkCivil").style.display                 = "none";
+        document.getElementById("chkFamily").style.display                = "none";
+        document.getElementById("chkProbate").style.display               = "none";
+
+        SetControlDisplay("PartyBusinessOption", "inline");
+
+        if (blnClear) {
+          document.getElementById("PartyNameOption").checked = true;
+        }
+
+        if (document.getElementById("PartyBusinessOption").checked) 
+        {
+          SwitchPartyType(document.getElementById("PartyBusinessOption").value, blnClear);
+        }
+        else 
+        {
+          SwitchPartyType(document.getElementById("PartyNameOption").value, blnClear);
+        }
+
+        bDisplaySoundex = true;
+        break;
+        
+      case "2":   // By Attorney
+        document.getElementById("trParamsForSearch").style.display        = RowDisplayType;
+        document.getElementById("BarNumberOrNameLeft").style.display      = RowDisplayType;
+        document.getElementById("BarNumberOrNameRight").style.display     = RowDisplayType;
+        document.getElementById("DateOfBirthRow").style.display           = "none";
+        document.getElementById("PartyNameOption").style.display          = "none";
+        document.getElementById("AttorneyNameOption").style.display       = "inline";
+        document.getElementById("BusinessOrIndividualLeft").style.display = "none";
+        document.getElementById("BusinessOrIndividualRight").style.display= "none";
+        document.getElementById("DateOfBirthRowExample").style.display    = "none";
+        document.getElementById("CourtCaseNumberSearch").style.display    = "none";
+        document.getElementById("LastName").style.width                   = "100px";
+        document.getElementById("NameLastColumn").colSpan                 = "1";
+        document.getElementById("FirstName").style.display                = "inline";
+        document.getElementById("MiddleName").style.display               = "inline";
+        document.getElementById("NameFirstLabel").style.display           = "inline";
+        document.getElementById("NameMiddleLabel").style.display          = "inline";
+        document.getElementById("CaseNameSearch").style.display           = DisplayType;
+        document.getElementById("trJudOffc").style.display                = "none";
+        document.getElementById("cboJudOffc").style.display               = "none";
+        document.getElementById("trMagist").style.display                 = "none";
+        document.getElementById("cboMagist").style.display                = "none";
+        document.getElementById("trDateRange").style.display              = "none";
+        document.getElementById("chkCriminal").style.display              = "none";
+        document.getElementById("chkCivil").style.display                 = "none";
+        document.getElementById("chkFamily").style.display                = "none";
+        document.getElementById("chkProbate").style.display               = "none";
+        
+        SetControlDisplay("AttorneyBarNumberOption", "inline");
+
+        if (blnClear) {
+          document.getElementById("AttorneyNameOption").checked = true;
+        }
+
+        if (document.getElementById("AttorneyBarNumberOption").checked) 
+        {
+          SwitchAttorneyType(document.getElementById("AttorneyBarNumberOption").value, blnClear);
+        }
+        else 
+        {
+          SwitchAttorneyType(document.getElementById("AttorneyNameOption").value, blnClear);
+        }
+        
+        bDisplaySoundex = true;        
+        break;
+        
+      case "3":   // By Judicial Officer
+        document.getElementById("CourtCaseNumberSearch").style.display    = "none";
+        document.getElementById("PartyNameOption").style.display          = "none";
+        document.getElementById("AttorneyNameOption").style.display       = "none";
+        document.getElementById("CaseNameSearch").style.display           = "none";
+        document.getElementById("BarNumberOrNameLeft").style.display      = "none";
+        document.getElementById("BarNumberOrNameRight").style.display     = "none";
+        document.getElementById("BusinessOrIndividualLeft").style.display = "none";
+        document.getElementById("BusinessOrIndividualRight").style.display= "none";
+        document.getElementById("DateOfBirthRow").style.display           = "none";
+        document.getElementById("DateOfBirthRowExample").style.display    = "none";
+        document.getElementById("trMagist").style.display                 = "none";
+        document.getElementById("cboMagist").style.display                = "none";
+        document.getElementById("trDateRange").style.display              = "none";
+        document.getElementById("trParamsForSearch").style.display        = "none";
+        document.getElementById("trJudOffc").style.display                = RowDisplayType;
+        document.getElementById("cboJudOffc").style.display               = DisplayType;
+        document.getElementById("chkCriminal").style.display              = RowDisplayType;
+        document.getElementById("chkCivil").style.display                 = RowDisplayType;
+        document.getElementById("chkFamily").style.display                = RowDisplayType;
+        document.getElementById("chkProbate").style.display               = RowDisplayType;
+        document.getElementById("SearchMode").value                       = "JUDOFFC";
+        bDisplaySoundex = false;
+        break;
+        
+      case "4":   // Magistrate
+        document.getElementById("CourtCaseNumberSearch").style.display    = "none";
+        document.getElementById("PartyNameOption").style.display          = "none";
+        document.getElementById("AttorneyNameOption").style.display       = "none";
+        document.getElementById("CaseNameSearch").style.display           = "none";
+        document.getElementById("BarNumberOrNameLeft").style.display      = "none";
+        document.getElementById("BarNumberOrNameRight").style.display     = "none";
+        document.getElementById("BusinessOrIndividualLeft").style.display = "none";
+        document.getElementById("BusinessOrIndividualRight").style.display= "none";
+        document.getElementById("DateOfBirthRow").style.display           = "none";
+        document.getElementById("DateOfBirthRowExample").style.display    = "none";
+        document.getElementById("trJudOffc").style.display                = "none";
+        document.getElementById("cboJudOffc").style.display               = "none";
+        document.getElementById("trDateRange").style.display              = "none";
+        document.getElementById("trParamsForSearch").style.display        = "none";
+        document.getElementById("trMagist").style.display                 = RowDisplayType;        
+        document.getElementById("cboMagist").style.display                = DisplayType;
+        document.getElementById("chkCriminalMagist").style.display        = RowDisplayType;
+        document.getElementById("chkCivilMagist").style.display           = RowDisplayType;
+        document.getElementById("chkFamilyMagist").style.display          = RowDisplayType;
+        document.getElementById("chkProbateMagist").style.display         = RowDisplayType;
+        document.getElementById("SearchMode").value                       = "MAGIST";
+        bDisplaySoundex = false;
+        break;
+
+    case "5":   // By Date Range
+        document.getElementById("CourtCaseNumberSearch").style.display     = "none";
+        document.getElementById("PartyNameOption").style.display           = "none";
+        document.getElementById("AttorneyNameOption").style.display        = "none";
+        document.getElementById("CaseNameSearch").style.display            = "none";
+        document.getElementById("BarNumberOrNameLeft").style.display       = "none";
+        document.getElementById("BarNumberOrNameRight").style.display      = "none";
+        document.getElementById("BusinessOrIndividualLeft").style.display  = "none";
+        document.getElementById("BusinessOrIndividualRight").style.display = "none";
+        document.getElementById("DateOfBirthRow").style.display            = "none";
+        document.getElementById("DateOfBirthRowExample").style.display     = "none";
+        document.getElementById("trMagist").style.display                  = "none";
+        document.getElementById("cboMagist").style.display                 = "none";
+        document.getElementById("trParamsForSearch").style.display         = "none";
+        document.getElementById("trJudOffc").style.display                 = "none";
+        document.getElementById("cboJudOffc").style.display                = "none";
+        document.getElementById("trDateRange").style.display               = RowDisplayType;
+        document.getElementById("chkDtRangeCriminal").style.display        = RowDisplayType;
+        document.getElementById("chkDtRangeCivil").style.display           = RowDisplayType;
+        document.getElementById("chkDtRangeFamily").style.display          = RowDisplayType;
+        document.getElementById("chkDtRangeProbate").style.display         = RowDisplayType;
+        document.getElementById("SearchMode").value                        = "DATERANGE";
+        bDisplaySoundex = false;
+        break;
+    }
+    HandleSoundexDisplay(bDisplaySoundex);
+    
+  }
+  
+  function SwitchCaseSearch(SearchType, blnClear)
+  {
+    var DocImp          = document.implementation;
+    var RowDisplayType  = (DocImp && DocImp.hasFeature && DocImp.hasFeature("CSS","2.0")) ? "table-row" :  "inline";
+    var DisplayType     = (DocImp && DocImp.hasFeature && DocImp.hasFeature("CSS","2.0")) ? "table"     :  "inline";
+    var bDisplaySoundex = true;
+
+    if (blnClear) 
+    {
+      ClearSearchControls();
+    }
+    
+    document.getElementById("DateSettingOnAfter").style.display  = "none";
+    document.getElementById("DateSettingOnBefore").style.display = "none";
+    
+    switch (SearchType)
+    {
+      case "0":     // By Case
+        
+        document.getElementById("CaseNameSearch").style.display           = "none";
+        document.getElementById("CaseNumberSearch").style.display         = DisplayType;
+        document.getElementById("CitationNumberSearch").style.display     = "none";
+        document.getElementById("trParamsForSearch").style.display        = RowDisplayType;
+        document.getElementById("trCaseStatusHelpText").style.display     = "none";
+        document.getElementById("trCaseStatusHelpTextSpace").style.display= "none";
+        
+        SetControlDisplay("PartyOtherAgencyOption", "none");
+        SetControlDisplay("PartyBusinessOption", "none");
+        SetControlDisplay("AttorneyBarNumberOption", "none");
+        SetControlDisplay("CitationNumberOption", "none");
+        
+        SetLabelValue("LastName", "Last Name:");
+        
+        //MSD. ODY-65260. 01/20/2010.  I moved this line out of the if block below it.  The problem was that when the page initially loads, and the page defaults to a case number serach, the
+        //searchmode control was not getting populated, so the search always returned with no cases found.  I checked and this function is only called by InitializeForm and when the SearchType combo
+        //is changed.  Both of those items reset to Case Number search mode when SearchType is case, so I think this is a safe change.
+        //SDZ. ODY-144595. 04/15/2014. Added if statement to prevent this from affecting "Refine Search" functionality
+        var elt = document.getElementById("SearchMode");
+        if(document.getElementById("CrossRefNumberOption"))
+        {
+          if(document.getElementById("CrossRefNumberOption").checked)
+          {
+            elt.value = "CROSSREFNUMBER";
+          }
+          else
+          {
+            elt.value = "CASENUMBER";
+          }
+        }
+        else
+        {
+          elt.value = "CASENUMBER";
+        }
+
+        if (blnClear) {
+          //reset to defaults
+          document.getElementById("CaseNumberOption").checked = true;
+        }
+
+        SwitchCaseSearchMode(document.getElementById("SearchMode").value, blnClear);
+        ToggleDateRangeRequired(false);
+        bDisplaySoundex = false;
+        break;
+
+      case "1":     // By Party
+        var casekeys  = "" 
+        casekeys.replace(" ", "")
+        if ("" == "CR"   || casekeys.length >= 11  ) {
+          document.getElementById("BusinessOrIndividualLeft").style.display = RowDisplayType;
+          document.getElementById("BusinessOrIndividualRight").style.display = RowDisplayType;
+          document.getElementById("DateOfBirthRow").style.display = RowDisplayType;
+          document.getElementById("DateOfBirthRowExample").style.display = RowDisplayType;
+          document.getElementById("DateOfBirth").style.display = DisplayType;
+        }
+        else {
+          document.getElementById("DateOfBirthRow").style.display = "none";
+          document.getElementById("DateOfBirthRowExample").style.display = "none";
+          document.getElementById("DateOfBirth").style.display = "none";
+          document.getElementById("BusinessOrIndividualLeft").style.display = RowDisplayType;
+          document.getElementById("BusinessOrIndividualRight").style.display = RowDisplayType;
+        }
+
+        document.getElementById("CaseNumberSearch").style.display = "none";
+        document.getElementById("CaseNameSearch").style.display = DisplayType;
+        document.getElementById("BarNumberOrNameLeft").style.display = "none";
+        document.getElementById("BarNumberOrNameRight").style.display = "none";
+        document.getElementById("PartyNameOption").style.display = "inline";
+        document.getElementById("AttorneyNameOption").style.display = "none";
+        document.getElementById("CitationNumberSearch").style.display = "none";
+        document.getElementById("trParamsForSearch").style.display = RowDisplayType;
+        document.getElementById("trCaseStatusHelpText").style.display = "none";
+        document.getElementById("trCaseStatusHelpTextSpace").style.display = "none";
+
+        SetControlDisplay("AttorneyBarNumberOption", "none");
+        SetControlDisplay("CitationNumberOption", "none");
+        SetControlDisplay("PartyBusinessOption", "inline");
+        SetControlDisplay("PartyOtherAgencyOption", "inline");
+
+        SetLabelValue("LastName", "Last Name:");
+        
+        if (blnClear) {
+          document.getElementById("PartyNameOption").checked = true;
+        }
+
+        if (document.getElementById("PartyOtherAgencyOption") != null && document.getElementById("PartyOtherAgencyOption").checked) 
+        {
+          SwitchPartyType(document.getElementById("PartyOtherAgencyOption").value, blnClear);
+        }
+        else if (document.getElementById("PartyStateIDOption") != null && document.getElementById("PartyStateIDOption").checked) 
+        {
+          SwitchPartyType(document.getElementById("PartyStateIDOption").value, blnClear);
+        }
+        else if (document.getElementById("PartyBusinessOption") != null && document.getElementById("PartyBusinessOption").checked)
+        {
+          SwitchPartyType(document.getElementById("PartyBusinessOption").value, blnClear);
+        }
+        else
+        {
+          SwitchPartyType(document.getElementById("PartyNameOption").value, blnClear);
+        }
+        
+        ToggleDateRangeRequired(false);
+        bDisplaySoundex = true;
+        break;
+
+      case "2":   // By Attorney
+      
+        document.getElementById("BarNumberOrNameLeft").style.display          = RowDisplayType;
+        document.getElementById("BarNumberOrNameRight").style.display         = RowDisplayType;
+        document.getElementById("DateOfBirthRow").style.display               = "none";
+        document.getElementById("DateOfBirth").style.display                  = "none";
+        document.getElementById("BusinessOrIndividualLeft").style.display     = "none";
+        document.getElementById("BusinessOrIndividualRight").style.display    = "none";
+        document.getElementById("DateOfBirthRowExample").style.display        = "none";
+        document.getElementById("CaseNumberSearch").style.display             = "none";
+        document.getElementById("LastName").style.width                       = "100px";
+        document.getElementById("NameLastColumn").colSpan                     = "1";
+        document.getElementById("FirstName").style.display                    = "inline";
+        document.getElementById("MiddleName").style.display                   = "inline";
+        document.getElementById("NameFirstLabel").style.display               = "inline";
+        document.getElementById("NameMiddleLabel").style.display              = "inline";
+        document.getElementById("CaseNameSearch").style.display               = DisplayType;
+        document.getElementById("PartyNameOption").style.display              = "none";
+        document.getElementById("AttorneyNameOption").style.display           = "inline";
+        document.getElementById("CitationNumberSearch").style.display         = "none";
+        document.getElementById("trParamsForSearch").style.display            = RowDisplayType;
+        document.getElementById("trCaseStatusHelpText").style.display         = "none";
+        document.getElementById("trCaseStatusHelpTextSpace").style.display    = "none";
+        
+        SetLabelValue("LastName", "Last Name:");
+        
+        SetControlDisplay("AttorneyBarNumberOption", "inline");
+        SetControlDisplay("PartyOtherAgencyOption", "none");
+        SetControlDisplay("PartyBusinessOption", "none");
+        SetControlDisplay("CitationNumberOption", "none");
+
+        if (blnClear) {
+          document.getElementById("AttorneyNameOption").checked = true;
+        }
+
+        if (document.getElementById("AttorneyBarNumberOption").checked) 
+        {
+          SwitchAttorneyType(document.getElementById("AttorneyBarNumberOption").value, blnClear);
+        }
+        else 
+        {
+          SwitchAttorneyType(document.getElementById("AttorneyNameOption").value, blnClear);
+        }
+        
+        ToggleDateRangeRequired(false);
+        bDisplaySoundex = true;
+
+         setTimeout(function() {   document.getElementById("LastName").focus(); document.getElementById("LastName").select(); }, 1000);
+
+        break;
+        
+      case "5":     // By Citation
+        
+        document.getElementById("CaseNumberSearch").style.display         = "none";
+        document.getElementById("BarNumberOrNameLeft").style.display      = "none";
+        document.getElementById("BarNumberOrNameRight").style.display     = "none";
+        document.getElementById("PartyNameOption").style.display          = "none";
+        document.getElementById("AttorneyNameOption").style.display       = "none";
+        document.getElementById("CaseNameSearch").style.display           = "none";
+        document.getElementById("CitationNumberSearch").style.display     = DisplayType;
+        document.getElementById("trParamsForSearch").style.display        = RowDisplayType;
+        document.getElementById("trCaseStatusHelpText").style.display     = "none";
+        document.getElementById("trCaseStatusHelpTextSpace").style.display= "none";
+        
+        SetLabelValue("LastName", "Last Name:");
+        
+        SetControlDisplay("CitationNumberOption", DisplayType);
+        SetControlDisplay("AttorneyBarNumberOption", "none");
+        SetControlDisplay("PartyOtherAgencyOption", "none");
+        SetControlDisplay("PartyBusinessOption", "none"); 
+         
+        ToggleDateRangeRequired(false);
+        bDisplaySoundex = false;
+        document.getElementById("CitationSearchValue").focus();
+        document.getElementById("CitationSearchValue").select();
+        break;        
+        
+      case "6":   // Date Filed
+        
+        document.getElementById("CourtCaseNumberSearch").style.display        = "none";
+        document.getElementById("PartyNameOption").style.display              = "none";
+        document.getElementById("AttorneyNameOption").style.display           = "none";
+        document.getElementById("CaseNameSearch").style.display               = "none";
+        document.getElementById("BarNumberOrNameLeft").style.display          = "none";
+        document.getElementById("BarNumberOrNameRight").style.display         = "none";
+        document.getElementById("BusinessOrIndividualLeft").style.display     = "none";
+        document.getElementById("BusinessOrIndividualRight").style.display    = "none";
+        document.getElementById("DateOfBirthRow").style.display               = "none";
+        document.getElementById("DateOfBirthRowExample").style.display        = "none";
+        document.getElementById("trCaseStatusHelpText").style.display         = RowDisplayType;
+        document.getElementById("trCaseStatusHelpTextSpace").style.display    = RowDisplayType;
+
+        document.getElementById("trJudOffc").style.display                    = "none";
+        document.getElementById("trParamsForSearch").style.display            = "none";
+        document.getElementById("SearchMode").value                           = "FILED";
+        document.getElementById("SearchType").value                           = "CASE";
+        
+        SetLabelValue("LastName", "Last Name:");
+        
+        ToggleDateRangeRequired(true);
+        bDisplaySoundex = false; 
+        document.getElementById("DateFiledOnAfter").focus();
+        document.getElementById("DateFiledOnAfter").select();
+        break;
+    }
+    HandleSoundexDisplay(bDisplaySoundex);
+  }
+  
+  
+  function SwitchCaseSearchMode( SearchMode, blnClear )
+  {
+    var HeaderText = "Case Number:";
+
+    if (blnClear)
+    {
+      ClearSearchControls();
+    }
+    
+    switch (SearchMode.toString().toUpperCase())
+    {
+      case "CASENUMBER":
+        HeaderText = "Case Number";        
+        document.getElementById("SearchMode").value = "CASENUMBER";
+        break;
+
+      case "CASENUMBERHISTORY":
+        HeaderText = "Case Number History";
+        document.getElementById("SearchMode").value = "CASENUMBERHISTORY";
+        break;
+
+      case "CROSSREFNUMBER":
+        HeaderText = "Cross Reference Number";
+        document.getElementById("SearchMode").value = "CROSSREFNUMBER";
+        break;
+    }
+    
+    SetLabelValue("CaseSearchValue", HeaderText);
+	
+    document.getElementById("CaseSearchHeader").innerHTML = "* " + HeaderText;
+	   
+    setTimeout(function() { document.getElementById("CaseSearchValue").focus();  document.getElementById("CaseSearchValue").select(); }, 1000);
+	
+  } 
+  
+  function FlipCheck( ElementID, blnChecked )
+  {
+   switch (ElementID.toString())
+   {
+     case "chkExactName":    
+       if (blnChecked)  
+       {         
+         document.getElementById("chkSoundex").checked = false;
+       }
+       else
+       {
+         document.getElementById("chkSoundex").checked = true;        
+       }
+       break;
+
+      case "chkSoundex":
+        if (blnChecked)  
+        {         
+          document.getElementById("chkExactName").checked = false;
+        }
+        else
+        {
+          document.getElementById("chkExactName").checked = true;        
+        }
+        break;
+   }   
+   
+  }
+  
+  function SetLabelValue(controlName, labelValue)
+  { 
+    //Intended to be a safe label value set method.  If the value could not be set, false is returned 
+    var wasValueSet = true;
+    
+    try
+    {
+      document.getElementById(controlName).LabelName = labelValue;
+    }
+    catch(ex)
+    {
+      wasValueSet = false;
+    }
+    
+    return wasValueSet;
+  }
+  
+  function SwitchAttorneyType(AttorneyType, blnClear)
+  {
+    var bDisplaySoundex = true;
+
+    if (blnClear) 
+    {
+      ClearSearchControls();
+    }
+   
+    switch (AttorneyType)
+    {
+    
+      case "Name":
+        document.getElementById("LastName").style.width            = "100px";
+        document.getElementById("NameLastColumn").colSpan          = "1";
+        document.getElementById("FirstName").style.display         = "inline";
+        document.getElementById("MiddleName").style.display        = "inline";
+        document.getElementById("NameFirstLabel").style.display    = "inline";
+        document.getElementById("NameMiddleLabel").style.display   = "inline";
+        document.getElementById("LastNameDiv").style.display       = "inline";
+        document.getElementById("BusinessDiv").style.display       = "none";
+        document.getElementById("OtherAgencyDiv").style.display    = "none";
+        document.getElementById("BarNumberDiv").style.display      = "none";
+        document.getElementById("StateIDDiv").style.display        = "none";
+        document.getElementById("StateDiv").style.display          = "none";
+        document.getElementById("StateComboDiv").style.display     = "none";
+        document.getElementById("cboState").style.display          = "none";
+        
+        document.getElementById("SearchMode").value                = "NAME";
+        
+        SetLabelValue("LastName", "Last Name:");
+        break;
+        
+      case "BarNumber":
+        document.getElementById("FirstName").style.display         = "none";
+        document.getElementById("MiddleName").style.display        = "none";
+        document.getElementById("NameFirstLabel").style.display    = "none";
+        document.getElementById("NameMiddleLabel").style.display   = "none";
+        document.getElementById("LastName").style.width            = "300px";
+        document.getElementById("NameLastColumn").colSpan          = "3";
+        document.getElementById("LastNameDiv").style.display       = "none";
+        document.getElementById("BusinessDiv").style.display       = "none";
+        document.getElementById("OtherAgencyDiv").style.display    = "none";
+        document.getElementById("BarNumberDiv").style.display      = "inline";
+        document.getElementById("StateIDDiv").style.display        = "none";
+        document.getElementById("StateDiv").style.display          = "none";
+        document.getElementById("StateComboDiv").style.display     = "none";
+        document.getElementById("cboState").style.display          = "none";
+        
+        document.getElementById("SearchMode").value                = "BARNUMBER";
+        
+        SetLabelValue("LastName", "Bar Number:");
+        
+        bDisplaySoundex = false;
+        break;
+    }
+    
+    HandleSoundexDisplay(bDisplaySoundex);
+
+    setTimeout(function() { document.getElementById("LastName").focus();  document.getElementById("LastName").select(); }, 1000);
+        
+  }
+  
+  
+  //
+  // This function will switch the fields around so that 
+  //
+
+  function SwitchPartyType(PartyType, blnClear)
+  {
+  
+    var DocImp          = document.implementation;
+    var RowDisplayType  = (DocImp && DocImp.hasFeature && DocImp.hasFeature("CSS","2.0")) ? "table-row" :  "inline";
+    var DisplayType     = (DocImp && DocImp.hasFeature && DocImp.hasFeature("CSS","2.0")) ? "table"     :  "inline";
+    var bDisplaySoundex = true;
+
+    if (blnClear)
+    {
+      ClearSearchControls();
+    }
+    
+    switch (PartyType)
+    {
+    
+      case "Name":
+        document.getElementById("LastName").style.width            = "100px";
+        document.getElementById("LastName").setAttribute("maxLength", 80);
+        document.getElementById("NameLastColumn").colSpan          = "1";
+        document.getElementById("FirstName").style.display         = "inline";
+        document.getElementById("MiddleName").style.display        = "inline";
+        document.getElementById("NameFirstLabel").style.display    = "inline";
+        document.getElementById("NameMiddleLabel").style.display   = "inline";
+        document.getElementById("LastNameDiv").style.display       = "inline";
+        document.getElementById("BusinessDiv").style.display       = "none";
+        document.getElementById("OtherAgencyDiv").style.display    = "none";
+        document.getElementById("BarNumberDiv").style.display      = "none";
+        document.getElementById("StateIDDiv").style.display        = "none";
+        document.getElementById("StateDiv").style.display          = "none";
+        document.getElementById("StateComboDiv").style.display     = "none";
+        document.getElementById("cboState").style.display          = "none";
+
+        if ("CALENDAR" == "ND" || "CALENDAR" == "OR")
+        {      
+          SetControlDisplay("DateOfBirth", "none");
+          SetControlDisplay("DateFiledOnAfter", "none");
+          SetControlDisplay("DateFiledOnBefore", "none");
+          SetControlDisplay("DateSettingOnAfter", "none");
+          SetControlDisplay("DateSettingOnBefore", "none");
+          SetControlDisplay("selCaseTypeGroups", "none");
+          SetControlDisplay("selHearingTypeGroups", "none");
+          SetControlDisplay("CaseCategories", "none");
+          SetControlDisplay("DateFiledOnBefore", "none");
+          SetControlDisplay("AllStatusTypes", "none");
+          SetControlDisplay("AllOption", "none");
+          SetControlDisplay("OpenOption", "none");
+          SetControlDisplay("ClosedOption", "none");
+          SetControlDisplay("AttorneyBarNumberOption", "none");
+          SetControlDisplay("AttorneyNameOption", "none");
+        }
+        SetLabelValue("LastName", "Last Name:");
+        
+               
+         document.getElementById("SearchMode").value                = "NAME";
+         if ( "CALENDAR"  == "CITATION") 
+           document.getElementById("PNOption").style.display        = "none";
+        break;
+        
+      case "BusinessName":
+        document.getElementById("FirstName").style.display         = "none";
+        document.getElementById("LastName").setAttribute("maxLength", 80);
+        document.getElementById("MiddleName").style.display        = "none";
+        document.getElementById("NameFirstLabel").style.display    = "none";
+        document.getElementById("NameMiddleLabel").style.display   = "none";
+        document.getElementById("LastName").style.width            = "300px";
+        document.getElementById("NameLastColumn").colSpan          = "3";
+        document.getElementById("LastNameDiv").style.display       = "none";
+        document.getElementById("BusinessDiv").style.display       = "inline";
+        document.getElementById("OtherAgencyDiv").style.display    = "none";
+        document.getElementById("BarNumberDiv").style.display      = "none";
+        document.getElementById("StateIDDiv").style.display        = "none";
+        document.getElementById("StateDiv").style.display          = "none";
+        document.getElementById("StateComboDiv").style.display     = "none";
+        document.getElementById("cboState").style.display          = "none";
+        
+        SetLabelValue("LastName", "Business Name:");
+        
+        document.getElementById("SearchMode").value                = "BUSINESSNAME";
+        break;
+        
+      case "OtherAgencyNumber":
+        document.getElementById("FirstName").style.display         = "none";
+        document.getElementById("MiddleName").style.display        = "none";
+        document.getElementById("NameFirstLabel").style.display    = "none";
+        document.getElementById("NameMiddleLabel").style.display   = "none";
+        document.getElementById("LastName").style.width            = "300px";   // We will piggy back last name
+        document.getElementById("LastName").setAttribute("maxLength", 80);
+        document.getElementById("NameLastColumn").colSpan          = "3";
+        document.getElementById("LastNameDiv").style.display       = "none";
+        document.getElementById("BusinessDiv").style.display       = "none";
+        if ( "CALENDAR"  != "CITATION")
+          document.getElementById("OtherAgencyDiv").style.display    = "inline";
+        document.getElementById("BarNumberDiv").style.display      = "none";
+        document.getElementById("StateIDDiv").style.display        = "none";
+        document.getElementById("StateDiv").style.display          = "none";
+        document.getElementById("StateComboDiv").style.display     = "none";
+        document.getElementById("cboState").style.display          = "none";
+        
+        if ( "CALENDAR"  != "CITATION")
+          SetLabelValue("LastName", "Other Agency Number:");
+        
+        document.getElementById("SearchMode").value                = "OTHERAGENCYNUMBER";
+        bDisplaySoundex = false;
+        break;
+        
+       case "StateIDNumber":       
+        document.getElementById("FirstName").style.display         = "none";
+        document.getElementById("MiddleName").style.display        = "none";
+        document.getElementById("NameFirstLabel").style.display    = "none";
+        document.getElementById("NameMiddleLabel").style.display   = "none";
+        if ( "CALENDAR"  != "CITATION")
+        {
+          document.getElementById("LastName").style.width            = "200px";   // We will piggy back last name  
+          document.getElementById("LastName").setAttribute("maxLength", 20);
+          document.getElementById("NameLastColumn").colSpan          = "1";
+        }
+        document.getElementById("LastNameDiv").style.display       = "none";
+        document.getElementById("BusinessDiv").style.display       = "none";
+        document.getElementById("OtherAgencyDiv").style.display    = "none";
+        document.getElementById("BarNumberDiv").style.display      = "none";
+        if ( "CALENDAR"  != "CITATION")
+        {
+          document.getElementById("StateIDDiv").style.display        = "inline";
+          document.getElementById("StateDiv").style.display          = "inline";
+          document.getElementById("StateComboDiv").style.display     = "inline";
+          document.getElementById("cboState").style.display          = "inline";  
+          document.getElementById("SearchMode").value                = "STATEIDNUMBER";       
+        
+          SetLabelValue("LastName", "State ID Number:");
+        }
+        
+        bDisplaySoundex = false;
+        break;
+    }
+    HandleSoundexDisplay(bDisplaySoundex);
+
+    document.getElementById("LastName").focus();
+    document.getElementById("LastName").select();
+		
+  }
+  
+  function SwitchDateFiledType()
+  {
+    if(searchParams == "" || passedRefinedSearchPageLoad)
+    {
+      setTimeout(function() {  document.getElementById("DateFiledOnAfter").focus(); document.getElementById("DateFiledOnAfter").select(); }, 1000);
+    }
+    else{
+      passedRefinedSearchPageLoad = true
+    }
+  }
+
+  function HandleSoundexDisplay(bDisplaySoundex)
+  {
+
+    if (bDisplaySoundex)
+    {
+      document.getElementById("tblSoundex").style.display = "block";
+    }
+    else
+    {
+      document.getElementById("tblSoundex").style.display = "none";
+      document.getElementById("chkSoundex").checked = false;
+    }
+  }
+  
+    
+  // Validates wildcards in a given string.  A wildcard is being used incorrectly if the string contains more than 1 wildcard or if the minium number of characters
+  // are not present.  If a wildcard is used, it also must be the last character in the string.
+  //   SearchValue      = The string that will be evaluated.
+  //   FieldName        = The string's description that will be used in error messages.
+  //   MinCharsRequired = The minimum number of non-wildcard characters that must be entered before a wildcard can be used.
+  //   IgnoreDashes     = If true, the '-' character will be ignored when determining if the minium number of characters have been entered.
+  function ValidateWildcards(SearchValue, FieldName, MinCharsRequired, IgnoreDashes)
+  {
+    var ErrorMessage     = "";
+    var WildcardCount    = 0;
+    var DashCount        = 0;
+    var InvalidCharCount = 0;
+    var InvalidChars     = "";
+    var i;
+    
+    for (i = 0; i < SearchValue.length; i++)
+    {
+      var cSearchChar = SearchValue.charAt(i);
+      if (cSearchChar == "*")
+      {
+        WildcardCount++;
+      }
+      else if (IgnoreDashes && cSearchChar == "-")
+      {
+        DashCount++;
+      }
+      else if (cSearchChar == "^" || cSearchChar == "<" || cSearchChar == ">" || 
+               cSearchChar == "%" || cSearchChar == "!" || cSearchChar == "#" || 
+                                     cSearchChar == "(" || cSearchChar == ")" ||
+               cSearchChar == "?" || cSearchChar == "{" || cSearchChar == "}" ||
+               cSearchChar == "$" || cSearchChar == '"' || 
+               cSearchChar == "~" || cSearchChar == "`" || cSearchChar == "+" || 
+               cSearchChar == "=" || cSearchChar == "@" || cSearchChar == ":" || 
+               cSearchChar == ";" || cSearchChar == "/" || cSearchChar == "|")
+      {
+        InvalidChars = InvalidChars + "," + cSearchChar;
+        InvalidCharCount++;
+      }
+    }     
+   
+    if (InvalidCharCount > 0)
+    {
+      ErrorMessage = "The " + FieldName.substring(2) + " contains an invalid character. Some characters (" + InvalidChars.substring(1) + ") cannot be used.";
+    }
+
+    if (WildcardCount > 0 && document.getElementById("chkSoundex").checked)
+    {
+      ErrorMessage = "A wildcard (*) cannot be used when Use Soundex is selected.";
+    }
+    else if ((WildcardCount > 1) || (WildcardCount == 1 && SearchValue.charAt(SearchValue.length - 1) != "*"))
+    {
+      ErrorMessage = "A wildcard (*) has been used incorrectly.";
+    }
+    else if ((WildcardCount == 1) && (SearchValue.length - DashCount <= MinCharsRequired))
+    {
+      if (MinCharsRequired == 1)
+      {
+        ErrorMessage = "At least " + MinCharsRequired + " character " + (IgnoreDashes?"(other than a dash) ":"") + "is required when searching for " + FieldName + " using a wildcard (*).";
+      }
+      else
+      {
+        ErrorMessage = "At least " + MinCharsRequired + " characters " + (IgnoreDashes?"(other than dashes) ":"") + "are required when searching for " + FieldName + " using a wildcard (*).";
+      }
+    }
+            
+    if (WildcardCount > 0 && document.getElementById("chkExactName").checked && document.getElementById("tdexactname").style.display != "none")
+    {
+      ErrorMessage = "A wildcard (*) cannot be used when Exact Name is selected.";
+    }
+    
+    return ErrorMessage;
+  }
+  
+
+  function ValidateLastFirstNameFields()
+  {
+    var strErrorMessage = "";
+    
+    var strFirstName  = document.getElementById("FirstName").value.trim();
+    var strMiddleName = document.getElementById("MiddleName").value.trim();
+    var strLastName   = document.getElementById("LastName").value.trim();
+
+    var blnFirstNameRequired = false;
+   
+    document.getElementById("RequireFirstName").value = "True";
+
+    // The First Name is only required when performing a Judgment Search or Calendar Search or if the "RequireFirstName" option is turned on.       
+    if ("CALENDAR" == "JUDGMENT"  || "CALENDAR" == "ND" || "CALENDAR" == "OR" || "CALENDAR" == "CALENDAR" || "True" == "True")
+    {
+      blnFirstNameRequired = true;
+    }
+    
+    if ( strLastName.length == 0 ) 
+    {
+      if ( strFirstName.length == 0 && blnFirstNameRequired )
+      {
+        strErrorMessage = "Please enter a Last and First Name.";
+      }
+      else
+      {
+        strErrorMessage = "Please enter a Last Name.";
+      }
+    }
+    else
+    {
+      if ( strFirstName.length == 0 && blnFirstNameRequired ) 
+      {
+        strErrorMessage = "Please enter a First Name.";
+      }
+      else
+      {
+        strErrorMessage = ValidateWildcardsOnNameFields(strFirstName, strMiddleName, strLastName);
+      }
+    }
+      
+    return strErrorMessage;
+  }
+  
+  function ValidateLastFirstNameFieldsNoWildCard()
+  {
+    var strErrorMessage = "";
+    
+    var strFirstName  = document.getElementById("FirstName").value.trim();
+    var strMiddleName = document.getElementById("MiddleName").value.trim();
+    var strLastName   = document.getElementById("LastName").value.trim();
+
+    var blnFirstNameRequired = false;
+   
+    document.getElementById("RequireFirstName").value = "True";
+
+    // The First Name is only required when performing a Judgment Search or Calendar Search or if the "RequireFirstName" option is turned on.       
+    if ("CALENDAR" == "LHJUD" || "CALENDAR" == "JUDGMENT"  || "CALENDAR" == "ND" || "CALENDAR" == "OR" || "CALENDAR" == "CALENDAR" || "True" == "True")
+    {
+      blnFirstNameRequired = true;
+    }
+    
+    if ( strLastName.length == 0 ) 
+    {
+      if ( strFirstName.length == 0 && blnFirstNameRequired )
+      {
+        strErrorMessage = "Please enter a Last and First Name.";
+      }
+      else
+      {
+        strErrorMessage = "Please enter a Last Name.";
+      }
+    }
+    else
+    {
+      if ( strFirstName.length == 0 && blnFirstNameRequired ) 
+      {
+        strErrorMessage = "Please enter a First Name.";
+      }
+      else
+      {
+      }
+    }
+      
+    return strErrorMessage;
+  }
+  
+  // Validates the First Name, Middle Name, and Last Name for wildcards
+  function ValidateWildcardsOnNameFields(strFirstName, strMiddleName, strLastName)
+  {
+    var strErrorMessage = "";
+    
+    var blnFirstNameContainsWildcard  = (strFirstName.indexOf("*") >= 0);
+    var blnMiddleNameContainsWildcard = (strMiddleName.indexOf("*") >= 0);
+    var blnLastNameContainsWildcard   = (strLastName.indexOf("*") >= 0);
+    
+    if ( blnMiddleNameContainsWildcard )
+    {
+      strErrorMessage = ValidateWildcards(strMiddleName, "a Middle Name", 1, false);
+    }
+    
+    if ( blnFirstNameContainsWildcard && strErrorMessage.length == 0)
+    {
+      strErrorMessage = ValidateWildcards(strFirstName, "a First Name", 1, false);
+    }
+    
+    if ( blnLastNameContainsWildcard && strErrorMessage.length == 0)
+    {
+      strErrorMessage = ValidateWildcards(strLastName, "a Last Name", 3, false);
+    }
+
+    return strErrorMessage;
+  }
+  
+  function CheckSearchParameters()
+  {
+    var ErrorMessage   = "";
+    var WorkingString1 = "";
+    var WorkingString2 = "";
+    var SearchBy = GetSearchBy();
+
+    switch( "CALENDAR" )
+    {
+      case "CALENDAR":
+        switch( SearchBy )
+        {
+          case "0":
+            WorkingString1 = document.getElementById("CourtCaseSearchValue").value.trim();
+
+            if (WorkingString1.length == 0)
+              ErrorMessage = "Please enter the case number.";
+            else
+              ErrorMessage = ValidateWildcards(WorkingString1, "a Case Number or Cross Ref Number", 4, true);
+            break;
+
+          case "1":
+            ErrorMessage = ValidatePartySearchTypeRequiredFields();
+
+            break;
+
+          case "2":
+            if (document.getElementById("SearchMode").value == "NAME")
+            {
+              ErrorMessage = ValidateLastFirstNameFields();
+            }
+            else
+            {
+              WorkingString1 = document.getElementById("LastName").value;
+              if (WorkingString1.length == 0)
+                ErrorMessage = "Please enter a bar number.";
+            }
+            break;
+
+          case "3":
+            WorkingString1 = document.getElementById("cboJudOffc").value;
+
+            if (WorkingString1.Length == 0)
+              ErrorMessage = "Please enter a judicial officer.";
+            else
+            {
+              if ( !document.getElementById("chkCriminal").checked )
+              {
+                if ( !document.getElementById("chkCivil").checked )
+                {
+                  if ( !document.getElementById("chkFamily").checked )
+                  {
+                    if (!document.getElementById("chkProbate").checked)
+                      ErrorMessage = "Please select at least one case category.";
+                  }
+                }
+              }
+            }
+            break;
+
+          case "4":
+            WorkingString1 = document.getElementById("cboMagist").value;
+
+            if (WorkingString1.Length == 0)
+              ErrorMessage = "Please enter a " + GetSearchOption("MagistrateLabel", "Magistrate", "CaseDetail") + ".";
+            else {
+              if (!document.getElementById("chkCriminalMagist").checked) {
+                if (!document.getElementById("chkCivilMagist").checked) {
+                  if (!document.getElementById("chkFamilyMagist").checked) {
+                    if (!document.getElementById("chkProbateMagist").checked)
+                      ErrorMessage = "Please select at least one case category.";
+                  }
+                }
+              }
+            }
+            break;
+
+          case "5":
+            //            WorkingString1 = document.getElementById("cboJudOffc").value;
+
+            //            if (WorkingString1.Length == 0)
+            //                ErrorMessage = "Please enter a judicial officer.";
+            //            else {
+                    if (!document.getElementById("chkDtRangeCriminal").checked)
+                    {
+                      if (!document.getElementById("chkDtRangeCivil").checked)
+                      {
+                        if (!document.getElementById("chkDtRangeFamily").checked)
+                        {
+                  if (!document.getElementById("chkDtRangeProbate").checked)
+                    ErrorMessage = "Please select at least one case category.";
+                }
+              }
+            }
+            //            }
+            break;
+
+        } // END switch( SearchBy )
+
+        if ( ErrorMessage.length == 0 )
+        {
+          WorkingString1 = document.getElementById("DateSettingOnAfter").value;
+
+          if (WorkingString1 == "")
+            ErrorMessage = "Please enter Date on or After.";
+          else
+          {
+            WorkingString1 = document.getElementById("DateSettingOnBefore").value;
+
+            if (WorkingString1 == "")
+              ErrorMessage = "Please enter Date on or Before.";
+            else
+            {
+              ErrorMessage = ValidateDate(document.getElementById("DateSettingOnAfter").value, "Date on or After");
+              if ( ErrorMessage.length == 0 )
+              {
+                ErrorMessage = ValidateDate(document.getElementById("DateSettingOnBefore").value, "Date on or Before");
+
+                if (ErrorMessage.length == 0)
+                  ErrorMessage = ValidateDateRange(document.getElementById("DateSettingOnAfter").value, document.getElementById("DateSettingOnBefore").value);
+
+                var MaxCalendarSearchDays = 0;
+                if (ErrorMessage.length == 0)
+                  ErrorMessage = ValidateDateRangeMaxDays(document.getElementById("DateSettingOnAfter").value, document.getElementById("DateSettingOnBefore").value, MaxCalendarSearchDays);
+              }
+            }
+          }
+        }
+        break;
+        
+      case "JUDGMENT":
+      //
+      // Judgment Search Validation
+      //
+      
+        //DAS - 06/27/2007 - ODY-32795 - If the user presses the Clear button, this will be reset to ""
+        if (document.getElementById("SearchMode").value == "")
+          document.getElementById("SearchMode").value = "NAME";
+        
+        if (document.getElementById("SearchMode").value == "NAME")
+          ErrorMessage = ValidateLastFirstNameFields();   
+        else
+        {
+          WorkingString1 = document.getElementById("LastName").value.trim();
+          if (document.getElementById("SearchMode").value == "BUSINESSNAME")
+          {
+            if ( WorkingString1.length == 0 ) 
+              ErrorMessage = "Please enter a business name.";
+            else if ( WorkingString1.indexOf("*") >= 0 ) 
+              ErrorMessage = ValidateWildcards(WorkingString1, "a Business Name", 3, false);
+          }
+          else
+          {
+            if ( WorkingString1.length == 0 ) 
+              ErrorMessage = "Please enter an other agency number.";
+            else if ( WorkingString1.indexOf("*") >= 0 ) 
+              ErrorMessage = ValidateWildcards(WorkingString1, "an Other Agency Number", 4, true);
+          }
+        }
+        break;
+        
+       case "LHJUD":
+        case "LHEJECTMENT":
+        //
+        // LeeHigh Judgment Search Validation
+        //
+        switch( SearchBy )
+        {
+          case "0":
+            WorkingString1 = document.getElementById("CaseSearchValue").value.trim();
+            if ( WorkingString1.length == 0 )
+            {
+              if (document.getElementById("SearchMode").value == "") //If the user presses the Clear button, this will be reset to ""
+                document.getElementById("SearchMode").value = "CASENUMBER";
+                
+              if (document.getElementById("SearchMode").value == "CASENUMBER")
+                ErrorMessage = "Please enter the case number.";
+              else
+                ErrorMessage = "Please enter the cross reference number.";
+            }
+            else
+              ErrorMessage = ValidateWildcards(WorkingString1, "a Case Number or Cross Ref Number", 4, true);
+            break;
+
+          case "1":
+            var blnFirstNameRequired = false;
+   
+            document.getElementById("RequireFirstName").value = "True";
+            //DAS - 06/27/2007 - ODY-32795 - If the user presses the Clear button, this will be reset to ""
+            if (document.getElementById("SearchMode").value == "")
+            document.getElementById("SearchMode").value = "NAME";
+        
+            if (document.getElementById("SearchMode").value == "NAME")
+            {
+               ErrorMessage = ValidateLastFirstNameFieldsNoWildCard();
+            }  
+            else
+            {
+              WorkingString1 = document.getElementById("LastName").value.trim();
+              if (document.getElementById("SearchMode").value == "BUSINESSNAME")
+              {
+                if ( WorkingString1.length == 0 ) 
+                  ErrorMessage = "Please enter a business name.";
+                else if ( WorkingString1.indexOf("*") >= 0 ) 
+                {
+                  //No longer validate wildcards in the name for LeeHigh Judgment search
+                }
+              }
+              else
+              {
+                if ( WorkingString1.length == 0 ) 
+                  ErrorMessage = "Please enter an other agency number.";
+                else if ( WorkingString1.indexOf("*") >= 0 ) 
+                {
+                  //No longer validate wildcards in the name for LeeHigh Judgment search
+                }
+              }
+            }
+            break;
+            case "2":
+              if (document.getElementById("SearchMode").value == "NAME"){
+                ErrorMessage = ValidateLastFirstNameFieldsNoWildCard();
+              }
+              else{
+                WorkingString1 = document.getElementById("LastName").value;
+                if ( WorkingString1.length == 0 ) 
+                  ErrorMessage = "Please enter a bar number.";
+              }
+            break; 
+            case "6":
+              WorkingString1 = document.getElementById("DateFiledOnAfter").value;
+              WorkingString2 = document.getElementById("DateFiledOnBefore").value;
+              
+              if ( WorkingString1.length == 0 ) 
+                ErrorMessage = "Please enter an On or After Date.";
+                
+              if ( WorkingString2.length == 0 ) 
+                ErrorMessage = "Please enter an On or Before Date.";
+              
+              if ( ErrorMessage.length == 0 )  
+                ErrorMessage = ValidateDateRange(document.getElementById("DateFiledOnAfter").value, document.getElementById("DateFiledOnBefore").value);
+              
+              break;
+          }
+          break;
+
+        case "ND":
+        case "OR":
+        //
+        // Judgment Search Validation
+        //
+      
+        if (document.getElementById("SearchMode").value == "")
+          document.getElementById("SearchMode").value = "NAME";
+        
+        if (document.getElementById("SearchMode").value == "NAME")
+          ErrorMessage = ValidateLastFirstNameFields();   
+        else
+        {
+          WorkingString1 = document.getElementById("LastName").value.trim();
+          if (document.getElementById("SearchMode").value == "BUSINESSNAME")
+          {
+            if ( WorkingString1.length == 0 ) 
+              ErrorMessage = "Please enter a business name.";
+            else if ( WorkingString1.indexOf("*") >= 0 ) 
+              ErrorMessage = ValidateWildcards(WorkingString1, "a Business Name", 3, false);
+          }
+        }
+        break;
+    
+      default:
+        //
+        // Case Search Validation
+        //
+      
+        switch( SearchBy )
+        {
+          case "0":
+            WorkingString1 = document.getElementById("CaseSearchValue").value.trim();
+            
+            if (document.getElementById("SearchMode").value == "") //If the user presses the Clear button, this will be reset to ""
+              document.getElementById("SearchMode").value = "CASENUMBER"; 
+                           
+            if ( WorkingString1.length == 0 )
+            {                
+              if (document.getElementById("SearchMode").value == "CASENUMBER")
+                ErrorMessage = "Please enter the case number.";
+              else
+                ErrorMessage = "Please enter the cross reference number.";
+            }
+            else
+              ErrorMessage = ValidateWildcards(WorkingString1, "a Case Number or Cross Ref Number", 4, true);
+            break;
+              
+          case "1":          
+            ErrorMessage = ValidatePartySearchTypeRequiredFields();
+            
+            if ("" == "CR" && ErrorMessage.length == 0)
+            {
+              ErrorMessage = ValidateDate( document.getElementById("DateOfBirth").value , "Date of Birth" );
+            }
+            break;
+              
+          case "2":
+            if (document.getElementById("SearchMode").value == "NAME"){
+              ErrorMessage = ValidateLastFirstNameFields();
+            }
+            else{
+              WorkingString1 = document.getElementById("LastName").value;
+              if ( WorkingString1.length == 0 ) 
+                  ErrorMessage = "Please enter a bar number.";
+            }
+            break; 
+            
+           case "5":
+            WorkingString1 = document.getElementById("CitationSearchValue").value.trim();
+            if ( WorkingString1.length == 0 ) 
+                ErrorMessage = "Please enter a citation number.";
+            else
+                ErrorMessage = ValidateWildcards(WorkingString1, "a Citation Number", 4, true);
+            break;  
+            
+            case "6":
+              WorkingString1 = document.getElementById("DateFiledOnAfter").value;
+              WorkingString2 = document.getElementById("DateFiledOnBefore").value;
+              
+              if ( WorkingString1.length == 0 ) 
+                ErrorMessage = "Please enter an On or After Date.";
+                
+              if ( WorkingString2.length == 0 ) 
+                ErrorMessage = "Please enter an On or Before Date.";
+              
+              if ( ErrorMessage.length == 0 )  
+                ErrorMessage = ValidateDateRange(document.getElementById("DateFiledOnAfter").value, document.getElementById("DateFiledOnBefore").value);
+              
+              break;
+        } // END switch( SearchBy )
+      
+        if ( ErrorMessage.length == 0 )
+        {
+          ErrorMessage = ValidateDate( document.getElementById("DateFiledOnAfter").value , "Date on or After" );
+          if ( ErrorMessage.length == 0 )
+          {
+            ErrorMessage = ValidateDate( document.getElementById("DateFiledOnBefore").value , "Date on or Before" );
+            if ( ErrorMessage.length == 0 )
+            {
+              ErrorMessage = ValidateDateRange(document.getElementById("DateFiledOnAfter").value, document.getElementById("DateFiledOnBefore").value);
+            }
+          }          
+        }
+    } // END switch( "CALENDAR" )
+    
+    if ( ErrorMessage.length > 0 )
+    {
+      alert( ErrorMessage );
+      return false;
+    }
+    else
+      return true;
+  }
+  
+  
+  function ValidatePartySearchTypeRequiredFields()
+  {
+    var ErrorMessage = "";
+    var WorkingString1 = "";
+
+    if (document.getElementById("SearchMode").value == "") //If the user presses the Clear button, this will be reset to ""
+      document.getElementById("SearchMode").value = "NAME"
+
+    if (document.getElementById("SearchMode").value == "NAME")
+      ErrorMessage = ValidateLastFirstNameFields();   
+    else
+    {
+      WorkingString1 = document.getElementById("LastName").value.trim();
+      
+      if (document.getElementById("SearchMode").value == "BUSINESSNAME")
+      {
+        if ( WorkingString1.length == 0 ) 
+          ErrorMessage = "Please enter a business name.";
+        else if ( WorkingString1.indexOf("*") >= 0 )
+        {
+          ErrorMessage = ValidateWildcards(WorkingString1, "a Business Name", 3, false);
+        }
+      }
+      else
+      {
+        if(document.getElementById("SearchMode").value == "STATEIDNUMBER")
+        {
+          if ( WorkingString1.length == 0 ) 
+            ErrorMessage = "Please enter a state identification number.";
+          else
+            ErrorMessage = ValidateWildcards(WorkingString1, "a State Identification Number", 4, true);
+        }
+        else
+        {
+          if ( WorkingString1.length == 0 ) 
+            ErrorMessage = "Please enter an other agency number.";
+          else
+            ErrorMessage = ValidateWildcards(WorkingString1, "an Other Agency Number", 4, true);
+        }
+      }
+    }
+    
+    return ErrorMessage;
+  }
+  
+  
+  function ValidateSearchParameters()
+  { 
+    var bReturn = CheckSearchParameters();
+    var CaseCats = "";
+    var ErrorMsg = "";
+    var tempString = "";
+    if (bReturn == false)
+      return bReturn
+
+    var SearchBy = GetSearchBy();
+
+    switch (SearchBy)
+    {
+    
+      case "0":
+        document.getElementById("SearchType").value       = "CASE";
+        document.getElementById("NameTypeKy").value       = "";
+        document.getElementById("BaseConnKy").value       = "";
+        
+        break;
+        
+      case "1":
+        document.getElementById("SearchType").value       = "PARTY";
+
+        if (document.getElementById("SearchMode").value == "BUSINESSNAME")
+        {
+          document.getElementById("NameTypeKy").value   = "DBA";
+        }
+        else
+        {
+          document.getElementById("NameTypeKy").value   = "ALIAS";
+        }
+        
+        document.getElementById("BaseConnKy").value     = "DF";  // ODY-148826 to use search by Defendant
+        
+        break;
+        
+      case "2":
+        
+        document.getElementById("SearchType").value       = "PARTY";
+        document.getElementById("NameTypeKy").value       = "ALIAS";
+        document.getElementById("BaseConnKy").value       = "AT";
+        break;
+        
+      case "3":
+        document.getElementById("SearchType").value       = "JUDOFFC";
+        document.getElementById("NameTypeKy").value       = "";
+        document.getElementById("BaseConnKy").value       = "";
+        
+        if (document.getElementById("chkCriminal").checked)
+          CaseCats += "CR,";
+        if (document.getElementById("chkCivil").checked)
+          CaseCats += "CV,";
+        if (document.getElementById("chkFamily").checked)
+          CaseCats += "FAM,";
+        if (document.getElementById("chkProbate").checked)
+          CaseCats += "PR,";
+          
+        if (CaseCats.length > 0)
+        {
+          CaseCats = CaseCats.substr(0, CaseCats.length - 1);
+          document.getElementById("CaseCategories").value = CaseCats;
+        }
+        else
+          document.getElementById("CaseCategories").value = "";
+        break;
+      
+      case "4":
+        document.getElementById("SearchType").value = "MAGIST";
+        document.getElementById("NameTypeKy").value = "";
+        document.getElementById("BaseConnKy").value = "";
+        
+        if (document.getElementById("chkCriminalMagist").checked)
+          CaseCats += "CR,";
+        if (document.getElementById("chkCivilMagist").checked)
+          CaseCats += "CV,";
+        if (document.getElementById("chkFamilyMagist").checked)
+          CaseCats += "FAM,";
+        if (document.getElementById("chkProbateMagist").checked)
+          CaseCats += "PR,";
+          
+        if (CaseCats.length > 0)
+        {
+          CaseCats = CaseCats.substr(0, CaseCats.length - 1);
+          document.getElementById("CaseCategories").value = CaseCats;
+        }
+        else
+          document.getElementById("CaseCategories").value = "";
+        break;
+
+    case "5":
+
+        if ("CALENDAR" == "CALENDAR")
+        {
+          document.getElementById("SearchType").value = "DATERANGE";
+          document.getElementById("NameTypeKy").value = "";
+          document.getElementById("BaseConnKy").value = "";
+
+          if (document.getElementById("chkDtRangeCriminal").checked)
+              CaseCats += "CR,";
+          if (document.getElementById("chkDtRangeCivil").checked)
+              CaseCats += "CV,";
+          if (document.getElementById("chkDtRangeFamily").checked)
+              CaseCats += "FAM,";
+          if (document.getElementById("chkDtRangeProbate").checked)
+              CaseCats += "PR,";
+
+          if (CaseCats.length > 0)
+          {
+            CaseCats = CaseCats.substr(0, CaseCats.length - 1);
+            document.getElementById("CaseCategories").value = CaseCats;
+          }
+          else
+            document.getElementById("CaseCategories").value = "";
+        }
+        else
+        {
+          document.getElementById("SearchType").value = "CITATION";
+          document.getElementById("NameTypeKy").value = "";
+          document.getElementById("BaseConnKy").value = "";
+        }
+
+        break;
+    }
+    
+    if ( "CALENDAR" != "JUDGMENT" && "CALENDAR" != "ND" && "CALENDAR" != "OR" && "CALENDAR" != "LHJUD"  )
+    {
+      var StatusType = DetermineRadioValue( "CaseStatusType" )
+      switch( StatusType )
+      {
+        case "0":
+          document.getElementById("AllStatusTypes").value   = "true";
+          document.getElementById("StatusType").value       = "true";
+          
+          break;
+          
+        case "1":
+          document.getElementById("AllStatusTypes").value   = "false";
+          document.getElementById("StatusType").value       = "true";
+          break;
+          
+        case "2":
+          document.getElementById("AllStatusTypes").value   = "false";
+          document.getElementById("StatusType").value       = "false";
+          break;
+          
+         case "5":
+          document.getElementById("AllStatusTypes").value   = "true";
+          document.getElementById("StatusType").value       = "true";
+          break;
+      }
+    }
+    else
+    {
+      //DAS - 06/27/2007 - ODY-32795 - If the user presses the Clear button, this will be reset to ""
+      if (document.getElementById("SearchMode").value == "")
+        document.getElementById("SearchMode").value = "NAME";
+    
+      if (document.getElementById("SearchMode").value == "NAME")
+        document.getElementById("NameTypeKy").value = "ALIAS";
+      else if (document.getElementById("SearchMode").value == "BUSINESSNAME")
+        document.getElementById("NameTypeKy").value = "DBA";
+        
+      //Sapnah - 07/14/2009   We do not have Inactive checkbox for ND.
+      if ("CALENDAR" != "ND" && "CALENDAR" != "OR")
+      { 
+         document.getElementById("ShowInactive").value = document.getElementById("chkShowInactiveCase").checked || document.getElementById("chkShowInactiveParty").checked;
+      }
+    }
+    
+    if (document.getElementById("selCaseTypeGroups") != null)
+    {
+      SetCaseTypeIDs();
+    }
+    
+    if (document.getElementById("selHearingTypeGroups") != null)
+    {
+      document.getElementById("HearingTypeIDs").value = document.getElementById("selHearingTypeGroups").value;
+    }
+    
+    document.getElementById("SearchParams").value = BuildSearchParamList();
+    
+    return bReturn;   
+  }
+  
+  //This method is used to build the list of controls to process in the order the appear on the page.
+  function BuildFullControlNameList()
+  {
+    var nodeNames = BuildControlNameList(document.body);
+    
+    if (nodeNames.length > 0)
+      nodeNames = nodeNames.slice(0, nodeNames.length-1); 
+      
+    return nodeNames;
+  }
+  
+  function BuildControlNameList(htmlElement)
+  {
+    var nodeNames = "";
+    
+    if (htmlElement.nodeName.toUpperCase() == "INPUT" || htmlElement.nodeName.toUpperCase() == "SELECT")
+    {
+    
+      if (IsElementInUse(htmlElement, GetLabelFromElement(htmlElement)))
+        nodeNames = htmlElement.id + ",";
+    }
+    
+    for (var i = 0; i < htmlElement.childNodes.length; i++)
+    {
+      nodeNames = nodeNames + BuildControlNameList(htmlElement.childNodes[i]);
+    }
+    return nodeNames;
+  }
+  
+  function BuildSearchParamList()
+  {
+    var nodeNames   = BuildFullControlNameList();
+    
+    UpdateCustomControl("CaseCategories");
+   
+    return BuildSearchParamsFromControls(nodeNames);
+  }
+  
+  function UpdateCustomControl(controlName)
+  {
+    switch(controlName)
+    {
+      case "CaseCategories":
+        var htmlElement = document.getElementById(controlName);
+        
+        if (htmlElement.value.length > 0)
+        {
+          var namedItem   = document.createAttribute("LabelValue");
+          namedItem.value = GetCaseCategoryNames(htmlElement.value);
+
+          htmlElement.attributes.setNamedItem(namedItem);
+        } 
+        break;
+    }
+  }
+  
+  function GetCaseCategoryNames(caseCategoryList)
+  {
+    var caseCategoryNames = "";
+    var caseCatArray      = caseCategoryList.split(',');
+    
+    for (var i = 0; i < caseCatArray.length; i++)
+    { 
+      if (i > 0)
+        caseCategoryNames += ", ";
+        
+      switch(caseCatArray[i])
+      {
+        case "CR":
+          caseCategoryNames += "Criminal";
+          break;
+        case "CV":
+          caseCategoryNames += "Civil";
+          break;
+        case "FAM":
+          caseCategoryNames += "Family";
+          break;
+        case "PR":
+          caseCategoryNames += "Probate and Mental Health";
+          break;
+      }
+    }
+
+    return caseCategoryNames;
+  }
+  
+  function BuildSearchParamsFromControls(controlList)
+  {
+    var paramString       = "";
+    var ELEMENT_DELIMITER = "||";
+    var controlNameArray  = controlList.split(',');
+    
+    for (var i = 0; i < controlNameArray.length; i++)
+    {
+      var htmlElement  = document.getElementById(controlNameArray[i]);
+      var labelValue   = GetLabelFromElement(htmlElement);
+      var valueString = htmlElement.value;
+      
+      if (IsElementInUse(htmlElement, labelValue))
+      { 
+        switch (htmlElement.nodeName.toUpperCase())
+        {
+          case "SELECT":
+            valueString = GetSelectionValue(htmlElement);                        
+            break;
+        }
+        
+        if (valueString.length > 0)
+        {
+          paramString = paramString + ELEMENT_DELIMITER + GetAttributeValue(htmlElement, "id") + "~~" + labelValue + "~~" + valueString + "~~" + GetUserFriendlyValue(htmlElement, valueString);
+        }
+      }
+    }
+   
+    if (paramString.length > 0)
+    {
+      //Remove the first two characters
+      paramString = paramString.substring(ELEMENT_DELIMITER.length);
+    }
+
+    return paramString;
+  }
+  
+
+  function GetSelectionValue(selectElement)
+  {
+    var selected = new Array();
+    
+    if (selectElement != null)
+    {
+      var multipleAttr = selectElement.attributes.getNamedItem("multiple"); 
+      var isMultiple = false;
+      if (multipleAttr != null)
+        isMultiple = (multipleAttr.value == "true");
+      
+      if (isMultiple)
+      {
+        for(var i = 0; i < selectElement.options.length; i++)
+        { 
+          if(selectElement.options[i].selected)       
+          {
+            selected.push(selectElement.options[i].text);
+          }
+        }
+      }
+      else
+      {      
+        var i = selectElement.selectedIndex;
+        
+        if (i > -1)
+          selected.push(selectElement.options[i].text);
+      }      
+    }
+
+    return selected.join("^^");    
+  }
+
+  
+  function GetUserFriendlyValue(htmlElement, unformattedValue)
+  {
+    var userFriendlyValue = unformattedValue;
+    
+    switch (GetAttributeValue(htmlElement, "name"))
+    {
+      case "CaseStatusType":
+        switch (unformattedValue)
+        {
+          case "0":
+            userFriendlyValue = "All";
+            break;
+          case "1":
+            userFriendlyValue = "Open";
+            break;
+          case "2":
+            userFriendlyValue = "Closed";
+            break;            
+        }
+        break;
+      case "CaseTypes":
+        userFriendlyValue = unformattedValue.replace("^^", ', ');
+        break;
+      default:
+        try
+        {
+          userFriendlyValue = GetAttributeValue(htmlElement, "LabelValue");
+          
+          if (userFriendlyValue.length == 0)
+            userFriendlyValue = unformattedValue;
+        }
+        catch (ex)
+        {
+        }        
+        break;      
+    }
+    
+    return userFriendlyValue;
+  }
+  
+  function IsElementInUse(htmlElement, labelValue)
+  {
+    var isElementInUse = IsElementDisplayed(htmlElement);
+
+    if (labelValue.length == 0)
+    {
+      isElementInUse = false;
+      return isElementInUse;
+    }
+
+    if (htmlElement.nodeName.toUpperCase() == "INPUT")
+    {
+      var inputType = htmlElement.type;    
+      switch(inputType.toUpperCase())
+      {
+        case "RADIO":
+          if (!htmlElement.checked)
+            isElementInUse = false;
+          else
+            isElementInUse = IsElementValid(htmlElement);
+                                            
+          break;
+        case "CHECKBOX":
+          if (!htmlElement.checked)
+            isElementInUse = false;
+          break;
+      }
+    }
+    
+    return isElementInUse;        
+  }
+  
+  function IsElementValid(htmlElement)
+  {
+    var isValid = true;
+    
+    var elementName = GetAttributeValue(htmlElement, "name");
+    var searchValue = GetSearchBy();
+    
+    switch (elementName)
+    {
+      case "CaseSearchMode":
+        if (searchValue != "0")
+          isValid = false;
+        break;
+      case "PartySearchMode":
+        if (searchValue != "1")
+          isValid = false;
+        break;
+      case "AttorneySearchMode":
+        if (searchValue != "2")
+          isValid = false;
+        break;
+      case "CaseStatusType":
+        var searchType = "CALENDAR";          
+        if (searchType == "JUDGMENT"  ||  searchType == "ND" || searchType == "OR" || searchType == "LHJUD" || searchType == "CALENDAR" )
+          isValid = false;
+        break;        
+    }
+    
+    return isValid;
+  }
+  
+  function IsElementDisplayed(htmlElement)
+  {
+    var isDisplayed = false;
+  
+    if (htmlElement != null)
+    {
+      var displayValue = htmlElement.style.display;
+      
+      if (displayValue.toUpperCase() != "NONE")
+        isDisplayed = true;
+    }
+    
+    return isDisplayed;
+  }
+  
+  function GetAttributeValue(htmlElement, attributeName)
+  {
+    var value = "";
+    var attributeElem = htmlElement.attributes.getNamedItem(attributeName);
+    
+    if (attributeElem != null)
+      value = attributeElem.value;
+      
+    return value;
+  }
+  
+  function GetLabelFromElement(htmlElement)  
+  {
+    var labelName = "";
+  
+    try    
+    {    
+      labelName = htmlElement.attributes.getNamedItem("LabelName").value;
+      
+      if (labelName == null)
+        labelName = "";
+    }
+    catch (ex)
+    {    
+    }
+    
+    return labelName;
+  }
+  
+  // This function builds a CSV of all selected Case Type IDs (the values of all selected Case Type Groups)
+  // and saves off that value in the CaseTypeIDs hidden control to be used by the search page.
+  function SetCaseTypeIDs()
+  {
+    var caseTypeGroups = document.getElementById("selCaseTypeGroups");
+    var caseTypeIDs    = "";
+    
+    for (var i = 0; i < caseTypeGroups.options.length; i++)
+    {
+      if (caseTypeGroups.options[i].selected)
+      {
+        if (caseTypeIDs != "")
+        {
+          caseTypeIDs += ",";
+        }
+        
+        caseTypeIDs += caseTypeGroups.options[i].value;
+      }
+    }
+    
+    document.getElementById("CaseTypeIDs").value = caseTypeIDs;
+  }
+  
+  
+  
+  // Clear all controls that hold a main search value.  This is so that if you move between last name and 
+  // business name (for example), the textbox blanks out.
+  function ClearSearchControls()
+  {
+    var controlsToClear, i;
+
+    controlsToClear = new Array("CaseSearchValue", "CitationSearchValue", "CourtCaseSearchValue", "LastName", "FirstName", "MiddleName", "DateOfBirth");
+    
+    for (i = 0 ; i < controlsToClear.length ; i++)
+    {
+      document.getElementById(controlsToClear[i]).value = "";
+    }
+    
+    document.getElementById("chkSoundex").checked = false;
+  }
+  
+  
+  
+  //
+  // This function returns the value of the radio selection.
+  //
+  
+  function DetermineRadioValue( sControlName ){
+    var controls = new Array( "Case", "Party", "Attorney", "JudicialOfficer", "Magistrate", "DateRange", "Citation", "DateFiled" );
+    var ReturnValue = "";
+
+    if( sControlName == "SearchBy" )
+    {
+      var i = 0, found = false, control;
+      while( i < controls.length && !found )
+      {
+        control = document.getElementById( controls[i] );
+        if( control != null )
+          found = ( control.checked == 1 );
+        i++;
+      }
+
+      if( found )
+        ReturnValue = control.value;
+    }
+    else
+    {
+      var cRadio = document.getElementsByName(sControlName);
+      for( i = 0 ; i < cRadio.length ; i ++ ){
+        if( cRadio.item( i ).checked ){
+          ReturnValue = cRadio.item(i).value;
+          break;
+        }
+      }
+    }
+
+    return ReturnValue;
+  }
+  
+  
+  //
+  // This function determines if the date entered is valid or null.
+  //
+  
+  function ValidateDate( sDate , LabelName ){
+    var Result       = true;
+    var sLocalDate   = new String( sDate );
+    var DateParts    = sLocalDate.split('/');
+    var MonthPart    = parseInt (DateParts[0], 10);
+    var DayPart      = parseInt (DateParts[1], 10);
+    var YearPart     = parseInt (DateParts[2], 10);
+    var daysOfMonth  = new Object();
+    var ErrorMessage = "";
+    var ImproperFormatMessage = sDate + " is not a properly formatted date.";
+    
+    daysOfMonth [1] = 31;
+    daysOfMonth [2] = 28;
+    daysOfMonth [3] = 31;
+    daysOfMonth [4] = 30;
+    daysOfMonth [5] = 31;
+    daysOfMonth [6] = 30;
+    daysOfMonth [7] = 31;
+    daysOfMonth [8] = 31;
+    daysOfMonth [9] = 30;
+    daysOfMonth [10] = 31;
+    daysOfMonth [11] = 30;
+    daysOfMonth [12] = 31;
+    
+    if ( sLocalDate.length != 0 ){
+
+      //
+      // If the date doesn't have exactly 3 parts, it is wrong.
+      //
+      if (DateParts.length != 3)
+      {
+        return ImproperFormatMessage;
+      }
+
+      //
+      // If each part of the date isn't a positive number, it is wrong.
+      //
+      if (!( YearPart > 0  ) || !( DayPart > 0 ) || !( MonthPart > 0 ) )
+      {
+        return ImproperFormatMessage;
+      }
+    
+      if ( MonthPart < 1 || MonthPart > 12 )
+        Result = false;
+      if ( DayPart < 1 )
+        Result = false;
+        
+      if ( MonthPart == 2 && isLeapYear( YearPart ) )
+        var dayLimit = 29;
+      else 
+        var dayLimit = daysOfMonth[ MonthPart ];
+        
+      if ( DayPart > dayLimit )
+        Result = false;
+
+      if (!((YearPart > 00 && YearPart < 100) || (YearPart > 1900 && YearPart < 10000)))
+        Result = false;
+    
+      if ( !Result )
+        ErrorMessage = LabelName + " is an invalid date.";
+        
+    }    
+    return ErrorMessage;
+    
+  }
+  
+  
+  //
+  // This function determines if the date range entered is valid.
+  //
+  
+  function ValidateDateRange(sStartDate, sEndDate){
+ 
+    var ErrorMessage = "";
+
+    //
+    // Validate that StartDate is a valid date before continuing.
+    //
+    ErrorMessage = ValidateDate(sStartDate, sStartDate);
+
+    if (ErrorMessage.length > 0)
+    {
+      return ErrorMessage;
+    }
+
+    //
+    // Validate that EndDate is a valid date before continuing.
+    //
+    ErrorMessage = ValidateDate(sEndDate, sEndDate)
+    
+    if (ErrorMessage.length > 0)
+    {
+      return ErrorMessage;
+    }
+ 
+    var StartDateParts  = sStartDate.split('/');
+    var StartMonth      = parseInt (StartDateParts[0], 10);
+    var StartDay        = parseInt (StartDateParts[1], 10);
+    var StartYear       = parseInt (StartDateParts[2], 10);
+    
+    var EndDateParts    = sEndDate.split('/');
+    var EndMonth        = parseInt (EndDateParts[0], 10);
+    var EndDay          = parseInt (EndDateParts[1], 10);
+    var EndYear         = parseInt (EndDateParts[2], 10);
+    
+    var DateRangeErrorMessage = sStartDate + " to " + sEndDate + " is an invalid range.";
+     
+    if (StartYear > EndYear)
+      ErrorMessage = DateRangeErrorMessage;
+    else if (StartYear == EndYear)
+    {
+      if (StartMonth > EndMonth)
+        ErrorMessage = DateRangeErrorMessage;
+      else if (StartMonth == EndMonth)
+      {
+        if (StartDay > EndDay)
+          ErrorMessage = DateRangeErrorMessage;
+      }
+    }
+     
+    return ErrorMessage;
+  }
+
+
+  //
+  // Validates that a given date range does not span more days than a specified amount
+  //
+
+  function ValidateDateRangeMaxDays(sStartDate, sEndDate, lMaxDays) {
+    var ErrorMessage = "";
+
+    if (lMaxDays > 0) {
+      var StartDate = new Date(sStartDate);
+      var EndDate = new Date(sEndDate);
+
+      var StartMilliSeconds = StartDate.valueOf(); //Gets the milliseconds since jan 1 1970
+      var EndMilliSeconds = EndDate.valueOf(); //Gets the milliseconds since jan 1 1970
+
+      var MillisecondsDifference = EndMilliSeconds - StartMilliSeconds;
+      var DaysDifference = MillisecondsDifference / 86400000; //   / 1000 = seconds / 60 = minutes / 60 = hours / 24 = days
+      var TotalDays = DaysDifference + 1;
+
+      if (TotalDays > lMaxDays)
+        ErrorMessage = "Date range cannot span more than " + lMaxDays + " day(s).";
+
+      var now = new Date();
+      var Today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    
+      if ( StartDate < Today ) {
+        ErrorMessage = "'On or After' date cannot be prior to today's date.";
+      }
+
+      var NowMilliSeconds = now.valueOf(); //Gets the milliseconds now
+      var EndMinusNowDifference = EndMilliSeconds - NowMilliSeconds;
+      var MaxDaysDifference = EndMinusNowDifference / 86400000; //   / 1000 = seconds / 60 = minutes / 60 = hours / 24 = days
+      var TotalMaxDays = MaxDaysDifference + 1;
+
+      if (  TotalMaxDays > lMaxDays )
+        ErrorMessage = "Date range cannot be more than " + lMaxDays + " day(s) in the future.";
+
+    }
+
+    return ErrorMessage;
+  }
+  
+  
+  //
+  // This function determines if the year entered is a leap year.
+  //
+  
+  function isLeapYear ( sYear ) {
+    return (sYear % 4 == 0  && (sYear % 400 == 0 || sYear % 100 != 0))
+  }
+
+  //
+  //This function was created so controls don't appear/disappear when user has a slow internet connection
+  //
+  function ShowControls()
+  {
+    tblSearch.style.display = "";
+  }
+
+  //
+  //This function returns the search by value used to return search results
+  //
+  function GetSearchBy()
+  {
+    if(document.getElementById("SearchBy") && document.getElementById("SearchBy").id == "SearchBy") //second part is for quirks mode because IE considers "name" to be "id"
+    {
+      return document.getElementById("SearchBy").value;
+    }
+    else
+    {
+      return DetermineRadioValue("SearchBy");
+    }
+  }
+  
+// -->
+</script>
+
+</html>

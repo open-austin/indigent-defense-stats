@@ -34,11 +34,12 @@ class scraper:
         self.location = location # ??
 
         # These are class scraper-level fields that need to be stored and used from function to function. 
-        self.base_url = None
         self.odyssey_version = None
+        self.base_url = None
         self.main_soup = None
         self.main_page_html = None
         self.search_url = None
+        self.search_page_html = None
         self.search_soup = None
         self.hidden_values = None
         self.judicial_officer_to_ID = None
@@ -136,7 +137,7 @@ class scraper:
             main_soup = BeautifulSoup(main_page_html, "html.parser")
             return main_page_html, main_soup
         
-    def build_court_cal_url(self, base_url, main_page_html, main_soup):
+    def scrape_search_page(self, base_url, odyssey_version, main_page_html, main_soup):
         # build url for court calendar
         search_page_id = None
         for link in main_soup.select("a.ssSearchHyperlink"):
@@ -149,9 +150,7 @@ class scraper:
                 logger=self.logger,
             )
         search_url = base_url + "Search.aspx?ID=" + search_page_id
-        return search_url
 
-    def scrape_needed_info(self, odyssey_version, base_url, main_soup, search_url):
         # hit the search page to gather initial data
         search_page_html = request_page_with_retry(
             session=self.session,
@@ -167,13 +166,15 @@ class scraper:
         )
         search_soup = BeautifulSoup(search_page_html, "html.parser")
 
+        return search_url, search_page_html, search_soup
+
+    def scrape_hidden_values(self, odyssey_version, main_soup, search_soup):
         # we need these hidden values to POST a search
         hidden_values = {
             hidden["name"]: hidden["value"]
             for hidden in search_soup.select('input[type="hidden"]')
             if hidden.has_attr("name")
         }
-        
         # get nodedesc and nodeid information from main page location select box
         if odyssey_version < 2017:
             if self.location:
@@ -189,8 +190,7 @@ class scraper:
             hidden_values["SearchCriteria.SelectedCourt"] = hidden_values[
                 "Settings.DefaultLocation"
             ]  # TODO: Search in default court. Might need to add further logic later to loop through courts.
-
-        return search_soup, hidden_values
+        return hidden_values
 
     def scrape_individual_case(self, base_url, search_url, hidden_values, case_number): # Individual case search logic
         # POST a request for search results
@@ -266,9 +266,10 @@ class scraper:
             ms_wait=self.ms_wait,
             )
         results_soup = BeautifulSoup(results_page_html, "html.parser")
-        return results_soup
+        return results_page_html, results_soup
 
     def scrape_case_data_pre2017(self, cached_case_list, base_url, results_soup):
+
         case_urls = [
             base_url + anchor["href"]
             for anchor in results_soup.select('a[href^="CaseDetail"]')
@@ -293,12 +294,24 @@ class scraper:
                 self.logger.info(f"Issue with scraping this case: {case_id}. Moving to next one.")
             # write html case data
             self.logger.info(f"{len(case_html)} response string length")
-            with open(
-                os.path.join(self.case_html_path, f"{case_id}.html"), "w"
-            ) as file_handle:
-                file_handle.write(case_html)
+
+            if not self.test: 
+                with open(
+                    os.path.join(self.case_html_path, f"{case_id}.html"), "w"
+                ) as file_handle:
+                    file_handle.write(case_html)
+            else: # if self.test = True
+                with open(
+                    os.path.join(self.case_html_path, f"test_{case_id}.html"), "w"
+                ) as file_handle:
+                    file_handle.write(case_html)
+
             if case_id not in cached_case_list:
                 cached_case_list.append(case_id)
+            # If it's just a test, then scrape the first of all of the potential cases and then end.
+            if self.test == True:
+                self.logger.info(f"Ending scraping after one case because it's a test.")
+                return
 
     def scrape_case_data_post2017(self, cached_case_list, base_url):
         # Need to POST this page to get a JSON of the search results after the initial POST
@@ -349,6 +362,10 @@ class scraper:
                 file_handle.write(case_html)
             if case_id not in cached_case_list:
                 cached_case_list.append(case_id)
+            # If it's just a test, then scrape the first of all of the potential cases and then end.
+            if self.test == True:
+                self.logger.info(f"Ending scraping after one case because it's a test.")
+                return
 
     def scrape_cases(self, cached_case_list, odyssey_version, base_url, search_url, hidden_values, judicial_officers, judicial_officer_to_ID):
 
@@ -372,23 +389,23 @@ class scraper:
                 JO_id = judicial_officer_to_ID[JO_name]
                 self.logger.info(f"Searching cases on {date_string} for {JO_name}")
 
-                # scrapes the results page with the search parameters and returns the html
-                results_soup = self.scrape_results_page(odyssey_version, base_url, search_url, hidden_values, JO_id, date_string)
+                # scrapes the results page with the search parameters and returns the soup. it also returns the html but it's not used at this time
+                results_html, results_soup = self.scrape_results_page(odyssey_version, base_url, search_url, hidden_values, JO_id, date_string)
 
                 # different process for getting case data for pre and post 2017 Odyssey versions
                 if odyssey_version < 2017:
-                    self.scrape_case_data_pre2017(self, cached_case_list, base_url, results_soup)
+                    self.scrape_case_data_pre2017(cached_case_list, base_url, results_soup)
                 else:
-                    self.scrape_case_data_post2017(self, cached_case_list, base_url)
+                    self.scrape_case_data_post2017(cached_case_list, base_url)
 
     def scrape(self):
         self.base_url, self.odyssey_version, self.notes = self.get_ody_link(self.county)
         self.main_page_html, self.main_soup = self.scrape_main_page(self.base_url, self.odyssey_version, self.notes)
-        self.search_url = self.build_court_cal_url(self.base_url, self.main_page_html, self.main_soup)
-        self.search_soup, self.hidden_values = self.scrape_needed_info(self.odyssey_version, self.base_url, self.main_soup, self.search_url)
+        self.search_url, self.search_page_html, self.search_soup = self.scrape_search_page(self.base_url, self.odyssey_version, self.main_page_html, self.main_soup)
+        self.hidden_values = self.scrape_hidden_values(self.odyssey_version, self.main_soup, self.search_soup)
         if self.case_number:
             self.scrape_individual_case(self.base_url, self.search_url, self.hidden_values, self.case_number)
-        else:
+        else: # scrape a list of JOs between a start and end date
             self.judicial_officers, self.judicial_officer_to_ID = self.scrape_jo_list(self.odyssey_version, self.search_soup, self. judicial_officers)
             self.START_TIME = time() # initialize variables to time script and build a list of already scraped cases
             self.scrape_cases(self.cached_case_list, self.odyssey_version, self.base_url, self.search_url, self.hidden_values, self.judicial_officers, self.judicial_officer_to_ID)

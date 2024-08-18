@@ -1,4 +1,4 @@
-import unittest, sys, os, json, warnings, requests
+import unittest, sys, os, json, warnings, requests, logging
 from datetime import datetime, timezone, timedelta
 from bs4 import BeautifulSoup
 
@@ -12,28 +12,115 @@ from parser.__main__  import parser
 from cleaner.__main__  import cleaner
 from updater.__main__  import updater
 
+
+def log(message, level='INFO'): # Provide message and info level (optional, defaulting to info)
+    # configure the logger
+    logger = logging.getLogger(name="pid: " + str(os.getpid()))
+    logging.basicConfig()
+    logging.root.setLevel(level=level)
+    logger.info(message)
+
 class ScraperTestCase(unittest.TestCase):
     # Defaults for each program are set at the function level.
 
     def test_scraper_init(self):
-        now = datetime.now()
         # Call the function being tested
         scraper_instance = scraper(test = True)
+        # check that all of the mandatory default variables were loaded
         if scraper_instance.start_date and scraper_instance.end_date and scraper_instance:
             pass
         else:
             self.assertTrue(False, "Initialization was not successful. Either the start and end dates or county is missing.")
 
-        # test one: check that all of the mandatory defaults loaded.
-    
-    def test_scrape_individual_case(self): # this will only search one default
+    def test_scrape_get_ody_link(self):
+        scraper_instance = scraper(test = True)
+        base_url = scraper_instance.get_ody_link('hays')
+        self.assertIsNotNone(base_url, "No URL found for this county.")
+        
+    def test_scrape_main_page(self, 
+                              base_url = r'http://public.co.hays.tx.us/', 
+                              odyssey_version = 2003, 
+                              notes = '', 
+                              test = True
+                              ):
+        scraper_instance = scraper(test = True)
+        main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, notes)
+        self.assertIsNotNone(main_page_html, "No main page HTML came through. main_page_html = None.")
+        self.assertTrue('ssSearchHyperlink' in main_page_html, "There is no 'ssSearchHyperlink' text found in this main page html.") # Note: This validation is already being done using the 'verification_text' field.
+        self.assertTrue('Hays County Courts Records Inquiry' in main_page_html, "There is no 'Hays County Courts Records Inquiry' listed in this Hays County main page HTML.")
+
+    def test_scrape_search_page(self, 
+                                base_url=r'http://public.co.hays.tx.us/', 
+                                odyssey_version = 2003,
+                                main_page_html=None, 
+                                main_soup=None):
+        # Open the example main page HTML
+        with open(
+            os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_main_page.html'), "r", encoding='utf-8'
+        ) as file_handle:
+            main_page_html = file_handle.read()  # Read the entire file content into a string
+        # Parse the HTML content with BeautifulSoup
+        main_soup = BeautifulSoup(main_page_html, "html.parser")
+        # Look for the court calendar link
+        scraper_instance = scraper(test=True)
+        search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup)
+        # Verify the court calendar link
+        self.assertIsNotNone(main_page_html, "No search url came through. search_url = None.")
+        self.assertTrue(search_url == r'http://public.co.hays.tx.us/Search.aspx?ID=900', "The link was not properly parsed from the test main page HTML.")
+        self.assertIsNotNone(search_page_html, "No search HTML came through. search_page_html = None.")
+        self.assertIsNotNone(search_soup, "No search HTML parsed into beautiful soup came through. search_soup = None.")
+        # Verify the html or soup of the search page -- need to write more validation here: What do I want to know about it?
+        # self.assertTrue(??????, ??????)
+        
+    def test_scrape_hidden_values(self, 
+                           odyssey_version = 2003, 
+                           main_soup = None,
+                           search_soup = None
+                           ):
+        # Open the example main page HTML
+        with open(
+            os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_main_page.html'), "r", encoding='utf-8'
+        ) as file_handle:
+            main_page_html = file_handle.read()  # Read the entire file content into a string
+        # Parse the HTML content with BeautifulSoup
+        main_soup = BeautifulSoup(main_page_html, "html.parser")
+
+        # Open the example search page HTML
+        with open(
+            os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_search_page.html'), "r", encoding='utf-8'
+        ) as file_handle:
+            search_page_html = file_handle.read()  # Read the entire file content into a string
+        # Parse the HTML content with BeautifulSoup
+        search_soup = BeautifulSoup(search_page_html, "html.parser")
+        
+        #Run the function
+        scraper_instance = scraper(test=True)
+        hidden_values = scraper_instance.scrape_hidden_values(odyssey_version, main_soup, search_soup)
+        self.assertIsNotNone(hidden_values, "No hidden values came through. hidden_values = None.")
+        self.assertTrue(type(hidden_values) == dict, "The hidden values fields is not a dictionary but it needs to be.")
+
+    # Note: This doesn't run the scrape function directly the way the others do. The scrape function requires other functions to run first to populate variables in the class name space first.
+    def test_scrape_individual_case(self,
+                                    base_url = None,
+                                    search_url = None, 
+                                    hidden_values = None, 
+                                    case_number = 'CR-16-0002-A'):
+        # This starts a timer to compare the run start time to the last updated time of the resulting HTML to ensure the HTML was created after run start time
         now = datetime.now()
-        # Call the function being tested
-        scraper_instance = scraper(test = True, case_number = 'CR-16-0002-A')
-        scraper_instance.scrape()
+
+        # Call the functions being tested. In this case, the functions being called are all of the subfunctions required and effectively replicates the shape of scrape.
+        scraper_instance = scraper(test = True)
+        base_url, odyssey_version, notes = scraper_instance.get_ody_link('hays')
+        main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, notes)
+        search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup)
+        hidden_values = scraper_instance.scrape_hidden_values(odyssey_version, main_soup, search_soup)
+        scraper_instance.scrape_individual_case(base_url = base_url, 
+                                                search_url = search_url, 
+                                                hidden_values = hidden_values, 
+                                                case_number = case_number)
 
         # Test #1: Did the scraper create a new file called 12947592.html in the right location?
-            #This creates the file path, checks to see if the HTML file is there, and then checks to see that HTML file has been updated since the program started running.
+        #This creates the file path, checks to see if the HTML file is there, and then checks to see that HTML file has been updated since the program started running.
         test_case_html_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','test_data','hays','case_html','test_12947592.html')
         self.assertTrue(os.path.isfile(test_case_html_path), "There is no HTML file the correct name in the correct folder.")
             #This gets the time the file was last updated and converts it from unix integer to date time
@@ -55,45 +142,145 @@ class ScraperTestCase(unittest.TestCase):
         self.assertTrue(case_number_html=='CR-16-0002-A', "The cause number is not where it was expected to be in the HTML.")
         #self.logger.info(f"Scraper test sucessful for cause number CR-16-0002-A.")
 
-    def test_scrape_get_ody_link(self):
-        scraper_instance = scraper(test = True)
-        base_url = scraper_instance.get_ody_link('hays')
-        self.assertIsNotNone(base_url, "No URL found for this county.")
-        
-    def test_scrape_main_page(self, 
-                              base_url = r'http://public.co.hays.tx.us/', 
-                              odyssey_version = 2003, 
-                              notes = '', 
-                              test = True
-                              ):
+    # This begins the tests related the scrape_cases function for scraping multiple cases.
+
+    def test_scrape_jo_list(self, 
+                            base_url = r'http://public.co.hays.tx.us/',
+                            odyssey_version = 2003, 
+                            notes = '',
+                            search_soup = None, 
+                            judicial_officers = None
+                            ):
+        # This test requires that certain dependency functions run first.
         scraper_instance = scraper(test = True)
         main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, notes)
-        self.assertTrue('ssSearchHyperlink' in main_page_html, "There is no 'ssSearchHyperlink' text found in this main page html.")
+        search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup)
+        judicial_officers, judicial_officer_to_ID = scraper_instance.scrape_jo_list(odyssey_version, search_soup, judicial_officers)
+        log(f'Number of judicial officers found: {len(judicial_officers)}')
+        self.assertIsNotNone(judicial_officers, "No judicial officers came through. judicial_officers = None.")
+        self.assertTrue(type(judicial_officers)==list, "The judicial_officers variable is not a list but it should be.")
+        self.assertIsNotNone(judicial_officer_to_ID, "No judicial officers IDs came through. judicial_officers_to_ID = None.")
+        self.assertTrue(type(judicial_officer_to_ID)==dict, "The judicial_officers_to_ID variable is not a dictionary but it should be.")
 
-    # unit tests should be written for each any every step of the process:
+    def test_scrape_results_page(self, 
+                                 odyssey_version = 2003, 
+                                 base_url = r'http://public.co.hays.tx.us/', 
+                                 search_url = r'http://public.co.hays.tx.us/Search.aspx?ID=900', 
+                                 hidden_values = None, 
+                                 JO_id = '39607', # 'Boyer, Bruce'
+                                 date_string = '07-01-2024',
+                                 notes = ''
+                                 ):
 
-        #def build_court_cal_url(self, base_url, main_page_html, main_soup):
-        #def scrape_needed_info(self, odyssey_version, base_url, main_soup, search_url):
-        #def scrape_jo_list(self, odyssey_version, search_soup, judicial_officers):
-        #def scrape_results_page(self, odyssey_version, base_url, search_url, hidden_values, JO_id, date_string):
-        #def scrape_case_data_pre2017(self, cached_case_list, base_url, results_soup):
-        #def scrape_case_data_post2017(self, cached_case_list, base_url):
-        #def scrape_cases(self, cached_case_list, odyssey_version, base_url, search_url, hidden_values, judicial_officers, judicial_officer_to_ID):
-        #def scrape(self):
+        # Read in the test 'hidden values' that are necessary for searching a case
+        with open(
+            os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','test_hidden_values.txt'), "r", encoding='utf-8'
+        ) as file_handle:
+            hidden_values = file_handle.read()  # Read the entire file content into a string        
+        hidden_values = hidden_values.replace("'", "\"")
+        hidden_values = json.loads(hidden_values)
+        scraper_instance = scraper(test = True)
+
+        # Open the example main page HTML
+        with open(
+            os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_main_page.html'), "r", encoding='utf-8'
+        ) as file_handle:
+            main_page_html = file_handle.read()  # Read the entire file content into a string
+        # Parse the HTML content with BeautifulSoup
+        main_soup = BeautifulSoup(main_page_html, "html.parser")
+
+        # This test requires that certain dependency functions run first.
+        search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup)
+        results_html, results_soup = scraper_instance.scrape_results_page(odyssey_version, base_url, search_url, hidden_values, JO_id, date_string)
+        self.assertIsNotNone(results_soup, "No results page HTML came through. results_soup = None.")
+        self.assertTrue("Record Count" in results_html, "'Record Count' was not the results page HTML, but it should have been.") # Note: This is already validated by "verification_text" within the request_page_with_retry function.
+        # TODO: Add more validation here of what one should expect from the results page HTML.
+
+    # This unit test for scrape_cases also covers unit testing for scrape_case_data_pre2017 and scrape_case_data_post2017. Only one or the other is used, and scrape_cases is mostly the pre or post2017 code.
+    # In the future unit tests could be written for:
+        #def scrape_case_data_pre2017()
+        #def scrape_case_data_post2017()
+
+    def test_scrape_cases(self, 
+                          cached_case_list = [], 
+                          odyssey_version = 2003, 
+                          base_url = r'http://public.co.hays.tx.us/', 
+                          search_url = r'https://public.co.hays.tx.us/Search.aspx?ID=900', 
+                          hidden_values = None, 
+                          judicial_officers = ['Boyer, Bruce'], 
+                          judicial_officer_to_ID = {'Boyer, Bruce':'39607'},
+                          JO_id = '39607',
+                          date_string = '07-01-2024'
+                          ):
+        # This starts a timer to compare the run start time to the last updated time of the resulting HTML to ensure the HTML was created after run start time
+        now = datetime.now()
+        # Open the example main page HTML
+        with open(
+            os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_main_page.html'), "r", encoding='utf-8'
+        ) as file_handle:
+            main_page_html = file_handle.read()  # Read the entire file content into a string
+        # Parse the HTML content with BeautifulSoup
+        main_soup = BeautifulSoup(main_page_html, "html.parser")
+
+        # Read in the test 'hidden values' that are necessary for searching a case
+        with open(
+            os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','test_hidden_values.txt'), "r", encoding='utf-8'
+        ) as file_handle:
+            hidden_values = file_handle.read()  # Read the entire file content into a string        
+        hidden_values = hidden_values.replace("'", "\"")
+        hidden_values = json.loads(hidden_values)
+
+        # There are some live depency functions that have to be run before the primary code can be run. 
+        scraper_instance = scraper(test = True)
+        search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup)
+        results_html, results_soup = scraper_instance.scrape_results_page(odyssey_version = odyssey_version, 
+                                                                          base_url = base_url, 
+                                                                          search_url = search_url, 
+                                                                          hidden_values = hidden_values, 
+                                                                          JO_id = JO_id, 
+                                                                          date_string = date_string)
+        scraper_instance.scrape_cases(cached_case_list, odyssey_version, base_url, search_url, hidden_values, judicial_officers, judicial_officer_to_ID)
+
+        # Test #1: Did the scraper create a new file called test_12947592.html in the right location?
+        #This creates the file path, checks to see if the HTML file is there, and then checks to see that HTML file has been updated since the program started running.
+        test_case_html_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','test_data','hays','case_html','test_12947592.html')
+        self.assertTrue(os.path.isfile(test_case_html_path), "There is no HTML file the correct name in the correct folder.")
+            #This gets the time the file was last updated and converts it from unix integer to date time
+        test_html_updated_time = os.path.getmtime(test_case_html_path)
+        seconds = int(test_html_updated_time)
+        microseconds = int((test_html_updated_time - seconds) * 1e6)
+        test_html_updated_time = datetime.fromtimestamp(seconds) + timedelta(microseconds=microseconds)
+        self.assertTrue(test_html_updated_time > now, "This HTML has not been updated since this test started running.")
+
+        # Test #2: Is the resulting HTML file longer than 1000 characters?
+        with open(test_case_html_path, "r") as file_handle:
+            case_soup = BeautifulSoup(file_handle, "html.parser", from_encoding="UTF-8")   
+        self.assertTrue(len(case_soup.text) > 1000, "This HTML is smaller than 1000 characters and may be an error.")
+
+        # Test #3: Does the resulting HTML file container the cause number in the expected header location?
+        self.assertTrue(test_html_updated_time > now)
+        # Parse the HTML in the expected location for the cause number.
+        case_number_html = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[0].text
+        self.assertTrue(case_number_html=='CR-16-0002-A', "The cause number is not where it was expected to be in the HTML.")
+        #self.logger.info(f"Scraper test sucessful for cause number CR-16-0002-A.")
+
+    def test_scrape(self):
+        log('If you want to test the logic for one case, then use test_scrape_individual_case.')
+        log('If you want to test the logic for multiple cases, then use test_scrape_cases (but it will still only scrape the first listed case).')
 
 class ParseTestCase(unittest.TestCase):
 
     def test_parser_defaults(self):
-
         now = datetime.now()
         now_string = now.strftime("%H:%M:%S")
         # Call the function being tested
         parser_instance = parser(case_number = '51652356', test = True)
         parser_instance.parse()
+
         # Test #1: Check to see if there is a JSON called 51652356.json created in the correct location and that it was updated since this test started running
         test_case_json_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_data', 'hays', 'case_json', 'test_51652356.json')
         self.assertTrue(os.path.isfile(test_case_json_path), "There is no JSON file the correct name in the correct folder.")
-            #This gets the time the file was last updated and converts it from unix integer to date time
+        #This gets the time the file was last updated and converts it from unix integer to date time
         test_json_updated_time = os.path.getmtime(test_case_json_path)
         seconds = int(test_json_updated_time)
         microseconds = int((test_json_updated_time - seconds) * 1e6)
@@ -102,7 +289,6 @@ class ParseTestCase(unittest.TestCase):
         self.assertTrue(test_json_updated_time > now, 'The JSON has not been updated since the program started running.')
 
         # Test #2: Check to see that JSON parsed all of the necessary fields and did so properly. 
-
         #Run the json against the field validation database
         def validate_field(field):
             
@@ -168,9 +354,9 @@ class ParseTestCase(unittest.TestCase):
             FIELDS_VALIDATION_DICT = json.load(f)
 
         for field in FIELDS_VALIDATION_DICT:
-            print(f"validating field: {field['name']}")
+            log(f"validating field: {field['name']}")
             validate_field(field)
-        print(f'Field validation complete for {len(FIELDS_VALIDATION_DICT)} fields.')
+        log(f'Field validation complete for {len(FIELDS_VALIDATION_DICT)} fields.')
 
 class CleanTestCase(unittest.TestCase):
 

@@ -105,7 +105,6 @@ def request_page_with_retry(
                 else:
                     response = session.get(url, data=data, params=params)
             response.raise_for_status()
-            #print(response.text)
             if verification_text:
                 if verification_text not in response.text:
                     failed = True

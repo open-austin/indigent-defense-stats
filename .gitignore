@@ -3,7 +3,7 @@ data
 logging
 debug.*
 aws
-test_files
+test_data
 
 # venv stuff
 bin/
