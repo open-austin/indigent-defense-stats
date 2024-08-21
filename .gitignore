@@ -1,7 +1,9 @@
+# data, caching, logging
 data
 logging
 debug.*
 aws
+test_data
 
 # venv stuff
 bin/

@@ -7,7 +7,7 @@ from typing import Dict, Optional, Tuple, Literal
 from enum import Enum
 from datetime import datetime, timezone, timedelta
 
-#This is called debug and quit and but the quit part has been removed.
+#This is called debug and quit.
 def write_debug_and_quit(
     page_text: str, logger: Logger, verification_text: Optional[str] = None
 ) -> None:
@@ -105,7 +105,6 @@ def request_page_with_retry(
                 else:
                     response = session.get(url, data=data, params=params)
             response.raise_for_status()
-            #print(response.text)
             if verification_text:
                 if verification_text not in response.text:
                     failed = True

@@ -14,7 +14,7 @@ This is a scraper to collect and process public case records from the Tyler Tech
    - start_date = The first date you want to scrape for case data. Update in scraper.
    - end_date = The last date you want to scrape for case data. Update in scraper.
 1. Run the handler.
-   - python3 run python .src/handler
+   - python3 run python .src/orchestrator
 
 ## Structure of Code
 

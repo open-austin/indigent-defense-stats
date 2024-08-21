@@ -35,7 +35,7 @@ class orchestrator:
         #This runs the different modules in order
         for c in self.counties:
             print(f"Starting to scrape, parse, clean, and update this county: {c}")
-            scraper(c, self.start_date, self.end_date).scrape() #src/scraper
+            scraper(county = c).scrape() #src/scraper
             parser(c).parse() #src/parser
             cleaner(c).clean() #src/cleaner
             updater(c).update() #src/updater
