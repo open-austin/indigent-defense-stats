@@ -1,6 +1,58 @@
-from typing import Dict
+from typing import Dict, List
 
 from bs4 import BeautifulSoup
+
+CHARGE_SEVERITY = {
+    "First Degree Felony": 1,
+    "Second Degree Felony": 2,
+    "Third Degree Felony": 3,
+    "State Jail Felony": 4,
+    "Misdemeanor A": 5,
+    "Misdemeanor B": 6,
+}
+
+def get_charge_severity(charge: str) -> int:
+    for charge_name, severity in CHARGE_SEVERITY.items():
+        if charge_name in charge:
+            return severity
+    return float('inf')
+
+def count_dismissed_charges(dispositions: List[Dict]) -> int:
+    dismissed_charges = 0
+    for disposition in dispositions:
+        for detail in disposition.get("details", []):
+            if detail.get("outcome", "").lower() == 'dismissed':
+                dismissed_charges += 1
+    return dismissed_charges
+
+def get_top_charge(dispositions: List[Dict], charge_information: List[Dict]) -> Dict:
+    top_charge = None
+    min_severity = float('inf')
+
+    charge_map = {info['charges']: info['level'] for info in charge_information}
+
+    print("Charge Map:", charge_map)
+
+    for disposition in dispositions:
+        for detail in disposition.get("details", []):
+            charge_text = detail.get("charge", "").strip()
+            charge_name = charge_text.split(" >=")[0].strip().lstrip("0123456789. ").strip()
+            charge_level = charge_map.get(charge_name, "Unknown")
+
+            print("Charge Text:", charge_text)
+            print("Charge Name:", charge_name)
+            print("Charge Level:", charge_level)
+
+            severity = get_charge_severity(charge_level)
+            if severity < min_severity:
+                min_severity = severity
+                top_charge = {
+                    "charge name": charge_name,
+                    "charge level": charge_level
+                }
+
+    print("Top Charge:", top_charge)
+    return top_charge
 
 class pre2017_parser():
     def __init__(self, case_id, county):
@@ -196,6 +248,7 @@ class pre2017_parser():
                 ]
                 other_event_rows = []
                 disposition_rows = []
+
                 SECTION = "other_events"
                 while table_rows and (row := table_rows.pop()):
                     if row[0] == "OTHER EVENTS AND HEARINGS":
@@ -207,10 +260,49 @@ class pre2017_parser():
                         other_event_rows.append(row)
                     if SECTION == "dispositions":
                         disposition_rows.append(row)
+
                 other_event_rows = other_event_rows[::-1]
                 disposition_rows = disposition_rows[::-1]
+
+                # Process disposition rows into structured format
+                dispositions = []
+                for row in disposition_rows:
+                    if len(row) >= 5:
+                        judicial_officer = ""
+                        if len(row[2]) > 18 and row[2].startswith("(Judicial Officer:"):
+                            # Unformatted Name                       
+                            judicial_officer = row[2][18:-1].strip()
+                            # Formated Name                        
+    #                        original_name = row[2][18:-1].strip()
+    #                        last_name, first_name = original_name.split(", ")
+    #                        judicial_officer = f"{first_name} {last_name}"
+
+                        disposition = {
+                            "date": row[0],
+                            "event": row[1],
+                            "judicial officer": judicial_officer,
+                            "details": []
+                        }
+
+                        # Check if the event is "Disposition"
+                        if row[1].lower() == "disposition":
+                            details = {
+                                "charge": row[3],
+                                "outcome": row[4]
+                            }
+                            if len(row) > 5:
+                                details["additional_info"] = row[5:]
+                            disposition["details"].append(details)
+                            dispositions.append(disposition)
+
+                case_data["dispositions"] = dispositions
+                top_charge = get_top_charge(dispositions, case_data["charge information"])
+                case_data["top charge"] = top_charge
+
+                dismissed_charges_count = count_dismissed_charges(case_data["dispositions"])
+                case_data["dismissed_charges_count"] = dismissed_charges_count
+
                 case_data["other events and hearings"] = other_event_rows
-                case_data["dispositions"] = disposition_rows
 
                 # Note that counsel was waived
                 if not case_data["party information"]["appointed or retained"]:
