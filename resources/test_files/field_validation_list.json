@@ -1,0 +1,196 @@
+[{
+    "name": "code",
+    "logical_level": "top",
+    "type": "string",
+    "estimated_min_length": 5,
+    "importance": "necessary"
+},
+{
+    "name": "odyssey id",
+    "logical_level": "top",
+    "type": "string",
+    "estimated_min_length": 5,
+    "importance": "necessary"
+},
+{
+    "name": "county",
+    "logical_level": "top",
+    "type": "string",
+    "estimated_min_length": 3,
+    "importance": "necessary"
+},
+{
+    "name": "name",
+    "logical_level": "top",
+    "type": "string",
+    "estimated_min_length": 3,
+    "importance": "necessary"
+},
+{
+    "name": "case type",
+    "logical_level": "top",
+    "type": "string",
+    "estimated_min_length": 4,
+    "importance": "necessary"
+},
+{
+    "name": "date filed",
+    "logical_level": "top",
+    "type": "string",
+    "estimated_min_length": 4,
+    "importance": "necessary"
+},
+{
+    "name": "location",
+    "logical_level": "top",
+    "type": "string",
+    "estimated_min_length": 3,
+    "importance": "necessary"
+},
+{
+    "name": "party information",
+    "logical_level": "top",
+    "type": "array",
+    "estimated_min_length": 1,
+    "importance": "necessary"
+},
+{
+    "name": "charge information",
+    "logical_level": "top",
+    "type": "array",
+    "estimated_min_length": 1,
+    "importance": "necessary"
+},
+{
+    "name": "defendant",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "necessary"
+},
+{
+    "name": "sex",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 3,
+    "importance": "medium"
+},
+{
+    "name": "race",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "medium"
+},
+{
+    "name": "date of birth",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 4,
+    "importance": "low"
+},
+{
+    "name": "height",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "weight",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "defense attorney",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "high"
+},
+{
+    "name": "appointed or retained",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "high"
+},
+{
+    "name": "defense attorney phone number",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "defendant address",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "SID",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 5,
+    "importance": "high"
+},
+{
+    "name": "prosecuting attorney",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "prosecuting attorney phone number",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "prosecuting attorney address",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "bondsman",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "bondsman address",
+    "logical_level": "party",
+    "type": "string",
+    "estimated_min_length": 1,
+    "importance": "low"
+},
+{
+    "name": "charges",
+    "logical_level": "charge",
+    "type": "string",
+    "estimated_min_length": 5,
+    "importance": "necessary"
+},
+{
+    "name": "level",
+    "logical_level": "charge",
+    "type": "string",
+    "estimated_min_length": 5,
+    "importance": "necessary"
+},
+{
+    "name": "date",
+    "logical_level": "charge",
+    "type": "string",
+    "estimated_min_length": 4,
+    "importance": "high"
+}]

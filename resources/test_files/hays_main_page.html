@@ -1,0 +1,118 @@
+
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="CSS/PublicAccess.css">
+  
+  
+  <script language="javascript">
+
+    function AddHiddenFormElement(form, name, value) {
+      var hiddenField = document.createElement("input");
+      hiddenField.setAttribute("type", "hidden");
+      hiddenField.setAttribute("name", name);
+      hiddenField.setAttribute("value", value);
+      form.appendChild(hiddenField);
+    }
+
+    function LaunchSearch(sPartialQueryString, bNodeSelectorHidden, bUseSSL, sbxNodeControl) {
+      baseURL = document.location.href.replace("default.aspx", "");
+      baseURL = baseURL.replace("#MainContent", "");
+      
+      
+      if(bUseSSL)
+        baseURL = baseURL.replace("http://","https://");
+      else
+        baseURL = baseURL.replace("https://","http://");
+        
+      if (bNodeSelectorHidden == false) {
+        if (sbxNodeControl.value != "") {
+
+          var selectedIndex = sbxNodeControl.selectedIndex;
+
+          var form = document.createElement("form");
+          form.setAttribute("method", "post");
+          form.setAttribute("action", baseURL + sPartialQueryString);
+
+          AddHiddenFormElement(form, "NodeID", sbxNodeControl.value);
+          AddHiddenFormElement(form, "NodeDesc", sbxNodeControl.options[selectedIndex].text);
+
+          document.body.appendChild(form);
+          form.submit();
+          
+          return false;
+        } else {
+          window.alert("Please select a location.");
+        }
+      } else {
+        document.location.href = baseURL + sPartialQueryString;
+      }
+    }    
+    
+    function LocationChange(sbxNodeControl) 
+    {
+      if (sbxNodeControl != null) 
+      {
+         var locationCount = sbxNodeControl.options.length;
+         var locationIndex = sbxNodeControl.selectedIndex;
+         var i;
+        
+        // If the first value is a null string, then the option was set to have an initial blank value.
+        // so there is one extra value in the dropdown than there are divOption sections.
+        if (sbxNodeControl.options[0].value == "")
+        {
+          locationCount--;
+        }
+
+        for(i=0; i<locationCount; i++) 
+        {
+          if( locationIndex == i )
+            document.getElementById("divOption" + (i+1)).style.display = "block";
+          else
+            document.getElementById("divOption" + (i+1)).style.display = "none";
+        }
+      }
+    }
+    
+    function UpdateSearchCombo(sNodeString)    
+    {
+      var controlElem = document.getElementById("sbxControlID2");
+    
+      if (controlElem != null)
+      {
+        controlElem.SelectedValue = sNodeString;
+
+        for (var i = 0; i < controlElem.options.length; i++)
+          if (controlElem.options[i].value == sNodeString)
+            break;
+              
+        if (i < controlElem.options.length)
+        {
+          controlElem.selectedIndex = i;
+          LocationChange(controlElem);
+        }
+      }
+    }
+    
+    function include(url)  
+    {
+      if ( document.all )
+      {
+        var xml = new ActiveXObject("Microsoft.XMLHTTP");
+        xml.Open("GET", url, false);
+        xml.Send(null)
+        document.writeln(xml.responseText);
+      }
+      else  
+      {
+        var pageRequest = new XMLHttpRequest()
+        pageRequest.open("GET", url, false);
+        pageRequest.send(null);
+        document.writeln(pageRequest.responseText);
+      }
+    }        
+  </script>  
+  </head>
+  <body style="overflow: auto;" onload="LocationChange()">    
+    <table cellspacing="0" cellpadding="0" width="100%" height="100%" border="0" style="table-layout: fixed;" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:PublicAccessUser="urn:PublicAccessUser"><tr><td style="height:83px"><table cellspacing="0" cellpadding="0" width="100%" border="0" style="table-layout: fixed; margin:0px; padding:0px;"><tr><td class="ssHeaderTitleBanner">Hays County Courts Records Inquiry</td></tr></table><table cellspacing="0" cellpadding="0" width="100%" border="0" style="table-layout: fixed; margin:0px; padding:0px;"><tr><td bgcolor="#000000" height="20px"><table cellspacing="0" cellpadding="0" width="100%" border="0"><tr><td align="left" style="padding-left: 5px"><font size="1"><a class="ssBlackNavBarHyperlink" href="#MainContent">Skip to Main Content</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="logout.aspx">Logout</a>&nbsp;<a class="ssBlackNavBarHyperlink" href="MyAccount.aspx?ReturnURL=default.aspx">My Account</a>&nbsp;</font></td><td align="center" class="ssBlackNavBarLocation"></td><td align="right" style="padding-right: 10px"><table cellspacing="0" cellpadding="0" border="0"><tr><td><font size="1"><a class="ssBlackNavBarHyperlink" target="_blank" href="help.aspx">Help</a></font></td></tr></table></td></tr></table></td></tr></table></td></tr><tr height="*"><td><a id="MainContent" name="MainContent" tabindex="-1"></a><table cellspacing="0" cellpadding="0" height="300" width="100%" border="0" style="table-layout: fixed"><tr><td align="center"><img src="Images/HaysSeal.png" alt="Welcome to Odyssey Public Access"></img></td><td><div class="ssLaunchProductTitle" style="width: 200px">Case Records</div><label class="ssLogin" for="sbxControlID2">Select a location</label><br /><select id="sbxControlID2" onchange="LocationChange(this)"><option value="100,101,102,103,200,201,202,203,204,220,6112,400,401,402,403,404,405,406,407,6111,6116">All Courts</option><option value="96,6000,6100,6101,6102,6103,6104,6105">Law Enforcement</option><option value="98,4000,6106">Jail Manager</option></select><div> </div><a class="ssSearchHyperlink" href="javascript:LaunchSearch('Search.aspx?ID=100', false, true, sbxControlID2)">Criminal Case Records</a><br /><a class="ssSearchHyperlink" href="javascript:LaunchSearch('Search.aspx?ID=200', false, true, sbxControlID2)">Civil, Family &amp; Probate Case Records</a><br /><a class="ssSearchHyperlink" href="javascript:LaunchSearch('Search.aspx?ID=900', false, true, sbxControlID2)">Court Calendar</a><br /><div id="divOption1"></div><div id="divOption2"></div><div id="divOption3"></div><div id="divOption4"></div><div id="divOption5"></div><div id="divOption6"></div><div id="divOption7"></div><div id="divOption8"></div><div id="divOption9"></div><div id="divOption10"></div><div id="divOption11"></div><div id="divOption12"></div><div id="divOption13"></div><div id="divOption14"></div><div id="divOption15"></div><div id="divOption16"></div><div id="divOption17"></div><div id="divOption18"></div><div id="divOption19"></div><div id="divOption20"></div><div id="divOption21"></div><div id="divOption22"></div><div id="divOption23"></div><div id="divOption24"></div><div id="divOption25"></div><div id="divOption26"></div><div id="divOption27"></div><div id="divOption28"></div><div id="divOption29"></div><div id="divOption30"></div><div id="divOption31"></div><div id="divOption32"></div><div id="divOption33"></div><div id="divOption34"></div><p></p><div class="ssLaunchProductTitle" style="width: 200px">Jail Records</div><a class="ssSearchHyperlink" href="javascript:LaunchSearch('JailingSearch.aspx?ID=400', true, true, null)">Jail Records</a><br /><a class="ssSearchHyperlink" href="javascript:LaunchSearch('JailingSearch.aspx?ID=500', true, true, null)">Jail Bond Records</a><br /><div id="divOption1"></div><p></p></td></tr><tr><td class="ssMessageText" colspan="2"></td></tr></table></td></tr><tr valign="bottom"><td><table cellspacing="0" bgcolor="#6699CC" cellpadding="0" height="125" width="100%" style="table-layout: fixed"><col width="10" /><col width="*" /><col width="10" /><tr class="ssSiteFooter"><td></td><td class="ssSiteFooterRule">&nbsp;</td><td></td></tr><tr height="3"><td colspan="3"></td></tr><tr><td></td><td valign="top"><a class="ssLaunchHyperLink" href="http://www.state.tx.us/" target="_blank">State of Texas</a><span class="ssHyperLinkSpacer">|</span><a class="ssLaunchHyperLink" href="http://www.co.hays.tx.us/" target="_blank">Hays County</a><p class="ssCopyright">Copyright 2003 Tyler Technologies. All rights Reserved.</p></td><td></td></tr></table></td></tr></table>    
+  </body>
+</html>
