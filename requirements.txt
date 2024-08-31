@@ -1,18 +1,8 @@
-argparse
-azure-cosmos
-boto3
-beautifulsoup4
-csv
-datetime
-python-dotenv
-ioBytesIO
-json
-os
-requests
-statistics
-sys
-time
-traceback
-xxhash
-zipfile
-unittest
+azure-cosmos    == 4.7.0
+beautifulsoup4  == 4.12.3
+boto3           == 1.35.5
+python-dotenv   == 1.0.1
+requests        == 2.32.3
+retry           == 0.9.2
+statistics      == 1.0.3.5
+xxhash          == 3.5.0
