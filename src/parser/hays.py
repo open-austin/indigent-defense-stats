@@ -54,20 +54,19 @@ def get_top_charge(dispositions: List[Dict], charge_information: List[Dict]) -> 
     print("Top Charge:", top_charge)
     return top_charge
 
-class pre2017_parser():
-    def __init__(self, case_id, county):
-        self.case_id = case_id
-        self.county = county
+class ParserHays():
+    def __init__(self):
+        pass
 
-    def parse_pre2017(self, case_soup: BeautifulSoup) -> Dict:
+    def parser_hays(self, county, case_number, case_soup: BeautifulSoup) -> Dict:
         case_data = {}
         # Gather initial data for filename and date checking
         case_data["code"] = case_soup.select('div[class="ssCaseDetailCaseNbr"] > span')[
             0
         ].text
-        case_data["odyssey id"] = self.case_id
+        case_data["odyssey id"] = case_number
         #Adds county field to data
-        case_data['county'] = self.county
+        case_data['county'] = county
         # get all the root tables
         root_tables = case_soup.select("body>table")
         for table in root_tables:
@@ -114,10 +113,10 @@ class pre2017_parser():
                     if row[0] == "State":
                         SECTION = "defendant"
                     #Slightly different handling by County
-                    if self.county == "hays":
+                    if county == "hays":
                         if row[0] == "Defendant":
                             SECTION = "bondsman"
-                    if self.county == "williamson":
+                    if county == "williamson":
                         if row[0] == "Defendant":
                             defendant_rows.append(row)
                             SECTION = "bondsman"
