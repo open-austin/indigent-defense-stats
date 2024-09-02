@@ -47,6 +47,7 @@ class Parser:
             return None, None
 
     def get_directories(self, county, test):
+        #TODO: Check for dependencies. Raise if county is missing.
         if not test:
             case_html_path = os.path.join(
                 os.path.dirname(__file__), "..", "..", "data", county, "case_html"
@@ -158,10 +159,10 @@ class Parser:
                     # Handle the case where parser_instance or parser_function is None
                     print("Error: Could not obtain parser instance or function.")
 
-                #Adds county field to data
+                # Adds county field to data
                 case_data['county'] = county
 
-                #Adds a hash to the JSON file of the underlying HTML
+                # Adds a hash to the JSON file of the underlying HTML
                 body = case_soup.find("body")
                 balance_table = body.find_all("table")[-1]
                 if "Balance Due" in balance_table.text:

@@ -45,6 +45,11 @@ Source: https://docs.python.org/3/library/venv.html#how-venvs-work
 
 Note: Again, you'll need to activate venv _every time you want to work in the codebase_.
 
+If the above doesn't work, try these instructions for creating and activating a virtual environment:
+1. Navigate to your project directory: cd [insert file path]
+2. Create a virtual environenment: python -m venv venv
+3. Activate the virtual environment: .\venv\Scripts\activate.bat
+
 ### Install python dependencies
 
 Using `pip`, install the project dependencies.

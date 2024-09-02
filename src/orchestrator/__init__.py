@@ -6,10 +6,10 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 # Import all of the programs modules within the parent_dir
-from scraper.__main__  import scraper
-from parser.__main__  import parser
-from cleaner.__main__  import cleaner
-from updater.__main__  import updater
+from scraper import scraper
+from parser import parser
+from cleaner import cleaner
+from updater import updater
 
 class orchestrator:
     def __init__(self):
@@ -17,7 +17,7 @@ class orchestrator:
         self.counties = []
         self.start_date = '2024-07-01'       #Update start date here
         self.end_date = '2024-07-01'         #Update start date here
-    def orchestrate(self):
+    def orchestrate(self, test):
 
         #This open the county data CSV to see which counties should be scraped, parsed, cleaned, and updated.
         with open(
@@ -35,7 +35,7 @@ class orchestrator:
         #This runs the different modules in order
         for c in self.counties:
             print(f"Starting to scrape, parse, clean, and update this county: {c}")
-            scraper(county = c).scrape() #src/scraper
+            scraper(test = test, county = c).scrape() #src/scraper
             parser(c).parse() #src/parser
             cleaner(c).clean() #src/cleaner
             updater(c).update() #src/updater
