@@ -1,3 +1,4 @@
+```mermaid
 graph TD
 
   A[scrape] --> B[set_defaults: Initialize default values for parameters like county, wait time, dates, and case details]
@@ -17,4 +18,4 @@ graph TD
   K -- No --> M[scrape_jo_list: Retrieve a list of judicial officers between the start and end dates]
   M --> N[scrape_multiple_cases: Scrape data for multiple cases based on judicial officers and date range]
   N -- loop through Judicial Officers per Day in Range --> R[county-specific scraper]
-
+```
