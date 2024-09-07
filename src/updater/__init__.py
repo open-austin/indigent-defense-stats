@@ -3,7 +3,7 @@ from azure.cosmos import CosmosClient, exceptions
 from dotenv import load_dotenv
 from datetime import datetime as dt
 
-class updater():
+class Updater():
     def __init__(self, county):
         self.county = county.lower()
 

@@ -2,7 +2,7 @@ import json, argparse, os, datetime as dt, xxhash
 from azure.cosmos import CosmosClient, exceptions
 from dotenv import load_dotenv
 
-class cleaner:
+class Cleaner:
 
     def __init__(self, county):
         self.county = county.lower()
