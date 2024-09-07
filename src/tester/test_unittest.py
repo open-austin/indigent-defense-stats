@@ -8,7 +8,7 @@ sys.path.append(parent_dir)
 
 # Import all of the programs modules within the parent_dir
 from scraper.__main__  import scraper
-from parser.__main__  import parser
+from parser  import Parser
 from cleaner.__main__  import cleaner
 from updater.__main__  import updater
 
@@ -274,8 +274,8 @@ class ParseTestCase(unittest.TestCase):
         now = datetime.now()
         now_string = now.strftime("%H:%M:%S")
         # Call the function being tested
-        parser_instance = parser(case_number = '51652356', test = True)
-        parser_instance.parse()
+        parser_instance = Parser()
+        parser_instance.parse(county = 'hays', case_number = '51652356', test = True)
 
         # Test #1: Check to see if there is a JSON called 51652356.json created in the correct location and that it was updated since this test started running
         test_case_json_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_data', 'hays', 'case_json', 'test_51652356.json')
