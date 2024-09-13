@@ -78,7 +78,7 @@ class HTTPMethod(Enum):
     POST: int = 1
     GET: int = 2
 
-@retry(tries=5, delay=.2, backoff=.2)
+#@retry(tries=5, delay=.2, backoff=1)
 def request_page(
     session: requests.Session,
     url: str,
