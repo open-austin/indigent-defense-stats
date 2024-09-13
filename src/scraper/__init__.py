@@ -16,9 +16,7 @@ class Scraper:
     def __init__(self):
         pass
 
-    def set_defaults(self, ms_wait, start_date, end_date, court_calendar_link_text, case_number):
-        if not ms_wait:
-            ms_wait = 200 
+    def set_defaults(self, start_date, end_date, court_calendar_link_text, case_number):
         if not start_date:
             start_date = '2024-07-01'
         if not end_date:
@@ -27,7 +25,7 @@ class Scraper:
             court_calendar_link_text = "Court Calendar"
         if not case_number:
             case_number = None
-        return ms_wait, start_date, end_date, court_calendar_link_text, case_number
+        return start_date, end_date, court_calendar_link_text, case_number
 
     def configure_logger(self):
         # configure the logger
@@ -116,7 +114,7 @@ class Scraper:
             print(f"Module '{module_name}' not found.")
             return None, None
 
-    def scrape_main_page(self, base_url, odyssey_version, session, notes, logger, ms_wait):
+    def scrape_main_page(self, base_url, odyssey_version, session, notes, logger):
         # if odyssey_version < 2017, scrape main page first to get necessary data
         if odyssey_version < 2017:
             # some sites have a public guest login that must be used
@@ -131,27 +129,25 @@ class Scraper:
                     "SignOn": "Sign On",
                 }
 
-                response = request_page_with_retry(
+                response = request_page(
                     session=session,
                     url=urllib.parse.urljoin(base_url, "login.aspx"),
                     logger=logger,
                     http_method=HTTPMethod.GET,
-                    ms_wait=ms_wait,
                     data=data,
                 )
 
-            main_page_html = request_page_with_retry(
+            main_page_html = request_page(
                 session=session,
                 url=base_url,
                 verification_text="ssSearchHyperlink",
                 logger=logger,
                 http_method=HTTPMethod.GET,
-                ms_wait=ms_wait,
             )
             main_soup = BeautifulSoup(main_page_html, "html.parser")
             return main_page_html, main_soup
         
-    def scrape_search_page(self, base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text):
+    def scrape_search_page(self, base_url, odyssey_version, main_page_html, main_soup, session, logger, court_calendar_link_text):
         # build url for court calendar
         search_page_id = None
         for link in main_soup.select("a.ssSearchHyperlink"):
@@ -166,7 +162,7 @@ class Scraper:
         search_url = base_url + "Search.aspx?ID=" + search_page_id
 
         # hit the search page to gather initial data
-        search_page_html = request_page_with_retry(
+        search_page_html = request_page(
             session=session,
             url=search_url
             if odyssey_version < 2017
@@ -175,8 +171,7 @@ class Scraper:
             if odyssey_version < 2017
             else "SearchCriteria.SelectedCourt",
             http_method=HTTPMethod.GET,
-            logger=logger,
-            ms_wait=ms_wait,
+            logger=logger
         )
         search_soup = BeautifulSoup(search_page_html, "html.parser")
 
@@ -202,21 +197,20 @@ class Scraper:
             ]  # TODO: Search in default court. Might need to add further logic later to loop through courts.
         return hidden_values
 
-    def get_search_results(self, session, search_url, logger, ms_wait, hidden_values, case_number):
+    def get_search_results(self, session, search_url, logger, hidden_values, case_number):
         # POST a request for search results
-        results_page_html = request_page_with_retry(
+        results_page_html = request_page(
             session=session,
             url=search_url,
             verification_text="Record Count",
             logger=logger,
-            data=create_single_case_search_form_data(hidden_values, case_number),
-            ms_wait=ms_wait,
+            data=create_single_case_search_form_data(hidden_values, case_number)
         )
         results_soup = BeautifulSoup(results_page_html, "html.parser")
         return results_soup
 
-    def scrape_individual_case(self, base_url, search_url, hidden_values, case_number, case_html_path, session, logger, ms_wait): # Individual case search logic
-        results_soup = self.get_search_results(session, search_url, logger, ms_wait, hidden_values, case_number)
+    def scrape_individual_case(self, base_url, search_url, hidden_values, case_number, case_html_path, session, logger): # Individual case search logic
+        results_soup = self.get_search_results(session, search_url, logger, hidden_values, case_number)
         case_urls = [
             base_url + anchor["href"]
             for anchor in results_soup.select('a[href^="CaseDetail"]')
@@ -225,12 +219,11 @@ class Scraper:
         case_id = case_urls[0].split("=")[1]
         logger.info(f"{case_id} - scraping case")
         # make request for the case
-        case_html = request_page_with_retry(
+        case_html = request_page(
             session=session,
             url=case_urls[0],
             verification_text="Date Filed",
-            logger=logger,
-            ms_wait=ms_wait,
+            logger=logger
         )
         # write html case data
         logger.info(f"{len(case_html)} response string length")
@@ -256,9 +249,10 @@ class Scraper:
             judicial_officers = list(judicial_officer_to_ID.keys())
         return judicial_officers, judicial_officer_to_ID
 
-    def scrape_results_page(self, odyssey_version, base_url, search_url, hidden_values, JO_id, date_string, session, logger, ms_wait):
+    def scrape_results_page(self, odyssey_version, base_url, search_url, hidden_values, JO_id, date_string, session, logger):
         # POST a request for search results
-        results_page_html = request_page_with_retry(
+        logger.info(f"date_string:{date_string}")
+        results_page_html = request_page(
             session=session,
             url=search_url
             if odyssey_version < 2017
@@ -269,16 +263,15 @@ class Scraper:
             logger=logger,
             data=create_search_form_data(
                 date_string, JO_id, hidden_values, odyssey_version
-            ),
-            ms_wait=ms_wait,
+            )
             )
         results_soup = BeautifulSoup(results_page_html, "html.parser")
         return results_page_html, results_soup
 
     # Not currently in use. Should be moved to a county-specific module, class, and method when a post2017 county is included
-    """def scrape_case_data_post2017(self, base_url, case_html_path, session, logger, ms_wait):
+    """def scrape_case_data_post2017(self, base_url, case_html_path, session, logger):
         # Need to POST this page to get a JSON of the search results after the initial POST
-        case_list_json = request_page_with_retry(
+        case_list_json = request_page(
             session=session,
             url=urllib.parse.urljoin(base_url, "Hearing/HearingResults/Read"),
             verification_text="AggregateResults",
@@ -290,26 +283,24 @@ class Scraper:
             case_id = str(case_json["CaseId"])
             logger.info(f"{case_id} scraping case")
             # make request for the case
-            case_html = request_page_with_retry(
+            case_html = request_page(
                 session=session,
                 url=urllib.parse.urljoin(base_url, "Case/CaseDetail"),
                 verification_text="Case Information",
                 logger=logger,
-                ms_wait=ms_wait,
                 params={
                     "eid": case_json["EncryptedCaseId"],
                     "CaseNumber": case_json["CaseNumber"],
                 },
             )
             # make request for financial info
-            case_html += request_page_with_retry(
+            case_html += request_page(
                 session=session,
                 url=urllib.parse.urljoin(
                     base_url, "Case/CaseDetail/LoadFinancialInformation"
                 ),
                 verification_text="Financial",
                 logger=logger,
-                ms_wait=ms_wait,
                 params={
                     "caseId": case_json["CaseId"],
                 },
@@ -321,7 +312,7 @@ class Scraper:
             ) as file_handle:
                 file_handle.write(case_html)"""
 
-    def scrape_multiple_cases(self, county, odyssey_version, base_url, search_url, hidden_values, judicial_officers, judicial_officer_to_ID, case_html_path, logger, session, ms_wait, start_date, end_date):
+    def scrape_multiple_cases(self, county, odyssey_version, base_url, search_url, hidden_values, judicial_officers, judicial_officer_to_ID, case_html_path, logger, session, start_date, end_date):
         start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
         end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
         # loop through each day
@@ -338,30 +329,30 @@ class Scraper:
                 JO_id = judicial_officer_to_ID[JO_name]
                 logger.info(f"Searching cases on {date_string} for {JO_name}")
                 # scrapes the results page with the search parameters and returns the soup. it also returns the html but it's not used at this time
-                results_html, results_soup = self.scrape_results_page(odyssey_version, base_url, search_url, hidden_values, JO_id, date_string, session, logger, ms_wait)
+                results_html, results_soup = self.scrape_results_page(odyssey_version, base_url, search_url, hidden_values, JO_id, date_string, session, logger)
                 # get a different scraper for each county
                 self.get_class_and_method(county)
                 # gets the county-specific scraper class and method
                 scraper_instance, scraper_function = self.get_class_and_method(county=county)
                 if scraper_instance is not None and scraper_function is not None:
-                    scraper_function(base_url, results_soup, case_html_path, logger, session, ms_wait)
+                    scraper_function(base_url, results_soup, case_html_path, logger, session)
                 else:
                     print("Error: Could not obtain parser instance or function.")
 
-    def scrape(self, county, judicial_officers, ms_wait, start_date, end_date, court_calendar_link_text, case_number, case_html_path):
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = self.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
+    def scrape(self, county, judicial_officers, start_date, end_date, court_calendar_link_text, case_number, case_html_path):
+        start_date, end_date, court_calendar_link_text, case_number = self.set_defaults(start_date, end_date, court_calendar_link_text, case_number)
         logger = self.configure_logger()
         county = self.format_county(county)
         session = self.create_session()
         self.make_directories(county) if not case_html_path else case_html_path
         base_url, odyssey_version, notes = self.get_ody_link(county, logger)
-        main_page_html, main_soup = self.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
-        search_url, search_page_html, search_soup = self.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text)
+        main_page_html, main_soup = self.scrape_main_page(base_url, odyssey_version, session, notes, logger)
+        search_url, search_page_html, search_soup = self.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, court_calendar_link_text)
         hidden_values = self.get_hidden_values(odyssey_version, main_soup, search_soup, logger)
         if case_number: # just scrapes the one case
-            self.scrape_individual_case(base_url, search_url, hidden_values, case_number, case_html_path, session, logger, ms_wait)
+            self.scrape_individual_case(base_url, search_url, hidden_values, case_number, case_html_path, session, logger)
         else: # scrape a list of JOs between a start and end date
             judicial_officers, judicial_officer_to_ID = self.scrape_jo_list(odyssey_version, search_soup, judicial_officers, logger)
             SCRAPER_START_TIME = time()
-            self.scrape_multiple_cases(odyssey_version, base_url, search_url, hidden_values, judicial_officers, judicial_officer_to_ID, case_html_path, logger, session, ms_wait, start_date, end_date)
+            self.scrape_multiple_cases(odyssey_version, base_url, search_url, hidden_values, judicial_officers, judicial_officer_to_ID, case_html_path, logger, session, start_date, end_date)
             logger.info(f"\nTime to run script: {round(time() - SCRAPER_START_TIME, 2)} seconds")

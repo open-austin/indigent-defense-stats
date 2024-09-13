@@ -6,6 +6,7 @@ from logging import Logger
 from typing import Dict, Optional, Tuple, Literal
 from enum import Enum
 from datetime import datetime, timezone, timedelta
+from retry import retry
 
 #This is called debug and quit.
 def write_debug_and_quit(
@@ -77,8 +78,8 @@ class HTTPMethod(Enum):
     POST: int = 1
     GET: int = 2
 
-
-def request_page_with_retry(
+@retry(tries=5, delay=.2, backoff=.2)
+def request_page(
     session: requests.Session,
     url: str,
     logger: Logger,
@@ -86,42 +87,40 @@ def request_page_with_retry(
     http_method: Literal[HTTPMethod.POST, HTTPMethod.GET] = HTTPMethod.POST,
     params: Dict[str, str] = {},
     data: Optional[Dict[str, str]] = None,
-    max_retries: int = 5,
-    ms_wait: str = 200,
 ) -> Tuple[str, bool]:
+    
+    sleep(.2)
     response = None
-    for i in range(max_retries):
-        sleep(ms_wait / 1000 * (i + 1))
-        failed = False
-        try:
-            if http_method == HTTPMethod.POST:
-                if not data:
-                    response = session.post(url, params=params)
-                else:
-                    response = session.post(url, data=data, params=params)
-            elif http_method == HTTPMethod.GET:
-                if not data:
-                    response = session.get(url, params=params)
-                else:
-                    response = session.get(url, data=data, params=params)
-            response.raise_for_status()
-            if verification_text:
-                if verification_text not in response.text:
-                    failed = True
-                    logger.error(
-                        f"Verification text {verification_text} not in response"
-                    )
-        except requests.RequestException as e:
-            logger.exception(f"Failed to get url {url}, try {i}")
-            failed = True
-        if failed:
-            if response == None:
-                response_text = 'No response from Odyssey.'
+    failed = False
+    try:
+        if http_method == HTTPMethod.POST:
+            if not data:
+                response = session.post(url, params=params)
             else:
-                response_text = response.text
-            write_debug_and_quit(
-                verification_text=verification_text,
-                page_text=response_text,
-                logger=logger,
-            )
+                response = session.post(url, data=data, params=params)
+        elif http_method == HTTPMethod.GET:
+            if not data:
+                response = session.get(url, params=params)
+            else:
+                response = session.get(url, data=data, params=params)
+        response.raise_for_status()
+        if verification_text:
+            if verification_text not in response.text:
+                failed = True
+                logger.error(
+                    f"Verification text {verification_text} not in response"
+                )
+    except requests.RequestException as e:
+        logger.exception(f"Failed to get url {url}, try {i}")
+        failed = True
+    if failed:
+        if response == None:
+            response_text = 'No response from Odyssey.'
+        else:
+            response_text = response.text
+        write_debug_and_quit(
+            verification_text=verification_text,
+            page_text=response_text,
+            logger=logger,
+        )
     return response.text

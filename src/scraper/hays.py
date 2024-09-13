@@ -6,7 +6,7 @@ class ScraperHays():
     def __init__(self):
         pass
 
-    def scraper_hays(self, base_url, results_soup, case_html_path, logger, session, ms_wait):
+    def scraper_hays(self, base_url, results_soup, case_html_path, logger, session):
         case_urls = [
             base_url + anchor["href"]
             for anchor in results_soup.select('a[href^="CaseDetail"]')
@@ -17,7 +17,7 @@ class ScraperHays():
             logger.info(f"{case_id} - scraping case")
             # make request for the case
             try:
-                case_html = request_page_with_retry(
+                case_html = request_page(
                     session=session,
                     url=case_url,
                     verification_text="Date Filed",
