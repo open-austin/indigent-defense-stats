@@ -78,7 +78,7 @@ class HTTPMethod(Enum):
     POST: int = 1
     GET: int = 2
 
-#@retry(tries=5, delay=.2, backoff=1)
+@retry(tries=3, delay=2, backoff=2)
 def request_page(
     session: requests.Session,
     url: str,
@@ -86,11 +86,10 @@ def request_page(
     verification_text: Optional[str] = None,
     http_method: Literal[HTTPMethod.POST, HTTPMethod.GET] = HTTPMethod.POST,
     params: Dict[str, str] = {},
-    data: Optional[Dict[str, str]] = None,
+    data: Optional[Dict[str, str]] = None
 ) -> Tuple[str, bool]:
-    
-    sleep(.2)
     response = None
+
     failed = False
     try:
         if http_method == HTTPMethod.POST:
