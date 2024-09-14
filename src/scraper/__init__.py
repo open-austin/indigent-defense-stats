@@ -9,7 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 from .helpers import *
 import importlib
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Callable, Type
 
 class Scraper:
     def __init__(self):
@@ -40,7 +40,7 @@ class Scraper:
             if not case_number:
                 case_number = None
         except Exception as e:
-            raise ValueError(f"Error setting the default values for the code : {e}")
+            raise Exception(f"Error setting the default values for the code : {e}")
         return ms_wait, start_date, end_date, court_calendar_link_text, case_number
 
     def configure_logger(self) -> logging.Logger:
@@ -51,132 +51,143 @@ class Scraper:
             logging.root.setLevel(level="INFO")
             logger.info("Scraper class initialized")
         except Exception as e:
-            raise ValueError(f"Error configuring the logger: {e}")            
+            raise Exception(f"Error configuring the logger: {e}")            
         return logger
 
-    def format_county(self, county: str) -> str:
+    def format_county(self, 
+                      county: str
+                      ) -> str:
         # make the county lowercase
         try:
             county = county.lower()
         except Exception as e:
-            raise ValueError(f"Error with making the county lowercase: {e}")
+            raise TypeError(f"Error with making the county lowercase: {e}")
         return county
 
-    def create_session(self, logger: logging.Logger) -> requests.sessions.Session:
+    # creates a session that will be used for interacting with web pages
+    def create_session(self, 
+                       logger: logging.Logger
+                       ) -> requests.sessions.Session:
         try:
             session = requests.Session()
             session.verify = False
-            requests.packages.urllib3.disable_warnings(
-                requests.packages.urllib3.exceptions.InsecureRequestWarning
-            )
+            requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
         except Exception as e:
-            raise ValueError(f"Error creating the requests session field: {e}")            
+            logger.info(f"Error creating the requests session field: {e}")
+            raise Exception(f"Error creating the requests session field: {e}")            
         return session
 
-    def make_directories(self, county: str, logger: logging.Logger) -> str:
-        # make directories if not present
+    # make directories if not present
+    def make_directories(self, 
+                         county: str, 
+                         logger: logging.Logger
+                         ) -> str:
         try:
-            case_html_path = os.path.join(
-                os.path.dirname(__file__), "..", "..", "data", county, "case_html"
-            )
+            case_html_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", county, "case_html")
             os.makedirs(case_html_path, exist_ok=True)
         except Exception as e:
+            logger.info(f"Error making directories for the resulting case HTML: {e}")
             raise OSError(f"Error making directories for the resulting case HTML: {e}")
         return case_html_path
 
-    def get_ody_link(self, county, logger):
-        # get county portal and version year information from csv file
-        base_url = odyssey_version = notes = None
-        with open(
-            os.path.join(
-                os.path.dirname(__file__), "..", "..", "resources", "texas_county_data.csv"
-            ),
-            mode="r",
-        ) as file_handle:
-            csv_file = csv.DictReader(file_handle)
-            for row in csv_file:
-                if row["county"].lower() == county.lower():
-                    base_url = row["portal"]
-                    # add trailing slash if not present, otherwise urljoin breaks
-                    if base_url[-1] != "/":
-                        base_url += "/"
-                    logger.info(f"{base_url} - scraping this url")
-                    odyssey_version = int(row["version"].split(".")[0])
-                    notes = row["notes"]
-                    break
-        if not base_url or not odyssey_version:
-            raise Exception(
-                "The required data to scrape this county is not in ./resources/texas_county_data.csv"
-            )
+    # get county portal URL, Odyssey version, and notes from csv file
+    def get_ody_link(self, 
+                     county: str, 
+                     logger: logging.Logger
+                     ) -> Tuple[str, 
+                                str, 
+                                str ]:
+        try:
+            base_url = odyssey_version = notes = None
+            with open(
+                os.path.join(os.path.dirname(__file__), "..", "..", "resources", "texas_county_data.csv"),
+                mode="r",
+            ) as file_handle:
+                csv_file = csv.DictReader(file_handle)
+                for row in csv_file:
+                    if row["county"].lower() == county.lower():
+                        base_url = row["portal"]
+                        # add trailing slash if not present, otherwise urljoin breaks
+                        if base_url[-1] != "/":
+                            base_url += "/"
+                        logger.info(f"{base_url} - scraping this url")
+                        odyssey_version = int(row["version"].split(".")[0])
+                        notes = row["notes"]
+                        break
+            if not base_url or not odyssey_version:
+                raise Exception("The required data to scrape this county is not in /resources/texas_county_data.csv")
+        except Exception as e:
+            logger.info(f"Error getting county-specific information from csv: {e}")
+            raise Exception(f"Error getting county-specific information from csv: {e}")
         return base_url, odyssey_version, notes
 
-    def get_class_and_method(self, county, logger):
-        # Construct the module, class, and method names
-        module_name = county #ex: 'hays'
-        class_name = f"Scraper{county.capitalize()}" #ex: 'ScraperHays'
-        method_name = f"scraper_{county}" #ex: 'scraper_hays'
-        
-        # Add the current directory to the system path
-        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-        
+    def get_class_and_method(self, 
+                             county: str, 
+                             logger: logging.Logger
+                             ) -> Tuple[Type[object], 
+                                        Callable]:
         try:
-            # Dynamically import the module
-            module = importlib.import_module(module_name)
-            
-            # Retrieve the class from the module
-            cls = getattr(module, class_name)
-            if cls is None:
-                print(f"Class '{class_name}' not found in module '{module_name}'.")
-                return None, None
-            
-            # Instantiate the class
-            instance = cls()
-            
-            # Retrieve the method with the specified name
-            method = getattr(instance, method_name, None)
-            if method is None:
-                print(f"Method '{method_name}' not found in class '{class_name}'.")
-                return instance, None
-            
+            # Construct the module, class, and method names
+            module_name = county #ex: 'hays'
+            class_name = f"Scraper{county.capitalize()}" #ex: 'ScraperHays'
+            method_name = f"scraper_{county}" #ex: 'scraper_hays'        
+            # Add the current directory to the system path
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        except Exception as e:
+            logger.info(f"Error formatting the module, class, and method name from county name: {e}")
+            raise Exception(f"Error formatting the module, class, and method name from county name: {e}")
+        try:
+            module = importlib.import_module(module_name) # Dynamically import the module
+            cls = getattr(module, class_name) # Retrieve the class from the module
+            instance = cls() # Instantiate the class
+            method = getattr(instance, method_name, None) # Retrieve the method with the specified name
+            if cls is None or method is None:
+                logger.info(f"Received None for either the class (str: {class_name}) or method (str: {method_name})")
+                raise TypeError(f"Received None for either the class (str: {class_name}) or method (str: {method_name})")
             return instance, method
-        except ModuleNotFoundError:
-            print(f"Module '{module_name}' not found.")
-            return None, None
+        except Exception as e:
+            logger.info(f"Error dynamically importing the module, class, and method name using county name: {e}")
+            raise Exception(f"Error dynamically importing the module, class, and method name using county name: {e}")
 
-    def scrape_main_page(self, base_url, odyssey_version, session, notes, logger, ms_wait):
-        # if odyssey_version < 2017, scrape main page first to get necessary data
-        if odyssey_version < 2017:
-            # some sites have a public guest login that must be used
-            if "PUBLICLOGIN#" in notes:
-                userpass = notes.split("#")[1].split("/")
+    def scrape_main_page(self, 
+                         base_url: str, 
+                         odyssey_version: int, 
+                         session: requests.sessions.Session, 
+                         notes: str, 
+                         logger: logging.Logger, 
+                         ms_wait: int
+                         ) -> Tuple[str, BeautifulSoup]:
+        # some sites have a public guest login that must be used
+        if "PUBLICLOGIN#" in notes:
+            userpass = notes.split("#")[1].split("/")
+            data = {
+                "UserName": userpass[0],
+                "Password": userpass[1],
+                "ValidateUser": "1",
+                "dbKeyAuth": "Justice",
+                "SignOn": "Sign On",
+            }
 
-                data = {
-                    "UserName": userpass[0],
-                    "Password": userpass[1],
-                    "ValidateUser": "1",
-                    "dbKeyAuth": "Justice",
-                    "SignOn": "Sign On",
-                }
-
-                response = request_page_with_retry(
-                    session=session,
-                    url=urllib.parse.urljoin(base_url, "login.aspx"),
-                    logger=logger,
-                    http_method=HTTPMethod.GET,
-                    ms_wait=ms_wait,
-                    data=data,
-                )
-
-            main_page_html = request_page_with_retry(
+            # not sure how this is being used. response doesn't seem to be used anywhere. May remove?
+            response = request_page_with_retry(
                 session=session,
-                url=base_url,
-                verification_text="ssSearchHyperlink",
+                url=urllib.parse.urljoin(base_url, "login.aspx"),
                 logger=logger,
                 http_method=HTTPMethod.GET,
                 ms_wait=ms_wait,
+                data=data,
             )
-            main_soup = BeautifulSoup(main_page_html, "html.parser")
-            return main_page_html, main_soup
+
+        main_page_html = request_page_with_retry(
+            session=session,
+            url=base_url,
+            verification_text="ssSearchHyperlink",
+            logger=logger,
+            http_method=HTTPMethod.GET,
+            ms_wait=ms_wait,
+        )
+        main_soup = BeautifulSoup(main_page_html, "html.parser")
+        return main_page_html, main_soup
         
     def scrape_search_page(self, base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text):
         # build url for court calendar
