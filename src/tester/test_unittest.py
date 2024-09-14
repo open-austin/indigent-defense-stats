@@ -43,7 +43,7 @@ class ScraperTestCase(unittest.TestCase):
         scraper_instance = Scraper()
         logger = scraper_instance.configure_logger()
         ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
-        session = scraper_instance.create_session()
+        session = scraper_instance.create_session(logger)
         main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
         self.assertIsNotNone(main_page_html, "No main page HTML came through. main_page_html = None.")
         self.assertTrue('ssSearchHyperlink' in main_page_html, "There is no 'ssSearchHyperlink' text found in this main page html.") # Note: This validation is already being done using the 'verification_text' field.
@@ -72,7 +72,7 @@ class ScraperTestCase(unittest.TestCase):
         scraper_instance = Scraper()
         logger = scraper_instance.configure_logger()
         ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
-        session = scraper_instance.create_session()
+        session = scraper_instance.create_session(logger)
         search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text)
         # Verify the court calendar link
         self.assertIsNotNone(main_page_html, "No search url came through. search_url = None.")
@@ -141,7 +141,7 @@ class ScraperTestCase(unittest.TestCase):
         ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
         logger = scraper_instance.configure_logger()
         county = scraper_instance.format_county(county)
-        session = scraper_instance.create_session()
+        session = scraper_instance.create_session(logger)
         case_html_path = scraper_instance.make_directories(county) if not case_html_path else case_html_path
         base_url, odyssey_version, notes = scraper_instance.get_ody_link(county, logger)
         main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
@@ -194,7 +194,7 @@ class ScraperTestCase(unittest.TestCase):
         ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
         logger = scraper_instance.configure_logger()
         county = scraper_instance.format_county(county)
-        session = scraper_instance.create_session()
+        session = scraper_instance.create_session(logger)
         main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
         search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text)
         judicial_officers, judicial_officer_to_ID = scraper_instance.scrape_jo_list(odyssey_version, search_soup, judicial_officers, logger)
@@ -231,7 +231,7 @@ class ScraperTestCase(unittest.TestCase):
         ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
         logger = scraper_instance.configure_logger()
         county = scraper_instance.format_county(county)
-        session = scraper_instance.create_session()
+        session = scraper_instance.create_session(logger)
         # Open the example main page HTML
         with open(
             os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_main_page.html'), "r", encoding='utf-8'
@@ -293,9 +293,9 @@ class ScraperTestCase(unittest.TestCase):
 
         # There are some live depency functions that have to be run before the primary code can be run. 
         scraper_instance = Scraper()
-        session = scraper_instance.create_session()
         ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
         logger = scraper_instance.configure_logger()
+        session = scraper_instance.create_session(logger)
         case_html_path = scraper_instance.make_directories(county) if not case_html_path else case_html_path
         search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text)
         results_html, results_soup = scraper_instance.scrape_results_page(odyssey_version, base_url, search_url, hidden_values, JO_id, date_string, session, logger, ms_wait)
