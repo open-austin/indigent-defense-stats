@@ -1,9 +1,7 @@
 import logging
 import os
-import re
 import csv
 import urllib.parse
-import json
 import sys
 from datetime import datetime, timedelta
 from time import time
@@ -11,50 +9,79 @@ import requests
 from bs4 import BeautifulSoup
 from .helpers import *
 import importlib
+from typing import Optional, Tuple
 
 class Scraper:
     def __init__(self):
         pass
 
-    def set_defaults(self, ms_wait, start_date, end_date, court_calendar_link_text, case_number):
-        if not ms_wait:
-            ms_wait = 200 
-        if not start_date:
-            start_date = '2024-07-01'
-        if not end_date:
-            end_date = '2024-07-01'
-        if not court_calendar_link_text:
-            court_calendar_link_text = "Court Calendar"
-        if not case_number:
-            case_number = None
+    def set_defaults(self, 
+                     ms_wait: Optional[int], 
+                     start_date: Optional[str], 
+                     end_date: Optional[str], 
+                     court_calendar_link_text: Optional[str], 
+                     case_number: Optional[str], 
+                     logger: logging.Logger
+                     ) -> Tuple[Optional[int], 
+                                Optional[str], 
+                                Optional[str], 
+                                Optional[str], 
+                                Optional[str], 
+                                logging.Logger]:
+        try: # set the defaults
+            if not ms_wait:
+                ms_wait = 200 
+            if not start_date:
+                start_date = '2024-07-01'
+            if not end_date:
+                end_date = '2024-07-01'
+            if not court_calendar_link_text:
+                court_calendar_link_text = "Court Calendar"
+            if not case_number:
+                case_number = None
+        except Exception as e:
+            raise ValueError(f"Error setting the default values for the code : {e}")
         return ms_wait, start_date, end_date, court_calendar_link_text, case_number
 
-    def configure_logger(self):
+    def configure_logger(self) -> logging.Logger:
         # configure the logger
-        logger = logging.getLogger(name="pid: " + str(os.getpid()))
-        logging.basicConfig()
-        logging.root.setLevel(level="INFO")
-        logger.info("Scraper class initialized")
+        try:
+            logger = logging.getLogger(name="pid: " + str(os.getpid()))
+            logging.basicConfig()
+            logging.root.setLevel(level="INFO")
+            logger.info("Scraper class initialized")
+        except Exception as e:
+            raise ValueError(f"Error configuring the logger: {e}")            
         return logger
 
-    def format_county(self, county):
-        county = county.lower()
+    def format_county(self, county: str) -> str:
+        # make the county lowercase
+        try:
+            county = county.lower()
+        except Exception as e:
+            raise ValueError(f"Error with making the county lowercase: {e}")
         return county
 
-    def create_session(self):
-        session = requests.Session()
-        session.verify = False
-        requests.packages.urllib3.disable_warnings(
-            requests.packages.urllib3.exceptions.InsecureRequestWarning
-        )
+    def create_session(self, logger: logging.Logger) -> requests.sessions.Session:
+        try:
+            session = requests.Session()
+            session.verify = False
+            requests.packages.urllib3.disable_warnings(
+                requests.packages.urllib3.exceptions.InsecureRequestWarning
+            )
+        except Exception as e:
+            raise ValueError(f"Error creating the requests session field: {e}")            
         return session
 
-    def make_directories(self, county):
+    def make_directories(self, county: str, logger: logging.Logger) -> str:
         # make directories if not present
-        case_html_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", county, "case_html"
-        )
-        os.makedirs(case_html_path, exist_ok=True)
+        try:
+            case_html_path = os.path.join(
+                os.path.dirname(__file__), "..", "..", "data", county, "case_html"
+            )
+            os.makedirs(case_html_path, exist_ok=True)
+        except Exception as e:
+            raise OSError(f"Error making directories for the resulting case HTML: {e}")
         return case_html_path
 
     def get_ody_link(self, county, logger):
@@ -83,7 +110,7 @@ class Scraper:
             )
         return base_url, odyssey_version, notes
 
-    def get_class_and_method(self, county):
+    def get_class_and_method(self, county, logger):
         # Construct the module, class, and method names
         module_name = county #ex: 'hays'
         class_name = f"Scraper{county.capitalize()}" #ex: 'ScraperHays'
@@ -351,9 +378,9 @@ class Scraper:
     def scrape(self, county, judicial_officers, ms_wait, start_date, end_date, court_calendar_link_text, case_number, case_html_path):
         ms_wait, start_date, end_date, court_calendar_link_text, case_number = self.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
         logger = self.configure_logger()
-        county = self.format_county(county)
-        session = self.create_session()
-        self.make_directories(county) if not case_html_path else case_html_path
+        county = self.format_county(county, logger)
+        session = self.create_session(logger)
+        self.make_directories(county, logger) if not case_html_path else case_html_path
         base_url, odyssey_version, notes = self.get_ody_link(county, logger)
         main_page_html, main_soup = self.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
         search_url, search_page_html, search_soup = self.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text)
@@ -365,3 +392,8 @@ class Scraper:
             SCRAPER_START_TIME = time()
             self.scrape_multiple_cases(odyssey_version, base_url, search_url, hidden_values, judicial_officers, judicial_officer_to_ID, case_html_path, logger, session, ms_wait, start_date, end_date)
             logger.info(f"\nTime to run script: {round(time() - SCRAPER_START_TIME, 2)} seconds")
+
+#scraper_instance = Scraper()
+#logger = scraper_instance.configure_logger()
+#session = scraper_instance.create_session(logger)
+#print(type(session))
