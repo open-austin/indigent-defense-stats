@@ -71,6 +71,7 @@ class Parser:
 
     def get_list_of_html(self, case_html_path, case_number, county, test):
         # This will loop through the html in the folder they were scraped to.
+        os.makedirs(case_html_path, exist_ok=True)
         case_html_list = os.listdir(case_html_path)
 
         # However, if an optional case number is passed to the function, then read in the case number html file from the data folder 
