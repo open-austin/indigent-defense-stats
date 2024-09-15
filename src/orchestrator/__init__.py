@@ -1,23 +1,18 @@
 import sys, os, csv
 
-# Appends the parent directory of this handler script to the sys.path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
 # Import all of the programs modules within the parent_dir
-from scraper import scraper
-from parser import parser
-from cleaner import cleaner
-from updater import updater
+import scraper
+import parser
+import cleaner
+import updater
 
-class orchestrator:
+class Orchestrator:
     def __init__(self):
         #Sets our base parameters
         self.counties = []
         self.start_date = '2024-07-01'       #Update start date here
         self.end_date = '2024-07-01'         #Update start date here
-    def orchestrate(self, test):
+    def orchestrate(self, test: bool = False):
 
         #This open the county data CSV to see which counties should be scraped, parsed, cleaned, and updated.
         with open(
@@ -41,4 +36,5 @@ class orchestrator:
             updater(c).update() #src/updater
             print(f"Completed with scraping, parsing, cleaning, and updating of this county: {c}")
 
-orchestrator().orchestrate()
+if __name__ == '__main__':
+    Orchestrator().orchestrate()

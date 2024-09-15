@@ -13,6 +13,7 @@ from .helpers import *
 import importlib
 
 class Scraper:
+    """Scrape Odyssey html files into an output folder"""
     def __init__(self):
         pass
 
