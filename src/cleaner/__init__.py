@@ -1,11 +1,18 @@
-import json, argparse, os, datetime as dt, xxhash
-from azure.cosmos import CosmosClient, exceptions
-from dotenv import load_dotenv
+import json
+import os
+import datetime as dt
+import xxhash
 
 class Cleaner:
 
     def __init__(self, county):
         self.county = county.lower()
+
+    def add_parsing_date(self, input_dict: dict, out_file: dict) -> dict:
+        # This will add the date of parsing to the final cleaned json file
+        today_date = dt.datetime.today().strftime('%Y-%m-%d')
+        out_file['parsing_date'] = today_date
+        return out_file
 
     def clean(self):
 
@@ -111,6 +118,9 @@ class Cleaner:
             def_atty_unique_str = input_dict["party information"]["defense attorney"] + ':' + input_dict["party information"]["defense attorney phone number"]
             def_atty_hash = xxhash.xxh64(str(def_atty_unique_str)).hexdigest()
             out_file["defense attorney"] = def_atty_hash
+
+            # This adds the date of parsing to the final cleaned json
+            out_file = self.add_parsing_date(input_dict, out_file)
 
             # Original Format
             out_filepath = os.path.join(
