@@ -104,15 +104,16 @@ class Parser:
                 file_handle.write(json.dumps(case_data))
 
     def write_error_log(self, county, case_number):
+        basepath = os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "..",
+            "data",
+            county,
+        )
+        os.makedirs(basepath, exist_ok=True)
         with open(
-            os.path.join(
-                os.path.dirname(__file__),
-                "..",
-                "..",
-                "data",
-                county,
-                "cases_with_parsing_error.txt",
-            ),
+            os.path.join(basepath, "cases_with_parsing_error.txt"),
             "w",
         ) as file_handle:
             file_handle.write(case_number + "\n")        
@@ -148,8 +149,13 @@ class Parser:
                 case_html_file_path = self.get_html_path(case_html_path, case_html_file_name, case_number, test)
 
                 print(f"{case_number} - parsing")
-                with open(case_html_file_path, "r") as file_handle:
-                    case_soup = BeautifulSoup(file_handle, "html.parser", from_encoding="UTF-8")
+                # strip out invalid utf-8 characters
+                with open(case_html_file_path, "r", encoding='utf-8', errors='ignore') as file_handle:
+                    try:
+                        case_soup = BeautifulSoup(file_handle, "html.parser", from_encoding="UTF-8")
+                    except Exception as e:
+                        print(f'error building beautiful soup for file {case_html_file_path}, {e}')
+                        raise e
 
                 # Get the county-specific parser class and method
                 parser_instance, parser_function = self.get_class_and_method(county=county)
