@@ -36,10 +36,9 @@ jobs:
     - name: Test with unittest
       run: |
         SKIP_SLOW=true python -m unittest discover -v -s ./src/tester
-    - uses: ammaraskar/sphinx-action@master
-      with:
-        build-command: "sphinx-build -b html docs build"
-        docs-folder: "."
+    - name: Build documentation
+      run: |
+        sphinx-build -b html docs build
 
     - uses: actions/upload-pages-artifact@v3.0.1
       with:
