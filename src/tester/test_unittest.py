@@ -12,6 +12,8 @@ from parser  import Parser
 from cleaner  import Cleaner
 from updater  import Updater
 
+SKIP_SLOW = os.getenv('SKIP_SLOW', 'false').lower().strip() == 'true'
+
 def log(message, level='INFO'): # Provide message and info level (optional, defaulting to info)
     # configure the logger
     log = logging.getLogger(name="pid: " + str(os.getpid()))
@@ -252,6 +254,7 @@ class ScraperTestCase(unittest.TestCase):
         #def scrape_case_data_pre2017()
         #def scrape_case_data_post2017()
 
+    @unittest.skipIf(SKIP_SLOW, "slow")
     def test_scrape_multiple_cases(self, 
                           county = 'hays',
                           odyssey_version = 2003, 
