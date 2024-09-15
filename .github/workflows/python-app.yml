@@ -39,7 +39,7 @@ jobs:
     - uses: ammaraskar/sphinx-action@master
       with:
         build-command: "sphinx-build -b html docs build"
-        docs-folder: "docs/"
+        docs-folder: "."
 
     - uses: actions/upload-pages-artifact@v3.0.1
       with:
