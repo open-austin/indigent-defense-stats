@@ -1,3 +1,6 @@
+## Data Structure of the Cleaned Cases JSON
+
+```mermaid
 graph TB
     subgraph CaseInformation[Case Information Summary]
         style CaseInformation fill:#d3a8e2,stroke:#333,stroke-width:2px
@@ -21,7 +24,7 @@ graph TB
             style RepresentationInfo fill:#b0d4f1,stroke:#333,stroke-width:2px
             B1[Defense Attorney Hash: 9083bb693e33919c]
             B2[Appointed or Retained: Court Appointed]
-            
+
         end
 
     end
@@ -94,3 +97,4 @@ graph TB
     CaseInformation --> Dispositions
     CaseInformation --> Events
     ChargeInformation --> TopCharge
+```
