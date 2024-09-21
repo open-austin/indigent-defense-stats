@@ -530,7 +530,7 @@ class Scraper:
         odyssey_version: int,
         base_url: str,
         search_url: str,
-        hidden_values: Dict[str, str],
+        hidden_values: dict[str, str],
         jo_id: str,
         date_string: str,
         session: requests.sessions.Session,
