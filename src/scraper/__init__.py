@@ -546,7 +546,7 @@ class Scraper:
             base_url (str): The base URL for constructing full URLs.
             search_url (str): The URL to request search results from.
             hidden_values (Dict[str, str]): Dictionary of hidden input values.
-            JO_id (str): Judicial officer ID for searching.
+            jo_id (str): Judicial officer ID for searching.
             date_string (str): Date string for searching.
             session (requests.sessions.Session): The session object for making HTTP requests.
             logger (logging.Logger): Logger instance for logging information.
@@ -572,7 +572,7 @@ class Scraper:
             url=search_url,
             verification_text=verification_text,
             logger=logger,
-            data=create_search_form_data(date_string, JO_id, hidden_values, odyssey_version),
+            data=create_search_form_data(date_string, jo_id, hidden_values, odyssey_version),
             ms_wait=ms_wait,
         )
         
@@ -607,11 +607,11 @@ class Scraper:
                     logger.error(f"Judicial officer {JO_name} not found on search page. Continuing.")
                     continue
                 
-                JO_id = judicial_officer_to_ID[JO_name]
+                jo_id = judicial_officer_to_ID[JO_name]
                 logger.info(f"Searching cases on {date_string} for {JO_name}")
                 
                 results_html, results_soup = self.scrape_results_page(
-                    odyssey_version, base_url, search_url, hidden_values, JO_id, date_string, session, logger, ms_wait
+                    odyssey_version, base_url, search_url, hidden_values, jo_id, date_string, session, logger, ms_wait
                 )
                 
                 scraper_instance, scraper_function = self.get_class_and_method(county, logger)
