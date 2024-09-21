@@ -167,3 +167,5 @@ data/
 .~lock.*
 
 .DS_Store
+
+docs/generated

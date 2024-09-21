@@ -13,6 +13,7 @@ from typing import Optional, Tuple, Callable, Type, List
 import importlib.util
 
 class Scraper:
+    """Scrape Odyssey html files into an output folder"""
     def __init__(self):
         pass
 
