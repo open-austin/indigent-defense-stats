@@ -531,7 +531,7 @@ class Scraper:
         base_url: str,
         search_url: str,
         hidden_values: Dict[str, str],
-        JO_id: str,
+        jo_id: str,
         date_string: str,
         session: requests.sessions.Session,
         logger: logging.Logger,
