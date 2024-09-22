@@ -154,6 +154,7 @@ class Scraper:
 
         try:
             base_url = odyssey_version = notes = None
+            # CSV is located in 'resources' folder
             with open(
                 os.path.join(os.path.dirname(__file__), "..", "..", "resources", "texas_county_data.csv"),
                 mode="r",
@@ -172,7 +173,7 @@ class Scraper:
             if not base_url or not odyssey_version:
                 raise Exception("The required data to scrape this county is not in /resources/texas_county_data.csv")
         except Exception as e:
-            logger.info(f"Error getting county-specific information from csv: {e}")
+            logger.exception(e, "Error getting county-specific information from csv.")
             raise
         return base_url, odyssey_version, notes
 
@@ -181,6 +182,7 @@ class Scraper:
         county: str, 
         logger: logging.Logger
     ) -> Tuple[Type[object], Callable]:
+        
         """
         Dynamically imports a module, retrieves a class, and gets a method from it based on the county name.
 
@@ -189,7 +191,6 @@ class Scraper:
         :returns: A tuple containing the instance of the class and the method callable.
         :raises ImportError: If the module cannot be imported.
         :raises AttributeError: If the class or method cannot be found.
-        :raises Exception: For any other unexpected errors.
         """
 
         module_name = county
@@ -219,10 +220,7 @@ class Scraper:
             return instance, method
 
         except (FileNotFoundError, ImportError, AttributeError) as e:
-            logger.error(f"Error dynamically loading module or retrieving class/method: {e}")
-            raise
-        except Exception as e:
-            logger.error(f"Unexpected error: {e}")
+            logger.exception(e, "Error dynamically loading module or retrieving class/method.")
             raise
 
     def scrape_main_page(self, 
@@ -264,8 +262,7 @@ class Scraper:
                     "SignOn": "Sign On",
                 }
 
-                # not sure how this is being used. response doesn't seem to be used anywhere, but it may just be opening the page.
-                response = request_page_with_retry(
+                request_page_with_retry(
                     session=session,
                     url=urllib.parse.urljoin(base_url, "login.aspx"),
                     logger=logger,
@@ -284,7 +281,7 @@ class Scraper:
             )
             main_soup = BeautifulSoup(main_page_html, "html.parser")
         except Exception as e:
-            logger.error(f"Error scraping main page for main page HTML: {e}")
+            logger.exception(e, f"Error scraping main page for main page HTML.")
             raise
         return main_page_html, main_soup
         
@@ -582,15 +579,12 @@ class Scraper:
                 jo_id = judicial_officer_to_ID[JO_name]
                 logger.info(f"Searching cases on {date_string} for {JO_name}")
                 
-                results_html, results_soup = self.scrape_results_page(
+                results_soup = self.scrape_results_page(
                     odyssey_version, base_url, search_url, hidden_values, jo_id, date_string, session, logger, ms_wait
                 )
                 
-                scraper_instance, scraper_function = self.get_class_and_method(county, logger)
-                if scraper_instance and scraper_function:
-                    scraper_function(base_url, results_soup, case_html_path, logger, session, ms_wait)
-                else:
-                    logger.error("Error: Could not obtain parser instance or function.")
+                scraper_function = self.get_class_and_method(county, logger)
+                scraper_function(base_url, results_soup, case_html_path, logger, session, ms_wait)
 
     def scrape(
         self,
