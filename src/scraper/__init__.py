@@ -11,6 +11,7 @@ from .helpers import *
 import importlib
 from typing import Optional, Tuple, Callable, Type, List
 import importlib.util
+import re
 
 class Scraper:
     """Scrape Odyssey html files into an output folder"""
@@ -19,12 +20,13 @@ class Scraper:
 
     def set_defaults(
         self, 
-        ms_wait: Optional[int] = None, 
-        start_date: Optional[str] = None, 
-        end_date: Optional[str] = None, 
-        court_calendar_link_text: Optional[str] = None, 
-        case_number: Optional[str] = None
-    ) -> Tuple[int, str, str, str, Optional[str]]:
+        ms_wait: int | None = None, 
+        start_date: str | None = None, 
+        end_date: str | None = None, 
+        court_calendar_link_text: str | None = None, 
+        case_number: str | None = None,
+        ssl: bool | None = None
+    ) -> Tuple[int, str, str, str, Optional[str], bool]:
         """
         Sets default values for the provided optional parameters.
 
@@ -50,8 +52,9 @@ class Scraper:
         court_calendar_link_text = court_calendar_link_text if court_calendar_link_text is not None else "Court Calendar"
         # case_number defaults to None if not provided
         case_number = case_number 
+        ssl = ssl if ssl is not None else True
 
-        return ms_wait, start_date, end_date, court_calendar_link_text, case_number
+        return ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl
 
     def configure_logger(self) -> logging.Logger:
         """
@@ -84,12 +87,10 @@ class Scraper:
         Raises:
             TypeError: If the provided county name is not a string.
         """
-        if not isinstance(county, str):
-            raise TypeError("The county name must be a string.")
         
-        return county.lower()
+        return re.sub(r'[^\w]+', '', county.lower())
 
-    def create_session(self, logger: logging.Logger) -> requests.sessions.Session:
+    def create_session(self, logger: logging.Logger, ssl) -> requests.sessions.Session:
         """
         Creates and configures a requests session for interacting with web pages.
 
@@ -104,7 +105,9 @@ class Scraper:
         """
         # Create and configure the session
         session = requests.Session()
-        session.verify = False  # Disable SSL certificate verification
+
+        # Optionally SSL certificate verification. Default to True unless False passed.
+        session.verify = ssl
         requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
         
         return session
@@ -631,8 +634,8 @@ class Scraper:
         case_number: Optional[str],
         case_html_path: Optional[str]
     ) -> None:
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = self.set_defaults(
-            ms_wait, start_date, end_date, court_calendar_link_text, case_number
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl = self.set_defaults(
+            ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl
         )
         
         logger = self.configure_logger()
