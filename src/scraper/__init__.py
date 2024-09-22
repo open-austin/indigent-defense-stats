@@ -32,21 +32,27 @@ class Scraper:
         """
         Sets default values for the provided optional parameters.
 
-        Args:
-            ms_wait (Optional[int]): Milliseconds to wait, default is 200 if not provided.
-            start_date (Optional[str]): Start date in YYYY-MM-DD format, default is '2024-07-01' if not provided.
-            end_date (Optional[str]): End date in YYYY-MM-DD format, default is '2024-07-01' if not provided.
-            court_calendar_link_text (Optional[str]): Text for court calendar link, default is 'Court Calendar' if not provided.
-            case_number (Optional[str]): Case number, default is None if not provided.
+        Defaults:
+        - `ms_wait`: 200 milliseconds if not provided.
+        - `start_date`: '2024-07-01' if not provided.
+        - `end_date`: '2024-07-01' if not provided.
+        - `court_calendar_link_text`: 'Court Calendar' if not provided.
+        - `case_number`: None if not provided.
 
-        Returns:
-            Tuple[int, str, str, str, Optional[str]]: A tuple containing:
-                - `ms_wait` (int): Milliseconds to wait.
-                - `start_date` (str): Start date.
-                - `end_date` (str): End date.
-                - `court_calendar_link_text` (str): Text for court calendar link.
-                - `case_number` (Optional[str]): Case number or None.
+        :param ms_wait: Milliseconds to wait.
+        :param start_date: Start date in YYYY-MM-DD format.
+        :param end_date: End date in YYYY-MM-DD format.
+        :param court_calendar_link_text: Text for the court calendar link.
+        :param case_number: Case number, or None.
+
+        :returns: A tuple containing:
+            - ms_wait (int): Milliseconds to wait.
+            - start_date (str): Start date.
+            - end_date (str): End date.
+            - court_calendar_link_text (str): Text for court calendar link.
+            - case_number (Optional[str]): Case number or None.
         """
+
         # Assign default values if parameters are not provided
         ms_wait = ms_wait if ms_wait is not None else 200
         start_date = start_date if start_date is not None else '2024-07-01'
@@ -66,8 +72,7 @@ class Scraper:
         This method sets up the logger with a unique name based on the process ID, 
         configures the logging level to INFO, and logs an initialization message.
 
-        Returns:
-            logging.Logger: Configured logger instance.
+        :returns: Configured logger instance.
         """
         # Configure the logger
         logger = logging.getLogger(name=f"pid: {os.getpid()}")
@@ -81,30 +86,22 @@ class Scraper:
         """
         Formats the county name to lowercase.
 
-        Args:
-            county (str): The name of the county to be formatted.
-
-        Returns:
-            str: The county name in lowercase.
-
-        Raises:
-            TypeError: If the provided county name is not a string.
+        :param county: The name of the county to be formatted.
+        :returns: The county name in lowercase.
+        :raises TypeError: If the provided county name is not a string.
         """
         
         return re.sub(r'[^\w]+', '', county.lower())
 
     def create_session(self, logger: logging.Logger, ssl) -> requests.sessions.Session:
         """
-        Creates and configures a requests session for interacting with web pages.
-
-        This method sets up a `requests.Session` with SSL verification disabled and suppresses 
+        Sets up a `requests.Session` with or without SSL verification and suppresses 
         related warnings.
 
-        Args:
-            logger (logging.Logger): Logger instance for logging errors.
+        Defaults to enable SSL.
 
-        Returns:
-            requests.sessions.Session: Configured session object.
+        :param logger: Logger instance for logging errors.
+        :returns: Configured session object.
         """
         # Create and configure the session
         session = requests.Session()
@@ -123,16 +120,12 @@ class Scraper:
         all required directories in the path are created. If the directories already
         exist, no action is taken.
 
-        Args:
-            county (str): The name of the county, used to create a specific directory path.
-            logger (logging.Logger): Logger instance for logging errors.
+        :param county: The name of the county, used to create a specific directory path.
+        :param logger: Logger instance for logging errors.
+        :returns: The path to the created directories.
+        :raises OSError: If there is an error creating the directories.
+        """
 
-        Returns:
-            str: The path to the created directories.
-
-        Raises:
-            OSError: If there is an error creating the directories.
-        """        
         # Create the directories if they do not exist
         os.makedirs(case_html_path, exist_ok=True)
         
@@ -146,24 +139,19 @@ class Scraper:
         """
         Retrieves Odyssey-related information for a given county from a CSV file.
 
-        This function reads county-specific data from a CSV file located in the `resources` directory. It searches for
-        the county name in the CSV file, extracts the corresponding base URL, Odyssey version, and any additional notes.
-        The base URL is formatted with a trailing slash if necessary. 
+        This function reads county-specific data from a CSV file located in the `resources` directory. 
+        It searches for the county name in the CSV file, extracts the corresponding base URL, Odyssey 
+        version, and any additional notes. The base URL is formatted with a trailing slash if necessary.
 
-        Args:
-            county (str): The name of the county for which to retrieve Odyssey information.
-            logger (logging.Logger): Logger instance for logging errors and information.
-
-        Returns:
-            Tuple[str, str, str]: A tuple containing:
-                - `base_url` (str): The base URL for the county’s portal.
-                - `odyssey_version` (str): The major version of Odyssey associated with the county.
-                - `notes` (str): Additional notes related to the county.
-
-        Raises:
-            Exception: If the county is not found in the CSV file or if required data is missing, an exception is raised
-                    and logged.
+        :param county: The name of the county for which to retrieve Odyssey information.
+        :param logger: Logger instance for logging errors and information.
+        :returns: A tuple containing:
+            - base_url (str): The base URL for the county’s portal.
+            - odyssey_version (str): The major version of Odyssey associated with the county.
+            - notes (str): Additional notes related to the county.
+        :raises Exception: If the county is not found in the CSV file or if required data is missing.
         """
+
         try:
             base_url = odyssey_version = notes = None
             with open(
@@ -196,18 +184,14 @@ class Scraper:
         """
         Dynamically imports a module, retrieves a class, and gets a method from it based on the county name.
 
-        Args:
-            county (str): The name of the county, used to construct module, class, and method names.
-            logger (logging.Logger): Logger instance for logging errors.
-
-        Returns:
-            Tuple[Type[object], Callable]: A tuple containing the instance of the class and the method callable.
-        
-        Raises:
-            ImportError: If the module cannot be imported.
-            AttributeError: If the class or method cannot be found.
-            Exception: For any other unexpected errors.
+        :param county: The name of the county, used to construct module, class, and method names.
+        :param logger: Logger instance for logging errors.
+        :returns: A tuple containing the instance of the class and the method callable.
+        :raises ImportError: If the module cannot be imported.
+        :raises AttributeError: If the class or method cannot be found.
+        :raises Exception: For any other unexpected errors.
         """
+
         module_name = county
         class_name = f"Scraper{county.capitalize()}"
         method_name = f"scraper_{county}"
@@ -250,28 +234,24 @@ class Scraper:
                          ms_wait: int
                          ) -> Tuple[str, BeautifulSoup]:
         """
-        Scrapes the main page of the Odyssey site, handling login if required and returning the page's HTML and parsed content.
+        Scrapes the main page of the Odyssey site, handling login if required, and returns the page's HTML and parsed content.
 
         This function handles a special case where some sites may require a public guest login. If the `notes` parameter 
         contains a "PUBLICLOGIN#" identifier, it will extract the username and password from the `notes`, perform the login, 
         and then proceed to scrape the main page.
 
-        Args:
-            base_url (str): The base URL of the main page to scrape.
-            odyssey_version (int): The version of Odyssey; currently not used in this function.
-            session (requests.sessions.Session): The `requests` session object used for making HTTP requests.
-            notes (str): A string containing notes that may include login credentials in the format "PUBLICLOGIN#username/password".
-            logger (logging.Logger): Logger instance for logging errors and debug information.
-            ms_wait (int): The number of milliseconds to wait between retry attempts.
-
-        Returns:
-            Tuple[str, BeautifulSoup]: A tuple containing:
-                - `main_page_html` (str): The raw HTML content of the main page.
-                - `main_soup` (BeautifulSoup): A BeautifulSoup object containing the parsed HTML content.
-
-        Raises:
-            Exception: If any error occurs during the HTTP requests or HTML parsing, an exception is raised and logged.
+        :param base_url: The base URL of the main page to scrape.
+        :param odyssey_version: The version of Odyssey; currently not used in this function.
+        :param session: The `requests` session object used for making HTTP requests.
+        :param notes: A string containing notes that may include login credentials in the format "PUBLICLOGIN#username/password".
+        :param logger: Logger instance for logging errors and debug information.
+        :param ms_wait: The number of milliseconds to wait between retry attempts.
+        :returns: A tuple containing:
+            - main_page_html (str): The raw HTML content of the main page.
+            - main_soup (BeautifulSoup): A BeautifulSoup object containing the parsed HTML content.
+        :raises Exception: If any error occurs during the HTTP requests or HTML parsing.
         """
+
         try:
             # some sites have a public guest login that must be used
             if "PUBLICLOGIN#" in notes:
@@ -326,22 +306,18 @@ class Scraper:
         and retrieves the search page HTML. Depending on the Odyssey version, it either uses the extracted URL or a
         default URL. It then parses the search page HTML into a BeautifulSoup object.
 
-        Args:
-            base_url (str): The base URL for constructing full URLs.
-            odyssey_version (int): The version of Odyssey, used to determine the correct URL and verification text.
-            main_page_html (str): The HTML content of the main page.
-            main_soup (BeautifulSoup): Parsed BeautifulSoup object of the main page HTML.
-            session (requests.sessions.Session): The session object for making HTTP requests.
-            logger (logging.Logger): Logger instance for logging errors and information.
-            ms_wait (int): Milliseconds to wait before making requests.
-            court_calendar_link_text (str): Text to search for in the court calendar link.
-
-        Returns:
-            Tuple[str, str, BeautifulSoup]: A tuple containing the search page URL, search page HTML, and the BeautifulSoup object of the search page.
-
-        Raises:
-            ValueError: If the court calendar link is not found on the main page.
+        :param base_url: The base URL for constructing full URLs.
+        :param odyssey_version: The version of Odyssey, used to determine the correct URL and verification text.
+        :param main_page_html: The HTML content of the main page.
+        :param main_soup: Parsed BeautifulSoup object of the main page HTML.
+        :param session: The session object for making HTTP requests.
+        :param logger: Logger instance for logging errors and information.
+        :param ms_wait: Milliseconds to wait before making requests.
+        :param court_calendar_link_text: Text to search for in the court calendar link.
+        :returns: A tuple containing the search page URL, search page HTML, and the BeautifulSoup object of the search page.
+        :raises ValueError: If the court calendar link is not found on the main page.
         """
+
         # Extract the search page ID from the court calendar link
         search_page_id = None
         for link in main_soup.select("a.ssSearchHyperlink"):
@@ -391,15 +367,13 @@ class Scraper:
         """
         Extracts hidden input values and additional data from the search page.
 
-        Args:
-            odyssey_version (int): The version of Odyssey to determine logic.
-            main_soup (BeautifulSoup): Parsed BeautifulSoup object of the main page HTML.
-            search_soup (BeautifulSoup): Parsed BeautifulSoup object of the search page HTML.
-            logger (logging.Logger): Logger instance for logging information.
-
-        Returns:
-            Dict[str, str]: Dictionary of hidden input names and their values.
+        :param odyssey_version: The version of Odyssey to determine logic.
+        :param main_soup: Parsed BeautifulSoup object of the main page HTML.
+        :param search_soup: Parsed BeautifulSoup object of the search page HTML.
+        :param logger: Logger instance for logging information.
+        :returns: Dictionary of hidden input names and their values.
         """
+
         # Extract hidden input values
         hidden_values = {
             hidden["name"]: hidden["value"]
@@ -432,17 +406,15 @@ class Scraper:
         """
         Retrieves search results from the search page.
 
-        Args:
-            session (requests.sessions.Session): The session object for making HTTP requests.
-            search_url (str): The URL to request search results from.
-            logger (logging.Logger): Logger instance for logging information.
-            ms_wait (int): Milliseconds to wait before making requests.
-            hidden_values (Dict[str, str]): Dictionary of hidden input values.
-            case_number (Optional[str]): Case number for searching.
-
-        Returns:
-            BeautifulSoup: Parsed BeautifulSoup object of the search results page HTML.
+        :param session: The session object for making HTTP requests.
+        :param search_url: The URL to request search results from.
+        :param logger: Logger instance for logging information.
+        :param ms_wait: Milliseconds to wait before making requests.
+        :param hidden_values: Dictionary of hidden input values.
+        :param case_number: Case number for searching.
+        :returns: Parsed BeautifulSoup object of the search results page HTML.
         """
+
         results_page_html = request_page_with_retry(
             session=session,
             url=search_url,
@@ -502,19 +474,17 @@ class Scraper:
         logger: logging.Logger
     ) -> Tuple[List[str], Dict[str, str]]:
         """
-        Scrapes a list of judicial officers and their IDs from the search page. 
-        
+        Scrapes a list of judicial officers and their IDs from the search page.
+
         Optionally receives a list of judicial officers to scrape.
 
-        Args:
-            odyssey_version (int): The version of Odyssey to determine the selector.
-            search_soup (BeautifulSoup): Parsed BeautifulSoup object of the search page HTML.
-            judicial_officers (Optional[List[str]]): List of specific judicial officers to use.
-            logger (logging.Logger): Logger instance for logging information.
-
-        Returns:
-            Tuple[List[str], Dict[str, str]]: Tuple containing a list of judicial officers to use and a dictionary of judicial officers and their IDs.
+        :param odyssey_version: The version of Odyssey to determine the selector.
+        :param search_soup: Parsed BeautifulSoup object of the search page HTML.
+        :param judicial_officers: List of specific judicial officers to use.
+        :param logger: Logger instance for logging information.
+        :returns: Tuple containing a list of judicial officers to use and a dictionary of judicial officers and their IDs.
         """
+
         selector = 'select[labelname="Judicial Officer:"] > option' if odyssey_version < 2017 else 'select[id="selHSJudicialOfficer"] > option'
         judicial_officer_to_ID = {
             option.text: option["value"]
@@ -545,20 +515,18 @@ class Scraper:
         """
         Scrapes the results page based on Odyssey version and search criteria.
 
-        Args:
-            odyssey_version (int): The version of Odyssey to determine the URL and verification text.
-            base_url (str): The base URL for constructing full URLs.
-            search_url (str): The URL to request search results from.
-            hidden_values (Dict[str, str]): Dictionary of hidden input values.
-            jo_id (str): Judicial officer ID for searching.
-            date_string (str): Date string for searching.
-            session (requests.sessions.Session): The session object for making HTTP requests.
-            logger (logging.Logger): Logger instance for logging information.
-            ms_wait (int): Milliseconds to wait before making requests.
-
-        Returns:
-            Tuple[str, BeautifulSoup]: A tuple containing the HTML of the results page and the parsed BeautifulSoup object.
+        :param odyssey_version: The version of Odyssey to determine the URL and verification text.
+        :param base_url: The base URL for constructing full URLs.
+        :param search_url: The URL to request search results from.
+        :param hidden_values: Dictionary of hidden input values.
+        :param jo_id: Judicial officer ID for searching.
+        :param date_string: Date string for searching.
+        :param session: The session object for making HTTP requests.
+        :param logger: Logger instance for logging information.
+        :param ms_wait: Milliseconds to wait before making requests.
+        :returns: A tuple containing the HTML of the results page and the parsed BeautifulSoup object.
         """
+
         search_url = (
             search_url
             if odyssey_version < 2017
