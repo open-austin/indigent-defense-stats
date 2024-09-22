@@ -25,8 +25,10 @@ class Scraper:
         end_date: str | None = None, 
         court_calendar_link_text: str | None = None, 
         case_number: str | None = None,
-        ssl: bool | None = None
-    ) -> Tuple[int, str, str, str, Optional[str], bool]:
+        ssl: bool | None = None,
+        county: str | None = None,
+        case_html_path: str | None = None,
+    ) -> Tuple[int, str, str, str, Optional[str], bool, str, str]:
         """
         Sets default values for the provided optional parameters.
 
@@ -53,8 +55,9 @@ class Scraper:
         # case_number defaults to None if not provided
         case_number = case_number 
         ssl = ssl if ssl is not None else True
-
-        return ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl
+        county = county if county is not None else 'hays'
+        case_html_path = case_html_path if case_html_path is not None else os.path.join(os.path.dirname(__file__), "..", "..", "data", county, "case_html")
+        return ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path
 
     def configure_logger(self) -> logging.Logger:
         """
@@ -112,7 +115,7 @@ class Scraper:
         
         return session
 
-    def make_directories(self, county: str, logger: logging.Logger) -> str:
+    def make_directories(self, county: str, logger: logging.Logger, case_html_path) -> str:
         """
         Creates necessary directories for storing case HTML files.
 
@@ -129,9 +132,7 @@ class Scraper:
 
         Raises:
             OSError: If there is an error creating the directories.
-        """
-        case_html_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", county, "case_html")
-        
+        """        
         # Create the directories if they do not exist
         os.makedirs(case_html_path, exist_ok=True)
         
@@ -634,8 +635,8 @@ class Scraper:
         case_number: Optional[str],
         case_html_path: Optional[str]
     ) -> None:
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl = self.set_defaults(
-            ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path = self.set_defaults(
+            ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path
         )
         
         logger = self.configure_logger()
