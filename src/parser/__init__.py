@@ -171,6 +171,13 @@ class Parser:
 
                 # Adds a hash to the JSON file of the underlying HTML
                 body = case_soup.find("body")
+                """
+                Why balance table is dropped before hashing:
+                The balance table is excluded from the hashing because
+                balance is updated as any costs are paid off. Otherwise,
+                the hash would change frequently and multiple versions 
+                of the case would be captured that we don't want.
+                """
                 balance_table = body.find_all("table")[-1]
                 if "Balance Due" in balance_table.text:
                     balance_table.decompose()
