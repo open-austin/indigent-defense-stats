@@ -9,31 +9,51 @@ class Cleaner:
     # def __init__(self, county):
         # self.county = county.lower()
 
+    GOOD_MOTIONS = [
+        "Motion To Suppress",
+        "Motion to Reduce Bond",
+        "Motion to Reduce Bond Hearing",
+        "Motion for Production",
+        "Motion For Speedy Trial",
+        "Motion for Discovery",
+        "Motion In Limine",
+    ]
+
     @staticmethod
-    def add_parsing_date(input_dict: dict, out_file: dict) -> dict: # removed self from args and added @staticmethod
+    def add_parsing_date(input_dict: dict, output_json_data: dict) -> dict:
         # This will add the date of parsing to the final cleaned json file
         today_date = dt.datetime.today().strftime('%Y-%m-%d')
-        out_file['parsing_date'] = today_date
-        return out_file
-        
+        output_json_data['parsing_date'] = today_date
+        return output_json_data
+    
     @staticmethod
-    def ensure_folder_exists(folder_path): # removed self from args and added @staticmethod
-        # Checks if the output folder exists
+    def get_folder_path(county, folder_type):
+        """Returns the path for the specified folder type ('case_json' or 'case_json_cleaned')."""
+        return os.path.join(os.path.dirname(__file__), "..", "..", "data", county.lower(), folder_type)
+
+    @staticmethod
+    def ensure_folder_exists(folder_path):
+        """Checks if the output folder exists and creates it if it doesn't"""
         if not os.path.exists(folder_path):
-        # Create the folder if it doesn't exist
             os.makedirs(folder_path)
             print(f"Folder '{folder_path}' created successfully.")
         else:
             print(f"Folder '{folder_path}' already exists.")
 
     @staticmethod
-    def load_json_file(file_path): # removed self from args and added @staticmethod
+    def get_and_ensure_folder(county, folder_type):
+        """Gets the folder path and ensures that the folder exists as this folder will contain the cleaned json files."""
+        folder_path = Cleaner.get_folder_path(county, folder_type)
+        Cleaner.ensure_folder_exists(folder_path)
+
+    @staticmethod
+    def load_json_file(file_path):
         """Loads a JSON file from a given file path and returns the data as an object"""
         with open(file_path, "r") as f:
             return json.load(f)
 
     @staticmethod
-    def map_charge_names(charge_data): # removed self from args and added @staticmethod
+    def map_charge_names(charge_data):
         """Creates a dictionary mapping charge names to their corresponding UMich data"""
         charge_mapping = {}
         for item in charge_data:
@@ -41,7 +61,14 @@ class Cleaner:
         return charge_mapping
 
     @staticmethod
-    def process_charges(charges, charge_mapping): # removed self from args and added @staticmethod
+    def load_and_map_charge_names(file_path):
+        """Loads a JSON file and maps charge names to their corresponding UMich data."""
+        charge_data = Cleaner.load_json_file(file_path)
+        return Cleaner.map_charge_names(charge_data)
+
+
+    @staticmethod
+    def process_charges(charges, charge_mapping):
         """
         Processes a list of charges by formatting charge details, 
         mapping charges to UMich data, and finding the earliest charge date.
@@ -83,99 +110,97 @@ class Cleaner:
         earliest_charge_date = dt.datetime.strftime(min(charge_dates), "%Y-%m-%d")
 
         return processed_charges, earliest_charge_date
-    
+
     @staticmethod
-    def contains_good_motion(motion, event): # removed self from args and added @staticmethod
+    def contains_good_motion(motion, event):
         """Recursively check if a motion exists in an event list or sublist."""
         if isinstance(event, list):
-            return any(Cleaner.contains_good_motion(motion, item) for item in event) #changed self.contains_good_motion to Cleaner.contains_good_motion
+            return any(Cleaner.contains_good_motion(motion, item) for item in event) 
         return motion.lower() in event.lower()
 
     @staticmethod
-    def find_good_motions(events, good_motions): # removed self from args and added @staticmethod
+    def find_good_motions(events, good_motions):
         """Finds motions in events based on list of good motions."""
         motions_in_events = [
-            motion for motion in good_motions if Cleaner.contains_good_motion(motion, events) #changed self.contains_good_motion to Cleaner.contains_good_motion
+            motion for motion in good_motions if Cleaner.contains_good_motion(motion, events)
         ]
         return motions_in_events
 
     @staticmethod
-    def write_json_output(file_path, data): # removed self from args and added @staticmethod
+    def hash_defense_attorney(input_dict):
+        """Hashes the defense attorney info to anonymize it."""
+        def_atty_unique_str = f'{input_dict["party information"]["defense attorney"]}:{input_dict["party information"]["defense attorney phone number"]}'
+        return xxhash.xxh64(def_atty_unique_str).hexdigest()
+
+
+    @staticmethod
+    def write_json_output(file_path, data):
         """Writes the given data to a JSON file at the specified file path."""
         with open(file_path, "w") as f:
             json.dump(data, f)
 
-    @staticmethod # removed self from args and added @staticmethod
-    def clean(county): # added county as argument to not rely on self.county
+    @staticmethod
+    def process_single_case(county, case_json_folder_path, case_json_filename):
+        """Process a single case JSON file."""
+        input_json_path = os.path.join(case_json_folder_path, case_json_filename)
+        input_dict = Cleaner.load_json_file(input_json_path)
 
-        case_json_folder_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", county.lower(), "case_json" #changed self.county to county.lower()
-        )
-        case_json_cleaned_folder_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", county.lower(), "case_json_cleaned" #changed self.county to county.lower()
-        )
-        # Checks that the folder exists, if not it will be created
-        Cleaner.ensure_folder_exists(case_json_cleaned_folder_path) # Call method using Cleaner class name instead of self
+        # Initialize cleaned output data
+        output_json_data = {
+            "case_number": input_dict["code"],
+            "attorney_type": input_dict["party information"]["appointed or retained"],
+            "county": input_dict["county"],
+            "html_hash": input_dict["html_hash"],
+            "charges": [],
+            "earliest_charge_date": "",
+            "motions": [],
+            "has_evidence_of_representation": False,
+            "defense_attorney": Cleaner.hash_defense_attorney(input_dict)
+        }
 
+        # Load charge mappings
+        charge_name_to_umich_file = os.path.join(
+            os.path.dirname(__file__), "..", "..", "resources", "umich-uccs-database.json"
+        )
+        charges_mapped = Cleaner.load_and_map_charge_names(charge_name_to_umich_file)
+
+        # Process charges and motions
+        output_json_data["charges"], output_json_data["earliest_charge_date"] = Cleaner.process_charges(
+            input_dict["charge information"], charges_mapped
+        )
+        output_json_data["motions"] = Cleaner.find_good_motions(
+            input_dict["other events and hearings"], Cleaner.GOOD_MOTIONS
+        )
+        output_json_data["has_evidence_of_representation"] = len(output_json_data["motions"]) > 0
+
+        # Add parsing date
+        output_json_data = Cleaner.add_parsing_date(input_dict, output_json_data)
+
+        # Write output to file
+        output_filepath = os.path.join(
+            os.path.dirname(__file__), "..", "..", "data", county.lower(), "case_json_cleaned", case_json_filename
+        )
+        Cleaner.write_json_output(output_filepath, output_json_data)
+
+    @staticmethod
+    def process_json_files(county, case_json_folder_path):
+        """Processes all JSON files in the specified folder."""
         list_case_json_files = os.listdir(case_json_folder_path)
-        for case_json in list_case_json_files:
-            print(case_json)
-            # List of motions identified as evidenciary
-            good_motions = [
-                "Motion To Suppress",
-                "Motion to Reduce Bond",
-                "Motion to Reduce Bond Hearing",
-                "Motion for Production",
-                "Motion For Speedy Trial",
-                "Motion for Discovery",
-                "Motion In Limine",
-            ]
+        for case_json_filename in list_case_json_files:
+            Cleaner.process_single_case(county, case_json_folder_path, case_json_filename)
 
-            # Original Format
-            # in_file = case_json_folder_path + "\\" + case_json
-            in_file = os.path.join(case_json_folder_path, case_json) # Replaced original concatenation with this. Should help prevent problems with different OS path separators
-
-            input_dict = Cleaner.load_json_file(in_file) # Call method using Cleaner class name instead of self
-            #(f"input_dict: {input_dict}")
-
-            # Get mappings of charge names to umich decsriptions
-            charge_name_to_umich_file = os.path.join(
-                os.path.dirname(__file__),"..", "..", "resources", "umich-uccs-database.json"
-            )
-
-            # ADD VARIABLE FOR Cleaner.load_json_file(charge_name_to_umich_file
-
-            charge_name_to_umich = Cleaner.map_charge_names(Cleaner.load_json_file(charge_name_to_umich_file)) # Call method using Cleaner class name instead of self
-            #print(f"input_dict: {charge_name_to_umich}")
-
-            # Cleaned Case Primary format
-            out_file = {}
-            out_file["case_number"] = input_dict["code"] #Note: This may be closed to personally identifying information of the defendant.
-            out_file["attorney_type"] = input_dict["party information"]["appointed or retained"]
-            #Adding the county and hash values into the final version.
-            out_file["county"] = input_dict["county"]
-            out_file["html_hash"] = input_dict["html_hash"]
-
-            # Create charges list
-            out_file["charges"], out_file["earliest_charge_date"] = Cleaner.process_charges(input_dict["charge information"], charge_name_to_umich) # Call method using Cleaner class name instead of self
-
-            # Stores list of motions from good_motions that exist inside input_dict["other events and hearings"]
-            out_file["motions"] = Cleaner.find_good_motions(input_dict["other events and hearings"], good_motions) # Call method using Cleaner class name instead of self
-            # Sets boolean based on whether any good motions were found
-            out_file["has_evidence_of_representation"] = len(out_file["motions"]) > 0
-
-            # This adds a hash of the unique string per defense attorney that matches this format: 'defense attorney name:defense atttorney phone number'. 
-            # This will conceal the defense attorney but keep a unique idenfier to link defense attorney between cases.
-            def_atty_unique_str = input_dict["party information"]["defense attorney"] + ':' + input_dict["party information"]["defense attorney phone number"]
-            def_atty_hash = xxhash.xxh64(str(def_atty_unique_str)).hexdigest()
-            out_file["defense_attorney"] = def_atty_hash # added underscore in defense_attorney for consistency
-
-            # This adds the date of parsing to the final cleaned json
-            out_file = Cleaner.add_parsing_date(input_dict, out_file) # Call method using Cleaner class name instead of self
-
-            # Original Format
-            out_filepath = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", county.lower(), "case_json_cleaned",case_json # changed self.county to county.lower()
-            )
-
-            Cleaner.write_json_output(out_filepath, out_file) # Call method using Cleaner class name instead of self
+    @staticmethod
+    def clean(county):
+        """
+        Cleans and processes case data for a given county.
+        This method performs the following steps:
+        1. Loads raw JSON case data from the 'case_json' folder for the specified county.
+        2. Processes and maps charges using an external UMich data source.
+        3. Identifies relevant motions from a predefined list of good motions.
+        4. Hashes defense attorney information to anonymize but uniquely identify the attorney.
+        5. Adds metadata, such as parsing date and case number, to the cleaned data.
+        6. Writes the cleaned data to the 'case_json_cleaned' folder for the specified county.
+        """
+        case_json_folder_path = Cleaner.get_folder_path(county, "case_json")
+        Cleaner.get_and_ensure_folder(county, "case_json_cleaned")
+        Cleaner.process_json_files(county, case_json_folder_path)
