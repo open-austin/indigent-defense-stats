@@ -1,16 +1,20 @@
 import unittest, sys, os, json, warnings, requests, logging
+from unittest.mock import patch, MagicMock, mock_open
 from datetime import datetime, timezone, timedelta
+import tempfile
 from bs4 import BeautifulSoup
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
+project_root = os.path.dirname(parent_dir)
+
 sys.path.append(parent_dir)
 
 # Import all of the programs modules within the parent_dir
-from scraper  import Scraper
-from parser  import Parser
-from cleaner  import Cleaner
-from updater  import Updater
+from scraper import Scraper
+from parser import Parser
+from cleaner import Cleaner
+from updater import Updater
 
 SKIP_SLOW = os.getenv('SKIP_SLOW', 'false').lower().strip() == 'true'
 
@@ -329,93 +333,152 @@ class ScraperTestCase(unittest.TestCase):
 
 class ParseTestCase(unittest.TestCase):
 
-    def test_parser_defaults(self):
-        now = datetime.now()
-        now_string = now.strftime("%H:%M:%S")
-        # Call the function being tested
+    def setUp(self):
+
+        self.test_dir = tempfile.mkdtemp()
+        self.case_json_path = os.path.join(self.test_dir, 'hays', 'case_json')
+        os.makedirs(self.case_json_path, exist_ok=True)
+
+        self.mock_logger = MagicMock()
+        self.parser_instance = Parser()
+        self.case_html_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), '../../resources/test_files/parser_testing')
+        )
+
+    @patch('parser.Parser.get_class_and_method')
+    def test_parser_class_and_method(self, mock_import_module):
+        mock_logger = MagicMock()
+        mock_class = MagicMock()
+        mock_method = MagicMock()
+
+        mock_import_module.return_value = mock_class.return_value, mock_method
+
         parser_instance = Parser()
-        parser_instance.parse(county = 'hays', case_number = '51652356', test = True)
 
-        # Test #1: Check to see if there is a JSON called 51652356.json created in the correct location and that it was updated since this test started running
-        test_case_json_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_data', 'hays', 'case_json', 'test_51652356.json')
-        self.assertTrue(os.path.isfile(test_case_json_path), "There is no JSON file the correct name in the correct folder.")
-        #This gets the time the file was last updated and converts it from unix integer to date time
-        test_json_updated_time = os.path.getmtime(test_case_json_path)
-        seconds = int(test_json_updated_time)
-        microseconds = int((test_json_updated_time - seconds) * 1e6)
-        test_json_updated_time = datetime.fromtimestamp(seconds) + timedelta(microseconds=microseconds)
-        test_json_updated_time_string = test_json_updated_time.strftime("%H:%M:%S")
-        self.assertTrue(test_json_updated_time > now, 'The JSON has not been updated since the program started running.')
+        instance, method = parser_instance.get_class_and_method(logger=mock_logger, county='hays', test=True)
 
-        # Test #2: Check to see that JSON parsed all of the necessary fields and did so properly. 
-        #Run the json against the field validation database
-        def validate_field(field):
-            
-            # This locates where a field should be in the JSON based on its logical level (top level, charge level, party level, etc.) 
-            def field_locator(logical_level):
-                if logical_level == 'top':
-                    location = json_dict
-                elif logical_level == 'party':
-                    location = json_dict['party information']
-                elif logical_level == 'charge': # This only looks at the first charge in the JSON
-                    location = json_dict['charge information'][0]
-                return location
-            
-            def check_exists(field_name, logical_level, importance):
-                location = field_locator(logical_level)
-                # Check for the field in the expected location: Raise error if not present if field 'necessary' but only raise warning otherwise
-                if importance == 'necessary':
-                    message = f"The '{field_name}' field has '{importance}' importance but is missing."
-                    self.assertTrue(field_name in location, message)
-                if importance == 'high' or importance == 'medium':
-                    if field_name not in location:
-                        message = f"The '{field_name}' field has {importance} importance but is missing."
-                        warnings.warn(message, UserWarning)
-                if importance == 'low':
-                    # Don't bother checking.
-                    pass
+        self.assertEqual(instance, mock_class.return_value)
+        self.assertEqual(method, mock_method)
 
-            def check_length(field_name, logical_level, importance, estimated_min_length):
-                location = field_locator(logical_level)
-                #Gets the length of the field and the field's text using the dynamic location.
-                field_text = location[field_name]
-                field_length = len(field_text)
-                # Check for the expected length of the field: Raise error if too short if field 'necessary' but only raise warning otherwise
-                if importance == 'necessary':
-                    message = f"This necessary field called '{field_name}' was expected to be more than {estimated_min_length} but it is actually {field_length}: {field_text}."
-                    self.assertFalse(field_length < estimated_min_length, message)
-                if importance == 'high' or importance == 'medium':
-                    message = f"The '{field_name}' field has an estimated minimum length of {estimated_min_length} characters, but it instead has {field_length} characters. {importance}"
-                    if field_length < estimated_min_length:
-                        warnings.warn(message, UserWarning)
-                if importance == 'low':
-                    #Don't bother checking.
-                    pass
+    @patch('os.makedirs')
+    def test_parser_directories_single_file(self, mock_makedirs):
+        mock_logger = MagicMock()
+        parser_instance = Parser()
+        case_html_path, case_json_path = parser_instance.get_directories('hays', mock_logger, parse_single_file=True)
 
-            check_exists(
-                field_name = field['name'],
-                logical_level = field['logical_level'],
-                importance = field['importance'])
-            
-            check_length(
-                field_name = field['name'], 
-                logical_level = field['logical_level'],
-                importance = field['importance'],
-                estimated_min_length = field['estimated_min_length'])
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+        expected_path = os.path.join(base_dir, "resources", "test_files")
 
-        #Opening the test json
-        with open(test_case_json_path, "r") as f:
-            json_dict = json.load(f)
+        self.assertEqual(case_html_path, expected_path)
+        self.assertEqual(case_json_path, expected_path)
+        mock_logger.info.assert_called()
 
-        #Opening the field validation json with expected fields and their features 
-        FIELDS_VALIDATION_DICT_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'field_validation_list.json')
-        with open(FIELDS_VALIDATION_DICT_PATH, "r") as f:
-            FIELDS_VALIDATION_DICT = json.load(f)
+    @patch('os.makedirs')
+    @patch('os.path.exists', return_value=False) 
+    def test_parser_directories_multiple_files(self, mock_exists, mock_makedirs):
+        mock_logger = MagicMock()
+        parser_instance = Parser()
+        case_html_path, case_json_path = parser_instance.get_directories('hays', mock_logger, parse_single_file=False)
 
-        for field in FIELDS_VALIDATION_DICT:
-            log(f"validating field: {field['name']}")
-            validate_field(field)
-        log(f'Field validation complete for {len(FIELDS_VALIDATION_DICT)} fields.')
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+        expected_html_path = os.path.join(base_dir, "data", "hays", "case_html")
+        expected_json_path = os.path.join(base_dir, "data", "hays", "case_json")
+
+        self.assertEqual(case_html_path, expected_html_path)
+        self.assertEqual(case_json_path, expected_json_path)
+        mock_makedirs.assert_called_once_with(expected_json_path, exist_ok=True)
+        mock_logger.info.assert_called()
+
+    def test_parser_list_of_single_html_file(self):
+        case_number = '51652356'
+        case_list = self.parser_instance.get_list_of_html(self.case_html_path, case_number, 'hays', self.mock_logger, parse_single_file=True)
+
+        relative_path = os.path.join(project_root, 'resources', 'test_files')
+
+        expected_path = os.path.join(relative_path, f'test_{case_number}.html')
+
+        self.assertEqual(case_list, [expected_path])
+        self.mock_logger.info.assert_called()
+
+    def test_parser_list_of_single_html_file_by_casenumber(self):
+        case_number = '51652356'
+        
+        case_list = self.parser_instance.get_list_of_html(self.case_html_path, case_number, 'hays', self.mock_logger, parse_single_file=True)
+
+        relative_path = os.path.join(project_root, 'resources', 'test_files')
+        
+        expected_list = [os.path.join(relative_path, f'test_{case_number}.html')]
+
+        self.assertEqual(case_list, expected_list)
+        self.mock_logger.info.assert_called()
+
+    @patch("os.path.join", side_effect=lambda *args: "/".join(args))
+    def test_parser_list_of_multiple_html_files(self, mock_join):
+        os.makedirs(self.case_html_path, exist_ok=True)
+
+        with open(os.path.join(self.case_html_path, 'test_1.html'), 'w') as f:
+            f.write('test')
+        with open(os.path.join(self.case_html_path, 'test_2.html'), 'w') as f:
+            f.write('test')
+
+        updated_html_path = os.path.join(self.case_html_path, 'multiple_html_files')
+        case_number = ''  
+        case_list = self.parser_instance.get_list_of_html(updated_html_path, case_number, 'hays', self.mock_logger, parse_single_file=False)
+
+        expected_list = [
+            os.path.join(updated_html_path, 'test_1.html'),
+            os.path.join(updated_html_path, 'test_2.html')
+        ]
+
+        self.assertEqual(set(case_list), set(expected_list))
+        self.mock_logger.info.assert_called()
+
+    def test_parser_get_list_of_html_error_handling(self):
+        invalid_path = 'invalid/path'
+        case_number = '12345'
+
+        with self.assertRaises(Exception):
+            self.parser_instance.get_list_of_html(invalid_path, case_number, 'hays', self.mock_logger, parse_single_file=False)
+        self.mock_logger.info.assert_called()
+
+    @patch('os.path.join')
+    @patch('logging.getLogger')
+    def test_get_html_path(self, mock_logger, mock_path_join):
+        updated_html_path = os.path.join(self.case_html_path, 'multiple_html_files')
+        case_html_file_name = "parserTest_51652356.html"
+        case_number = "51652356"
+
+        mock_path_join.return_value = f"{updated_html_path}/{case_html_file_name}"
+
+        result = self.parser_instance.get_html_path(updated_html_path, case_html_file_name, case_number, self.mock_logger)
+
+        self.assertEqual(result, f"{updated_html_path}/{case_html_file_name}")
+
+    @patch('builtins.open', new_callable=mock_open)
+    @patch('json.dumps')
+    @patch('parser.logging.getLogger')
+    def test_write_json_data(self, mock_logger, mock_json_dumps, mock_open_func):
+        case_json_path = "/mock/path"
+        case_number = "123456"
+        case_data = {"data": "value"}
+
+        self.parser_instance.write_json_data(case_json_path, case_number, case_data, mock_logger)
+
+        mock_open_func.assert_called_once_with(os.path.join(case_json_path, case_number + ".json"), "w")
+        mock_json_dumps.assert_called_once_with(case_data, indent=4)
+
+    @patch('builtins.open', new_callable=mock_open)
+    @patch('parser.logging.getLogger')
+    def test_write_error_log(self, mock_logger, mock_open_func):
+        county = "hays"
+        case_number = "123456"
+
+        self.parser_instance.write_error_log(county, case_number)
+
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+        error_log_path = os.path.join(base_dir, 'data', county, "cases_with_parsing_error.txt")
+
+        mock_open_func.assert_called_once_with(error_log_path, "w")
 
 class CleanTestCase(unittest.TestCase):
 
