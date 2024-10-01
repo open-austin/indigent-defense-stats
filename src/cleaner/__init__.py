@@ -22,11 +22,6 @@ class Cleaner:
     def __init__(self):
         pass
 
-    def add_parsing_date(self, output_json_data: dict) -> dict:
-        """Adds the date of parsing to the final cleaned json file"""
-        output_json_data['parsing_date'] = dt.datetime.today().strftime('%Y-%m-%d')
-        return output_json_data 
-
     def get_or_create_folder_path(self, county: str, folder_type: str) -> str:
         """Returns and ensures the existence of the folder path."""
         folder_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", county.lower(), folder_type)
@@ -49,10 +44,6 @@ class Cleaner:
             logging.error(f"Error loading file at {file_path}: {e}")
             return {}
 
-    def map_charge_names(self, charge_data: list[dict]) -> dict:
-        """Creates a dictionary mapping charge names to their corresponding UMich data"""
-        return {item['charge_name']: item for item in charge_data}
-
     def load_and_map_charge_names(self, file_path: str) -> dict:
         """Loads a JSON file and maps charge names to their corresponding UMich data."""
         charge_data = self.load_json_file(file_path)
@@ -60,14 +51,12 @@ class Cleaner:
         if not charge_data:
             logging.error(f"Failed to load charge data from {file_path}")
             raise FileNotFoundError(f"File not found or is empty: {file_path}")
-        # Create charge mapping from data
+        # Create dictionary mapping charge names 
         try:
-            charge_mapping = self.map_charge_names(charge_data)
+            return {item['charge_name']: item for item in charge_data}
         except KeyError as e:
             logging.error(f"Error in mapping charge names: {e}")
             raise ValueError(f"Invalid data structure: {file_path}")
-        return charge_mapping
-
 
     def process_charges(self, charges: list[dict], charge_mapping: dict) -> tuple[list[dict], str]:
         """
@@ -149,7 +138,7 @@ class Cleaner:
         except OSError as e:
             logging.error(f"Failed to write JSON output to {file_path}: {e}")
 
-    def process_single_case(self, county: str, case_json_folder_path: str, case_json_filename:str) -> None:
+    def process_single_case(self, case_json_folder_path: str, case_json_filename:str, cleaned_folder_path: str) -> None:
         """Process a single case JSON file."""
         input_json_path = os.path.join(case_json_folder_path, case_json_filename)
         input_dict = self.load_json_file(input_json_path)
@@ -168,7 +157,8 @@ class Cleaner:
             "earliest_charge_date": "",
             "motions": [],
             "has_evidence_of_representation": False,
-            "defense_attorney": self.hash_defense_attorney(input_dict)
+            "defense_attorney": self.hash_defense_attorney(input_dict),
+            "parsing_date": dt.datetime.today().strftime('%Y-%m-%d')
         }
 
         # Load charge mappings
@@ -186,12 +176,6 @@ class Cleaner:
         )
         output_json_data["has_evidence_of_representation"] = len(output_json_data["motions"]) > 0
 
-        # Add parsing date
-        output_json_data = self.add_parsing_date(output_json_data)
-
-        # Ensure the case_json_cleaned folder exists
-        cleaned_folder_path = self.get_or_create_folder_path(county, "case_json_cleaned")
-
         # Write output to file
         output_filepath = os.path.join(cleaned_folder_path, case_json_filename)
         self.write_json_output(output_filepath, output_json_data)
@@ -203,9 +187,13 @@ class Cleaner:
         except (FileNotFoundError, Exception) as e:
             logging.error(f"Error reading directory {case_json_folder_path}: {e}")
             return
+        
+        # Ensure the case_json_cleaned folder exists
+        cleaned_folder_path = self.get_or_create_folder_path(county, "case_json_cleaned")
+
         for case_json_filename in list_case_json_files:
             try:
-                self.process_single_case(county, case_json_folder_path, case_json_filename)
+                self.process_single_case(case_json_folder_path, case_json_filename, cleaned_folder_path)
             except Exception as e:
                 logging.error(f"Error processing file {case_json_filename}. Error: {e}")
 
