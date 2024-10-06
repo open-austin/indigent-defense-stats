@@ -2,12 +2,32 @@ import json, argparse, os, xxhash
 from azure.cosmos import CosmosClient, exceptions
 from dotenv import load_dotenv
 from datetime import datetime as dt
+import logging
 
 class Updater():
     def __init__(self, county):
         self.county = county.lower()
 
+    def configure_logger(self):
+        # configure the logger
+        logger = logging.getLogger(name="pid: " + str(os.getpid()))
+        logging.basicConfig()
+        logging.root.setLevel(level="INFO")
+
+        # bkj: logger test
+        file_handler = logging.FileHandler('logger_log.txt')
+        file_handler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+        logger.info("logger is ready for Updater class")
+        return logger
+
     def update(self):
+        # bkj: logger test
+        logger = self.configure_logger()
+
         #This loads the environment for interacting with CosmosDB #Dan: Should this be moved to the .env file?
         load_dotenv()
         URL = os.getenv("URL")
