@@ -1,5 +1,5 @@
-import unittest, sys, os, json, warnings, requests, logging
-from datetime import datetime, timezone, timedelta
+import unittest, sys, os, json, warnings, logging
+from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -29,7 +29,7 @@ class ScraperTestCase(unittest.TestCase):
         scraper_instance = Scraper()
         logger = scraper_instance.configure_logger()
         county = scraper_instance.format_county(county)
-        base_url = scraper_instance.get_ody_link('hays', logger)
+        base_url = scraper_instance.get_ody_link(county, logger)
         self.assertIsNotNone(base_url, "No URL found for this county.")
         
     def test_scrape_main_page(self, 
@@ -40,12 +40,15 @@ class ScraperTestCase(unittest.TestCase):
                               start_date = None, 
                               end_date = None, 
                               court_calendar_link_text = None, 
-                              case_number = None
+                              case_number = None,
+                              ssl = True,
+                              case_html_path = None,
+                              county = 'hays'
                               ):
         scraper_instance = Scraper()
         logger = scraper_instance.configure_logger()
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
-        session = scraper_instance.create_session()
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path)
+        session = scraper_instance.create_session(logger, ssl)
         main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
         self.assertIsNotNone(main_page_html, "No main page HTML came through. main_page_html = None.")
         self.assertTrue('ssSearchHyperlink' in main_page_html, "There is no 'ssSearchHyperlink' text found in this main page html.") # Note: This validation is already being done using the 'verification_text' field.
@@ -62,7 +65,11 @@ class ScraperTestCase(unittest.TestCase):
                                 court_calendar_link_text = None,
                                 start_date = None, 
                                 end_date = None,
-                                case_number = None):
+                                case_number = None,
+                                ssl = True,
+                                case_html_path = None,
+                                county = 'hays'
+                                ):
         # Open the mocked main page HTML
         with open(
             os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_main_page.html'), "r", encoding='utf-8'
@@ -73,8 +80,8 @@ class ScraperTestCase(unittest.TestCase):
         # Look for the court calendar link
         scraper_instance = Scraper()
         logger = scraper_instance.configure_logger()
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
-        session = scraper_instance.create_session()
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path)
+        session = scraper_instance.create_session(logger, ssl)
         search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text)
         # Verify the court calendar link
         self.assertIsNotNone(main_page_html, "No search url came through. search_url = None.")
@@ -93,7 +100,11 @@ class ScraperTestCase(unittest.TestCase):
                             court_calendar_link_text = None,
                             start_date = None, 
                             end_date = None,
-                            case_number = None):        
+                            case_number = None,
+                            ssl = True,
+                            case_html_path = None,
+                            county = 'hays'                            
+                            ):        
         # Open the mocked main page HTML
         with open(
             os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_main_page.html'), "r", encoding='utf-8'
@@ -113,7 +124,7 @@ class ScraperTestCase(unittest.TestCase):
         #Run the function
         scraper_instance = Scraper()
         logger = scraper_instance.configure_logger()
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path)
         hidden_values = scraper_instance.get_hidden_values(odyssey_version, main_soup, search_soup, logger)
         self.assertIsNotNone(hidden_values, "No hidden values came through. hidden_values = None.")
         self.assertTrue(type(hidden_values) == dict, "The hidden values fields is not a dictionary but it needs to be.")
@@ -130,7 +141,8 @@ class ScraperTestCase(unittest.TestCase):
                                     start_date = None, 
                                     end_date = None, 
                                     court_calendar_link_text = None,
-                                    case_html_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_data', 'hays', "case_html")
+                                    case_html_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_data', 'hays', "case_html"),
+                                    ssl = True,
                                     ):
         # This starts a timer to compare the run start time to the last updated time of the resulting HTML to ensure the HTML was created after run start time
         now = datetime.now()
@@ -140,10 +152,10 @@ class ScraperTestCase(unittest.TestCase):
 
         # Call the functions being tested. In this case, the functions being called are all of the subfunctions required and effectively replicates the shape of scrape.
         scraper_instance = Scraper()
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path  = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path)
         logger = scraper_instance.configure_logger()
         county = scraper_instance.format_county(county)
-        session = scraper_instance.create_session()
+        session = scraper_instance.create_session(logger, ssl)
         case_html_path = scraper_instance.make_directories(county) if not case_html_path else case_html_path
         base_url, odyssey_version, notes = scraper_instance.get_ody_link(county, logger)
         main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
@@ -190,13 +202,15 @@ class ScraperTestCase(unittest.TestCase):
                             county = 'hays',
                             session = None,
                             logger = None,
+                            ssl = True,
+                            case_html_path = None,
                             ):
         # This test requires that certain dependency functions run first.
         scraper_instance = Scraper()
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path)
         logger = scraper_instance.configure_logger()
         county = scraper_instance.format_county(county)
-        session = scraper_instance.create_session()
+        session = scraper_instance.create_session(logger, ssl)
         main_page_html, main_soup = scraper_instance.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
         search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text)
         judicial_officers, judicial_officer_to_ID = scraper_instance.scrape_jo_list(odyssey_version, search_soup, judicial_officers, logger)
@@ -219,7 +233,9 @@ class ScraperTestCase(unittest.TestCase):
                                  start_date = None, 
                                  end_date = None, 
                                  court_calendar_link_text = None, 
-                                 case_number = None
+                                 case_number = None,
+                                 ssl = True,
+                                 case_html_path = None,
                                  ):
 
         # Read in the test 'hidden values' that are necessary for searching a case
@@ -230,10 +246,10 @@ class ScraperTestCase(unittest.TestCase):
         hidden_values = hidden_values.replace("'", "\"")
         hidden_values = json.loads(hidden_values)
         scraper_instance = Scraper()
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path)
         logger = scraper_instance.configure_logger()
         county = scraper_instance.format_county(county)
-        session = scraper_instance.create_session()
+        session = scraper_instance.create_session(logger, ssl)
         # Open the example main page HTML
         with open(
             os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files','hays_main_page.html'), "r", encoding='utf-8'
@@ -255,23 +271,24 @@ class ScraperTestCase(unittest.TestCase):
         #def scrape_case_data_post2017()
 
     @unittest.skipIf(SKIP_SLOW, "slow")
-    def test_scrape_multiple_cases(self, 
-                          county = 'hays',
-                          odyssey_version = 2003, 
-                          base_url = r'http://public.co.hays.tx.us/', 
-                          search_url = r'https://public.co.hays.tx.us/Search.aspx?ID=900', 
-                          hidden_values = None, 
-                          judicial_officers = ['Boyer, Bruce'], 
-                          judicial_officer_to_ID = {'Boyer, Bruce':'39607'},
-                          JO_id = '39607',
-                          date_string = '07-01-2024',
-                          court_calendar_link_text = None,
-                          case_number = None,
-                          ms_wait = 200,
-                          start_date = '2024-07-01',
-                          end_date = '2024-07-01',
-                          case_html_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_data', 'hays', "case_html")
-                          ):
+    def test_scrape_multiple_cases(self,
+                                   county = 'hays',
+                                   odyssey_version = 2003, 
+                                   base_url = r'http://public.co.hays.tx.us/', 
+                                   search_url = r'https://public.co.hays.tx.us/Search.aspx?ID=900', 
+                                   hidden_values = None, 
+                                   judicial_officers = ['Boyer, Bruce'], 
+                                   judicial_officer_to_ID = {'Boyer, Bruce':'39607'},
+                                   JO_id = '39607',
+                                   date_string = '07-01-2024',
+                                   court_calendar_link_text = None,
+                                   case_number = None,
+                                   ms_wait = 200,
+                                   start_date = '2024-07-01',
+                                   end_date = '2024-07-01',
+                                   case_html_path = os.path.join(os.path.dirname(__file__), "..", "..", "resources", 'test_files', 'test_data', 'hays', "case_html"),
+                                   ssl = True,
+                                   ):
         # This starts a timer to compare the run start time to the last updated time of the resulting HTML to ensure the HTML was created after run start time
         now = datetime.now()
 
@@ -296,9 +313,9 @@ class ScraperTestCase(unittest.TestCase):
 
         # There are some live depency functions that have to be run before the primary code can be run. 
         scraper_instance = Scraper()
-        session = scraper_instance.create_session()
-        ms_wait, start_date, end_date, court_calendar_link_text, case_number = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number)
+        ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path = scraper_instance.set_defaults(ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path)
         logger = scraper_instance.configure_logger()
+        session = scraper_instance.create_session(logger, ssl)
         case_html_path = scraper_instance.make_directories(county) if not case_html_path else case_html_path
         search_url, search_page_html, search_soup = scraper_instance.scrape_search_page(base_url, odyssey_version, main_page_html, main_soup, session, logger, ms_wait, court_calendar_link_text)
         results_html, results_soup = scraper_instance.scrape_results_page(odyssey_version, base_url, search_url, hidden_values, JO_id, date_string, session, logger, ms_wait)
