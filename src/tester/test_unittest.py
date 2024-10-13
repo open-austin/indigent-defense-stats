@@ -882,7 +882,7 @@ class ParseTestCase(unittest.TestCase):
         self.assertEqual(case_list, expected_list)
         self.mock_logger.info.assert_called()
 
-    @patch("os.path.join", side_effect=lambda *args: "/".join(args))
+    @patch("os.path.join", side_effect=lambda *args: "\\".join(args))
     def test_parser_list_of_multiple_html_files(self, mock_join):
         os.makedirs(self.case_html_path, exist_ok=True)
 
