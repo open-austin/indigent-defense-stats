@@ -975,11 +975,8 @@ class ParseTestCase(unittest.TestCase):
         parser = Parser()
         parser.parse(county=county, 
                      case_number=case_number, 
-                     parse_single_file=True)
-
-
-
-
+                     parse_single_file=True,
+                     test = True)
 
 class CleanTestCase(unittest.TestCase):
     def test_cleaner_hays(self):
