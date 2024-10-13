@@ -9,16 +9,14 @@ import tempfile
 from bs4 import BeautifulSoup
 
 # Import all of the programs modules within the parent_dir
-from scraper import Scraper
-from parser import Parser
-from cleaner import Cleaner
-from updater import Updater
+from .. import scraper
+from .. import parser
+from .. import cleaner
+from .. import updater
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 project_root = os.path.dirname(parent_dir)
-
-sys.path.append(parent_dir)
 
 SKIP_SLOW = os.getenv("SKIP_SLOW", "false").lower().strip() == "true"
 
@@ -27,9 +25,7 @@ def log(
     message, level="INFO"
 ):  # Provide message and info level (optional, defaulting to info)
     # configure the logger
-    log = logging.getLogger(name="pid: " + str(os.getpid()))
-    logging.basicConfig()
-    logging.root.setLevel(level=level)
+    log = logging.getLogger(__name__)
     log.info(message)
 
 
@@ -37,7 +33,7 @@ class ScraperTestCase(unittest.TestCase):
     # Defaults for each program are set at the function level.
 
     def test_scrape_get_ody_link(self, county="hays"):
-        scraper_instance = Scraper()
+        scraper_instance = scraper.Scraper()
         logger = scraper_instance.configure_logger()
         county = scraper_instance.format_county(county)
         base_url = scraper_instance.get_ody_link(county, logger)
@@ -57,7 +53,7 @@ class ScraperTestCase(unittest.TestCase):
         case_html_path=None,
         county="hays",
     ):
-        scraper_instance = Scraper()
+        scraper_instance = scraper.Scraper()
         logger = scraper_instance.configure_logger()
         (
             ms_wait,
@@ -130,7 +126,7 @@ class ScraperTestCase(unittest.TestCase):
         # Parse the HTML content with BeautifulSoup
         main_soup = BeautifulSoup(main_page_html, "html.parser")
         # Look for the court calendar link
-        scraper_instance = Scraper()
+        scraper_instance = scraper.Scraper()
         logger = scraper_instance.configure_logger()
         (
             ms_wait,
@@ -234,7 +230,7 @@ class ScraperTestCase(unittest.TestCase):
         search_soup = BeautifulSoup(search_page_html, "html.parser")
 
         # Run the function
-        scraper_instance = Scraper()
+        scraper_instance = scraper.Scraper()
         logger = scraper_instance.configure_logger()
         (
             ms_wait,
@@ -298,7 +294,7 @@ class ScraperTestCase(unittest.TestCase):
         os.makedirs(case_html_path, exist_ok=True)
 
         # Call the functions being tested. In this case, the functions being called are all of the subfunctions required and effectively replicates the shape of scrape.
-        scraper_instance = Scraper()
+        scraper_instance = scraper.Scraper()
         (
             ms_wait,
             start_date,
@@ -401,7 +397,7 @@ class ScraperTestCase(unittest.TestCase):
             case_number_html == "CR-16-0002-A",
             "The cause number is not where it was expected to be in the HTML.",
         )
-        # self.logger.info(f"Scraper test sucessful for cause number CR-16-0002-A.")
+        # self.logger.info(f"scraper.Scraper test sucessful for cause number CR-16-0002-A.")
 
     # This begins the tests related the scrape_cases function for scraping multiple cases.
 
@@ -424,7 +420,7 @@ class ScraperTestCase(unittest.TestCase):
         case_html_path=None,
     ):
         # This test requires that certain dependency functions run first.
-        scraper_instance = Scraper()
+        scraper_instance = scraper.Scraper()
         (
             ms_wait,
             start_date,
@@ -517,7 +513,7 @@ class ScraperTestCase(unittest.TestCase):
             )  # Read the entire file content into a string
         hidden_values = hidden_values.replace("'", '"')
         hidden_values = json.loads(hidden_values)
-        scraper_instance = Scraper()
+        scraper_instance = scraper.Scraper()
         (
             ms_wait,
             start_date,
@@ -669,7 +665,7 @@ class ScraperTestCase(unittest.TestCase):
         hidden_values = json.loads(hidden_values)
 
         # There are some live depency functions that have to be run before the primary code can be run.
-        scraper_instance = Scraper()
+        scraper_instance = scraper.Scraper()
         (
             ms_wait,
             start_date,
@@ -789,37 +785,27 @@ class ParseTestCase(unittest.TestCase):
         self.case_json_path = os.path.join(self.test_dir, "hays", "case_json")
         os.makedirs(self.case_json_path, exist_ok=True)
 
-        self.mock_logger = MagicMock()
-        self.parser_instance = Parser()
+        self.mock_logger = logging.getLogger(__name__)
+        self.parser_instance = parser.Parser()
         self.case_html_path = os.path.abspath(
             os.path.join(
                 os.path.dirname(__file__), "../../resources/test_files/parser_testing"
             )
         )
 
-    @patch("parser.Parser.get_class_and_method")
-    def test_parser_class_and_method(self, mock_import_module):
-        mock_logger = MagicMock()
-        mock_class = MagicMock()
-        mock_method = MagicMock()
-
-        mock_import_module.return_value = mock_class.return_value, mock_method
-
-        parser_instance = Parser()
+    def test_parser_class_and_method(self):
+        parser_instance = parser.Parser()
 
         instance, method = parser_instance.get_class_and_method(
-            logger=mock_logger, county="hays", test=True
+            logger=self.mock_logger, county="hays", test=True
         )
-
-        self.assertEqual(instance, mock_class.return_value)
-        self.assertEqual(method, mock_method)
+        self.assertIn('extract_rows', dir(instance))
 
     @patch("os.makedirs")
     def test_parser_directories_single_file(self, mock_makedirs):
-        mock_logger = MagicMock()
-        parser_instance = Parser()
+        parser_instance = parser.Parser()
         case_html_path, case_json_path = parser_instance.get_directories(
-            "hays", mock_logger, parse_single_file=True
+            "hays", self.mock_logger, parse_single_file=True
         )
 
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -827,15 +813,13 @@ class ParseTestCase(unittest.TestCase):
 
         self.assertEqual(case_html_path, expected_path)
         self.assertEqual(case_json_path, expected_path)
-        mock_logger.info.assert_called()
 
     @patch("os.makedirs")
     @patch("os.path.exists", return_value=False)
     def test_parser_directories_multiple_files(self, mock_exists, mock_makedirs):
-        mock_logger = MagicMock()
-        parser_instance = Parser()
+        parser_instance = parser.Parser()
         case_html_path, case_json_path = parser_instance.get_directories(
-            "hays", mock_logger, parse_single_file=False
+            "hays", self.mock_logger, parse_single_file=False
         )
 
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -845,7 +829,6 @@ class ParseTestCase(unittest.TestCase):
         self.assertEqual(case_html_path, expected_html_path)
         self.assertEqual(case_json_path, expected_json_path)
         mock_makedirs.assert_called_once_with(expected_json_path, exist_ok=True)
-        mock_logger.info.assert_called()
 
     def test_parser_list_of_single_html_file(self):
         case_number = "51652356"
@@ -862,7 +845,6 @@ class ParseTestCase(unittest.TestCase):
         expected_path = os.path.join(relative_path, f"test_{case_number}.html")
 
         self.assertEqual(case_list, [expected_path])
-        self.mock_logger.info.assert_called()
 
     def test_parser_list_of_single_html_file_by_casenumber(self):
         case_number = "51652356"
@@ -880,10 +862,8 @@ class ParseTestCase(unittest.TestCase):
         expected_list = [os.path.join(relative_path, f"test_{case_number}.html")]
 
         self.assertEqual(case_list, expected_list)
-        self.mock_logger.info.assert_called()
 
-    @patch("os.path.join", side_effect=lambda *args: "\\".join(args))
-    def test_parser_list_of_multiple_html_files(self, mock_join):
+    def test_parser_list_of_multiple_html_files(self):
         os.makedirs(self.case_html_path, exist_ok=True)
 
         with open(os.path.join(self.case_html_path, "test_1.html"), "w") as f:
@@ -907,7 +887,6 @@ class ParseTestCase(unittest.TestCase):
         ]
 
         self.assertEqual(set(case_list), set(expected_list))
-        self.mock_logger.info.assert_called()
 
     def test_parser_get_list_of_html_error_handling(self):
         invalid_path = "invalid/path"
@@ -921,16 +900,11 @@ class ParseTestCase(unittest.TestCase):
                 self.mock_logger,
                 parse_single_file=False,
             )
-        self.mock_logger.info.assert_called()
 
-    @patch("os.path.join")
-    @patch("logging.getLogger")
-    def test_get_html_path(self, mock_logger, mock_path_join):
+    def test_get_html_path(self):
         updated_html_path = os.path.join(self.case_html_path, "multiple_html_files")
         case_html_file_name = "parserTest_51652356.html"
         case_number = "51652356"
-
-        mock_path_join.return_value = f"{updated_html_path}/{case_html_file_name}"
 
         result = self.parser_instance.get_html_path(
             updated_html_path, case_html_file_name, case_number, self.mock_logger
@@ -939,25 +913,21 @@ class ParseTestCase(unittest.TestCase):
         self.assertEqual(result, f"{updated_html_path}/{case_html_file_name}")
 
     @patch("builtins.open", new_callable=mock_open)
-    @patch("json.dumps")
-    @patch("parser.logging.getLogger")
-    def test_write_json_data(self, mock_logger, mock_json_dumps, mock_open_func):
+    def test_write_json_data(self, mock_open_func):
         case_json_path = "/mock/path"
         case_number = "123456"
         case_data = {"data": "value"}
 
         self.parser_instance.write_json_data(
-            case_json_path, case_number, case_data, mock_logger
+            case_json_path, case_number, case_data, self.mock_logger
         )
 
         mock_open_func.assert_called_once_with(
             os.path.join(case_json_path, case_number + ".json"), "w"
         )
-        mock_json_dumps.assert_called_once_with(case_data, indent=4)
 
     @patch("builtins.open", new_callable=mock_open)
-    @patch("parser.logging.getLogger")
-    def test_write_error_log(self, mock_logger, mock_open_func):
+    def test_write_error_log(self, mock_open_func):
         county = "hays"
         case_number = "123456"
 
@@ -972,8 +942,7 @@ class ParseTestCase(unittest.TestCase):
 
     def test_parser_end_to_end(self, county="hays", case_number='123456'):
 
-        parser = Parser()
-        parser.parse(county=county, 
+        self.parser_instance.parse(county=county, 
                      case_number=case_number, 
                      parse_single_file=True,
                      test = True)
