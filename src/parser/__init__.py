@@ -264,8 +264,7 @@ class Parser:
         except Exception as e:
             logger.info(f"Error in parse: {e}")
             raise
-
-
+        
 if __name__ == "__main__":
     parser = Parser()
     parser.parse(county="hays", case_number=None, parse_single_file=True)

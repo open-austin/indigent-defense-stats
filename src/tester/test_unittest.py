@@ -970,6 +970,16 @@ class ParseTestCase(unittest.TestCase):
 
         mock_open_func.assert_called_once_with(error_log_path, "w")
 
+    def test_parser_end_to_end(self, county="hays", case_number='123456'):
+
+        parser = Parser()
+        parser.parse(county=county, 
+                     case_number=case_number, 
+                     parse_single_file=True)
+
+
+
+
 
 class CleanTestCase(unittest.TestCase):
     def test_cleaner_hays(self):
