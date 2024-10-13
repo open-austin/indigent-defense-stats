@@ -9,11 +9,7 @@ Once you've loaded the repository in Visual Studio, you can load the test by usi
 {
 "python.testing.unittestEnabled": true,
 "python.testing.unittestArgs": [
-"-v",
-"-s",
-"./src/tester",
-"-p",
-"test*.py"
+"-v"
 ]
 }
 ```
