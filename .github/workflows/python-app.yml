@@ -41,7 +41,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unittest
       run: |
-        SKIP_SLOW=true python -m unittest discover -v -s ./src/tester
+        SKIP_SLOW=true python -m unittest -v
     - name: Build documentation
       run: |
         sphinx-build -b html docs build
