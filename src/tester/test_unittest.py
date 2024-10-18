@@ -949,7 +949,7 @@ class ParseTestCase(unittest.TestCase):
 
 class CleanTestCase(unittest.TestCase):
     def setUp(self):
-        self.cleaner = Cleaner() # Create Cleaner instance here to avoid repeating this in every test
+        self.cleaner = cleaner.Cleaner() # Create Cleaner instance here to avoid repeating this in every test
 
     @patch('os.makedirs') 
     @patch('os.path.exists', return_value=False)
@@ -1093,18 +1093,18 @@ class CleanTestCase(unittest.TestCase):
             "Motion For Speedy Trial"
         ]
 
-        result = self.cleaner.find_good_motions(events, GOOD_MOTIONS)
+        result = self.cleaner.find_good_motions(events, cleaner.GOOD_MOTIONS)
         self.assertEqual(len(result), 3)
         self.assertEqual(result, ["Motion To Suppress", "Motion to Reduce Bond", "Motion For Speedy Trial"])
 
         # Test with no matching motions
         events_no_match = ["Other1", "Other2"]
-        result_no_match = self.cleaner.find_good_motions(events_no_match, GOOD_MOTIONS)
+        result_no_match = self.cleaner.find_good_motions(events_no_match, cleaner.GOOD_MOTIONS)
         self.assertEqual(result_no_match, [])
 
-    @patch("cleaner.Cleaner.load_json_file")
-    @patch("cleaner.Cleaner.write_json_output")
-    @patch("cleaner.Cleaner.load_and_map_charge_names")
+    @patch("src.cleaner.Cleaner.load_json_file")
+    @patch("src.cleaner.Cleaner.write_json_output")
+    @patch("src.cleaner.Cleaner.load_and_map_charge_names")
     def test_process_single_case(self, mock_load_map, mock_write, mock_load):
         mock_load.return_value = {
             "code": "123",
@@ -1145,8 +1145,8 @@ class CleanTestCase(unittest.TestCase):
         self.assertTrue("parsing_date" in output_data)
 
     @patch("os.listdir", return_value=["case1.json", "case2.json"])
-    @patch("cleaner.Cleaner.get_or_create_folder_path")
-    @patch("cleaner.Cleaner.process_single_case")
+    @patch("src.cleaner.Cleaner.get_or_create_folder_path")
+    @patch("src.cleaner.Cleaner.process_single_case")
     def test_process_json_files(self, mock_process, mock_get_folder, mock_listdir):
         county = "test_county"
         folder_path = "case_json_folder"
@@ -1169,8 +1169,8 @@ class CleanTestCase(unittest.TestCase):
         mock_file.assert_called_once_with(file_path, "w")
         mock_json_dump.assert_called_once_with(data, mock_file())
 
-    @patch.object(Cleaner, 'get_or_create_folder_path')
-    @patch.object(Cleaner, 'process_json_files')
+    @patch.object(cleaner.Cleaner, 'get_or_create_folder_path')
+    @patch.object(cleaner.Cleaner, 'process_json_files')
     def test_clean(self, mock_process_json_files, mock_get_folder):
         mock_get_folder.return_value = "mock_path"
         county = "hays"
