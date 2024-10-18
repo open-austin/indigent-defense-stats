@@ -1,0 +1,82 @@
+{
+    "Case Metadata": {
+        "code": "CR-17-5152-C",
+        "odyssey id": "test_123456",
+        "county": "hays"
+    },
+    "Case Details": {
+        "name": "The State of Texas vs. Zzzzzz Xxxxxx",
+        "case type": "Adult Felony",
+        "date filed": "01/05/2016",
+        "location": "22nd District Court"
+    },
+    "Defendent Information": {
+        "defendant": "Xxxxxx, Zzzzzz",
+        "sex": "Female",
+        "race": "White",
+        "date of birth": "DOB: 02/15/1997",
+        "height": "5'6\",",
+        "weight": "200",
+        "defense attorney": "Richard Jones",
+        "appointed or retained": "Court Appointed",
+        "defense attorney phone number": "512-632-2433(W)",
+        "defendant address": "876 Main St Natalia, TX 78059",
+        "SID": "TX03816410"
+    },
+    "State Information": {
+        "prosecuting attorney": "Yuuuuu Haaaaa",
+        "prosectuing attorney phone number": "512-362-7711(W)"
+    },
+    "Charge Information": [
+        {
+            "charges": "AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+            "statute": "22.02(a)(2)",
+            "level": "Second Degree Felony",
+            "date": "10/25/2015"
+        }
+    ],
+    "Disposition Information": [
+        {
+            "date": "12/06/2016",
+            "event": "Disposition",
+            "judicial officer": "Boyer, Bruce",
+            "details": [
+                {
+                    "charge": "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+                    "outcome": "Deferred Adjudication"
+                }
+            ]
+        },
+        {
+            "date": "11/04/2019",
+            "event": "Amended Disposition",
+            "judicial officer": "Boyer, Bruce) Reason: Community Supervision Extende",
+            "details": [
+                {
+                    "charge": "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+                    "outcome": "Amend Probation"
+                }
+            ]
+        },
+        {
+            "date": "12/06/2016",
+            "event": "Deferred Adjudication",
+            "judicial officer": "Boyer, Bruce",
+            "details": [
+                {
+                    "charge": "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+                    "outcome": "CSCD",
+                    "additional_info": [
+                        "5 Years"
+                    ]
+                }
+            ]
+        }
+    ],
+    "Top Charge": {
+        "charge name": "AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+        "charge level": "Second Degree Felony"
+    },
+    "Dismissed Charges Count": 0,
+    "html_hash": "8d4a80173c700b37"
+}

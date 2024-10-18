@@ -1,0 +1,37 @@
+2024-10-13 13:51:33,631 - INFO - Logger configured
+2024-10-13 13:51:33,631 - INFO - Starting parsing for hays county with case number 51652356
+2024-10-13 13:51:33,632 - INFO - get_directories function called
+base_dir: c:\Users\nicol\Documents\Open Austin\ids\indigent-defense-stats
+
+2024-10-13 13:51:33,633 - INFO - Returning case_html_path: c:\Users\nicol\Documents\Open Austin\ids\indigent-defense-stats\data\hays\case_html
+Returning case_json_path: c:\Users\nicol\Documents\Open Austin\ids\indigent-defense-stats\data\hays\case_json
+
+2024-10-13 13:51:33,634 - INFO - Time started: 1728845493.6341271
+2024-10-13 13:51:33,650 - INFO - get_list_of_html function called
+
+2024-10-13 13:51:33,651 - INFO - parse_single_file is True
+
+2024-10-13 13:51:33,652 - INFO - Starting for loop to parse 1 cases
+2024-10-13 13:51:33,654 - INFO - test_51652356 - parsing
+2024-10-13 13:51:33,852 - INFO - Module: hays
+Class: ParserHays
+Method: parser_hays
+
+2024-10-13 13:51:33,925 - INFO - Module 'hays' imported successfully.
+2024-10-13 13:51:33,928 - INFO - Class 'ParserHays' retrieved successfully.
+2024-10-13 13:51:33,929 - INFO - Method 'parser_hays' retrieved successfully.
+2024-10-13 13:51:33,946 - INFO - Getting case metadata for hays case test_51652356
+2024-10-13 13:51:33,951 - INFO - Getting case details
+2024-10-13 13:51:33,956 - INFO - Parsing defendant rows
+2024-10-13 13:51:33,957 - INFO - Parsing state rows
+2024-10-13 13:51:33,957 - INFO - Getting charge information
+2024-10-13 13:51:33,959 - INFO - Formatting events and orders of the court
+2024-10-13 13:51:33,972 - INFO - For Loop started
+Getting disposition information
+2024-10-13 13:51:33,976 - INFO - Row is not a disposition: ['11/07/2016', 'CANCELED', 'Punishment Hearing', '(9:00 AM) (Judicial Officer Boyer, Bruce)', "Defendant's Request"]
+2024-10-13 13:51:33,978 - INFO - Row is not a disposition: ['03/23/2016', 'CANCELED', 'Arraignment', '(9:00 AM) (Judicial Officer Henry, William R)', 'Waived Arraignment']
+2024-10-13 13:51:33,978 - INFO - Row is not a disposition: ['11/04/2019', 'Amended Deferred Adjudication', '(Judicial Officer: Boyer, Bruce) Reason: Community Supervision Extended', '1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON', 'CSCD', '7 Years']
+2024-10-13 13:51:33,979 - INFO - For Loop ended
+
+2024-10-13 13:51:33,995 - INFO - Writing JSON to: c:\Users\nicol\Documents\Open Austin\ids\indigent-defense-stats\data\hays\case_json
+2024-10-13 13:51:34,000 - INFO - Parsing took 0.3662230968475342 seconds
