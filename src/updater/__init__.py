@@ -7,12 +7,22 @@ import logging
 class Updater():
     def __init__(self, county):
         self.county = county.lower()
+        self.case_json_cleaned_folder_path = os.path.join(
+            os.path.dirname(__file__), "..", "..", "data", self.county, "case_json_cleaned"
+        )
+        self.processed_path = os.path.join(self.case_json_cleaned_folder_path, 
+                                           f"result_{dt.today().strftime('%Y-%m-%d.%H:%M:%S.%f')}")
+        
+        # open or create a output directory for a log and successfully processed data
+        if os.path.exists(self.case_json_cleaned_folder_path) and \
+            not os.path.exists(self.processed_path): 
+            os.makedirs(self.processed_path)
 
-    def configure_logger(self, dir_path):
+    def configure_logger(self):
         logger = logging.getLogger(name="pid: " + str(os.getpid()))
         logger.setLevel(logging.DEBUG)
 
-        file_handler = logging.FileHandler(os.path.join(dir_path, 'logger_log.txt'))
+        file_handler = logging.FileHandler(os.path.join(self.processed_path, 'logger_log.txt'))
         file_handler.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         file_handler.setFormatter(formatter)
@@ -26,15 +36,11 @@ class Updater():
         return logger
 
     def update(self):
-        # open or create a output directory for a log and successfully processed data
-        processed_case_json_cleaned_foler_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", self.county, "case_json_cleaned", f"result_{dt.today().strftime('%Y-%m-%d.%H:%M:%S.%f')}"
-        )
-        if not os.path.exists(processed_case_json_cleaned_foler_path):
-            # Create the folder if it doesn't exist
-            os.makedirs(processed_case_json_cleaned_foler_path)
+        logger = self.configure_logger()
 
-        logger = self.configure_logger(processed_case_json_cleaned_foler_path)
+        if not os.path.exists(self.case_json_cleaned_folder_path):
+            logger.error(f'The following path doesn\'t exits: \n{self.case_json_cleaned_folder_path}')
+            return
 
         #This loads the environment for interacting with CosmosDB #Dan: Should this be moved to the .env file?
         load_dotenv()
@@ -57,15 +63,14 @@ class Updater():
         except Exception as e:
             logger.error(f"Error instantiating ContainerClient: {e.status_code} - {e.message}")
             return
-
-        case_json_cleaned_folder_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", self.county, "case_json_cleaned"
-        )
-        list_case_json_files = os.listdir(case_json_cleaned_folder_path)
+        
+        list_case_json_files = os.listdir(self.case_json_cleaned_folder_path)
 
         for case_json in list_case_json_files:
-            in_file = case_json_cleaned_folder_path + "/" + case_json
-            if not os.path.isfile(in_file):
+            in_file = self.case_json_cleaned_folder_path + "/" + case_json
+            if os.path.isfile(in_file):
+                dest_file = self.processed_path + "/" + case_json
+            else:
                 continue
 
             with open(in_file, "r") as f:
@@ -82,7 +87,9 @@ class Updater():
                 continue
 
             if len(cases) > 0:
-                #There already exists one with the same hash, so skip this entirely.
+                # There already exists one with the same hash, so skip this entirely.
+                # Move the file to the processed folder.
+                os.rename(in_file, dest_file)
                 logger.info(f"The case's HTML hash already exists in the databse: {case_json}. Not updating the database.")
                 continue
 
@@ -105,6 +112,9 @@ class Updater():
                 logger.error(f"Error inserting this case to cases-cleaned database: {e.status_code} - {e.message}")
                 continue
 
+            # This case is inserted successfully.
+            # Move the file to the processed folder.
+            os.rename(in_file, dest_file)
             logger.info(f"Insertion successfully done with id: {input_dict['id']}, version: { input_dict['version']}")
 
 if __name__ == '__main__':
