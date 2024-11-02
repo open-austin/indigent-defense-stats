@@ -1,0 +1,54 @@
+{
+    "parsing_date": "2024-11-02",
+    "html_hash": "8d4a80173c700b37",
+    "Case Metadata": {
+        "county": "hays"
+    },
+    "Defendant Information": {
+        "appointed_or_retained": "Court Appointed",
+        "defense_attorney": "9083bb693e33919c"
+    },
+    "Charge Information": [
+        {
+            "charge_id": 0,
+            "charge_level": "Second Degree Felony",
+            "orignal_charge": "AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+            "statute": "22.02(a)(2)",
+            "is_primary_charge": true,
+            "charge_date": "2015-10-25",
+            "charge_name": "AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+            "uccs_code": "1200",
+            "charge_desc": "Aggravated Assault",
+            "offense_category_desc": "Aggravated assault",
+            "offense_type_desc": "Violent"
+        }
+    ],
+    "Case Details": {
+        "earliest_charge_date": "2015-10-25",
+        "has_evidence_of_representation": false
+    },
+    "Disposition_Information": [
+        {
+            "date": "12/06/2016",
+            "event": "Disposition",
+            "details": [
+                {
+                    "charge": "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+                    "outcome": "Deferred Adjudication"
+                }
+            ]
+        },
+        {
+            "date": "11/04/2019",
+            "event": "Amended Disposition",
+            "details": [
+                {
+                    "charge": "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+                    "outcome": "Amend Probation"
+                }
+            ]
+        }
+    ],
+    "Good Motions": [],
+    "cause_number_redacted": "871239500b7fe2fd"
+}

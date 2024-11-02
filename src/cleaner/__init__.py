@@ -28,7 +28,7 @@ class Cleaner:
 
     def redact_cause_number(self, input_dict: dict) -> str:
         # This will hash and redact the cause number and then add it to the output file.
-        cause_number_hash = xxhash.xxh64(str(input_dict["code"])).hexdigest()
+        cause_number_hash = xxhash.xxh64(str(input_dict["Case Metadata"]["code"])).hexdigest()
         return cause_number_hash
 
     def get_or_create_folder_path(self, county: str, folder_type: str) -> str:
@@ -54,6 +54,20 @@ class Cleaner:
         except (FileNotFoundError, json.JSONDecodeError) as e:
             logging.error(f"Error loading file at {file_path}: {e}")
             return {}
+
+    def remove_judicial_officer(self, data):
+        # Check if data is a dictionary
+        if isinstance(data, dict):
+            # Remove 'judicial officer' if it exists in this dictionary
+            if "judicial officer" in data:
+                del data["judicial officer"]
+            # Recursively check each value in the dictionary
+            for key, value in data.items():
+                self.remove_judicial_officer(value)
+        # Check if data is a list
+        elif isinstance(data, list):
+            for item in data:
+                self.remove_judicial_officer(item)
 
     def load_and_map_charge_names(self, file_path: str) -> dict:
         """Loads a JSON file and maps charge names to their corresponding UMich data."""
@@ -143,7 +157,7 @@ class Cleaner:
     def hash_defense_attorney(self, input_dict: dict) -> str:
         """Hashes the defense attorney info to anonymize it."""
         try:
-            def_atty_unique_str = f'{input_dict["party information"]["defense attorney"]}:{input_dict["party information"]["defense attorney phone number"]}'
+            def_atty_unique_str = f'{input_dict["Defendent Information"]["defense attorney"]}:{input_dict["Defendent Information"]["defense attorney phone number"]}'
             return xxhash.xxh64(def_atty_unique_str).hexdigest()
         except KeyError as e:
             logging.error(f"Missing defense attorney data: {e}")
@@ -153,7 +167,7 @@ class Cleaner:
         """Writes the given data to a JSON file at the specified file path."""
         try:
             with open(file_path, "w") as f:
-                json.dump(data, f)
+                json.dump(data, f, indent=4)
             logging.info(f"Successfully wrote cleaned data to {file_path}")
         except OSError as e:
             logging.error(f"Failed to write JSON output to {file_path}: {e}")
@@ -174,17 +188,25 @@ class Cleaner:
 
         # Initialize cleaned output data
         output_json_data = {
-            "case_number": input_dict["code"],
-            "attorney_type": input_dict["party information"]["appointed or retained"],
-            "county": input_dict["county"],
-            "html_hash": input_dict["html_hash"],
-            "charges": [],
-            "earliest_charge_date": "",
-            "motions": [],
-            "has_evidence_of_representation": False,
-            "defense_attorney": self.hash_defense_attorney(input_dict),
             "parsing_date": dt.datetime.today().strftime("%Y-%m-%d"),
+            "html_hash": input_dict["html_hash"],
+            "Case Metadata": {
+                "county": input_dict["Case Metadata"]["county"]
+            },            
+            "Defendant Information": {
+                "appointed_or_retained": input_dict["Defendent Information"]["appointed or retained"],
+                "defense_attorney": self.hash_defense_attorney(input_dict),
+            },
+            "Charge Information": [],
+            "Case Details": {
+                "earliest_charge_date": "",
+                "has_evidence_of_representation": False,
+            },
+            "Disposition_Information": input_dict["Disposition Information"]
         }
+
+        # Removing judicial office name from data
+        self.remove_judicial_officer(output_json_data["Disposition_Information"])
 
         # Load charge mappings
         charge_name_to_umich_file = os.path.join(
@@ -197,14 +219,14 @@ class Cleaner:
         charges_mapped = self.load_and_map_charge_names(charge_name_to_umich_file)
 
         # Process charges and motions
-        output_json_data["charges"], output_json_data["earliest_charge_date"] = (
-            self.process_charges(input_dict["charge information"], charges_mapped)
+        output_json_data["Charge Information"], output_json_data['Case Details']["earliest_charge_date"] = (
+            self.process_charges(input_dict["Charge Information"], charges_mapped)
         )
-        output_json_data["motions"] = self.find_good_motions(
-            input_dict["other events and hearings"], GOOD_MOTIONS
+        output_json_data['Good Motions'] = self.find_good_motions(
+            input_dict["Other Events and Hearings"], GOOD_MOTIONS
         )
-        output_json_data["has_evidence_of_representation"] = (
-            len(output_json_data["motions"]) > 0
+        output_json_data['Case Details']["has_evidence_of_representation"] = (
+            len(output_json_data["Good Motions"]) > 0
         )
 
         output_json_data["cause_number_redacted"] = self.redact_cause_number(input_dict)

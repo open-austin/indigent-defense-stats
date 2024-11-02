@@ -211,19 +211,21 @@ class ParserHays:
             disposition_rows = []
             other_event_rows = []
 
-            SECTION = "event"
             for row in table_rows:
-                if len(row) >= 4:
-                    if row[1] in ["Disposition", "Disposition:"]:
-                        SECTION = "disposition"
-                    if SECTION == "event":
-                        other_event_rows.append(row)
-                    elif SECTION == "disposition":
+                print(f'printing row: {row}')
+                if len(row) >= 2:
+                    if row[1] in ["Disposition", "Disposition:", "Amended Disposition"]:
+                        print(f'YES A DISPOSITION: {row}')
                         disposition_rows.append(row)
+                    else:
+                        print(f'YES AN EVENT: {row}')
+                        other_event_rows.append(row)
 
             # Reverse the order of the rows
             other_event_rows = other_event_rows[::-1]
             disposition_rows = disposition_rows[::-1]
+
+            print(other_event_rows)
 
             return (disposition_rows, other_event_rows)
         except Exception as e:
@@ -303,8 +305,8 @@ class ParserHays:
                     logger.info(f"For Loop ended\n")
                     if case_data["Disposition Information"]:
                         case_data["Top Charge"] = self.get_top_charge(dispositions, case_data.get("Charge Information", []), logger)
-
                         case_data["Dismissed Charges Count"] = self.count_dismissed_charges(case_data["Disposition Information"], logger)
+                    case_data['Other Events and Hearings'] = other_event_rows
                     
             return case_data
         except Exception as e:
