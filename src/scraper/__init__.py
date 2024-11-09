@@ -579,11 +579,12 @@ class Scraper:
                 jo_id = judicial_officer_to_ID[JO_name]
                 logger.info(f"Searching cases on {date_string} for {JO_name}")
                 
-                results_soup = self.scrape_results_page(
+                results_page_html, results_soup = self.scrape_results_page(
                     odyssey_version, base_url, search_url, hidden_values, jo_id, date_string, session, logger, ms_wait
                 )
                 
-                scraper_function = self.get_class_and_method(county, logger)
+                scraper_instance, scraper_function = self.get_class_and_method(county, logger)
+                print(scraper_function)
                 scraper_function(base_url, results_soup, case_html_path, logger, session, ms_wait)
 
     def scrape(
