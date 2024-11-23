@@ -1,5 +1,6 @@
 from typing import Dict, List
 from bs4 import BeautifulSoup
+import traceback
 
 CHARGE_SEVERITY = {
     "First Degree Felony": 1,
@@ -299,12 +300,13 @@ class ParserHays:
                     for row in disposition_rows:
                         case_data["Disposition Information"] = self.get_disposition_information(row, dispositions, case_data, table, county, case_soup, logger)
                     #logger.info(f"For Loop ended\n")
-                    if case_data["Disposition Information"]:
+                    if "Disposition Information" in case_data:
                         case_data["Top Charge"] = self.get_top_charge(dispositions, case_data.get("Charge Information", []), logger)
                         case_data["Dismissed Charges Count"] = self.count_dismissed_charges(case_data["Disposition Information"], logger)
                     case_data['Other Events and Hearings'] = other_event_rows
                     
             return case_data
         except Exception as e:
-            logger.info(f"Error parsing Hays case: {e}")
+            logger.error(f"Unexpected error while parsing Hays case: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
             return {}

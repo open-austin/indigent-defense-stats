@@ -95,3 +95,123 @@
 2024-11-23 14:08:29,449 - pid: 9352 - INFO - [Case Filename: 13139825.json, Case Number: None, HTML Hash: d1fc37b7dd5a9f2b]
 2024-11-23 14:08:29,576 - pid: 9352 - INFO - The case's HTML hash already exists in the databse: 13139825.json. Not updating the database.
 2024-11-23 14:08:29,576 - pid: 9352 - INFO - The case's HTML hash already exists in the databse: 13139825.json. Not updating the database.
+2024-11-23 14:38:57,259 - pid: 13128 - INFO - updater: Beginning updating process.
+2024-11-23 14:38:57,260 - pid: 13128 - INFO - updater: 11 case(s) to update
+2024-11-23 14:38:57,271 - pid: 13128 - INFO - [Case Filename: 12947592.json, Case Number: None, HTML Hash: bd4e5bb90c6a6685]
+2024-11-23 14:38:57,772 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 12947592.json. Not updating the database.
+2024-11-23 14:38:57,788 - pid: 13128 - INFO - [Case Filename: 12997837.json, Case Number: None, HTML Hash: 073e6ff73f41d093]
+2024-11-23 14:38:57,914 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 12997837.json. Not updating the database.
+2024-11-23 14:38:57,928 - pid: 13128 - INFO - [Case Filename: 13006663.json, Case Number: None, HTML Hash: 5f31af73ebb56473]
+2024-11-23 14:38:58,030 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 13006663.json. Not updating the database.
+2024-11-23 14:38:58,039 - pid: 13128 - INFO - [Case Filename: 13084840.json, Case Number: None, HTML Hash: a21d92eaa938ee59]
+2024-11-23 14:38:58,153 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 13084840.json. Not updating the database.
+2024-11-23 14:38:58,183 - pid: 13128 - INFO - [Case Filename: 13097910.json, Case Number: None, HTML Hash: a2d5b33290872590]
+2024-11-23 14:38:58,301 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 13097910.json. Not updating the database.
+2024-11-23 14:38:58,329 - pid: 13128 - INFO - [Case Filename: 13109242.json, Case Number: None, HTML Hash: d39a3ff5b2f51ca5]
+2024-11-23 14:38:58,833 - pid: 13128 - INFO - Insertion successfully done with id: CR-19-1297-A:hays:11-23-2024d39a3ff5b2f51ca5, version: 1
+2024-11-23 14:38:58,864 - pid: 13128 - INFO - [Case Filename: 13110619.json, Case Number: None, HTML Hash: aa2a589a2871095f]
+2024-11-23 14:38:58,988 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 13110619.json. Not updating the database.
+2024-11-23 14:38:59,025 - pid: 13128 - INFO - [Case Filename: 13111798.json, Case Number: None, HTML Hash: 19f9b14a670dcaa4]
+2024-11-23 14:38:59,131 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 13111798.json. Not updating the database.
+2024-11-23 14:38:59,144 - pid: 13128 - INFO - [Case Filename: 13118485.json, Case Number: None, HTML Hash: d6c1dc4533720f76]
+2024-11-23 14:38:59,250 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 13118485.json. Not updating the database.
+2024-11-23 14:38:59,262 - pid: 13128 - INFO - [Case Filename: 13134950.json, Case Number: None, HTML Hash: bf375e0dea6bb981]
+2024-11-23 14:38:59,362 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 13134950.json. Not updating the database.
+2024-11-23 14:38:59,374 - pid: 13128 - INFO - [Case Filename: 13139825.json, Case Number: None, HTML Hash: d1fc37b7dd5a9f2b]
+2024-11-23 14:38:59,474 - pid: 13128 - INFO - The case's HTML hash already exists in the databse: 13139825.json. Not updating the database.
+2024-11-23 14:41:01,093 - pid: 8992 - INFO - updater: Beginning updating process.
+2024-11-23 14:41:01,096 - pid: 8992 - INFO - updater: 11 case(s) to update
+2024-11-23 14:41:01,101 - pid: 8992 - INFO - [Case Filename: 12947592.json, Case Number: None, HTML Hash: bd4e5bb90c6a6685]
+2024-11-23 14:41:01,701 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 12947592.json. Not updating the database.
+2024-11-23 14:41:01,713 - pid: 8992 - INFO - [Case Filename: 12997837.json, Case Number: None, HTML Hash: 073e6ff73f41d093]
+2024-11-23 14:41:01,830 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 12997837.json. Not updating the database.
+2024-11-23 14:41:01,831 - pid: 8992 - INFO - [Case Filename: 13006663.json, Case Number: None, HTML Hash: 5f31af73ebb56473]
+2024-11-23 14:41:01,934 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13006663.json. Not updating the database.
+2024-11-23 14:41:01,936 - pid: 8992 - INFO - [Case Filename: 13084840.json, Case Number: None, HTML Hash: a21d92eaa938ee59]
+2024-11-23 14:41:02,039 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13084840.json. Not updating the database.
+2024-11-23 14:41:02,040 - pid: 8992 - INFO - [Case Filename: 13097910.json, Case Number: None, HTML Hash: a2d5b33290872590]
+2024-11-23 14:41:02,159 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13097910.json. Not updating the database.
+2024-11-23 14:41:02,163 - pid: 8992 - INFO - [Case Filename: 13109242.json, Case Number: None, HTML Hash: d39a3ff5b2f51ca5]
+2024-11-23 14:41:02,306 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13109242.json. Not updating the database.
+2024-11-23 14:41:02,311 - pid: 8992 - INFO - [Case Filename: 13110619.json, Case Number: None, HTML Hash: aa2a589a2871095f]
+2024-11-23 14:41:02,435 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13110619.json. Not updating the database.
+2024-11-23 14:41:02,438 - pid: 8992 - INFO - [Case Filename: 13111798.json, Case Number: None, HTML Hash: 19f9b14a670dcaa4]
+2024-11-23 14:41:02,562 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13111798.json. Not updating the database.
+2024-11-23 14:41:02,568 - pid: 8992 - INFO - [Case Filename: 13118485.json, Case Number: None, HTML Hash: d6c1dc4533720f76]
+2024-11-23 14:41:02,695 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13118485.json. Not updating the database.
+2024-11-23 14:41:02,700 - pid: 8992 - INFO - [Case Filename: 13134950.json, Case Number: None, HTML Hash: bf375e0dea6bb981]
+2024-11-23 14:41:02,844 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13134950.json. Not updating the database.
+2024-11-23 14:41:02,850 - pid: 8992 - INFO - [Case Filename: 13139825.json, Case Number: None, HTML Hash: d1fc37b7dd5a9f2b]
+2024-11-23 14:41:02,985 - pid: 8992 - INFO - The case's HTML hash already exists in the databse: 13139825.json. Not updating the database.
+2024-11-23 14:41:43,080 - pid: 9700 - INFO - updater: Beginning updating process.
+2024-11-23 14:41:43,081 - pid: 9700 - INFO - updater: 11 case(s) to update
+2024-11-23 14:41:43,082 - pid: 9700 - INFO - [Case Filename: 12947592.json, Case Number: None, HTML Hash: bd4e5bb90c6a6685]
+2024-11-23 14:41:43,471 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 12947592.json. Not updating the database.
+2024-11-23 14:41:43,473 - pid: 9700 - INFO - [Case Filename: 12997837.json, Case Number: None, HTML Hash: 073e6ff73f41d093]
+2024-11-23 14:41:43,581 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 12997837.json. Not updating the database.
+2024-11-23 14:41:43,585 - pid: 9700 - INFO - [Case Filename: 13006663.json, Case Number: None, HTML Hash: 5f31af73ebb56473]
+2024-11-23 14:41:43,681 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13006663.json. Not updating the database.
+2024-11-23 14:41:43,682 - pid: 9700 - INFO - [Case Filename: 13084840.json, Case Number: None, HTML Hash: a21d92eaa938ee59]
+2024-11-23 14:41:43,776 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13084840.json. Not updating the database.
+2024-11-23 14:41:43,778 - pid: 9700 - INFO - [Case Filename: 13097910.json, Case Number: None, HTML Hash: a2d5b33290872590]
+2024-11-23 14:41:43,871 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13097910.json. Not updating the database.
+2024-11-23 14:41:43,883 - pid: 9700 - INFO - [Case Filename: 13109242.json, Case Number: None, HTML Hash: d39a3ff5b2f51ca5]
+2024-11-23 14:41:43,987 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13109242.json. Not updating the database.
+2024-11-23 14:41:43,990 - pid: 9700 - INFO - [Case Filename: 13110619.json, Case Number: None, HTML Hash: aa2a589a2871095f]
+2024-11-23 14:41:44,088 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13110619.json. Not updating the database.
+2024-11-23 14:41:44,092 - pid: 9700 - INFO - [Case Filename: 13111798.json, Case Number: None, HTML Hash: 19f9b14a670dcaa4]
+2024-11-23 14:41:44,193 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13111798.json. Not updating the database.
+2024-11-23 14:41:44,198 - pid: 9700 - INFO - [Case Filename: 13118485.json, Case Number: None, HTML Hash: d6c1dc4533720f76]
+2024-11-23 14:41:44,297 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13118485.json. Not updating the database.
+2024-11-23 14:41:44,300 - pid: 9700 - INFO - [Case Filename: 13134950.json, Case Number: None, HTML Hash: bf375e0dea6bb981]
+2024-11-23 14:41:44,396 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13134950.json. Not updating the database.
+2024-11-23 14:41:44,401 - pid: 9700 - INFO - [Case Filename: 13139825.json, Case Number: None, HTML Hash: d1fc37b7dd5a9f2b]
+2024-11-23 14:41:44,508 - pid: 9700 - INFO - The case's HTML hash already exists in the databse: 13139825.json. Not updating the database.
+2024-11-23 14:42:26,160 - pid: 11204 - INFO - updater: Beginning updating process.
+2024-11-23 14:42:26,163 - pid: 11204 - INFO - updater: 11 case(s) to update
+2024-11-23 14:42:26,165 - pid: 11204 - INFO - [Case Filename: 12947592.json, Case Number: None, HTML Hash: bd4e5bb90c6a6685]
+2024-11-23 14:42:26,527 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 12947592.json. Not updating the database.
+2024-11-23 14:42:26,532 - pid: 11204 - INFO - [Case Filename: 12997837.json, Case Number: None, HTML Hash: 073e6ff73f41d093]
+2024-11-23 14:42:26,666 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 12997837.json. Not updating the database.
+2024-11-23 14:42:26,679 - pid: 11204 - INFO - [Case Filename: 13006663.json, Case Number: None, HTML Hash: 5f31af73ebb56473]
+2024-11-23 14:42:26,796 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13006663.json. Not updating the database.
+2024-11-23 14:42:26,804 - pid: 11204 - INFO - [Case Filename: 13084840.json, Case Number: None, HTML Hash: a21d92eaa938ee59]
+2024-11-23 14:42:26,907 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13084840.json. Not updating the database.
+2024-11-23 14:42:26,915 - pid: 11204 - INFO - [Case Filename: 13097910.json, Case Number: None, HTML Hash: a2d5b33290872590]
+2024-11-23 14:42:27,012 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13097910.json. Not updating the database.
+2024-11-23 14:42:27,014 - pid: 11204 - INFO - [Case Filename: 13109242.json, Case Number: None, HTML Hash: d39a3ff5b2f51ca5]
+2024-11-23 14:42:27,105 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13109242.json. Not updating the database.
+2024-11-23 14:42:27,107 - pid: 11204 - INFO - [Case Filename: 13110619.json, Case Number: None, HTML Hash: aa2a589a2871095f]
+2024-11-23 14:42:27,205 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13110619.json. Not updating the database.
+2024-11-23 14:42:27,209 - pid: 11204 - INFO - [Case Filename: 13111798.json, Case Number: None, HTML Hash: 19f9b14a670dcaa4]
+2024-11-23 14:42:27,312 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13111798.json. Not updating the database.
+2024-11-23 14:42:27,314 - pid: 11204 - INFO - [Case Filename: 13118485.json, Case Number: None, HTML Hash: d6c1dc4533720f76]
+2024-11-23 14:42:27,406 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13118485.json. Not updating the database.
+2024-11-23 14:42:27,407 - pid: 11204 - INFO - [Case Filename: 13134950.json, Case Number: None, HTML Hash: bf375e0dea6bb981]
+2024-11-23 14:42:27,501 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13134950.json. Not updating the database.
+2024-11-23 14:42:27,502 - pid: 11204 - INFO - [Case Filename: 13139825.json, Case Number: None, HTML Hash: d1fc37b7dd5a9f2b]
+2024-11-23 14:42:27,597 - pid: 11204 - INFO - The case's HTML hash already exists in the databse: 13139825.json. Not updating the database.
+2024-11-23 14:43:39,367 - pid: 13652 - INFO - updater: Beginning updating process.
+2024-11-23 14:43:39,368 - pid: 13652 - INFO - updater: 11 case(s) to update
+2024-11-23 14:43:39,382 - pid: 13652 - INFO - [Case Filename: 12947592.json, Case Number: None, HTML Hash: bd4e5bb90c6a6685]
+2024-11-23 14:43:39,753 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 12947592.json. Not updating the database.
+2024-11-23 14:43:39,760 - pid: 13652 - INFO - [Case Filename: 12997837.json, Case Number: None, HTML Hash: 073e6ff73f41d093]
+2024-11-23 14:43:39,874 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 12997837.json. Not updating the database.
+2024-11-23 14:43:39,881 - pid: 13652 - INFO - [Case Filename: 13006663.json, Case Number: None, HTML Hash: 5f31af73ebb56473]
+2024-11-23 14:43:39,981 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 13006663.json. Not updating the database.
+2024-11-23 14:43:39,985 - pid: 13652 - INFO - [Case Filename: 13084840.json, Case Number: None, HTML Hash: a21d92eaa938ee59]
+2024-11-23 14:43:40,081 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 13084840.json. Not updating the database.
+2024-11-23 14:43:40,084 - pid: 13652 - INFO - [Case Filename: 13097910.json, Case Number: None, HTML Hash: a2d5b33290872590]
+2024-11-23 14:43:40,182 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 13097910.json. Not updating the database.
+2024-11-23 14:43:40,185 - pid: 13652 - INFO - [Case Filename: 13109242.json, Case Number: None, HTML Hash: d39a3ff5b2f51ca5]
+2024-11-23 14:43:40,282 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 13109242.json. Not updating the database.
+2024-11-23 14:43:40,287 - pid: 13652 - INFO - [Case Filename: 13110619.json, Case Number: None, HTML Hash: aa2a589a2871095f]
+2024-11-23 14:43:40,390 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 13110619.json. Not updating the database.
+2024-11-23 14:43:40,397 - pid: 13652 - INFO - [Case Filename: 13111798.json, Case Number: None, HTML Hash: 19f9b14a670dcaa4]
+2024-11-23 14:43:40,499 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 13111798.json. Not updating the database.
+2024-11-23 14:43:40,501 - pid: 13652 - INFO - [Case Filename: 13118485.json, Case Number: None, HTML Hash: d6c1dc4533720f76]
+2024-11-23 14:43:40,594 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 13118485.json. Not updating the database.
+2024-11-23 14:43:40,596 - pid: 13652 - INFO - [Case Filename: 13134950.json, Case Number: None, HTML Hash: bf375e0dea6bb981]
+2024-11-23 14:43:40,691 - pid: 13652 - INFO - The case's HTML hash already exists in the databse: 13134950.json. Not updating the database.
+2024-11-23 14:43:40,712 - pid: 13652 - INFO - [Case Filename: 13139825.json, Case Number: None, HTML Hash: 1cb7994fe6084a8b]
+2024-11-23 14:43:41,174 - pid: 13652 - INFO - Insertion successfully done with id: CR-20-1621-A:hays:11-23-20241cb7994fe6084a8b, version: 1

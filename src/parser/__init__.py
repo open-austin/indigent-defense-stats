@@ -251,6 +251,7 @@ class Parser:
                         balance_table = tables[-1]
                         if "Balance Due" in balance_table.text:
                             balance_table.decompose()
+                    
                     case_data["html_hash"] = xxhash.xxh64(str(body)).hexdigest()
 
                     self.write_json_data(case_json_path, case_number, case_data, logger)
@@ -262,9 +263,10 @@ class Parser:
             RUN_TIME_PARSER = time() - START_TIME_PARSER
             logger.info(f"Parsing took {RUN_TIME_PARSER} seconds")
         except Exception as e:
-            logger.info(f"Error in parse: {e}")
+            logger.error(f"Unexpected error while parsing case: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
             raise
         
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     parser = Parser()
-    parser.parse(county="hays", case_number=None, parse_single_file=True)
+    parser.parse(county="hays", case_number=None, parse_single_file=True)"""

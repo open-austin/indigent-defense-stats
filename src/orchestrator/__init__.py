@@ -22,11 +22,11 @@ project_root = os.path.dirname(parent_dir)
 class Orchestrator:
     def __init__(self):
         #Sets our base parameters
-        self.counties = ['hays']
+        self.counties = []
         self.start_date = '2024-07-01'       #Update start date here
         self.end_date = '2024-07-01'         #Update start date here
 
-    def orchestrate(self, test: bool = False):
+    def orchestrate(self):
 
         #This open the county data CSV to see which counties should be scraped, parsed, cleaned, and updated.
         with open(

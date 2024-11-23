@@ -3,6 +3,7 @@ import os
 import datetime as dt
 import xxhash
 import logging
+import traceback
 
 # Configure logging
 logging.basicConfig(
@@ -202,8 +203,11 @@ class Cleaner:
                 "earliest_charge_date": "",
                 "has_evidence_of_representation": False,
             },
-            "Disposition_Information": input_dict["Disposition Information"]
         }
+        if "Disposition_Information" in input_dict:
+            output_json_data["Disposition_Information"] = input_dict["Disposition Information"]
+        else: 
+            output_json_data["Disposition_Information"] = None
 
         # Removing judicial office name from data
         self.remove_judicial_officer(output_json_data["Disposition_Information"])
@@ -254,7 +258,8 @@ class Cleaner:
                     case_json_folder_path, case_json_filename, cleaned_folder_path
                 )
             except Exception as e:
-                logging.error(f"Error processing file {case_json_filename}. Error: {e}")
+                logging.error(f"Unexpected error while cleaning case {case_json_filename}: {e}")
+                logging.error(f"Traceback: {traceback.format_exc()}")
 
     def clean(self, county: str) -> None:
         """
@@ -269,10 +274,9 @@ class Cleaner:
         """
         try:
             case_json_folder_path = self.get_or_create_folder_path(county, "case_json")
-            logging.info(f"cleaner: Processing data for county: {county}")
+            logging.info(f"cleaner: Cleaning data for county: {county}")
             self.process_json_files(county, case_json_folder_path)
-            logging.info(f"cleaner: Completed processing for county: {county}")
+            logging.info(f"cleaner: Completed cleaning for county: {county}")
         except Exception as e:
-            logging.error(
-                f"Error during cleaning process for county: {county}. Error: {e}"
-            )
+            logging.error(f"Unexpected error while cleaning case: {e}")
+            logging.error(f"Traceback: {traceback.format_exc()}")

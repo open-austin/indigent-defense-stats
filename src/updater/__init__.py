@@ -18,6 +18,9 @@ class Updater():
             not os.path.exists(self.processed_path): 
             os.makedirs(self.processed_path)
         self.logger = self.configure_logger()
+        # This sets the Azure logger to warning so it's not as verbose.
+        logging.getLogger("azure").setLevel(logging.WARNING)
+        # Get the Azure Cosmos container
         self.COSMOSDB_CONTAINER_CASES_CLEANED = self.get_database_container()
 
     def configure_logger(self):
@@ -79,7 +82,7 @@ class Updater():
         self.logger.info(f"updater: {len(list_case_json_files)} case(s) to update")
 
         for case_json in list_case_json_files:
-            print(f'case_json: {case_json}')
+            #print(f'case_json: {case_json}')
             in_file = self.case_json_cleaned_folder_path + "/" + case_json
             if os.path.isfile(in_file):
                 dest_file = self.processed_path + "/" + case_json
