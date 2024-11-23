@@ -4,11 +4,25 @@ import datetime as dt
 import xxhash
 import logging
 import traceback
+from datetime import datetime
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logger = logging.getLogger(name=f"cleaner: pid: {os.getpid()}")
+
+# Set up basic configuration for the logging system
+logging.basicConfig(level=logging.INFO)
+
+scraper_log_path = os.path.join(os.path.dirname(__file__), "..", "..", "logs")
+now = datetime.now()
+# Format it as "DD-MM-YYYY - HH:MM"
+formatted_date_time = now.strftime("%d-%m-%Y-%H.%M")
+cleaner_log_name = formatted_date_time + '_cleaner_logger_log.txt'
+
+file_handler = logging.FileHandler(os.path.join(scraper_log_path, cleaner_log_name))
+file_handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 # List of motions identified as evidentiary.
 # TODO: These should be moved to a separate JSON in resources
@@ -39,11 +53,11 @@ class Cleaner:
         try:
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
-                logging.info(f"Folder '{folder_path}' created successfully.")
+                logger.info(f"Folder '{folder_path}' created successfully.")
             else:
-                logging.info(f"Folder '{folder_path}' already exists.")
+                logger.info(f"Folder '{folder_path}' already exists.")
         except OSError as e:
-            logging.error(f"Error creating folder '{folder_path}': {e}")
+            logger.error(f"Error creating folder '{folder_path}': {e}")
         return folder_path
 
     def load_json_file(self, file_path: str) -> dict:
@@ -52,7 +66,7 @@ class Cleaner:
             with open(file_path, "r") as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError) as e:
-            logging.error(f"Error loading file at {file_path}: {e}")
+            logger.error(f"Error loading file at {file_path}: {e}")
             return {}
 
     def remove_judicial_officer(self, data):
@@ -74,13 +88,13 @@ class Cleaner:
         charge_data = self.load_json_file(file_path)
         # Check if the file loaded successfully
         if not charge_data:
-            logging.error(f"Failed to load charge data from {file_path}")
+            logger.error(f"Failed to load charge data from {file_path}")
             raise FileNotFoundError(f"File not found or is empty: {file_path}")
         # Create dictionary mapping charge names
         try:
             return {item["charge_name"]: item for item in charge_data}
         except KeyError as e:
-            logging.error(f"Error in mapping charge names: {e}")
+            logger.error(f"Error in mapping charge names: {e}")
             raise ValueError(f"Invalid data structure: {file_path}")
 
     def process_charges(
@@ -117,14 +131,14 @@ class Cleaner:
                     charge_datetime, "%Y-%m-%d"
                 )
             except ValueError:
-                logging.error(f"Error parsing date for charge: {charge}")
+                logger.error(f"Error parsing date for charge: {charge}")
                 continue
 
             # Try to map the charge to UMich data
             try:
                 charge_dict.update(charge_mapping[charge["charges"]])
             except KeyError:
-                logging.warning(f"Couldn't find this charge: {charge['charges']}")
+                logger.warning(f"Couldn't find this charge: {charge['charges']}")
                 continue
 
             processed_charges.append(charge_dict)
@@ -133,7 +147,7 @@ class Cleaner:
         if charge_dates:
             earliest_charge_date = dt.datetime.strftime(min(charge_dates), "%Y-%m-%d")
         else:
-            logging.warning("No valid charge dates found.")
+            logger.warning("No valid charge dates found.")
             earliest_charge_date = ""
 
         return processed_charges, earliest_charge_date
@@ -160,7 +174,7 @@ class Cleaner:
             def_atty_unique_str = f'{input_dict["Defendent Information"]["defense attorney"]}:{input_dict["Defendent Information"]["defense attorney phone number"]}'
             return xxhash.xxh64(def_atty_unique_str).hexdigest()
         except KeyError as e:
-            logging.error(f"Missing defense attorney data: {e}")
+            logger.error(f"Missing defense attorney data: {e}")
             return ""
 
     def write_json_output(self, file_path: str, data: dict) -> None:
@@ -168,9 +182,9 @@ class Cleaner:
         try:
             with open(file_path, "w") as f:
                 json.dump(data, f, indent=4)
-            logging.info(f"cleaner: Successfully wrote cleaned data to {file_path}")
+            logger.info(f"cleaner: Successfully wrote cleaned data to {file_path}")
         except OSError as e:
-            logging.error(f"cleaner: Failed to write JSON output to {file_path}: {e}")
+            logger.error(f"cleaner: Failed to write JSON output to {file_path}: {e}")
 
     def process_single_case(
         self,
@@ -183,7 +197,7 @@ class Cleaner:
         input_dict = self.load_json_file(input_json_path)
 
         if not input_dict:
-            logging.error(f"Failed to load case data from {input_json_path}")
+            logger.error(f"Failed to load case data from {input_json_path}")
             return
 
         # Initialize cleaned output data
@@ -244,7 +258,7 @@ class Cleaner:
         try:
             list_case_json_files = os.listdir(case_json_folder_path)
         except (FileNotFoundError, Exception) as e:
-            logging.error(f"Error reading directory {case_json_folder_path}: {e}")
+            logger.error(f"Error reading directory {case_json_folder_path}: {e}")
             return
 
         # Ensure the case_json_cleaned folder exists
@@ -258,8 +272,8 @@ class Cleaner:
                     case_json_folder_path, case_json_filename, cleaned_folder_path
                 )
             except Exception as e:
-                logging.error(f"Unexpected error while cleaning case {case_json_filename}: {e}")
-                logging.error(f"Traceback: {traceback.format_exc()}")
+                logger.error(f"Unexpected error while cleaning case {case_json_filename}: {e}")
+                logger.error(f"Traceback: {traceback.format_exc()}")
 
     def clean(self, county: str) -> None:
         """
@@ -274,9 +288,9 @@ class Cleaner:
         """
         try:
             case_json_folder_path = self.get_or_create_folder_path(county, "case_json")
-            logging.info(f"cleaner: Cleaning data for county: {county}")
+            logger.info(f"cleaner: Cleaning data for county: {county}")
             self.process_json_files(county, case_json_folder_path)
-            logging.info(f"cleaner: Completed cleaning for county: {county}")
+            logger.info(f"cleaner: Completed cleaning for county: {county}")
         except Exception as e:
-            logging.error(f"Unexpected error while cleaning case: {e}")
-            logging.error(f"Traceback: {traceback.format_exc()}")
+            logger.error(f"Unexpected error while cleaning case: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")

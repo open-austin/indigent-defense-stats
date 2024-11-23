@@ -4,6 +4,9 @@ logging
 debug.*
 aws
 test_data
+/logs/*
+!/logs/
+logger_log.txt
 
 # venv stuff
 bin/

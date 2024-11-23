@@ -24,14 +24,18 @@ class Updater():
         self.COSMOSDB_CONTAINER_CASES_CLEANED = self.get_database_container()
 
     def configure_logger(self):
-        logger = logging.getLogger(name="pid: " + str(os.getpid()))
-        logger.setLevel(logging.DEBUG)
+        logger = logging.getLogger(name=f"updater: pid: {os.getpid()}")
+        
+        # Set up basic configuration for the logging system
+        logging.basicConfig(level=logging.INFO)
 
-        cleaner_log_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "resources"
-        )
+        updater_log_path = os.path.join(os.path.dirname(__file__), "..", "..", "logs")
+        now = dt.now()
+        # Format it as "DD-MM-YYYY - HH:MM"
+        formatted_date_time = now.strftime("%d-%m-%Y-%H.%M")
+        updater_log_name = formatted_date_time + '_updater_logger_log.txt'
 
-        file_handler = logging.FileHandler(os.path.join(cleaner_log_path, 'logger_log.txt'))
+        file_handler = logging.FileHandler(os.path.join(updater_log_path, updater_log_name))
         file_handler.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         file_handler.setFormatter(formatter)

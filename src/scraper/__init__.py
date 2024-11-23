@@ -75,10 +75,22 @@ class Scraper:
         :returns: Configured logger instance.
         """
         # Configure the logger
-        logger = logging.getLogger(name=f"pid: {os.getpid()}")
+        logger = logging.getLogger(name=f"scraper: pid: {os.getpid()}")
         
         # Set up basic configuration for the logging system
         logging.basicConfig(level=logging.INFO)
+
+        scraper_log_path = os.path.join(os.path.dirname(__file__), "..", "..", "logs")
+        now = datetime.now()
+        # Format it as "DD-MM-YYYY - HH:MM"
+        formatted_date_time = now.strftime("%d-%m-%Y-%H.%M")
+        scraper_log_name = formatted_date_time + '_scraper_logger_log.txt'
+
+        file_handler = logging.FileHandler(os.path.join(scraper_log_path, scraper_log_name))
+        file_handler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
                 
         return logger
 
