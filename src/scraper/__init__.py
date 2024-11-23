@@ -205,7 +205,7 @@ class Scraper:
         :raises AttributeError: If the class or method cannot be found.
         """
 
-        module_name = county
+        module_name = f"s_{county}"  # ex: 's_hays'
         class_name = f"Scraper{county.capitalize()}"
         method_name = f"scraper_{county}"
 

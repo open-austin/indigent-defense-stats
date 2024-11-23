@@ -47,7 +47,7 @@ class Parser:
         if test:
             logger.info(f"Test mode is on")
         # Construct the module, class, and method names
-        module_name = county  # ex: 'hays'
+        module_name = f"p_{county}"  # ex: 'p_hays'
         class_name = f"Parser{county.capitalize()}"  # ex: 'ParserHays'
         method_name = f"parser_{county}"  # ex: 'parser_hays'
 
@@ -91,10 +91,13 @@ class Parser:
             return instance, method
         except ModuleNotFoundError as e:
             logger.info(f"Module '{module_name}' not found: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
         except AttributeError as e:
             logger.info(f"Error retrieving class or method: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
         except Exception as e:
             logger.info(f"Unexpected error: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
         return None, None
 
     def get_directories(
