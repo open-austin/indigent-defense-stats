@@ -67,6 +67,7 @@ class Updater():
         return COSMOSDB_CONTAINER_CASES_CLEANED
         
     def update(self):
+        self.logger.info("updater: Beginning updating process.")
         if not os.path.exists(self.case_json_cleaned_folder_path):
             self.logger.error(f'The following path doesn\'t exits: \n{self.case_json_cleaned_folder_path}')
             return
@@ -75,6 +76,7 @@ class Updater():
             return
 
         list_case_json_files = os.listdir(self.case_json_cleaned_folder_path)
+        self.logger.info(f"updater: {len(list_case_json_files)} case(s) to update")
 
         for case_json in list_case_json_files:
             print(f'case_json: {case_json}')
@@ -105,7 +107,7 @@ class Updater():
                 continue
 
             # Querying case databse to fetch all items that match the cause number.
-            case_query = f"SELECT * FROM COSMOSDB_CONTAINER_CASES_CLEANED WHERE COSMOSDB_CONTAINER_CASES_CLEANED['case_number'] = '{input_dict['case_number']}'"
+            case_query = f"SELECT * FROM COSMOSDB_CONTAINER_CASES_CLEANED WHERE COSMOSDB_CONTAINER_CASES_CLEANED['case_number'] = '{input_dict['Case Metadata']['cause_number']}'"
             try:
                 # Execute the query
                 cases = list(self.COSMOSDB_CONTAINER_CASES_CLEANED.query_items(query=case_query,enable_cross_partition_query=True))
@@ -115,7 +117,7 @@ class Updater():
 
             #If there are no cases that match the cause number, then create the case ID, add a version number of 1 to the JSON and push the JSON to the database.
             today = dt.today()
-            input_dict['id'] = input_dict['case_number'] + ":" + input_dict['county'] + ":" + today.strftime('%m-%d-%Y') + input_dict['html_hash']
+            input_dict['id'] = input_dict['Case Metadata']['cause_number'] + ":" + input_dict['Case Metadata']['county'] + ":" + today.strftime('%m-%d-%Y') + input_dict['html_hash']
             input_dict['version'] = max(int(case['version']) for case in cases) + 1 if len(cases) > 0 else 1
             try:
                 self.COSMOSDB_CONTAINER_CASES_CLEANED.create_item(body=input_dict)

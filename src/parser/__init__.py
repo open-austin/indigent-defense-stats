@@ -26,7 +26,7 @@ class Parser:
             format="%(asctime)s - %(levelname)s - %(message)s",
             handlers=[logging.FileHandler("parser_log.txt"), logging.StreamHandler()],
         )
-        logger.info("Logger configured")
+        #logger.info("Logger configured")
         return logger
 
     def get_class_and_method(
@@ -39,9 +39,9 @@ class Parser:
         class_name = f"Parser{county.capitalize()}"  # ex: 'ParserHays'
         method_name = f"parser_{county}"  # ex: 'parser_hays'
 
-        logger.info(
-            f"Module: {module_name}\nClass: {class_name}\nMethod: {method_name}\n"
-        )
+        #logger.info(
+        #    f"Module: {module_name}\nClass: {class_name}\nMethod: {method_name}\n"
+        #)
 
         # Add the current directory to the system path
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -50,12 +50,12 @@ class Parser:
             # Dynamically import the module
             module = importlib.import_module(module_name)
 
-            logger.info(f"Module '{module_name}' imported successfully.")
+            #logger.info(f"Module '{module_name}' imported successfully.")
 
             # Retrieve the class from the module
             cls = getattr(module, class_name)
 
-            logger.info(f"Class '{class_name}' retrieved successfully.")
+            #logger.info(f"Class '{class_name}' retrieved successfully.")
 
             if cls is None:
                 logger.info(
@@ -68,7 +68,7 @@ class Parser:
 
             # Retrieve the method with the specified name
             method = getattr(instance, method_name, None)
-            logger.info(f"Method '{method_name}' retrieved successfully.")
+            #logger.info(f"Method '{method_name}' retrieved successfully.")
 
             if method is None:
                 logger.info(
@@ -90,7 +90,7 @@ class Parser:
     ) -> Tuple[str, str]:
         # Determine the base directory of your project
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-        logger.info(f"get_directories function called\nbase_dir: {base_dir}\n")
+        #logger.info(f"get_directories function called\nbase_dir: {base_dir}\n")
         try:
             if parse_single_file:
                 case_html_path = os.path.join(base_dir, "resources", "test_files")
@@ -100,9 +100,9 @@ class Parser:
                 case_json_path = os.path.join(base_dir, "data", county, "case_json")
                 if not os.path.exists(case_json_path):
                     os.makedirs(case_json_path, exist_ok=True)
-            logger.info(
-                f"Returning case_html_path: {case_html_path}\nReturning case_json_path: {case_json_path}\n"
-            )
+            #logger.info(
+            #    f"Returning case_html_path: {case_html_path}\nReturning case_json_path: {case_json_path}\n"
+            #)
             return case_html_path, case_json_path
         except Exception as e:
             logger.info(f"Error in get_directories: {e}")
@@ -116,7 +116,7 @@ class Parser:
         logger,
         parse_single_file: bool = False,
     ) -> List[str]:
-        logger.info(f"get_list_of_html function called\n")
+        #logger.info(f"get_list_of_html function called\n")
         try:
             if parse_single_file:
                 logger.info(f"parse_single_file is True\n")
@@ -132,7 +132,7 @@ class Parser:
             case_html_list = [
                 os.path.join(case_html_path, file_name) for file_name in case_html_list
             ]
-            logger.info(f"Returning case_html_list: {case_html_list}\n")
+            #logger.info(f"Returning case_html_list: {case_html_list}\n")
             return case_html_list
         except Exception as e:
             logger.info(f"Error in get_list_of_html: {e}")
@@ -141,10 +141,10 @@ class Parser:
     def get_html_path(
         self, case_html_path: str, case_html_file_name: str, case_number: str, logger
     ) -> str:
-        logger.info(f"get_html_path function called\n")
+        #logger.info(f"get_html_path function called\n")
         try:
             case_html_file_path = os.path.join(case_html_path, case_html_file_name)
-            logger.info(f"Constructed path: {case_html_file_path}")
+            #logger.info(f"Constructed path: {case_html_file_path}")
             return case_html_file_path
         except Exception as e:
             logger.info(f"Error in get_html_path: {e}")
@@ -155,7 +155,7 @@ class Parser:
     ) -> None:
         try:
             indent_level = 4
-            logger.info(f"Writing JSON to: {case_json_path}")
+            #logger.info(f"Writing JSON to: {case_json_path}")
             with open(
                 os.path.join(case_json_path, case_number + ".json"), "w"
             ) as file_handle:
@@ -189,11 +189,11 @@ class Parser:
         # For simple testing purposes
         # Comment out for larger scale testing
         # Case number is from /resources/test_files/test_{case_number}.html
-        if not case_number:
-            case_number = "51652356"
+        #if not case_number:
+            #case_number = "51652356"
 
         logger.info(
-            f"Starting parsing for {county} county with case number {case_number}"
+            f"parser: Starting parsing for {county} county with case number {case_number}"
         )
         county = county.lower()
         try:
@@ -202,7 +202,7 @@ class Parser:
 
             # start
             START_TIME_PARSER = time()
-            logger.info(f"Time started: {START_TIME_PARSER}")
+            logger.info(f"parser: Time started: {START_TIME_PARSER}")
             # creating a list of json files already parsed
             cached_case_json_list = [
                 file_name.split(".")[0] for file_name in os.listdir(case_json_path)
@@ -212,7 +212,7 @@ class Parser:
             case_html_list = self.get_list_of_html(
                 case_html_path, case_number, county, logger, parse_single_file
             )
-            logger.info(f"Starting for loop to parse {len(case_html_list)} cases")
+            logger.info(f"parser: Starting for loop to parse {len(case_html_list)} cases")
             for case_html_file_path in case_html_list:
                 try:
                     case_number = os.path.basename(case_html_file_path).split(".")[0]

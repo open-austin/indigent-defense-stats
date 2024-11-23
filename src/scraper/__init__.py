@@ -59,7 +59,7 @@ class Scraper:
         end_date = end_date if end_date is not None else '2024-07-01'
         court_calendar_link_text = court_calendar_link_text if court_calendar_link_text is not None else "Court Calendar"
         # case_number defaults to None if not provided
-        case_number = case_number 
+        case_number = case_number
         ssl = ssl if ssl is not None else True
         county = county if county is not None else 'hays'
         case_html_path = case_html_path if case_html_path is not None else os.path.join(os.path.dirname(__file__), "..", "..", "data", county, "case_html")
@@ -440,7 +440,7 @@ class Scraper:
             for anchor in results_soup.select('a[href^="CaseDetail"]')
         ]
         
-        logger.info(f"{len(case_urls)} entries found")
+        logger.info(f"scraper: {len(case_urls)} entries found")
         
         if case_urls:
             case_id = case_urls[0].split("=")[1]
@@ -454,7 +454,7 @@ class Scraper:
                 ms_wait=ms_wait,
             )
             
-            logger.info(f"{len(case_html)} response string length")
+            logger.info(f"scraper: {len(case_html)} response string length")
 
             with open(
                 os.path.join(case_html_path, f"{case_id}.html"), "w"
@@ -491,9 +491,9 @@ class Scraper:
         
         if not judicial_officers:
             judicial_officers = list(judicial_officer_to_ID.keys())
-            logger.info(f"No judicial officers specified, so scraping all of them: {len(judicial_officers)}")
+            logger.info(f"scraper: No judicial officers specified, so scraping all of them: {len(judicial_officers)}")
         else:
-            logger.info(f"Judicial officers were specified, so only scraping these: {judicial_officers}")            
+            logger.info(f"scraper: Judicial officers were specified, so only scraping these: {judicial_officers}")            
         
         return judicial_officers, judicial_officer_to_ID
 
@@ -584,7 +584,6 @@ class Scraper:
                 )
                 
                 scraper_instance, scraper_function = self.get_class_and_method(county, logger)
-                print(scraper_function)
                 scraper_function(base_url, results_soup, case_html_path, logger, session, ms_wait)
 
     def scrape(
@@ -596,15 +595,16 @@ class Scraper:
         end_date: str,
         court_calendar_link_text: Optional[str],
         case_number: Optional[str],
-        case_html_path: Optional[str]
+        case_html_path: Optional[str],
+        ssl: Optional[bool] = True
     ) -> None:
         ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path = self.set_defaults(
             ms_wait, start_date, end_date, court_calendar_link_text, case_number, ssl, county, case_html_path
         )
         
         logger = self.configure_logger()
-        county = self.format_county(county, logger)
-        session = self.create_session(logger)
+        county = self.format_county(county)
+        session = self.create_session(logger, ssl)
         
         if case_html_path is None:
             self.make_directories(county, logger)

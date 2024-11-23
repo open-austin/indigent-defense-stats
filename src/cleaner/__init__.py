@@ -21,14 +21,13 @@ GOOD_MOTIONS = [
     "Motion In Limine",
 ]
 
-
 class Cleaner:
     def __init__(self):
         pass
 
     def redact_cause_number(self, input_dict: dict) -> str:
         # This will hash and redact the cause number and then add it to the output file.
-        cause_number_hash = xxhash.xxh64(str(input_dict["Case Metadata"]["code"])).hexdigest()
+        cause_number_hash = xxhash.xxh64(str(input_dict["Case Metadata"]["cause_number"])).hexdigest()
         return cause_number_hash
 
     def get_or_create_folder_path(self, county: str, folder_type: str) -> str:
@@ -168,9 +167,9 @@ class Cleaner:
         try:
             with open(file_path, "w") as f:
                 json.dump(data, f, indent=4)
-            logging.info(f"Successfully wrote cleaned data to {file_path}")
+            logging.info(f"cleaner: Successfully wrote cleaned data to {file_path}")
         except OSError as e:
-            logging.error(f"Failed to write JSON output to {file_path}: {e}")
+            logging.error(f"cleaner: Failed to write JSON output to {file_path}: {e}")
 
     def process_single_case(
         self,
@@ -191,7 +190,8 @@ class Cleaner:
             "parsing_date": dt.datetime.today().strftime("%Y-%m-%d"),
             "html_hash": input_dict["html_hash"],
             "Case Metadata": {
-                "county": input_dict["Case Metadata"]["county"]
+                "county": input_dict["Case Metadata"]["county"],
+                "cause_number": input_dict["Case Metadata"]["cause_number"]
             },            
             "Defendant Information": {
                 "appointed_or_retained": input_dict["Defendent Information"]["appointed or retained"],
@@ -269,9 +269,9 @@ class Cleaner:
         """
         try:
             case_json_folder_path = self.get_or_create_folder_path(county, "case_json")
-            logging.info(f"Processing data for county: {county}")
+            logging.info(f"cleaner: Processing data for county: {county}")
             self.process_json_files(county, case_json_folder_path)
-            logging.info(f"Completed processing for county: {county}")
+            logging.info(f"cleaner: Completed processing for county: {county}")
         except Exception as e:
             logging.error(
                 f"Error during cleaning process for county: {county}. Error: {e}"
