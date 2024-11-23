@@ -11,13 +11,13 @@ class Updater():
             os.path.dirname(__file__), "..", "..", "data", self.county, "case_json_cleaned"
         )
         self.processed_path = os.path.join(self.case_json_cleaned_folder_path)
+
         
         # open or create a output directory for a log and successfully processed data
         if os.path.exists(self.case_json_cleaned_folder_path) and \
             not os.path.exists(self.processed_path): 
             os.makedirs(self.processed_path)
         self.logger = self.configure_logger()
-
         self.COSMOSDB_CONTAINER_CASES_CLEANED = self.get_database_container()
 
     def configure_logger(self):
