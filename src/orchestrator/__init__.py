@@ -1,10 +1,10 @@
-import sys, os, csv
+import os, csv
 
 # Import all of the programs modules within the parent_dir
-import scraper
-import parser
-import cleaner
-import updater
+from .. import scraper
+from .. import parser
+from .. import cleaner
+from .. import updater
 
 class Orchestrator:
     def __init__(self):

@@ -5,27 +5,30 @@ from datetime import datetime as dt
 import logging
 
 class Updater():
-    def __init__(self, county):
+    def __init__(self, county = "hays"):
         self.county = county.lower()
         self.case_json_cleaned_folder_path = os.path.join(
             os.path.dirname(__file__), "..", "..", "data", self.county, "case_json_cleaned"
         )
-        self.processed_path = os.path.join(self.case_json_cleaned_folder_path, 
-                                           f"result_{dt.today().strftime('%Y-%m-%d.%H:%M:%S.%f')}")
+        self.processed_path = os.path.join(self.case_json_cleaned_folder_path)
+
         
         # open or create a output directory for a log and successfully processed data
         if os.path.exists(self.case_json_cleaned_folder_path) and \
             not os.path.exists(self.processed_path): 
             os.makedirs(self.processed_path)
         self.logger = self.configure_logger()
-
         self.COSMOSDB_CONTAINER_CASES_CLEANED = self.get_database_container()
 
     def configure_logger(self):
         logger = logging.getLogger(name="pid: " + str(os.getpid()))
         logger.setLevel(logging.DEBUG)
 
-        file_handler = logging.FileHandler(os.path.join(self.processed_path, 'logger_log.txt'))
+        cleaner_log_path = os.path.join(
+            os.path.dirname(__file__), "..", "..", "resources"
+        )
+
+        file_handler = logging.FileHandler(os.path.join(cleaner_log_path, 'logger_log.txt'))
         file_handler.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         file_handler.setFormatter(formatter)
@@ -74,6 +77,7 @@ class Updater():
         list_case_json_files = os.listdir(self.case_json_cleaned_folder_path)
 
         for case_json in list_case_json_files:
+            print(f'case_json: {case_json}')
             in_file = self.case_json_cleaned_folder_path + "/" + case_json
             if os.path.isfile(in_file):
                 dest_file = self.processed_path + "/" + case_json
@@ -125,4 +129,4 @@ class Updater():
             self.logger.info(f"Insertion successfully done with id: {input_dict['id']}, version: { input_dict['version']}")
 
 if __name__ == '__main__':
-    Updater('Hays').update()
+    Updater().update()

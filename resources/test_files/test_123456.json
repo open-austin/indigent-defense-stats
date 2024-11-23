@@ -1,0 +1,409 @@
+{
+    "Case Metadata": {
+        "code": "CR-17-5152-C",
+        "odyssey id": "test_123456",
+        "county": "hays"
+    },
+    "Case Details": {
+        "name": "The State of Texas vs. Zzzzzz Xxxxxx",
+        "case type": "Adult Felony",
+        "date filed": "01/05/2016",
+        "location": "22nd District Court"
+    },
+    "Defendent Information": {
+        "defendant": "Xxxxxx, Zzzzzz",
+        "sex": "Female",
+        "race": "White",
+        "date of birth": "DOB: 02/15/1997",
+        "height": "5'6\",",
+        "weight": "200",
+        "defense attorney": "Richard Jones",
+        "appointed or retained": "Court Appointed",
+        "defense attorney phone number": "512-632-2433(W)",
+        "defendant address": "876 Main St Natalia, TX 78059",
+        "SID": "TX03816410"
+    },
+    "State Information": {
+        "prosecuting attorney": "Yuuuuu Haaaaa",
+        "prosectuing attorney phone number": "512-362-7711(W)"
+    },
+    "Charge Information": [
+        {
+            "charges": "AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+            "statute": "22.02(a)(2)",
+            "level": "Second Degree Felony",
+            "date": "10/25/2015"
+        }
+    ],
+    "Disposition Information": [
+        {
+            "date": "12/06/2016",
+            "event": "Disposition",
+            "judicial officer": "Boyer, Bruce",
+            "details": [
+                {
+                    "charge": "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+                    "outcome": "Deferred Adjudication"
+                }
+            ]
+        },
+        {
+            "date": "11/04/2019",
+            "event": "Amended Disposition",
+            "judicial officer": "Boyer, Bruce) Reason: Community Supervision Extende",
+            "details": [
+                {
+                    "charge": "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+                    "outcome": "Amend Probation"
+                }
+            ]
+        }
+    ],
+    "Top Charge": {
+        "charge name": "AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+        "charge level": "Second Degree Felony"
+    },
+    "Dismissed Charges Count": 0,
+    "Other Events and Hearings": [
+        [
+            "08/12/2024",
+            "Motion to Adjudicate",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)"
+        ],
+        [
+            "07/01/2024",
+            "Motion to Adjudicate",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Result: Reset"
+        ],
+        [
+            "06/06/2024",
+            "Motion to Adjudicate",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Result: Reset"
+        ],
+        [
+            "05/07/2024",
+            "Application For Court Appointed Attorney/Order",
+            "Richard Jones"
+        ],
+        [
+            "05/01/2024",
+            "Acknowledgement of Receipt of Discovery",
+            "Discovery Receipt - Email CR-18-32131-A"
+        ],
+        [
+            "04/25/2024",
+            "Motion to Adjudicate",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Result: Reset"
+        ],
+        [
+            "03/08/2024",
+            "Bond (Cash/Surety) After Release from Jail",
+            "See Bond Tab"
+        ],
+        [
+            "03/04/2024",
+            "Capias Executed",
+            "See Warrant Tab"
+        ],
+        [
+            "02/23/2022",
+            "Capias Issued",
+            "See Warrant Tab"
+        ],
+        [
+            "02/15/2022",
+            "Judge's Fiat",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "02/09/2022",
+            "Motion to Revoke Probation/Adjudicate Guilt (Reopen Case)",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "05/05/2020",
+            "Motion To Waive Court Ordered Debts",
+            "(Judicial Officer: Boyer, Bruce )",
+            "Supervision Fees"
+        ],
+        [
+            "12/03/2019",
+            "Court Cost (Bill of Cost)"
+        ],
+        [
+            "11/20/2019",
+            "Motion/Order for Payment of Itemized Time/Services",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "11/04/2019",
+            "Stipulation of Evidence"
+        ],
+        [
+            "11/04/2019",
+            "Trial Court 's Certification of Defendant's Right of Appeal",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "11/04/2019",
+            "Court Writ"
+        ],
+        [
+            "11/04/2019",
+            "Motion to Adjudicate",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Result: Prob Modified"
+        ],
+        [
+            "10/10/2019",
+            "Motion to Adjudicate",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Result: Reset"
+        ],
+        [
+            "09/16/2019",
+            "Discovery Receipt Email from District Attorney"
+        ],
+        [
+            "09/08/2019",
+            "Application For Court Appointed Attorney/Order",
+            "(Judicial Officer: Junkin, David )",
+            "Denied"
+        ],
+        [
+            "09/06/2019",
+            "Magistration Documents"
+        ],
+        [
+            "09/06/2019",
+            "Magistrate Warning"
+        ],
+        [
+            "09/06/2019",
+            "Bench Warrant (See Warrant Tab)"
+        ],
+        [
+            "09/05/2019",
+            "Capias Executed",
+            "See Warrant Tab"
+        ],
+        [
+            "09/05/2019",
+            "Capias Executed",
+            "See Warrant Tab"
+        ],
+        [
+            "09/03/2019",
+            "Order",
+            "(Judicial Officer: Junkin, David )",
+            "Appointing Attorney"
+        ],
+        [
+            "11/08/2017",
+            "Capias Issued",
+            "See Warrant Tab"
+        ],
+        [
+            "11/06/2017",
+            "Judge's Fiat",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "11/01/2017",
+            "Motion to Revoke Probation/Adjudicate Guilt (Reopen Case)",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "10/25/2017",
+            "Capias Issued",
+            "See Warrant Tab"
+        ],
+        [
+            "10/24/2017",
+            "Bailiffs Certificate",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "10/24/2017",
+            "Show Cause Hearing",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Result: Failure To Appear"
+        ],
+        [
+            "03/30/2017",
+            "Amended Conditions of Probation",
+            "First Amended-Deferred Adjudication"
+        ],
+        [
+            "12/09/2016",
+            "Motion/Order for Payment of Itemized Time/Services",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "12/06/2016",
+            "Court Cost (Bill of Cost)"
+        ],
+        [
+            "12/06/2016",
+            "Conditions of Probation",
+            "Deferred Adjudication"
+        ],
+        [
+            "12/06/2016",
+            "Trial Court 's Certification of Defendant's Right of Appeal",
+            "(Judicial Officer: Boyer, Bruce )"
+        ],
+        [
+            "12/06/2016",
+            "Punishment Hearing",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Result: Def. Adjudication"
+        ],
+        [
+            "11/07/2016",
+            "CANCELED",
+            "Punishment Hearing",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Defendant's Request"
+        ],
+        [
+            "09/26/2016",
+            "Plea Bargain Agreement"
+        ],
+        [
+            "09/26/2016",
+            "Pre Trial Motions (Non-Evidentiary)",
+            "(9:00 AM) (Judicial Officer Boyer, Bruce)",
+            "Result: Reset"
+        ],
+        [
+            "08/25/2016",
+            "Pre Trial Motions (Non-Evidentiary)",
+            "(9:00 AM) (Judicial Officer Henry, William R)",
+            "Result: Reset"
+        ],
+        [
+            "07/29/2016",
+            "Capias Recalled"
+        ],
+        [
+            "07/29/2016",
+            "Capias Issued",
+            "See Warrant Tab"
+        ],
+        [
+            "07/27/2016",
+            "Bailiffs Certificate",
+            "(Judicial Officer: Henry, William R )"
+        ],
+        [
+            "07/27/2016",
+            "Pre Trial Motions (Non-Evidentiary)",
+            "(9:00 AM) (Judicial Officer Henry, William R)",
+            "Result: Reset"
+        ],
+        [
+            "06/15/2016",
+            "Pre Trial Motions (Non-Evidentiary)",
+            "(9:00 AM) (Judicial Officer Henry, William R)",
+            "Result: Reset"
+        ],
+        [
+            "05/12/2016",
+            "Pre Trial Motions (Non-Evidentiary)",
+            "(9:00 AM) (Judicial Officer Steel, Gary L.)",
+            "Result: Reset"
+        ],
+        [
+            "05/05/2016",
+            "Acknowledgement of Receipt of Discovery"
+        ],
+        [
+            "04/29/2016",
+            "Discovery Receipt Email from District Attorney"
+        ],
+        [
+            "04/29/2016",
+            "Discovery Receipt Email from District Attorney"
+        ],
+        [
+            "04/14/2016",
+            "Pre Trial Motions (Non-Evidentiary)",
+            "(9:00 AM) (Judicial Officer Robison, Jack)",
+            "Result: Reset"
+        ],
+        [
+            "03/23/2016",
+            "CANCELED",
+            "Arraignment",
+            "(9:00 AM) (Judicial Officer Henry, William R)",
+            "Waived Arraignment"
+        ],
+        [
+            "03/15/2016",
+            "Waiver of Arraignment",
+            "Unsigned"
+        ],
+        [
+            "03/15/2016",
+            "Waiver of Arraignment"
+        ],
+        [
+            "02/24/2016",
+            "Application For Court Appointed Attorney/Order",
+            "(Judicial Officer: Ramsay, Charles )",
+            "MARTIN CLAUDER"
+        ],
+        [
+            "02/24/2016",
+            "Arraignment",
+            "(9:00 AM) (Judicial Officer Henry, William R)",
+            "Result: Reset"
+        ],
+        [
+            "02/09/2016",
+            "Returned To Sender",
+            "NOTICE OF ARRAIGNMENT"
+        ],
+        [
+            "01/05/2016",
+            "Court's Docket Sheet"
+        ],
+        [
+            "01/05/2016",
+            "Indictment (Open Case)"
+        ],
+        [
+            "10/29/2015",
+            "Bond (Cash/Surety) After Release from Jail",
+            "See Bond Tab"
+        ],
+        [
+            "11/04/2019",
+            "Amended Deferred Adjudication",
+            "(Judicial Officer: Boyer, Bruce) Reason: Community Supervision Extended",
+            "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+            "CSCD",
+            "7 Years"
+        ],
+        [
+            "12/06/2016",
+            "Deferred Adjudication",
+            "(Judicial Officer: Boyer, Bruce)",
+            "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+            "CSCD",
+            "5 Years"
+        ],
+        [
+            "12/06/2016",
+            "Plea",
+            "(Judicial Officer: Boyer, Bruce)",
+            "1. AGGRAVATED ASSAULT WITH A DEADLY WEAPON",
+            "Guilty"
+        ]
+    ],
+    "html_hash": "8d4a80173c700b37"
+}

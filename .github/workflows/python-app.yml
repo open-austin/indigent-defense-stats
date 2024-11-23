@@ -11,6 +11,12 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -35,7 +41,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unittest
       run: |
-        SKIP_SLOW=true python -m unittest discover -v -s ./src/tester
+        SKIP_SLOW=true python -m unittest -v
     - name: Build documentation
       run: |
         sphinx-build -b html docs build
@@ -43,3 +49,12 @@ jobs:
     - uses: actions/upload-pages-artifact@v3.0.1
       with:
         path: build/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
