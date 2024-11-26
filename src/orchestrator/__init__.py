@@ -26,7 +26,7 @@ class Orchestrator:
         #Sets our base parameters
         self.counties = []
         self.start_date = '2024-01-01'       #Update start date here
-        self.end_date = '2024-31-01'         #Update end date here
+        self.end_date = '2024-01-31'         #Update end date here
         self.create_logs_folder()
         self.logger = self.configure_logger()
         now = datetime.now()
