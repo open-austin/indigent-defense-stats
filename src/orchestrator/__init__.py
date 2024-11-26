@@ -103,6 +103,7 @@ class Orchestrator:
         #This runs the different modules in order
         #src/scraper
         for c in self.counties:
+            c = c.lower()
             print(f"Starting to scrape, parse, clean, and update this county: {c}")
             scraper.Scraper().scrape(county = c,
                                     start_date = self.start_date,
