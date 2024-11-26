@@ -104,7 +104,7 @@ class Orchestrator:
         #src/scraper
         for c in self.counties:
             c = c.lower()
-            print(f"Starting to scrape, parse, clean, and update this county: {c}")
+            self.logger.info(f"Starting to scrape, parse, clean, and update this county: {c}")
             scraper.Scraper().scrape(county = c,
                                     start_date = self.start_date,
                                     end_date = self.end_date,
@@ -123,7 +123,7 @@ class Orchestrator:
             #src/updater
             updater.Updater(c).update()
             self.file_reset(c)
-            print(f"Completed with scraping, parsing, cleaning, and updating of this county: {c}")
+            self.logger.info(f"Completed with scraping, parsing, cleaning, and updating of this county: {c}")
 
 if __name__ == '__main__':
     Orchestrator().orchestrate()
