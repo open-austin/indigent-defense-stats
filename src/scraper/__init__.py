@@ -129,11 +129,11 @@ class Scraper:
         try:
             if not os.path.exists(case_html_path):
                 os.makedirs(case_html_path)
-                self.logger.info(f"Directory '{case_html_path}' created successfully.")
+                logger.info(f"Directory '{case_html_path}' created successfully.")
             else:
-                self.logger.info(f"Directory '{case_html_path}' already exists.")
+                logger.info(f"Directory '{case_html_path}' already exists.")
         except OSError as e:
-            self.logger.error(f"Error creating directory '{case_html_path}': {e}")
+            logger.error(f"Error creating directory '{case_html_path}': {e}")
 
     # get county portal URL, Odyssey version, and notes from csv file
     def get_ody_link(self, 
