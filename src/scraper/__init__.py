@@ -124,24 +124,16 @@ class Scraper:
         
         return session
 
-    def make_directories(self, county: str, logger: logging.Logger, case_html_path) -> str:
-        """
-        Creates necessary directories for storing case HTML files.
-
-        This method constructs a path based on the county name and ensures that
-        all required directories in the path are created. If the directories already
-        exist, no action is taken.
-
-        :param county: The name of the county, used to create a specific directory path.
-        :param logger: Logger instance for logging errors.
-        :returns: The path to the created directories.
-        :raises OSError: If there is an error creating the directories.
-        """
-
-        # Create the directories if they do not exist
-        os.makedirs(case_html_path, exist_ok=True)
-        
-        return case_html_path
+    def make_directories(self, case_html_path: str):
+        """Looks for a directory at the case_html_path location or creates it if it doesn't exist."""
+        try:
+            if not os.path.exists(case_html_path):
+                os.makedirs(case_html_path)
+                self.logger.info(f"Directory '{case_html_path}' created successfully.")
+            else:
+                self.logger.info(f"Directory '{case_html_path}' already exists.")
+        except OSError as e:
+            self.logger.error(f"Error creating directory '{case_html_path}': {e}")
 
     # get county portal URL, Odyssey version, and notes from csv file
     def get_ody_link(self, 
@@ -618,8 +610,7 @@ class Scraper:
         county = self.format_county(county)
         session = self.create_session(logger, ssl)
         
-        if case_html_path is None:
-            self.make_directories(county, logger)
+        self.make_directories(case_html_path)
         
         base_url, odyssey_version, notes = self.get_ody_link(county, logger)
         main_page_html, main_soup = self.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
