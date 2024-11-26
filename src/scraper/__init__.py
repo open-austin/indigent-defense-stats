@@ -124,7 +124,7 @@ class Scraper:
         
         return session
 
-    def make_directories(self, case_html_path: str):
+    def make_directories(self, case_html_path: str, logger):
         """Looks for a directory at the case_html_path location or creates it if it doesn't exist."""
         try:
             if not os.path.exists(case_html_path):
@@ -610,7 +610,7 @@ class Scraper:
         county = self.format_county(county)
         session = self.create_session(logger, ssl)
         
-        self.make_directories(case_html_path)
+        self.make_directories(case_html_path, logger)
         
         base_url, odyssey_version, notes = self.get_ody_link(county, logger)
         main_page_html, main_soup = self.scrape_main_page(base_url, odyssey_version, session, notes, logger, ms_wait)
